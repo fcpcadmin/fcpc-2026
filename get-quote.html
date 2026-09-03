@@ -1,0 +1,860 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Request a Life Insurance Quote — FCPC</title>
+  <meta name="description" content="Request a personalized life insurance quote from an FCPC licensed specialist. Protect what matters most — explore your coverage needs and receive an official, tailormade policy design at no cost." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,700;0,800;1,700&display=swap" rel="stylesheet" />
+
+  <script>
+    tailwind = { config: { theme: { extend: {
+      colors: {
+        forest: { dark: '#0B3226', DEFAULT: '#19634F', mid: '#22896C', light: '#2AB08A', 50: '#F0FDF8' },
+        gold:   { DEFAULT: '#D4AF37', dark: '#B8960F', light: '#EAC84A', pale: '#FDFAEE' },
+        ink:    '#1A202C',
+        slate:  '#2D3748',
+        mist:   '#F7FAFC',
+        silver: '#E2E8F0',
+        smoke:  '#64748B',
+      },
+      fontFamily: {
+        sans:  ['Inter', 'system-ui', 'sans-serif'],
+        serif: ['Playfair Display', 'Georgia', 'serif'],
+      },
+      boxShadow: {
+        'gold':    '0 4px 24px rgba(212,175,55,0.35)',
+        'card':    '0 8px 40px rgba(0,0,0,0.05)',
+        'card-lg': '0 24px 64px rgba(0,0,0,0.09)',
+        'nav':     '0 2px 32px rgba(0,0,0,0.07)',
+        'form':    '0 32px 80px rgba(0,0,0,0.08)',
+      },
+    }}}}
+  </script>
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', system-ui, sans-serif; -webkit-font-smoothing: antialiased; color: #1A202C; background: linear-gradient(160deg, #ffffff 0%, #F7FAFC 40%, rgba(25,99,79,0.03) 100%); background-attachment: fixed; }
+
+    /* ── Typography ── */
+    .display-headline {
+      font-size: clamp(2.25rem, 5vw, 3.75rem);
+      font-weight: 800;
+      line-height: 1.06;
+      letter-spacing: -0.03em;
+      color: #1A202C;
+    }
+    .eyebrow {
+      font-size: 0.6rem; font-weight: 800;
+      letter-spacing: 0.22em; text-transform: uppercase;
+      color: #19634F; opacity: 0.85;
+    }
+
+    /* ── Nav ── */
+    .nav-item {
+      font-size: 0.875rem; font-weight: 600; color: #2D3748;
+      padding: 8px 14px; border-radius: 10px;
+      transition: color 0.15s, background 0.15s;
+      white-space: nowrap; text-decoration: none;
+    }
+    .nav-item:hover { color: #19634F; background: rgba(25,99,79,0.07); }
+    .has-drop { position: relative; }
+    .has-drop .drop { display: none; }
+    .has-drop:hover .drop { display: block; animation: fadeUp 0.16s ease; }
+    @keyframes fadeUp { from { opacity:0; transform:translateY(6px); } to { opacity:1; transform:translateY(0); } }
+    @media (max-width: 1023px) { .desk-nav { display: none !important; } }
+    @media (min-width: 1024px) { #mob-menu { display: none !important; } #mob-btn { display: none !important; } }
+
+    /* ── Buttons ── */
+    .btn-gold {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: linear-gradient(135deg, #DDB84E 0%, #C9A52A 100%);
+      color: #1A202C; font-weight: 700; border-radius: 999px;
+      transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+      box-shadow: 0 4px 20px rgba(212,175,55,0.38), 0 1px 2px rgba(0,0,0,0.08);
+      text-decoration: none; white-space: nowrap; cursor: pointer;
+    }
+    .btn-gold:hover {
+      transform: scale(1.04) translateY(-1px);
+      background: linear-gradient(135deg, #E8C84A 0%, #C9A52A 100%);
+      box-shadow: 0 8px 32px rgba(212,175,55,0.45), 0 0 22px rgba(221,186,78,0.38);
+    }
+    .btn-ghost {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: transparent; color: #2D3748;
+      font-weight: 600; border-radius: 999px;
+      border: 1.5px solid #DDE3EC;
+      transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+      text-decoration: none; white-space: nowrap;
+    }
+    .btn-ghost:hover { border-color: #19634F; background: rgba(25,99,79,0.05); color: #19634F; transform: translateY(-1px); }
+
+    /* ── Form elements ── */
+    .form-label {
+      display: block; font-size: 0.75rem; font-weight: 700;
+      color: #2D3748; margin-bottom: 7px;
+      letter-spacing: 0.02em;
+    }
+    .form-input {
+      width: 100%; padding: 14px 20px;
+      background: #ffffff; border: 1.5px solid #E8EDF3;
+      border-radius: 14px; font-size: 0.9375rem; color: #1A202C;
+      font-family: 'Inter', system-ui, sans-serif;
+      outline: none; transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+      -webkit-appearance: none;
+    }
+    .form-input::placeholder { color: #B0BAC9; font-weight: 400; }
+    .form-input:hover { border-color: #C8D4E0; }
+    .form-input:focus {
+      border-color: #19634F;
+      box-shadow: 0 0 0 4px rgba(25,99,79,0.10), 0 1px 3px rgba(0,0,0,0.04);
+    }
+    .form-select {
+      width: 100%; padding: 14px 44px 14px 20px;
+      background: #ffffff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%2364748B' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E") no-repeat right 16px center;
+      border: 1.5px solid #E8EDF3; border-radius: 14px;
+      font-size: 0.9375rem; color: #1A202C;
+      font-family: 'Inter', system-ui, sans-serif;
+      outline: none; transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+      -webkit-appearance: none; cursor: pointer;
+    }
+    .form-select:hover { border-color: #C8D4E0; }
+    .form-select:focus {
+      border-color: #19634F;
+      box-shadow: 0 0 0 4px rgba(25,99,79,0.10), 0 1px 3px rgba(0,0,0,0.04);
+    }
+    .form-textarea {
+      width: 100%; padding: 14px 20px; min-height: 120px; resize: vertical;
+      background: #ffffff; border: 1.5px solid #E8EDF3;
+      border-radius: 14px; font-size: 0.9375rem; color: #1A202C;
+      font-family: 'Inter', system-ui, sans-serif;
+      outline: none; transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    }
+    .form-textarea::placeholder { color: #B0BAC9; font-weight: 400; }
+    .form-textarea:hover { border-color: #C8D4E0; }
+    .form-textarea:focus {
+      border-color: #19634F;
+      box-shadow: 0 0 0 4px rgba(25,99,79,0.10), 0 1px 3px rgba(0,0,0,0.04);
+    }
+
+    /* ── Step indicator ── */
+    .step-dot {
+      width: 32px; height: 32px; border-radius: 50%;
+      display: flex; align-items: center; justify-center: center;
+      font-size: 12px; font-weight: 700;
+      transition: all 0.25s ease;
+    }
+    .step-dot.active   { background: #19634F; color: #fff; }
+    .step-dot.done     { background: #19634F; color: #fff; }
+    .step-dot.inactive { background: #E2E8F0; color: #A0AEC0; }
+    .step-connector { flex: 1; height: 2px; background: #E2E8F0; transition: background 0.3s ease; }
+    .step-connector.done { background: #19634F; }
+
+    /* ── Trust card ── */
+    .trust-card {
+      background: #fff; border-radius: 20px;
+      border: 1.5px solid #F0F4F8;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.05);
+      padding: 24px 28px;
+      display: flex; align-items: flex-start; gap: 16px;
+    }
+
+    /* ── Radio/Checkbox custom ── */
+    .choice-btn {
+      display: flex; align-items: center; gap: 12px;
+      padding: 14px 18px; border-radius: 14px;
+      border: 1.5px solid #E8EDF3; background: #fff;
+      cursor: pointer;
+      transition: all 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+      font-size: 0.875rem; font-weight: 500; color: #2D3748;
+    }
+    .choice-btn:hover {
+      border-color: #19634F; background: rgba(25,99,79,0.03);
+      box-shadow: 0 4px 14px rgba(25,99,79,0.10);
+      transform: translateY(-1px);
+    }
+    .choice-btn:has(input:checked) {
+      border-color: #19634F; background: rgba(25,99,79,0.05);
+      box-shadow: 0 0 0 3px rgba(25,99,79,0.12);
+    }
+    .choice-btn input[type="radio"],
+    .choice-btn input[type="checkbox"] { accent-color: #19634F; width: 18px; height: 18px; flex-shrink: 0; cursor: pointer; }
+
+    /* ── Form panel transitions ── */
+    .form-step { display: none; }
+    .form-step.active { display: block; }
+
+    /* ── Success screen ── */
+    #success-screen { display: none; }
+    #success-screen.active { display: flex; }
+  </style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════════════════════════════
+     NAVBAR
+════════════════════════════════════════════════════════════ -->
+<header id="site-nav" class="sticky top-0 z-50 bg-white/80 backdrop-blur-xl border-b border-black/[0.06] transition-shadow duration-300">
+  <div class="max-w-[1280px] mx-auto px-6 lg:px-10 flex items-center h-[72px] gap-8">
+
+    <a href="index.html" class="flex-shrink-0">
+      <img src="FCPC-Logo.webp" alt="Financial Crisis Prevention Center" class="h-10 w-auto object-contain"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+      <span style="display:none" class="font-serif font-bold text-forest text-lg tracking-tight items-center">FCPC</span>
+    </a>
+
+    <nav class="desk-nav flex-1 flex items-center gap-1">
+      <a href="about.html"                 class="nav-item">About</a>
+      <div class="has-drop">
+        <a href="solutions.html" class="nav-item flex items-center gap-1">Solutions
+          <svg class="w-3 h-3 opacity-40" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 4l4 4 4-4"/></svg>
+        </a>
+        <div class="drop absolute top-full left-0 mt-3 bg-white rounded-2xl shadow-card-lg border border-silver/60 min-w-[220px] py-3 z-50">
+          <a href="solutions/life-insurance.html"      class="block px-5 py-3 text-sm font-medium text-smoke hover:text-forest hover:bg-mist transition-colors rounded-xl mx-1">Life Insurance</a>
+          <a href="solutions/indexed-annuities.html"           class="block px-5 py-3 text-sm font-medium text-smoke hover:text-forest hover:bg-mist transition-colors rounded-xl mx-1">Indexed Annuities</a>
+          <a href="solutions/supplemental-health.html" class="block px-5 py-3 text-sm font-medium text-smoke hover:text-forest hover:bg-mist transition-colors rounded-xl mx-1">Supplemental Health</a>
+        </div>
+      </div>
+      <a href="resources.html"               class="nav-item">Resources</a>
+      <a href="agent-opportunity.html"       class="nav-item font-semibold text-forest">Agent Opportunity</a>
+    </nav>
+
+    <div class="flex items-center gap-3 flex-shrink-0">
+      <a href="find-agent.html" class="hidden md:inline-flex btn-ghost text-sm px-5 py-2.5">Find My Agent</a>
+      <button id="mob-btn" class="p-2 rounded-xl hover:bg-mist transition-colors" aria-label="Open menu">
+        <svg class="w-5 h-5 text-slate" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <div id="mob-menu" class="hidden border-t border-silver bg-white">
+    <div class="max-w-[1280px] mx-auto px-6 py-3 flex flex-col gap-1">
+      <a href="index.html"                 class="block px-4 py-3 rounded-xl text-sm font-semibold text-smoke hover:text-forest hover:bg-mist transition-colors">Home</a>
+      <a href="about.html"                 class="block px-4 py-3 rounded-xl text-sm font-semibold text-smoke hover:text-forest hover:bg-mist transition-colors">About</a>
+      <a href="solutions.html"             class="block px-4 py-3 rounded-xl text-sm font-semibold text-smoke hover:text-forest hover:bg-mist transition-colors">Solutions</a>
+      <a href="find-agent.html"            class="block px-4 py-3 rounded-xl text-sm font-semibold text-smoke hover:text-forest hover:bg-mist transition-colors">Find My Agent</a>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<!-- ════════════════════════════════════════════════════════════
+     PAGE HERO — split-screen white layout
+════════════════════════════════════════════════════════════ -->
+<section style="background: linear-gradient(145deg, #ffffff 0%, #F7FAFC 50%, rgba(25,99,79,0.04) 100%);">
+  <div class="max-w-7xl mx-auto px-6 pt-16 pb-12 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+
+    <!-- Left: headline + subtitle -->
+    <div>
+      <span class="eyebrow mb-5 block">Life Insurance Quote</span>
+      <h1 class="display-headline mb-5">
+        Request a Personalized<br />Life Insurance Quote
+      </h1>
+      <p class="text-lg leading-relaxed mb-8" style="color:#64748B; max-width:480px;">
+        Protect what matters most. Explore your coverage needs and request an official, tailormade policy design from our team.
+      </p>
+      <div class="flex flex-wrap gap-6">
+        <div>
+          <p class="font-extrabold text-2xl tracking-tight leading-none" style="color:#1A202C;">100K+</p>
+          <p class="text-[11px] font-semibold tracking-widest uppercase mt-1" style="color:#64748B;">Families Protected</p>
+        </div>
+        <div class="w-px" style="background:#E2E8F0;"></div>
+        <div>
+          <p class="font-extrabold text-2xl tracking-tight leading-none" style="color:#1A202C;">40 Years</p>
+          <p class="text-[11px] font-semibold tracking-widest uppercase mt-1" style="color:#64748B;">Trusted Specialists</p>
+        </div>
+        <div class="w-px" style="background:#E2E8F0;"></div>
+        <div>
+          <p class="font-extrabold text-2xl tracking-tight leading-none" style="color:#1A202C;">$0</p>
+          <p class="text-[11px] font-semibold tracking-widest uppercase mt-1" style="color:#64748B;">Cost to Request</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right: visual frame -->
+    <div class="w-full aspect-[4/3] rounded-2xl overflow-hidden bg-slate-100">
+      <!-- INSERT HIGH-PERFORMANCE WEBP IMAGE REPRESENTING LIFE INSURANCE PROTECTION HERE -->
+    </div>
+
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════
+     MAIN CONTENT — form + sidebar
+════════════════════════════════════════════════════════════ -->
+<section class="py-16 lg:py-24">
+  <div class="max-w-[1280px] mx-auto px-6 lg:px-10">
+    <div class="flex flex-col lg:flex-row gap-12 lg:gap-16 items-start">
+
+      <!-- ── LEFT: Multi-step form card ── -->
+      <div class="flex-1 min-w-0">
+
+        <!-- Form card -->
+        <div class="bg-white rounded-3xl shadow-form border border-silver/40 overflow-hidden">
+
+          <!-- Card header -->
+          <div class="px-8 pt-8 pb-6 border-b border-silver/60">
+            <p class="eyebrow mb-2">Life Insurance Quote Request</p>
+            <h2 class="text-ink font-extrabold text-2xl leading-tight">Your Personalized Policy Design</h2>
+            <p class="text-smoke text-sm mt-2 leading-relaxed">Takes about 2 minutes. No commitment required.</p>
+
+            <!-- Step progress -->
+            <div class="flex items-center gap-2 mt-6" id="step-indicator">
+              <div class="flex items-center justify-center step-dot active" id="dot-1" style="display:flex;">1</div>
+              <div class="step-connector" id="conn-1"></div>
+              <div class="flex items-center justify-center step-dot inactive" id="dot-2" style="display:flex;">2</div>
+              <div class="step-connector" id="conn-2"></div>
+              <div class="flex items-center justify-center step-dot inactive" id="dot-3" style="display:flex;">3</div>
+            </div>
+            <div class="flex justify-between mt-1.5 text-[11px] font-semibold text-smoke/60">
+              <span>About You</span>
+              <span>Coverage Needs</span>
+              <span>Schedule</span>
+            </div>
+          </div>
+
+          <!-- Form body -->
+          <form id="quote-form" novalidate data-form-type="consultation" data-lead-source="Get Quote Page">
+            <div class="px-8 py-8">
+
+              <!-- ───── STEP 1: About You ───── -->
+              <div class="form-step active" id="step-1">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+
+                  <div>
+                    <label class="form-label" for="first-name">First Name <span class="text-red-400">*</span></label>
+                    <input type="text" id="first-name" name="FirstName" required autocomplete="given-name"
+                           class="form-input" placeholder="Jane" />
+                  </div>
+
+                  <div>
+                    <label class="form-label" for="last-name">Last Name <span class="text-red-400">*</span></label>
+                    <input type="text" id="last-name" name="LastName" required autocomplete="family-name"
+                           class="form-input" placeholder="Smith" />
+                  </div>
+
+                  <div>
+                    <label class="form-label" for="email">Email Address <span class="text-red-400">*</span></label>
+                    <input type="email" id="email" name="Email" required autocomplete="email"
+                           class="form-input" placeholder="jane.smith@agency.gov" />
+                  </div>
+
+                  <div>
+                    <label class="form-label" for="phone">Phone Number <span class="text-red-400">*</span></label>
+                    <input type="tel" id="phone" name="Phone" required autocomplete="tel"
+                           class="form-input" placeholder="(202) 555-0100" />
+                  </div>
+
+                  <div>
+                    <label class="form-label" for="state">State of Residence <span class="text-red-400">*</span></label>
+                    <select id="state" name="State" required class="form-select">
+                      <option value="" disabled selected>Select your state</option>
+                      <option>Alabama</option><option>Alaska</option><option>Arizona</option>
+                      <option>Arkansas</option><option>California</option><option>Colorado</option>
+                      <option>Connecticut</option><option>Delaware</option><option>Florida</option>
+                      <option>Georgia</option><option>Hawaii</option><option>Idaho</option>
+                      <option>Illinois</option><option>Indiana</option><option>Iowa</option>
+                      <option>Kansas</option><option>Kentucky</option><option>Louisiana</option>
+                      <option>Maine</option><option>Maryland</option><option>Massachusetts</option>
+                      <option>Michigan</option><option>Minnesota</option><option>Mississippi</option>
+                      <option>Missouri</option><option>Montana</option><option>Nebraska</option>
+                      <option>Nevada</option><option>New Hampshire</option><option>New Jersey</option>
+                      <option>New Mexico</option><option>New York</option><option>North Carolina</option>
+                      <option>North Dakota</option><option>Ohio</option><option>Oklahoma</option>
+                      <option>Oregon</option><option>Pennsylvania</option><option>Rhode Island</option>
+                      <option>South Carolina</option><option>South Dakota</option><option>Tennessee</option>
+                      <option>Texas</option><option>Utah</option><option>Vermont</option>
+                      <option>Virginia</option><option>Washington</option><option>Washington DC</option>
+                      <option>West Virginia</option><option>Wisconsin</option><option>Wyoming</option>
+                    </select>
+                  </div>
+
+                  <div>
+                    <label class="form-label" for="age">Age Range</label>
+                    <select id="age" name="AgeRange" class="form-select">
+                      <option value="" disabled selected>Select age range</option>
+                      <option>Under 30</option>
+                      <option>30–39</option>
+                      <option>40–49</option>
+                      <option>50–59</option>
+                      <option>60–64</option>
+                      <option>65 or older</option>
+                    </select>
+                  </div>
+
+                </div>
+              </div>
+              <!-- END STEP 1 -->
+
+              <!-- ───── STEP 2: Coverage Needs ───── -->
+              <div class="form-step" id="step-2">
+
+                <div class="mb-7">
+                  <label class="form-label mb-3 block">What type of life insurance are you interested in? <span class="text-red-400">*</span></label>
+                  <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <label class="choice-btn">
+                      <input type="radio" name="CoverageType" value="Term Life Insurance" required />
+                      <div>
+                        <p class="font-semibold text-ink text-sm">Term Life Insurance</p>
+                        <p class="text-smoke text-xs mt-0.5">Affordable protection for a set period</p>
+                      </div>
+                    </label>
+                    <label class="choice-btn">
+                      <input type="radio" name="CoverageType" value="Whole Life Insurance" />
+                      <div>
+                        <p class="font-semibold text-ink text-sm">Whole Life Insurance</p>
+                        <p class="text-smoke text-xs mt-0.5">Permanent coverage with cash value</p>
+                      </div>
+                    </label>
+                    <label class="choice-btn">
+                      <input type="radio" name="CoverageType" value="Final Expense Insurance" />
+                      <div>
+                        <p class="font-semibold text-ink text-sm">Final Expense Insurance</p>
+                        <p class="text-smoke text-xs mt-0.5">Cover end-of-life and burial costs</p>
+                      </div>
+                    </label>
+                    <label class="choice-btn">
+                      <input type="radio" name="CoverageType" value="FEGLI Replacement" />
+                      <div>
+                        <p class="font-semibold text-ink text-sm">FEGLI Replacement</p>
+                        <p class="text-smoke text-xs mt-0.5">Private alternative to federal FEGLI</p>
+                      </div>
+                    </label>
+                    <label class="choice-btn sm:col-span-2">
+                      <input type="radio" name="CoverageType" value="Not Sure — Help Me Decide" />
+                      <div>
+                        <p class="font-semibold text-ink text-sm">Not Sure — Help Me Decide</p>
+                        <p class="text-smoke text-xs mt-0.5">Our specialist will walk you through your options</p>
+                      </div>
+                    </label>
+                  </div>
+                </div>
+
+                <div class="mb-7">
+                  <label class="form-label" for="coverage-amount">Approximate coverage amount needed</label>
+                  <select id="coverage-amount" name="CoverageAmount" class="form-select">
+                    <option value="" disabled selected>Select a coverage range</option>
+                    <option>Under $50,000</option>
+                    <option>$50,000 – $100,000</option>
+                    <option>$100,000 – $250,000</option>
+                    <option>$250,000 – $500,000</option>
+                    <option>$500,000 – $1,000,000</option>
+                    <option>Over $1,000,000</option>
+                    <option>Not sure yet</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label class="form-label mb-3 block">What is this coverage primarily for? <span class="text-smoke font-normal">(select all that apply)</span></label>
+                  <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <label class="choice-btn"><input type="checkbox" name="CoveragePurpose" value="Income Replacement" /> Income Replacement</label>
+                    <label class="choice-btn"><input type="checkbox" name="CoveragePurpose" value="Mortgage Protection" /> Mortgage Protection</label>
+                    <label class="choice-btn"><input type="checkbox" name="CoveragePurpose" value="Family Legacy" /> Family Legacy &amp; Inheritance</label>
+                    <label class="choice-btn"><input type="checkbox" name="CoveragePurpose" value="Final Expense" /> Final Expense &amp; Burial Costs</label>
+                    <label class="choice-btn"><input type="checkbox" name="CoveragePurpose" value="Spouse / Dependent Protection" /> Spouse &amp; Dependent Protection</label>
+                    <label class="choice-btn"><input type="checkbox" name="CoveragePurpose" value="Business Continuity" /> Business Continuity</label>
+                  </div>
+                </div>
+
+              </div>
+              <!-- END STEP 2 -->
+
+              <!-- ───── STEP 3: Schedule ───── -->
+              <div class="form-step" id="step-3">
+
+                <div class="mb-7">
+                  <label class="form-label mb-3 block">When works best for a call? <span class="text-red-400">*</span></label>
+                  <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                    <label class="choice-btn flex-col text-center items-center py-5">
+                      <input type="radio" name="PreferredTime" value="Morning (8am–12pm)" required />
+                      <svg class="w-6 h-6 text-forest mt-2 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5" stroke-width="2"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+                      <span class="font-semibold text-sm text-ink">Morning</span>
+                      <span class="text-smoke text-xs">8 am – 12 pm</span>
+                    </label>
+                    <label class="choice-btn flex-col text-center items-center py-5">
+                      <input type="radio" name="PreferredTime" value="Afternoon (12pm–5pm)" />
+                      <svg class="w-6 h-6 text-forest mt-2 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1M4.22 4.22l.707.707m12.02 12.02l.707.707M1 12h1m18 0h1M4.927 19.073l.707-.707M18.366 5.634l.707-.707M12 8a4 4 0 100 8 4 4 0 000-8z"/></svg>
+                      <span class="font-semibold text-sm text-ink">Afternoon</span>
+                      <span class="text-smoke text-xs">12 pm – 5 pm</span>
+                    </label>
+                    <label class="choice-btn flex-col text-center items-center py-5">
+                      <input type="radio" name="PreferredTime" value="Evening (5pm–7pm)" />
+                      <svg class="w-6 h-6 text-forest mt-2 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
+                      <span class="font-semibold text-sm text-ink">Evening</span>
+                      <span class="text-smoke text-xs">5 pm – 7 pm</span>
+                    </label>
+                  </div>
+                </div>
+
+                <div class="mb-7">
+                  <label class="form-label mb-3 block">Preferred contact method</label>
+                  <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                    <label class="choice-btn"><input type="radio" name="ContactMethod" value="Phone Call" /> Phone Call</label>
+                    <label class="choice-btn"><input type="radio" name="ContactMethod" value="Video Call" /> Video Call</label>
+                    <label class="choice-btn"><input type="radio" name="ContactMethod" value="Email First" /> Email First</label>
+                  </div>
+                </div>
+
+                <!-- Zoho Bookings embed slot -->
+                <div id="zoho-bookings-slot" class="mb-7">
+                  <label class="form-label mb-3 block">Or pick an exact time slot</label>
+                  <div class="rounded-2xl border border-silver/70 bg-mist p-8 text-center">
+                    <div class="w-12 h-12 rounded-xl bg-forest-50 flex items-center justify-center mx-auto mb-3">
+                      <svg class="w-6 h-6 text-forest" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                    </div>
+                    <p class="text-smoke font-semibold text-sm mb-1">Zoho Bookings Calendar</p>
+                    <p class="text-smoke/60 text-xs">Embed your Zoho Bookings widget here via <code>js/zoho-integration.js</code></p>
+                    <!-- Zoho embed target: <div id="zoho-bookings-embed"></div> -->
+                  </div>
+                </div>
+
+                <div>
+                  <label class="form-label" for="notes">Anything you'd like us to know ahead of time? <span class="text-smoke font-normal">(optional)</span></label>
+                  <textarea id="notes" name="Notes" class="form-textarea" placeholder="e.g., I'm 52, in good health, looking to replace my FEGLI coverage with a permanent policy that builds cash value for my family..."></textarea>
+                </div>
+
+              </div>
+              <!-- END STEP 3 -->
+
+            </div><!-- end form body px -->
+
+            <!-- Form footer / navigation -->
+            <div class="px-8 pb-8 flex items-center justify-between gap-4 border-t border-silver/50 pt-6">
+
+              <button type="button" id="btn-back"
+                      class="btn-ghost px-6 py-3 text-sm"
+                      style="display:none;"
+                      onclick="formStep(-1)">
+                ← Back
+              </button>
+              <div></div>
+
+              <button type="button" id="btn-next"
+                      class="btn-gold px-8 py-3.5 text-sm"
+                      onclick="formStep(1)">
+                Continue
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+              </button>
+
+              <button type="submit" id="btn-submit"
+                      class="btn-gold px-8 py-3.5 text-sm"
+                      style="display:none;">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                Request My Free Review
+              </button>
+
+            </div>
+          </form>
+
+          <!-- ── SUCCESS STATE ── -->
+          <div id="success-screen" class="flex-col items-center justify-center text-center px-10 py-16">
+            <div class="w-20 h-20 rounded-full bg-forest-50 border-2 border-forest/20 flex items-center justify-center mx-auto mb-7">
+              <svg class="w-10 h-10 text-forest" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            </div>
+            <h3 class="text-ink font-extrabold text-2xl mb-3">Quote Request Received!</h3>
+            <p class="text-smoke text-base leading-relaxed max-w-[400px] mx-auto mb-8">
+              Thank you. An FCPC life insurance specialist will reach out within <strong class="text-ink">one business day</strong> at the time you prefer.
+            </p>
+            <div class="bg-mist rounded-2xl border border-silver/60 px-7 py-5 text-left max-w-[380px] mx-auto mb-8">
+              <p class="text-ink font-semibold text-sm mb-3">What happens next:</p>
+              <ol class="space-y-2.5">
+                <li class="flex items-start gap-2.5 text-sm text-smoke">
+                  <span class="w-5 h-5 rounded-full bg-forest text-white text-[10px] font-bold flex items-center justify-center flex-shrink-0 mt-0.5">1</span>
+                  A specialist reviews your coverage needs
+                </li>
+                <li class="flex items-start gap-2.5 text-sm text-smoke">
+                  <span class="w-5 h-5 rounded-full bg-forest text-white text-[10px] font-bold flex items-center justify-center flex-shrink-0 mt-0.5">2</span>
+                  We shop top carriers and build your policy design
+                </li>
+                <li class="flex items-start gap-2.5 text-sm text-smoke">
+                  <span class="w-5 h-5 rounded-full bg-forest text-white text-[10px] font-bold flex items-center justify-center flex-shrink-0 mt-0.5">3</span>
+                  Free walkthrough of your options — no obligation
+                </li>
+              </ol>
+            </div>
+            <a href="resources.html" class="btn-ghost px-7 py-3 text-sm">Explore Free Resources While You Wait →</a>
+          </div>
+          <!-- END SUCCESS STATE -->
+
+        </div><!-- end form card -->
+
+        <!-- Disclaimer -->
+        <p class="text-smoke/45 text-xs leading-relaxed mt-5 text-center max-w-[560px] mx-auto">
+          By submitting this form you agree to be contacted by an FCPC licensed agent at the information provided. We respect your privacy and will never sell your information. View our <a href="privacy.html" class="underline hover:text-smoke transition-colors">Privacy Policy</a>.
+        </p>
+
+      </div><!-- end left form column -->
+
+      <!-- ── RIGHT: Sidebar ── -->
+      <div class="w-full lg:w-[360px] flex-shrink-0 flex flex-col gap-5 lg:sticky lg:top-28">
+
+        <!-- What to expect -->
+        <div class="bg-white rounded-3xl border border-silver/60 shadow-card overflow-hidden">
+          <div class="bg-forest px-7 py-5">
+            <h3 class="text-white font-bold text-base leading-snug">What Happens After<br />You Request a Quote</h3>
+          </div>
+          <div class="px-7 py-6 space-y-5">
+            <div class="flex items-start gap-4">
+              <div class="w-8 h-8 rounded-xl bg-forest-50 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <svg class="w-4 h-4 text-forest" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+              </div>
+              <div>
+                <p class="text-ink font-semibold text-sm leading-snug">Custom Policy Design</p>
+                <p class="text-smoke text-xs mt-1 leading-relaxed">A specialist builds a tailormade coverage proposal matched to your age, health, and goals.</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-4">
+              <div class="w-8 h-8 rounded-xl bg-forest-50 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <svg class="w-4 h-4 text-forest" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
+              </div>
+              <div>
+                <p class="text-ink font-semibold text-sm leading-snug">Carrier Comparison</p>
+                <p class="text-smoke text-xs mt-1 leading-relaxed">We shop top-rated carriers on your behalf so you get the strongest coverage at the right premium.</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-4">
+              <div class="w-8 h-8 rounded-xl bg-forest-50 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <svg class="w-4 h-4 text-forest" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
+              </div>
+              <div>
+                <p class="text-ink font-semibold text-sm leading-snug">No-Pressure Walkthrough</p>
+                <p class="text-smoke text-xs mt-1 leading-relaxed">Your specialist explains every option in plain language. You choose if and when you're ready.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Trust signals -->
+        <div class="trust-card">
+          <div class="w-10 h-10 rounded-xl bg-gold/15 border border-gold/25 flex items-center justify-center flex-shrink-0">
+            <svg class="w-5 h-5 text-gold-dark" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+          </div>
+          <div>
+            <p class="text-ink font-bold text-sm leading-snug">Established 1985</p>
+            <p class="text-smoke text-xs mt-1 leading-relaxed">Over 40 years helping federal and DC government employees retire with confidence.</p>
+          </div>
+        </div>
+
+        <div class="trust-card">
+          <div class="w-10 h-10 rounded-xl bg-forest-50 border border-forest/15 flex items-center justify-center flex-shrink-0">
+            <svg class="w-5 h-5 text-forest" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064"/></svg>
+          </div>
+          <div>
+            <p class="text-ink font-bold text-sm leading-snug">Licensed in All 50 States</p>
+            <p class="text-smoke text-xs mt-1 leading-relaxed">Independent agents — not tied to one carrier, so you always get the best options.</p>
+          </div>
+        </div>
+
+        <div class="trust-card">
+          <div class="w-10 h-10 rounded-xl bg-forest-50 border border-forest/15 flex items-center justify-center flex-shrink-0">
+            <svg class="w-5 h-5 text-forest" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+          </div>
+          <div>
+            <p class="text-ink font-bold text-sm leading-snug">Your Information Is Private</p>
+            <p class="text-smoke text-xs mt-1 leading-relaxed">We never sell your data. Your information is used only to connect you with an FCPC specialist.</p>
+          </div>
+        </div>
+
+        <!-- Contact fallback -->
+        <div class="bg-mist rounded-2xl border border-silver/60 px-6 py-5 text-center">
+          <p class="text-smoke text-xs font-semibold mb-3">Prefer to reach us directly?</p>
+          <a href="tel:+18005553272" class="text-forest font-bold text-lg hover:text-forest-dark transition-colors block mb-1">(800) 555-FCPC</a>
+          <a href="mailto:info@fcpcusa.com" class="text-smoke/60 text-xs hover:text-smoke transition-colors">info@fcpcusa.com</a>
+        </div>
+
+      </div><!-- end sidebar -->
+
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ════════════════════════════════════════════════════════════
+     FOOTER (condensed)
+════════════════════════════════════════════════════════════ -->
+<footer class="bg-[#111827]">
+
+  <!-- Link columns -->
+  <div class="max-w-[1280px] mx-auto px-6 lg:px-10 pt-16 pb-12">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
+
+      <!-- Brand -->
+      <div class="sm:col-span-2 lg:col-span-1">
+        <img src="FCPC-Logo.webp" alt="Financial Crisis Prevention Center"
+             class="h-9 w-auto object-contain brightness-0 invert mb-6"
+             onerror="this.style.display='none';this.nextElementSibling.style.display='block';" />
+        <span style="display:none" class="block font-serif font-bold text-white text-xl mb-6">FCPC</span>
+        <p class="text-white/40 text-sm leading-[1.8] mb-6 max-w-[240px]">
+          Education-first financial security for federal and DC government employees since 1985.
+        </p>
+        <a href="index.html" class="text-[#19634F] text-xs font-semibold hover:text-[#2AB08A] transition-colors duration-200 flex items-center gap-1.5">
+          <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+          Back to Home
+        </a>
+      </div>
+
+      <div>
+        <p class="text-[10.5px] font-bold tracking-[0.15em] uppercase text-white/30 mb-5">Company</p>
+        <ul class="space-y-3.5">
+          <li><a href="about.html" class="group flex items-center gap-2 text-sm font-medium hover:text-[#19634F] transition-colors duration-200" style="color:rgba(226,232,240,0.60);"><span class="w-1 h-1 rounded-full bg-current opacity-40 flex-shrink-0 group-hover:opacity-100 transition-opacity"></span> About</a></li>
+          <li><a href="opportunity.html" class="group flex items-center gap-2 text-sm font-medium hover:text-[#19634F] transition-colors duration-200" style="color:rgba(226,232,240,0.60);"><span class="w-1 h-1 rounded-full bg-current opacity-40 flex-shrink-0 group-hover:opacity-100 transition-opacity"></span> Agent Opportunity</a></li>
+          <li><a href="find-agent.html" class="group flex items-center gap-2 text-sm font-medium hover:text-[#19634F] transition-colors duration-200" style="color:rgba(226,232,240,0.60);"><span class="w-1 h-1 rounded-full bg-current opacity-40 flex-shrink-0 group-hover:opacity-100 transition-opacity"></span> Find My Agent</a></li>
+          <li><a href="contact.html" class="group flex items-center gap-2 text-sm font-medium hover:text-[#19634F] transition-colors duration-200" style="color:rgba(226,232,240,0.60);"><span class="w-1 h-1 rounded-full bg-current opacity-40 flex-shrink-0 group-hover:opacity-100 transition-opacity"></span> Contact Us</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <p class="text-[10.5px] font-bold tracking-[0.15em] uppercase text-white/30 mb-5">Solutions</p>
+        <ul class="space-y-3.5">
+          <li><a href="solutions/life-insurance.html" class="group flex items-center gap-2 text-sm font-medium hover:text-[#19634F] transition-colors duration-200" style="color:rgba(226,232,240,0.60);"><span class="w-1 h-1 rounded-full bg-current opacity-40 flex-shrink-0 group-hover:opacity-100 transition-opacity"></span> Life Insurance</a></li>
+          <li><a href="solutions/indexed-annuities.html" class="group flex items-center gap-2 text-sm font-medium hover:text-[#19634F] transition-colors duration-200" style="color:rgba(226,232,240,0.60);"><span class="w-1 h-1 rounded-full bg-current opacity-40 flex-shrink-0 group-hover:opacity-100 transition-opacity"></span> Indexed Annuities</a></li>
+          <li><a href="solutions/final-expense.html" class="group flex items-center gap-2 text-sm font-medium hover:text-[#19634F] transition-colors duration-200" style="color:rgba(226,232,240,0.60);"><span class="w-1 h-1 rounded-full bg-current opacity-40 flex-shrink-0 group-hover:opacity-100 transition-opacity"></span> Final Expense</a></li>
+          <li><a href="solutions/supplemental-health.html" class="group flex items-center gap-2 text-sm font-medium hover:text-[#19634F] transition-colors duration-200" style="color:rgba(226,232,240,0.60);"><span class="w-1 h-1 rounded-full bg-current opacity-40 flex-shrink-0 group-hover:opacity-100 transition-opacity"></span> Supplemental Health</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <p class="text-[10.5px] font-bold tracking-[0.15em] uppercase text-white/30 mb-5">Resources</p>
+        <ul class="space-y-3.5">
+          <li><a href="blog.html" class="group flex items-center gap-2 text-sm font-medium hover:text-[#19634F] transition-colors duration-200" style="color:rgba(226,232,240,0.60);"><span class="w-1 h-1 rounded-full bg-current opacity-40 flex-shrink-0 group-hover:opacity-100 transition-opacity"></span> Blog &amp; Articles</a></li>
+          <li><a href="guides.html" class="group flex items-center gap-2 text-sm font-medium hover:text-[#19634F] transition-colors duration-200" style="color:rgba(226,232,240,0.60);"><span class="w-1 h-1 rounded-full bg-current opacity-40 flex-shrink-0 group-hover:opacity-100 transition-opacity"></span> Free Guides</a></li>
+          <li><a href="calculators.html" class="group flex items-center gap-2 text-sm font-medium hover:text-[#19634F] transition-colors duration-200" style="color:rgba(226,232,240,0.60);"><span class="w-1 h-1 rounded-full bg-current opacity-40 flex-shrink-0 group-hover:opacity-100 transition-opacity"></span> Calculators</a></li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="border-t border-white/[0.07]">
+    <div class="max-w-[1280px] mx-auto px-6 lg:px-10 py-8">
+      <p class="text-white/22 text-[11px] leading-[1.9] max-w-4xl">
+        <strong class="text-white/32">Disclaimer:</strong> FCPC agents are independent licensed insurance professionals. Not affiliated with OPM or any federal agency. Insurance products are not bank deposits, not FDIC insured, and may lose value. Fixed and indexed annuities are insurance contracts, not securities, and are not regulated by the SEC or FINRA. Product availability varies by state.
+      </p>
+    </div>
+  </div>
+
+  <!-- Bottom bar -->
+  <div class="border-t border-white/[0.05]">
+    <div class="max-w-[1280px] mx-auto px-6 lg:px-10 py-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+      <p class="text-white/20 text-[11px]">© 2026 The Financial Crisis Prevention Center (FCPC). All rights reserved.</p>
+      <div class="flex items-center gap-5">
+        <a href="privacy.html" class="text-white/25 text-[11px] hover:text-[#19634F] transition-colors duration-200">Privacy Policy</a>
+        <span class="text-white/10 text-[11px]">·</span>
+        <a href="terms.html"   class="text-white/25 text-[11px] hover:text-[#19634F] transition-colors duration-200">Terms &amp; Conditions</a>
+        <span class="text-white/10 text-[11px]">·</span>
+        <a href="index.html"   class="text-white/25 text-[11px] hover:text-[#19634F] transition-colors duration-200">Home</a>
+      </div>
+    </div>
+  </div>
+
+</footer>
+
+<!-- Scripts -->
+<script src="js/zoho-config.js"></script>
+<script src="js/zoho-integration.js"></script>
+<script>
+  // ── Mobile nav ──
+  const mobBtn  = document.getElementById('mob-btn');
+  const mobMenu = document.getElementById('mob-menu');
+  if (mobBtn && mobMenu) mobBtn.addEventListener('click', () => mobMenu.classList.toggle('hidden'));
+
+  const nav = document.getElementById('site-nav');
+  window.addEventListener('scroll', () => nav.classList.toggle('shadow-nav', window.scrollY > 12), { passive: true });
+
+  // ── Multi-step form ──
+  let currentStep = 1;
+  const totalSteps = 3;
+
+  function formStep(dir) {
+    const next = currentStep + dir;
+    if (next < 1 || next > totalSteps) return;
+
+    // Basic validation before advancing
+    if (dir > 0) {
+      const active = document.getElementById('step-' + currentStep);
+      const required = active.querySelectorAll('[required]');
+      let valid = true;
+      required.forEach(el => {
+        if (el.type === 'radio') {
+          const group = active.querySelectorAll(`[name="${el.name}"]`);
+          const checked = Array.from(group).some(r => r.checked);
+          if (!checked) { valid = false; el.closest('.grid').style.outline = '2px solid #FC8181'; }
+          else { el.closest('.grid').style.outline = ''; }
+        } else if (!el.value.trim()) {
+          valid = false;
+          el.style.borderColor = '#FC8181';
+          el.addEventListener('input', () => el.style.borderColor = '', { once: true });
+        }
+      });
+      if (!valid) return;
+    }
+
+    // Hide current, show next
+    document.getElementById('step-' + currentStep).classList.remove('active');
+    currentStep = next;
+    document.getElementById('step-' + currentStep).classList.add('active');
+
+    updateStepUI();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function updateStepUI() {
+    const btnBack   = document.getElementById('btn-back');
+    const btnNext   = document.getElementById('btn-next');
+    const btnSubmit = document.getElementById('btn-submit');
+
+    btnBack.style.display   = currentStep > 1 ? 'inline-flex' : 'none';
+    btnNext.style.display   = currentStep < totalSteps ? 'inline-flex' : 'none';
+    btnSubmit.style.display = currentStep === totalSteps ? 'inline-flex' : 'none';
+
+    for (let i = 1; i <= totalSteps; i++) {
+      const dot  = document.getElementById('dot-' + i);
+      const conn = document.getElementById('conn-' + i);
+      if (!dot) continue;
+      dot.className = 'flex items-center justify-center step-dot ' +
+        (i < currentStep ? 'done' : i === currentStep ? 'active' : 'inactive');
+      if (conn) conn.className = 'step-connector ' + (i < currentStep ? 'done' : '');
+    }
+  }
+
+  // ── Form submission ──
+  document.getElementById('quote-form').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const btn = document.getElementById('btn-submit');
+    btn.textContent = 'Submitting…';
+    btn.disabled = true;
+
+    if (window.FCPC?.processFCPCForm) {
+      await window.FCPC.processFCPCForm(this);
+    }
+
+    // Show success
+    this.closest('.bg-white').querySelector('#quote-form').style.display = 'none';
+    document.getElementById('step-indicator').closest('.px-8').style.display = 'none';
+    const success = document.getElementById('success-screen');
+    success.classList.add('active');
+
+    if (window.FCPC?.gaEvent) {
+      window.FCPC.gaEvent('generate_lead', { form_type: 'consultation', page: 'get-quote' });
+    }
+  });
+
+  if (window.FCPC?.gaEvent) {
+    window.FCPC.gaEvent('page_view', { page_title: 'Get Quote', page_location: window.location.href });
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,661 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blog &amp; Articles — FCPC</title>
+  <meta name="description" content="FCPC Blog — practitioner insights on life insurance, retirement planning, estate planning, financial planning, and entrepreneurship." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,700;0,800;1,700&display=swap" rel="stylesheet" />
+
+  <script>
+    tailwind = { config: { theme: { extend: {
+      colors: {
+        forest: { dark: '#0B3226', DEFAULT: '#19634F', mid: '#22896C', light: '#2AB08A', 50: '#F0FDF8' },
+        gold:   { DEFAULT: '#D4AF37', dark: '#B8960F', light: '#EAC84A', pale: '#FDFAEE' },
+        ink:    '#1A202C',
+        slate:  '#2D3748',
+        mist:   '#F7FAFC',
+        silver: '#E2E8F0',
+        smoke:  '#64748B',
+      },
+      fontFamily: {
+        sans:  ['Inter', 'system-ui', 'sans-serif'],
+        serif: ['Playfair Display', 'Georgia', 'serif'],
+      },
+      boxShadow: {
+        'gold':    '0 4px 24px rgba(212,175,55,0.35)',
+        'card':    '0 8px 40px rgba(0,0,0,0.05)',
+        'card-lg': '0 20px 60px rgba(0,0,0,0.09)',
+        'nav':     '0 2px 32px rgba(0,0,0,0.07)',
+      },
+    }}}}
+  </script>
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', system-ui, sans-serif; -webkit-font-smoothing: antialiased; color: #1A202C; background: #fff; }
+
+    .eyebrow {
+      font-size: 0.6rem; font-weight: 800;
+      letter-spacing: 0.22em; text-transform: uppercase; color: #19634F; opacity: 0.85;
+    }
+    .nav-item {
+      font-size: 0.875rem; font-weight: 600; color: #2D3748;
+      padding: 8px 14px; border-radius: 10px;
+      transition: color 0.15s, background 0.15s;
+      white-space: nowrap; text-decoration: none;
+    }
+    .nav-item:hover { color: #19634F; background: rgba(25,99,79,0.07); }
+    .has-drop { position: relative; }
+    .has-drop .drop { display: none; }
+    .has-drop:hover .drop { display: block; animation: fadeUp 0.16s ease; }
+    @keyframes fadeUp { from { opacity:0; transform:translateY(6px); } to { opacity:1; transform:translateY(0); } }
+    @media (max-width: 1023px) { .desk-nav { display: none !important; } }
+    @media (min-width: 1024px) { #mob-menu { display: none !important; } #mob-btn { display: none !important; } }
+
+    .btn-gold {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: linear-gradient(135deg, #DDB84E 0%, #C9A52A 100%);
+      color: #1A202C; font-weight: 700; border-radius: 999px;
+      transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+      box-shadow: 0 4px 20px rgba(212,175,55,0.38), 0 1px 2px rgba(0,0,0,0.08);
+      text-decoration: none; white-space: nowrap;
+    }
+    .btn-gold:hover { transform: scale(1.04) translateY(-1px); background: linear-gradient(135deg, #E8C84A 0%, #C9A52A 100%); box-shadow: 0 8px 32px rgba(212,175,55,0.45), 0 0 22px rgba(221,186,78,0.38); }
+
+    .btn-forest {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: linear-gradient(135deg, #22896C 0%, #19634F 100%);
+      color: #fff; font-weight: 700; border-radius: 999px;
+      transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+      box-shadow: 0 4px 16px rgba(25,99,79,0.28);
+      text-decoration: none; white-space: nowrap;
+    }
+    .btn-forest:hover { transform: scale(1.04) translateY(-1px); background: linear-gradient(135deg, #22896C 0%, #0B3226 100%); box-shadow: 0 8px 28px rgba(25,99,79,0.38); }
+
+    /* Category filter */
+    .cat-btn {
+      display: inline-flex; align-items: center;
+      padding: 8px 20px; border-radius: 999px;
+      font-size: 0.8125rem; font-weight: 600; letter-spacing: 0.01em;
+      border: 1.5px solid #E2E8F0;
+      color: #64748B; background: #fff;
+      cursor: pointer; transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+    .cat-btn:hover { border-color: rgba(25,99,79,0.35); color: #19634F; background: rgba(25,99,79,0.04); }
+    .cat-btn.active {
+      background: #19634F; color: #fff;
+      border-color: #19634F;
+      box-shadow: 0 2px 12px rgba(25,99,79,0.28);
+    }
+
+    /* Article cards */
+    .article-card {
+      border-radius: 24px;
+      border: 1.5px solid #EEF2F7;
+      background: #fff;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.02), 0 8px 32px rgba(0,0,0,0.04);
+      transition: all 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+      text-decoration: none;
+      display: flex; flex-direction: column;
+      overflow: hidden;
+    }
+    .article-card:hover {
+      box-shadow: 0 4px 8px rgba(0,0,0,0.03), 0 24px 64px rgba(0,0,0,0.09);
+      border-color: rgba(25,99,79,0.18);
+      transform: translateY(-5px);
+    }
+
+    /* Checkbox styling for notification signup */
+    .cat-checkbox { display: none; }
+    .cat-checkbox-label {
+      display: flex; align-items: center; gap: 10px;
+      padding: 10px 16px; border-radius: 12px;
+      border: 1.5px solid #E2E8F0; background: #fff;
+      cursor: pointer; font-size: 0.8125rem; font-weight: 600; color: #2D3748;
+      transition: all 0.2s ease; white-space: nowrap;
+    }
+    .cat-checkbox-label:hover { border-color: rgba(25,99,79,0.35); background: rgba(25,99,79,0.03); }
+    .cat-checkbox:checked + .cat-checkbox-label { border-color: #19634F; background: rgba(25,99,79,0.06); color: #19634F; }
+    .cat-checkbox:checked + .cat-checkbox-label .check-dot { background: #19634F; }
+    .check-dot {
+      width: 14px; height: 14px; border-radius: 4px;
+      border: 1.5px solid #CBD5E0; background: #fff;
+      flex-shrink: 0; transition: background 0.2s;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .cat-checkbox:checked + .cat-checkbox-label .check-dot::after {
+      content: ''; display: block; width: 6px; height: 6px;
+      border-radius: 1px; background: #fff;
+    }
+  </style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════════════════════════════
+     ANNOUNCEMENT BAR
+════════════════════════════════════════════════════════════ -->
+<div style="background: linear-gradient(90deg,#0B3226 0%,#19634F 50%,#0B3226 100%);" class="py-2.5 px-4 text-center">
+  <p class="text-white/80 text-[13px] font-medium tracking-wide">
+    Protect your family with a personalized life insurance quote — at no cost.
+    <a href="get-quote.html" class="text-gold font-bold underline underline-offset-2 hover:text-gold-light ml-2 transition-colors">Start Now →</a>
+  </p>
+</div>
+
+<!-- ════════════════════════════════════════════════════════════
+     NAVBAR
+════════════════════════════════════════════════════════════ -->
+<header id="site-nav" class="sticky top-0 z-50 bg-white/75 backdrop-blur-xl border-b border-black/[0.06] transition-shadow duration-300">
+  <div class="max-w-[1400px] mx-auto px-6 lg:px-12 flex items-center h-[72px] gap-8">
+
+    <a href="index.html" class="flex-shrink-0">
+      <img src="FCPC-Logo.webp" alt="Financial Crisis Prevention Center" class="h-10 w-auto object-contain"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+      <span style="display:none" class="font-serif font-bold text-forest text-lg tracking-tight items-center">FCPC</span>
+    </a>
+
+    <nav class="desk-nav flex-1 flex items-center gap-1">
+      <a href="about.html" class="nav-item">About</a>
+
+      <div class="has-drop">
+        <a href="solutions.html" class="nav-item flex items-center gap-1">
+          Solutions
+          <svg class="w-3 h-3 opacity-40" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 4l4 4 4-4"/></svg>
+        </a>
+        <div class="drop absolute top-full left-0 mt-3 bg-white rounded-2xl shadow-card-lg border border-silver/60 min-w-[240px] py-3 z-50">
+          <a href="solutions/life-insurance.html"      class="flex items-center gap-3 px-4 py-3 text-sm font-medium text-slate hover:text-forest hover:bg-mist transition-colors mx-1 rounded-xl"><span class="w-8 h-8 rounded-xl bg-forest-50 flex items-center justify-center text-base flex-shrink-0">🛡</span> Life Insurance</a>
+          <a href="solutions/indexed-annuities.html"           class="flex items-center gap-3 px-4 py-3 text-sm font-medium text-slate hover:text-forest hover:bg-mist transition-colors mx-1 rounded-xl"><span class="w-8 h-8 rounded-xl bg-forest-50 flex items-center justify-center text-base flex-shrink-0">📊</span> Indexed Annuities</a>
+          <a href="solutions/final-expense.html"       class="flex items-center gap-3 px-4 py-3 text-sm font-medium text-slate hover:text-forest hover:bg-mist transition-colors mx-1 rounded-xl"><span class="w-8 h-8 rounded-xl bg-forest-50 flex items-center justify-center text-base flex-shrink-0">🌿</span> Final Expense</a>
+          <a href="solutions/supplemental-health.html" class="flex items-center gap-3 px-4 py-3 text-sm font-medium text-slate hover:text-forest hover:bg-mist transition-colors mx-1 rounded-xl"><span class="w-8 h-8 rounded-xl bg-forest-50 flex items-center justify-center text-base flex-shrink-0">🏥</span> Supplemental Health</a>
+        </div>
+      </div>
+
+
+      <div class="has-drop">
+        <a href="resources.html" class="nav-item flex items-center gap-1" style="color:#19634F; background:rgba(25,99,79,0.07);">
+          Resources
+          <svg class="w-3 h-3 opacity-40" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 4l4 4 4-4"/></svg>
+        </a>
+        <div class="drop absolute top-full left-0 mt-3 bg-white rounded-2xl shadow-card-lg border border-silver/60 min-w-[200px] py-3 z-50">
+          <a href="blog.html"        class="block px-5 py-3 text-sm font-semibold text-forest bg-forest-50 rounded-xl mx-1">Blog &amp; Articles</a>
+          <a href="guides.html"      class="block px-5 py-3 text-sm font-medium text-slate hover:text-forest hover:bg-mist transition-colors rounded-xl mx-1">Free Guides</a>
+          <a href="calculators.html" class="block px-5 py-3 text-sm font-medium text-slate hover:text-forest hover:bg-mist transition-colors rounded-xl mx-1">Calculators</a>
+        </div>
+      </div>
+
+      <a href="agent-opportunity.html" class="nav-item font-semibold text-forest">Agent Opportunity</a>
+      <a href="find-agent.html"        class="nav-item">Find My Agent</a>
+    </nav>
+
+    <div class="flex items-center gap-3 flex-shrink-0">
+      <a href="get-quote.html" class="hidden md:inline-flex btn-gold text-sm px-5 py-2.5">I Want Life Insurance</a>
+      <button id="mob-btn" class="p-2 rounded-xl hover:bg-mist transition-colors" aria-label="Open menu">
+        <svg class="w-5 h-5 text-slate" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <div id="mob-menu" class="hidden border-t border-silver bg-white">
+    <div class="max-w-[1400px] mx-auto px-6 py-3 flex flex-col gap-1">
+      <a href="about.html"                   class="block px-4 py-3 rounded-xl text-sm font-semibold text-slate hover:text-forest hover:bg-mist transition-colors">About</a>
+      <a href="solutions.html"               class="block px-4 py-3 rounded-xl text-sm font-semibold text-slate hover:text-forest hover:bg-mist transition-colors">Solutions</a>
+      <a href="resources.html"               class="block px-4 py-3 rounded-xl text-sm font-semibold text-forest bg-forest-50">Resources</a>
+      <a href="agent-opportunity.html"       class="block px-4 py-3 rounded-xl text-sm font-semibold text-forest hover:bg-forest-50 transition-colors">Agent Opportunity</a>
+      <a href="find-agent.html"              class="block px-4 py-3 rounded-xl text-sm font-semibold text-slate hover:text-forest hover:bg-mist transition-colors">Find My Agent</a>
+      <div class="pt-2 pb-3">
+        <a href="get-quote.html" class="btn-gold w-full justify-center px-6 py-3 text-sm">I Want Life Insurance</a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<!-- ════════════════════════════════════════════════════════════
+     FULL-BLEED HERO
+════════════════════════════════════════════════════════════ -->
+<section class="w-full relative overflow-hidden flex items-center justify-center" style="height: 40vh; min-height: 300px; max-height: 380px; background: #0B3226;">
+
+  <!-- INSERT OPTIMIZED WEBP HERO BACKGROUND IMAGE HERE -->
+  <!-- <img src="blog-hero.webp" alt="FCPC Blog" class="absolute inset-0 w-full h-full object-cover" /> -->
+
+  <!-- Gradient overlay -->
+  <div class="absolute inset-0" style="background: linear-gradient(135deg, rgba(11,50,38,0.90) 0%, rgba(25,99,79,0.70) 60%, rgba(11,50,38,0.60) 100%);"></div>
+
+  <!-- Dot grid texture -->
+  <div class="absolute inset-0 pointer-events-none" style="background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,0.04) 1px, transparent 0); background-size: 36px 36px;"></div>
+
+  <!-- Text -->
+  <div class="relative z-10 text-center px-6 w-full" style="max-width: 860px; margin-left: auto; margin-right: auto;">
+    <span class="inline-block text-[0.6rem] font-bold tracking-[0.22em] uppercase text-white/50 mb-5">Blog &amp; Articles</span>
+    <h1 class="w-full max-w-none font-extrabold tracking-[-0.03em] text-white mb-5" style="font-size: clamp(2.4rem, 5vw, 4.4rem); line-height: 1.05;">
+      Latest Insights
+    </h1>
+    <p class="text-white/80 text-xl leading-relaxed w-full" style="max-width: 620px; margin-left: auto; margin-right: auto;">
+      Explore the mechanics of tax efficiency and wealth optimization across our five core categories.
+    </p>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════
+     CATEGORY FILTER BAR
+════════════════════════════════════════════════════════════ -->
+<div class="border-b border-silver/40 bg-white sticky top-[72px] z-40" style="box-shadow: 0 4px 24px rgba(0,0,0,0.04);">
+  <div class="max-w-[1400px] mx-auto px-6 lg:px-12 py-4">
+    <div class="flex items-center gap-2.5 overflow-x-auto" style="scrollbar-width:none; -ms-overflow-style:none;">
+      <button class="cat-btn active flex-shrink-0" data-cat="all"                onclick="filterArticles('all')">All Topics</button>
+      <button class="cat-btn flex-shrink-0"         data-cat="life-insurance"     onclick="filterArticles('life-insurance')">Life Insurance</button>
+      <button class="cat-btn flex-shrink-0"         data-cat="health-insurance"   onclick="filterArticles('health-insurance')">Health Insurance</button>
+      <button class="cat-btn flex-shrink-0"         data-cat="retirement"         onclick="filterArticles('retirement')">Retirement Planning</button>
+      <button class="cat-btn flex-shrink-0"         data-cat="estate-planning"    onclick="filterArticles('estate-planning')">Estate Planning</button>
+      <button class="cat-btn flex-shrink-0"         data-cat="entrepreneurship"   onclick="filterArticles('entrepreneurship')">Entrepreneurship</button>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════════
+     ARTICLE GRID
+════════════════════════════════════════════════════════════ -->
+<section class="py-20 lg:py-28" style="background: #fff;">
+  <div class="max-w-[1400px] mx-auto px-6 lg:px-12">
+
+    <div id="cards-wrapper" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch">
+
+      <!-- ── Life Insurance ── -->
+      <a href="#" class="article-card h-full" data-category="life-insurance">
+        <div class="flex flex-col h-full justify-between">
+          <div>
+            <div class="w-full aspect-video rounded-xl overflow-hidden bg-slate-100 mb-6">
+              <!-- INSERT OPTIMIZED WEBP — Life insurance / family protection theme -->
+            </div>
+            <div class="px-8">
+              <div class="inline-flex mb-4 px-3 py-1.5 rounded-full" style="background: rgba(25,99,79,0.07); border: 1px solid rgba(25,99,79,0.12);">
+                <span class="text-[10px] font-bold text-forest tracking-widest uppercase">Life Insurance</span>
+              </div>
+              <h2 class="text-ink font-extrabold text-xl leading-tight tracking-tight mb-3">
+                The Right Life Insurance Coverage at Every Stage of Life
+              </h2>
+              <p class="text-smoke text-[0.9375rem] leading-relaxed mb-8">
+                From term to permanent, understand which life insurance structures protect your family most effectively — and how to layer coverage as your income, dependents, and estate grow over time.
+              </p>
+            </div>
+          </div>
+          <div class="px-8 pb-8 flex items-center gap-2 text-forest text-sm font-bold">
+            Read Article
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+          </div>
+        </div>
+      </a>
+
+      <!-- ── Retirement Planning ── -->
+      <a href="#" class="article-card h-full" data-category="retirement">
+        <div class="flex flex-col h-full justify-between">
+          <div>
+            <div class="w-full aspect-video rounded-xl overflow-hidden bg-slate-100 mb-6">
+              <!-- INSERT OPTIMIZED WEBP — Retirement / 0% floor / indexed growth theme -->
+            </div>
+            <div class="px-8">
+              <div class="inline-flex mb-4 px-3 py-1.5 rounded-full" style="background: rgba(212,175,55,0.10); border: 1px solid rgba(212,175,55,0.22);">
+                <span class="text-[10px] font-bold tracking-widest uppercase" style="color:#B8960F;">Retirement Planning</span>
+              </div>
+              <h2 class="text-ink font-extrabold text-xl leading-tight tracking-tight mb-3">
+                Understanding the Power of the 0% Floor
+              </h2>
+              <p class="text-smoke text-[0.9375rem] leading-relaxed mb-8">
+                A deep dive into how indexed products defend your accumulation from market volatility while capturing growth upside — and why the 0% floor changes the retirement income calculus entirely.
+              </p>
+            </div>
+          </div>
+          <div class="px-8 pb-8 flex items-center gap-2 text-sm font-bold" style="color:#B8960F;">
+            Read Article
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+          </div>
+        </div>
+      </a>
+
+      <!-- ── Estate Planning ── -->
+      <a href="#" class="article-card h-full" data-category="estate-planning">
+        <div class="flex flex-col h-full justify-between">
+          <div>
+            <div class="w-full aspect-video rounded-xl overflow-hidden bg-slate-100 mb-6">
+              <!-- INSERT OPTIMIZED WEBP — Estate planning / legacy transfer theme -->
+            </div>
+            <div class="px-8">
+              <div class="inline-flex mb-4 px-3 py-1.5 rounded-full" style="background: rgba(26,32,44,0.06); border: 1px solid rgba(26,32,44,0.10);">
+                <span class="text-[10px] font-bold tracking-widest uppercase" style="color:#4A5568;">Estate Planning</span>
+              </div>
+              <h2 class="text-ink font-extrabold text-xl leading-tight tracking-tight mb-3">
+                Tax-Efficient Legacy Transfer Playbook
+              </h2>
+              <p class="text-smoke text-[0.9375rem] leading-relaxed mb-8">
+                Key strategies to transition assets down your family line seamlessly while maximizing wealth retention — from beneficiary coordination to trust structures that bypass probate entirely.
+              </p>
+            </div>
+          </div>
+          <div class="px-8 pb-8 flex items-center gap-2 text-sm font-bold" style="color:#4A5568;">
+            Read Article
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+          </div>
+        </div>
+      </a>
+
+      <!-- ── Financial Planning ── -->
+      <a href="#" class="article-card h-full" data-category="financial-planning">
+        <div class="flex flex-col h-full justify-between">
+          <div>
+            <div class="w-full aspect-video rounded-xl overflow-hidden bg-slate-100 mb-6">
+              <!-- INSERT OPTIMIZED WEBP — W-4 / cash flow / financial planning theme -->
+            </div>
+            <div class="px-8">
+              <div class="inline-flex mb-4 px-3 py-1.5 rounded-full" style="background: rgba(25,99,79,0.07); border: 1px solid rgba(25,99,79,0.12);">
+                <span class="text-[10px] font-bold text-forest tracking-widest uppercase">Financial Planning</span>
+              </div>
+              <h2 class="text-ink font-extrabold text-xl leading-tight tracking-tight mb-3">
+                Leveraging W-4 Adjustments for Monthly Liquidity
+              </h2>
+              <p class="text-smoke text-[0.9375rem] leading-relaxed mb-8">
+                How smart W-4 planning can stop interest-free government loans and instantly increase household cash flow — legally, permanently, and without changing what you owe at year-end.
+              </p>
+            </div>
+          </div>
+          <div class="px-8 pb-8 flex items-center gap-2 text-forest text-sm font-bold">
+            Read Article
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+          </div>
+        </div>
+      </a>
+
+      <!-- ── Entrepreneurship ── -->
+      <a href="#" class="article-card h-full" data-category="entrepreneurship">
+        <div class="flex flex-col h-full justify-between">
+          <div>
+            <div class="w-full aspect-video rounded-xl overflow-hidden bg-slate-100 mb-6">
+              <!-- INSERT OPTIMIZED WEBP — Business / hobby loss / IRS compliance theme -->
+            </div>
+            <div class="px-8">
+              <div class="inline-flex mb-4 px-3 py-1.5 rounded-full" style="background: rgba(212,175,55,0.10); border: 1px solid rgba(212,175,55,0.22);">
+                <span class="text-[10px] font-bold tracking-widest uppercase" style="color:#B8960F;">Entrepreneurship</span>
+              </div>
+              <h2 class="text-ink font-extrabold text-xl leading-tight tracking-tight mb-3">
+                The Hobby Loss Transition: Shifting a Side Activity into a Legitimate Home Business
+              </h2>
+              <p class="text-smoke text-[0.9375rem] leading-relaxed mb-8">
+                Understand the IRS 9-factor test, document properly, and structurally shift your activity from a non-deductible hobby into a fully protected business entity with real write-offs from day one.
+              </p>
+            </div>
+          </div>
+          <div class="px-8 pb-8 flex items-center gap-2 text-sm font-bold" style="color:#B8960F;">
+            Read Article
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+          </div>
+        </div>
+      </a>
+
+      <!-- ── Entrepreneurship #2 ── -->
+      <a href="#" class="article-card h-full" data-category="entrepreneurship">
+        <div class="flex flex-col h-full justify-between">
+          <div>
+            <div class="w-full aspect-video rounded-xl overflow-hidden bg-slate-100 mb-6">
+              <!-- INSERT OPTIMIZED WEBP — CRM / automation / business infrastructure theme -->
+            </div>
+            <div class="px-8">
+              <div class="inline-flex mb-4 px-3 py-1.5 rounded-full" style="background: rgba(212,175,55,0.10); border: 1px solid rgba(212,175,55,0.22);">
+                <span class="text-[10px] font-bold tracking-widest uppercase" style="color:#B8960F;">Entrepreneurship</span>
+              </div>
+              <h2 class="text-ink font-extrabold text-xl leading-tight tracking-tight mb-3">
+                Leveraging Modern Automation to Scale Your Business Support Infrastructure
+              </h2>
+              <p class="text-smoke text-[0.9375rem] leading-relaxed mb-8">
+                From Zoho CRM setup to digital enrollment pipelines, learn how to build a business that generates revenue and runs consistently without requiring your constant presence to operate.
+              </p>
+            </div>
+          </div>
+          <div class="px-8 pb-8 flex items-center gap-2 text-sm font-bold" style="color:#B8960F;">
+            Read Article
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+          </div>
+        </div>
+      </a>
+
+    </div>
+
+    <!-- Empty state -->
+    <div id="empty-state" class="hidden py-24 text-center">
+      <p class="text-smoke/50 text-lg font-medium">No articles in this category yet — check back soon.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════
+     CATEGORY NOTIFICATION SIGNUP
+════════════════════════════════════════════════════════════ -->
+<section class="py-20 lg:py-28 border-t border-silver/40" style="background: #F7FAFC;">
+  <div class="max-w-[1400px] mx-auto px-6 lg:px-12">
+
+    <div class="max-w-3xl mx-auto text-center mb-12">
+      <span class="eyebrow mb-4 block">Stay Informed</span>
+      <h2 class="font-extrabold tracking-tight leading-[1.1] mb-4" style="font-size: clamp(1.8rem, 3.2vw, 2.6rem); color: #1A202C;">
+        Never Miss an Update.
+      </h2>
+      <p class="text-smoke text-lg leading-relaxed">
+        Select the topics that matter to you. We'll send new articles straight to your inbox — only on the subjects you choose.
+      </p>
+    </div>
+
+    <div class="max-w-2xl mx-auto">
+      <form data-form-type="blog-notify" data-lead-source="Blog - Category Notification">
+
+        <div class="mb-8">
+          <input type="email" name="Email" required placeholder="Your email address"
+                 class="w-full px-6 py-4 rounded-full border border-silver bg-white text-ink text-[15px] placeholder-smoke/45 outline-none focus:border-forest focus:ring-2 focus:ring-forest/10 transition-all font-medium" />
+        </div>
+
+        <fieldset class="mb-8">
+          <legend class="text-[11px] font-bold text-smoke/60 tracking-widest uppercase mb-4 block">Send me articles about:</legend>
+          <div class="flex flex-wrap gap-3">
+            <div>
+              <input type="checkbox" id="notify-life"             name="notify_life_insurance"    class="cat-checkbox" value="life-insurance" />
+              <label for="notify-life" class="cat-checkbox-label"><span class="check-dot"></span>Life Insurance</label>
+            </div>
+            <div>
+              <input type="checkbox" id="notify-health"           name="notify_health_insurance"  class="cat-checkbox" value="health-insurance" />
+              <label for="notify-health" class="cat-checkbox-label"><span class="check-dot"></span>Health Insurance</label>
+            </div>
+            <div>
+              <input type="checkbox" id="notify-retirement"       name="notify_retirement"        class="cat-checkbox" value="retirement" />
+              <label for="notify-retirement" class="cat-checkbox-label"><span class="check-dot"></span>Retirement Planning</label>
+            </div>
+            <div>
+              <input type="checkbox" id="notify-estate"           name="notify_estate_planning"   class="cat-checkbox" value="estate-planning" />
+              <label for="notify-estate" class="cat-checkbox-label"><span class="check-dot"></span>Estate Planning</label>
+            </div>
+            <div>
+              <input type="checkbox" id="notify-entrepreneurship" name="notify_entrepreneurship"  class="cat-checkbox" value="entrepreneurship" />
+              <label for="notify-entrepreneurship" class="cat-checkbox-label"><span class="check-dot"></span>Entrepreneurship</label>
+            </div>
+          </div>
+        </fieldset>
+
+        <div class="flex flex-col sm:flex-row items-center gap-4">
+          <button type="submit" class="btn-forest flex-shrink-0 px-10 py-4 text-[15px]">
+            Subscribe to My Topics
+          </button>
+          <p class="text-smoke/45 text-xs text-center sm:text-left leading-relaxed">
+            2–4 articles per month. No spam. Unsubscribe any time.
+          </p>
+        </div>
+
+      </form>
+    </div>
+
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════
+     QUIET CTA
+════════════════════════════════════════════════════════════ -->
+<section class="py-20 border-t border-silver/50" style="background: #fff;">
+  <div class="max-w-[1400px] mx-auto px-6 lg:px-12 flex flex-col lg:flex-row items-center justify-between gap-10">
+    <div>
+      <p class="text-forest text-xs font-bold tracking-widest uppercase mb-3">No Cost. No Pressure.</p>
+      <h2 class="font-extrabold tracking-tight leading-[1.1] mb-3" style="font-size: clamp(1.6rem, 3vw, 2.4rem); color: #1A202C;">
+        Want to apply these concepts to your specific situation?
+      </h2>
+      <p class="text-smoke text-lg leading-relaxed max-w-[480px]">An FCPC advisor will walk through the strategies most relevant to your finances — at no cost and with no obligation.</p>
+    </div>
+    <div class="flex-shrink-0 flex flex-col items-center gap-3">
+      <a href="get-quote.html" class="btn-forest px-9 py-4 text-[15px]">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+        Schedule My Free Review
+      </a>
+      <p class="text-smoke/50 text-xs">Licensed specialists · Education-first</p>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ════════════════════════════════════════════════════════════
+     FOOTER
+════════════════════════════════════════════════════════════ -->
+<footer class="bg-[#111827]">
+
+  <div class="max-w-[1400px] mx-auto px-6 lg:px-12 pt-20 pb-14">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-8">
+
+      <div class="lg:col-span-4">
+        <img src="FCPC-Logo.webp" alt="Financial Crisis Prevention Center"
+             class="h-9 w-auto object-contain brightness-0 invert mb-7"
+             onerror="this.style.display='none';this.nextElementSibling.style.display='block';" />
+        <span style="display:none" class="block font-serif font-bold text-white text-xl mb-7">FCPC</span>
+        <p class="text-white/45 text-sm leading-[1.8] max-w-[290px] mb-8">Helping federal employees, families, and retirees build lasting financial security through education, not pressure — since 1985.</p>
+        <div class="space-y-3">
+          <div class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded-lg bg-white/[0.06] flex items-center justify-center flex-shrink-0">
+              <svg class="w-3.5 h-3.5 text-white/40" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+            </div>
+            <span class="text-white/40 text-xs">Washington, DC Metro Area · Licensed Nationally</span>
+          </div>
+          <div class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded-lg bg-white/[0.06] flex items-center justify-center flex-shrink-0">
+              <svg class="w-3.5 h-3.5 text-white/40" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+            </div>
+            <a href="tel:+18005553272" class="text-white/40 text-xs hover:text-[#19634F] transition-colors duration-200">(800) 555-FCPC</a>
+          </div>
+          <div class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded-lg bg-white/[0.06] flex items-center justify-center flex-shrink-0">
+              <svg class="w-3.5 h-3.5 text-white/40" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+            </div>
+            <a href="mailto:info@fcpcusa.com" class="text-white/40 text-xs hover:text-[#19634F] transition-colors duration-200">info@fcpcusa.com</a>
+          </div>
+        </div>
+      </div>
+
+      
+      
+
+      
+      <div class="lg:col-span-2">
+        <p class="text-[10.5px] font-bold tracking-[0.15em] uppercase text-white/30 mb-5">Company</p>
+        <ul class="space-y-3.5">
+          <li><a href="about.html" class="group flex items-center gap-2 text-sm font-medium hover:text-[#19634F] transition-colors duration-200" style="color:rgba(226,232,240,0.60);"><span class="w-1 h-1 rounded-full bg-current opacity-40 flex-shrink-0 group-hover:opacity-100 transition-opacity"></span> About</a></li>
+          <li><a href="opportunity.html" class="group flex items-center gap-2 text-sm font-medium hover:text-[#19634F] transition-colors duration-200" style="color:rgba(226,232,240,0.60);"><span class="w-1 h-1 rounded-full bg-current opacity-40 flex-shrink-0 group-hover:opacity-100 transition-opacity"></span> Agent Opportunity</a></li>
+          <li><a href="find-agent.html" class="group flex items-center gap-2 text-sm font-medium hover:text-[#19634F] transition-colors duration-200" style="color:rgba(226,232,240,0.60);"><span class="w-1 h-1 rounded-full bg-current opacity-40 flex-shrink-0 group-hover:opacity-100 transition-opacity"></span> Find My Agent</a></li>
+          <li><a href="contact.html" class="group flex items-center gap-2 text-sm font-medium hover:text-[#19634F] transition-colors duration-200" style="color:rgba(226,232,240,0.60);"><span class="w-1 h-1 rounded-full bg-current opacity-40 flex-shrink-0 group-hover:opacity-100 transition-opacity"></span> Contact Us</a></li>
+        </ul>
+      </div>
+
+      <div class="lg:col-span-2">
+        <p class="text-[10.5px] font-bold tracking-[0.15em] uppercase text-white/30 mb-5">Solutions</p>
+        <ul class="space-y-3.5">
+          <li><a href="solutions/life-insurance.html" class="group flex items-center gap-2 text-sm font-medium hover:text-[#19634F] transition-colors duration-200" style="color:rgba(226,232,240,0.60);"><span class="w-1 h-1 rounded-full bg-current opacity-40 flex-shrink-0 group-hover:opacity-100 transition-opacity"></span> Life Insurance</a></li>
+          <li><a href="solutions/indexed-annuities.html" class="group flex items-center gap-2 text-sm font-medium hover:text-[#19634F] transition-colors duration-200" style="color:rgba(226,232,240,0.60);"><span class="w-1 h-1 rounded-full bg-current opacity-40 flex-shrink-0 group-hover:opacity-100 transition-opacity"></span> Indexed Annuities</a></li>
+          <li><a href="solutions/final-expense.html" class="group flex items-center gap-2 text-sm font-medium hover:text-[#19634F] transition-colors duration-200" style="color:rgba(226,232,240,0.60);"><span class="w-1 h-1 rounded-full bg-current opacity-40 flex-shrink-0 group-hover:opacity-100 transition-opacity"></span> Final Expense</a></li>
+          <li><a href="solutions/supplemental-health.html" class="group flex items-center gap-2 text-sm font-medium hover:text-[#19634F] transition-colors duration-200" style="color:rgba(226,232,240,0.60);"><span class="w-1 h-1 rounded-full bg-current opacity-40 flex-shrink-0 group-hover:opacity-100 transition-opacity"></span> Supplemental Health</a></li>
+        </ul>
+      </div>
+
+      <div class="lg:col-span-3">
+        <p class="text-[10.5px] font-bold tracking-[0.15em] uppercase text-white/30 mb-5">Resources</p>
+        <ul class="space-y-3.5">
+          <li><a href="blog.html" class="group flex items-center gap-2 text-sm font-medium hover:text-[#19634F] transition-colors duration-200" style="color:rgba(226,232,240,0.60);"><span class="w-1 h-1 rounded-full bg-current opacity-40 flex-shrink-0 group-hover:opacity-100 transition-opacity"></span> Blog &amp; Articles</a></li>
+          <li><a href="guides.html" class="group flex items-center gap-2 text-sm font-medium hover:text-[#19634F] transition-colors duration-200" style="color:rgba(226,232,240,0.60);"><span class="w-1 h-1 rounded-full bg-current opacity-40 flex-shrink-0 group-hover:opacity-100 transition-opacity"></span> Free Guides</a></li>
+          <li><a href="calculators.html" class="group flex items-center gap-2 text-sm font-medium hover:text-[#19634F] transition-colors duration-200" style="color:rgba(226,232,240,0.60);"><span class="w-1 h-1 rounded-full bg-current opacity-40 flex-shrink-0 group-hover:opacity-100 transition-opacity"></span> Calculators</a></li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="border-t border-white/[0.07]">
+    <div class="max-w-[1400px] mx-auto px-6 lg:px-12 py-10">
+      <div class="max-w-4xl">
+        <p class="text-white/22 text-[11px] leading-[1.9] mb-2">
+          <strong class="text-white/32">Educational Disclaimer:</strong> All content on this website is for general educational and informational purposes only and does not constitute individualized insurance, financial, tax, legal, or investment advice. FCPC agents are independent licensed insurance professionals. Product availability, premiums, and benefits vary by state, carrier, age, and health status. All products subject to carrier underwriting approval.
+        </p>
+        <p class="text-white/22 text-[11px] leading-[1.9] mb-2">
+          <strong class="text-white/32">Blog &amp; Articles Disclaimer:</strong> Articles published on this blog are for general educational and informational purposes only. Tax strategy content, including references to IRS guidelines, IRC provisions, and withholding adjustments, does not constitute individualized tax advice. Tax laws are subject to change and individual circumstances vary. Consult a licensed tax professional before making any changes to your tax filing status, withholding elections, or business structure.
+        </p>
+        <p class="text-white/22 text-[11px] leading-[1.9]">
+          <strong class="text-white/32">Insurance Products:</strong> Not bank deposits. Not FDIC insured. Not guaranteed by any bank. Insurance products are not securities and are not regulated by the SEC or FINRA.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="border-t border-white/[0.05]">
+    <div class="max-w-[1400px] mx-auto px-6 lg:px-12 py-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+      <p class="text-white/20 text-[11px]">© 2026 The Financial Crisis Prevention Center (FCPC). All rights reserved.</p>
+      <div class="flex items-center gap-5">
+        <a href="privacy.html" class="text-white/25 text-[11px] hover:text-[#19634F] transition-colors duration-200">Privacy Policy</a>
+        <span class="text-white/10 text-[11px]">·</span>
+        <a href="terms.html"   class="text-white/25 text-[11px] hover:text-[#19634F] transition-colors duration-200">Terms &amp; Conditions</a>
+        <span class="text-white/10 text-[11px]">·</span>
+        <a href="sitemap.xml"  class="text-white/25 text-[11px] hover:text-[#19634F] transition-colors duration-200">Sitemap</a>
+      </div>
+    </div>
+  </div>
+
+</footer>
+
+<script src="js/zoho-config.js"></script>
+<script src="js/zoho-integration.js"></script>
+<script>
+  const mobBtn  = document.getElementById('mob-btn');
+  const mobMenu = document.getElementById('mob-menu');
+  if (mobBtn && mobMenu) mobBtn.addEventListener('click', () => mobMenu.classList.toggle('hidden'));
+
+  const siteNav = document.getElementById('site-nav');
+  window.addEventListener('scroll', () => {
+    siteNav.classList.toggle('shadow-nav', window.scrollY > 12);
+  }, { passive: true });
+
+  function filterArticles(cat) {
+    const cards   = document.querySelectorAll('.article-card');
+    const empty   = document.getElementById('empty-state');
+    const buttons = document.querySelectorAll('.cat-btn');
+
+    buttons.forEach(b => b.classList.toggle('active', b.dataset.cat === cat));
+
+    let visible = 0;
+    cards.forEach(card => {
+      const show = cat === 'all' || card.dataset.category === cat;
+      card.style.display = show ? 'flex' : 'none';
+      if (show) visible++;
+    });
+
+    empty.classList.toggle('hidden', visible > 0);
+  }
+</script>
+
+</body>
+</html>

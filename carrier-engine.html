@@ -1,0 +1,1051 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Carrier Recommendation Engine — FCPC Internal</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,700;0,800;1,700&display=swap" rel="stylesheet" />
+
+  <script>
+    tailwind = { config: { theme: { extend: {
+      colors: {
+        forest: { dark: '#0B3226', DEFAULT: '#19634F', mid: '#22896C', light: '#2AB08A', 50: '#F0FDF8' },
+        gold:   { DEFAULT: '#D4AF37', dark: '#B8960F', light: '#EAC84A', pale: '#FDFAEE' },
+        ink:    '#1A202C',
+        slate:  '#2D3748',
+        mist:   '#F7FAFC',
+        silver: '#E2E8F0',
+        smoke:  '#64748B',
+      },
+      fontFamily: {
+        sans:  ['Inter', 'system-ui', 'sans-serif'],
+        serif: ['Playfair Display', 'Georgia', 'serif'],
+      },
+      boxShadow: {
+        'gold':    '0 4px 24px rgba(212,175,55,0.35)',
+        'card':    '0 8px 40px rgba(0,0,0,0.05)',
+        'card-lg': '0 20px 60px rgba(0,0,0,0.09)',
+        'nav':     '0 2px 32px rgba(0,0,0,0.07)',
+      },
+    }}}}
+  </script>
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', system-ui, sans-serif; -webkit-font-smoothing: antialiased; color: #1A202C; background: #F7FAFC; }
+
+    .eyebrow { font-size: 0.6rem; font-weight: 800; letter-spacing: 0.22em; text-transform: uppercase; color: #19634F; opacity: 0.85; }
+
+    /* ── Nav ── */
+    .nav-item { font-size: 0.875rem; font-weight: 600; color: #2D3748; padding: 8px 14px; border-radius: 10px; transition: color 0.15s, background 0.15s; white-space: nowrap; text-decoration: none; }
+    .nav-item:hover { color: #19634F; background: rgba(25,99,79,0.07); }
+    .has-drop { position: relative; }
+    .has-drop .drop { display: none; }
+    .has-drop:hover .drop { display: block; animation: fadeUp 0.16s ease; }
+    @keyframes fadeUp { from { opacity:0; transform:translateY(6px); } to { opacity:1; transform:translateY(0); } }
+    @media (max-width: 1023px) { .desk-nav { display: none !important; } }
+    @media (min-width: 1024px) { #mob-menu { display: none !important; } #mob-btn { display: none !important; } }
+
+    /* ── Buttons ── */
+    .btn-gold { display: inline-flex; align-items: center; gap: 8px; background: linear-gradient(135deg, #DDB84E 0%, #C9A52A 100%); color: #1A202C; font-weight: 700; border-radius: 999px; transition: all 0.5s cubic-bezier(0.22,1,0.36,1); box-shadow: 0 4px 20px rgba(212,175,55,0.38), 0 1px 2px rgba(0,0,0,0.08); text-decoration: none; white-space: nowrap; }
+    .btn-gold:hover { transform: scale(1.04) translateY(-1px); background: linear-gradient(135deg, #E8C84A 0%, #C9A52A 100%); box-shadow: 0 8px 32px rgba(212,175,55,0.45); }
+    .btn-ghost { display: inline-flex; align-items: center; gap: 8px; background: transparent; color: #2D3748; font-weight: 600; border-radius: 999px; border: 1.5px solid #DDE3EC; transition: all 0.5s cubic-bezier(0.22,1,0.36,1); text-decoration: none; white-space: nowrap; }
+    .btn-ghost:hover { border-color: #19634F; background: rgba(25,99,79,0.05); color: #19634F; transform: translateY(-1px); }
+    .btn-forest { display: inline-flex; align-items: center; gap: 8px; background: linear-gradient(135deg, #22896C 0%, #19634F 100%); color: #fff; font-weight: 700; border-radius: 999px; transition: all 0.5s cubic-bezier(0.22,1,0.36,1); box-shadow: 0 4px 16px rgba(25,99,79,0.28); text-decoration: none; white-space: nowrap; }
+    .btn-forest:hover { transform: scale(1.04) translateY(-1px); background: linear-gradient(135deg, #22896C 0%, #0B3226 100%); box-shadow: 0 8px 28px rgba(25,99,79,0.38); }
+
+    /* ── Form inputs ── */
+    .form-input { width: 100%; background: #fff; border: 1.5px solid #E2E8F0; border-radius: 12px; color: #1A202C; font-size: 0.875rem; font-family: 'Inter', sans-serif; padding: 10px 14px; outline: none; transition: border-color 0.2s, box-shadow 0.2s; appearance: none; -webkit-appearance: none; }
+    .form-input:focus { border-color: #19634F; box-shadow: 0 0 0 3px rgba(25,99,79,0.1); }
+    select.form-input { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2364748B' d='M2 4l4 4 4-4'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 12px center; padding-right: 32px; cursor: pointer; }
+    .form-label { display: block; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: #64748B; margin-bottom: 6px; }
+
+    /* ── Radio options ── */
+    .radio-opt { display: flex; align-items: center; gap: 10px; padding: 10px 14px; background: #fff; border: 1.5px solid #E2E8F0; border-radius: 12px; cursor: pointer; transition: border-color 0.2s, background 0.2s; user-select: none; }
+    .radio-opt:hover { border-color: #19634F; background: #F0FDF8; }
+    .radio-opt span { font-size: 0.875rem; font-weight: 600; color: #2D3748; }
+    .radio-opt input[type="radio"] { accent-color: #19634F; width: 15px; height: 15px; flex-shrink: 0; cursor: pointer; }
+
+    /* ── Health checkboxes ── */
+    .hx-opt { display: flex; align-items: flex-start; gap: 10px; padding: 11px 14px; background: #fff; border: 1.5px solid #E2E8F0; border-radius: 12px; cursor: pointer; transition: border-color 0.2s, background 0.2s; user-select: none; }
+    .hx-opt:hover { border-color: #94a3b8; }
+    .hx-opt.is-danger { border-color: rgba(239,68,68,0.2); }
+    .hx-opt.is-danger:hover { border-color: rgba(239,68,68,0.5); background: rgba(239,68,68,0.02); }
+    .hx-opt input[type="checkbox"] { accent-color: #19634F; width: 15px; height: 15px; flex-shrink: 0; margin-top: 2px; cursor: pointer; }
+    .hx-opt .hx-label { font-size: 0.79rem; color: #475569; line-height: 1.5; cursor: pointer; }
+    .hx-opt.is-danger .hx-label { color: #b91c1c; }
+    .hx-opt.hx-checked { border-color: rgba(25,99,79,0.4); background: rgba(25,99,79,0.04); }
+    .hx-opt.is-danger.hx-checked { border-color: rgba(239,68,68,0.45); background: rgba(239,68,68,0.04); }
+
+    /* ── Results ── */
+    #results-section { display: none; }
+    #results-section.visible { display: block; }
+
+    /* ── Carrier cards ── */
+    .carrier-card { background: #fff; border: 1.5px solid #E2E8F0; border-radius: 24px; box-shadow: 0 8px 40px rgba(0,0,0,0.05); overflow: hidden; transition: box-shadow 0.2s; }
+    .carrier-card:hover { box-shadow: 0 12px 48px rgba(0,0,0,0.09); }
+    .carrier-card.rank-1 { border-color: rgba(25,99,79,0.35); box-shadow: 0 8px 40px rgba(25,99,79,0.1); }
+    .carrier-card.rank-2 { border-color: rgba(212,175,55,0.28); }
+
+    /* ── Rank badge ── */
+    .rank-badge { width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; font-weight: 800; flex-shrink: 0; }
+    .rank-1 .rank-badge { background: rgba(25,99,79,0.12); color: #19634F; }
+    .rank-2 .rank-badge { background: rgba(212,175,55,0.15); color: #B8960F; }
+    .rank-other .rank-badge { background: #F1F5F9; color: #64748B; }
+
+    /* ── Pills ── */
+    .pill { display: inline-flex; align-items: center; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 4px 12px; border-radius: 999px; white-space: nowrap; }
+    .pill-preferred   { background: rgba(25,99,79,0.1);   color: #19634F; border: 1px solid rgba(25,99,79,0.22); }
+    .pill-standard    { background: rgba(37,99,235,0.08); color: #1d4ed8; border: 1px solid rgba(37,99,235,0.18); }
+    .pill-alternative { background: rgba(245,158,11,0.1); color: #b45309; border: 1px solid rgba(245,158,11,0.25); }
+    .pill-graded      { background: rgba(124,58,237,0.08);color: #6d28d9; border: 1px solid rgba(124,58,237,0.2); }
+    .pill-fallback    { background: rgba(239,68,68,0.08); color: #b91c1c; border: 1px solid rgba(239,68,68,0.18); }
+
+    /* ── Reason/Warning lists ── */
+    .reason-list li { font-size: 0.825rem; color: #475569; line-height: 1.6; padding: 3px 0; }
+    .reason-list li::before { content: '✓ '; color: #19634F; font-weight: 700; }
+    .warning-list li { font-size: 0.8rem; color: #92400e; line-height: 1.6; padding: 3px 0; }
+    .warning-list li::before { content: '⚠ '; }
+  </style>
+</head>
+<body>
+
+<!-- ── Announcement bar ── -->
+<div style="background:linear-gradient(90deg,#0B3226 0%,#19634F 50%,#0B3226 100%);" class="py-2.5 px-4 text-center">
+  <p class="text-white/80 text-[13px] font-medium tracking-wide">
+    Protect your family with a personalized life insurance quote — at no cost.
+    <a href="get-quote.html" class="text-gold font-bold underline underline-offset-2 hover:text-gold-light ml-2 transition-colors">Start Now →</a>
+  </p>
+</div>
+
+<!-- ── Navbar ── -->
+<header id="site-nav" class="sticky top-0 z-50 bg-white/75 backdrop-blur-xl border-b border-black/[0.06] transition-shadow duration-300">
+  <div class="max-w-[1400px] mx-auto px-6 lg:px-12 flex items-center h-[72px] gap-8">
+    <a href="index.html" class="flex-shrink-0">
+      <img src="FCPC-Logo.webp" alt="Financial Crisis Prevention Center" class="h-10 w-auto object-contain"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+      <span style="display:none" class="font-serif font-bold text-forest text-lg tracking-tight items-center">FCPC</span>
+    </a>
+    <nav class="desk-nav flex-1 flex items-center gap-1">
+      <a href="about.html" class="nav-item">About</a>
+      <div class="has-drop">
+        <a href="solutions.html" class="nav-item flex items-center gap-1">Solutions
+          <svg class="w-3 h-3 opacity-40" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 4l4 4 4-4"/></svg>
+        </a>
+        <div class="drop absolute top-full left-0 mt-3 bg-white rounded-2xl shadow-card-lg border border-silver/60 min-w-[240px] py-3 z-50">
+          <a href="solutions/life-insurance.html"      class="flex items-center gap-3 px-4 py-3 text-sm font-medium text-slate hover:text-forest hover:bg-mist transition-colors mx-1 rounded-xl"><span class="w-8 h-8 rounded-xl bg-forest-50 flex items-center justify-center text-base flex-shrink-0">🛡</span> Life Insurance</a>
+          <a href="solutions/indexed-annuities.html"   class="flex items-center gap-3 px-4 py-3 text-sm font-medium text-slate hover:text-forest hover:bg-mist transition-colors mx-1 rounded-xl"><span class="w-8 h-8 rounded-xl bg-forest-50 flex items-center justify-center text-base flex-shrink-0">📊</span> Indexed Annuities</a>
+          <a href="solutions/final-expense.html"       class="flex items-center gap-3 px-4 py-3 text-sm font-medium text-slate hover:text-forest hover:bg-mist transition-colors mx-1 rounded-xl"><span class="w-8 h-8 rounded-xl bg-forest-50 flex items-center justify-center text-base flex-shrink-0">🌿</span> Final Expense</a>
+          <a href="solutions/supplemental-health.html" class="flex items-center gap-3 px-4 py-3 text-sm font-medium text-slate hover:text-forest hover:bg-mist transition-colors mx-1 rounded-xl"><span class="w-8 h-8 rounded-xl bg-forest-50 flex items-center justify-center text-base flex-shrink-0">🏥</span> Supplemental Health</a>
+        </div>
+      </div>
+      <div class="has-drop">
+        <a href="resources.html" class="nav-item flex items-center gap-1">Resources
+          <svg class="w-3 h-3 opacity-40" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 4l4 4 4-4"/></svg>
+        </a>
+        <div class="drop absolute top-full left-0 mt-3 bg-white rounded-2xl shadow-card-lg border border-silver/60 min-w-[200px] py-3 z-50">
+          <a href="blog.html"        class="block px-5 py-3 text-sm font-medium text-slate hover:text-forest hover:bg-mist transition-colors rounded-xl mx-1">Blog &amp; Articles</a>
+          <a href="guides.html"      class="block px-5 py-3 text-sm font-medium text-slate hover:text-forest hover:bg-mist transition-colors rounded-xl mx-1">Free Guides</a>
+          <a href="calculators.html" class="block px-5 py-3 text-sm font-medium text-slate hover:text-forest hover:bg-mist transition-colors rounded-xl mx-1">Calculators</a>
+        </div>
+      </div>
+      <a href="agent-opportunity.html" class="nav-item font-semibold text-forest">Agent Opportunity</a>
+      <a href="find-agent.html"        class="nav-item">Find My Agent</a>
+    </nav>
+    <div class="flex items-center gap-3 flex-shrink-0">
+      <a href="get-quote.html" class="hidden md:inline-flex btn-gold text-sm px-5 py-2.5">I Want Life Insurance</a>
+      <button id="mob-btn" class="p-2 rounded-xl hover:bg-mist transition-colors" aria-label="Open menu">
+        <svg class="w-5 h-5 text-slate" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+      </button>
+    </div>
+  </div>
+  <div id="mob-menu" class="hidden border-t border-silver bg-white">
+    <div class="max-w-[1280px] mx-auto px-6 py-3 flex flex-col gap-1">
+      <a href="about.html"             class="block px-4 py-3 rounded-xl text-sm font-semibold text-slate hover:text-forest hover:bg-mist transition-colors">About</a>
+      <a href="solutions.html"         class="block px-4 py-3 rounded-xl text-sm font-semibold text-slate hover:text-forest hover:bg-mist transition-colors">Solutions</a>
+      <a href="resources.html"         class="block px-4 py-3 rounded-xl text-sm font-semibold text-slate hover:text-forest hover:bg-mist transition-colors">Resources</a>
+      <a href="agent-opportunity.html" class="block px-4 py-3 rounded-xl text-sm font-semibold text-forest hover:bg-forest-50 transition-colors">Agent Opportunity</a>
+      <a href="find-agent.html"        class="block px-4 py-3 rounded-xl text-sm font-semibold text-slate hover:text-forest hover:bg-mist transition-colors">Find My Agent</a>
+      <div class="pt-2 pb-3">
+        <a href="get-quote.html" class="btn-gold w-full justify-center px-6 py-3 text-sm">I Want Life Insurance</a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<!-- ── Tool header ── -->
+<section class="bg-white border-b border-silver/60">
+  <div class="max-w-[1400px] mx-auto px-6 lg:px-12 py-10 lg:py-12">
+    <div class="max-w-3xl">
+      <div class="flex items-center gap-3 mb-4">
+        <span class="eyebrow">Internal Agent Tool</span>
+        <span class="inline-block px-3 py-1 rounded-full text-[10px] font-bold tracking-widest uppercase bg-red-50 text-red-600 border border-red-100">Not for Client Distribution</span>
+      </div>
+      <h1 class="text-3xl lg:text-4xl font-extrabold tracking-tight text-ink mb-3">Carrier Recommendation Engine</h1>
+      <p class="text-smoke text-[0.9375rem] leading-relaxed max-w-2xl">
+        Enter the prospect's profile below to identify eligible carriers and ranked product matches. All fields are used to determine underwriting eligibility, coverage tier, and product fit across FCPC's primary carrier portfolio.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ── Form + Results ── -->
+<section class="py-10 lg:py-14">
+  <div class="max-w-[1400px] mx-auto px-6 lg:px-12">
+    <div class="max-w-3xl mx-auto space-y-6">
+
+      <!-- ── Card 1: Client Profile ── -->
+      <div class="bg-white rounded-3xl border border-silver/60 shadow-card p-7 lg:p-8">
+        <p class="eyebrow mb-5">Client Profile</p>
+        <div class="grid grid-cols-2 gap-4">
+
+          <!-- Age -->
+          <div>
+            <label class="form-label" for="age">Age</label>
+            <input type="number" id="age" class="form-input" min="0" max="100" placeholder="e.g. 54" />
+          </div>
+
+          <!-- Employment -->
+          <div>
+            <label class="form-label" for="employment">Employment / Affiliation</label>
+            <select id="employment" class="form-input">
+              <option value="">— Select —</option>
+              <option value="federal">Federal Government Employee</option>
+              <option value="contractor">Government Contractor</option>
+              <option value="fedcu">Federal Credit Union Member</option>
+              <option value="private">Private Sector</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+
+          <!-- Gender -->
+          <div>
+            <label class="form-label">Gender</label>
+            <div class="flex gap-2">
+              <label class="radio-opt flex-1">
+                <input type="radio" name="gender" value="male" />
+                <span>Male</span>
+              </label>
+              <label class="radio-opt flex-1">
+                <input type="radio" name="gender" value="female" />
+                <span>Female</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Tobacco -->
+          <div>
+            <label class="form-label">Tobacco / Nicotine Use</label>
+            <div class="flex gap-2">
+              <label class="radio-opt flex-1">
+                <input type="radio" name="tobacco" value="yes" />
+                <span>Yes</span>
+              </label>
+              <label class="radio-opt flex-1">
+                <input type="radio" name="tobacco" value="no" checked />
+                <span>No</span>
+              </label>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ── Card 2: Physical Profile ── -->
+      <div class="bg-white rounded-3xl border border-silver/60 shadow-card p-7 lg:p-8">
+        <p class="eyebrow mb-5">Physical Profile</p>
+        <div class="grid grid-cols-2 gap-4">
+
+          <!-- Height -->
+          <div>
+            <label class="form-label">Height</label>
+            <div class="flex gap-2">
+              <select id="height-ft" class="form-input">
+                <option value="">ft</option>
+                <option value="4">4 ft</option>
+                <option value="5">5 ft</option>
+                <option value="6">6 ft</option>
+                <option value="7">7 ft</option>
+              </select>
+              <select id="height-in" class="form-input">
+                <option value="">in</option>
+                <option value="0">0 in</option>
+                <option value="1">1 in</option>
+                <option value="2">2 in</option>
+                <option value="3">3 in</option>
+                <option value="4">4 in</option>
+                <option value="5">5 in</option>
+                <option value="6">6 in</option>
+                <option value="7">7 in</option>
+                <option value="8">8 in</option>
+                <option value="9">9 in</option>
+                <option value="10">10 in</option>
+                <option value="11">11 in</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Weight -->
+          <div>
+            <label class="form-label" for="weight">Weight (lbs)</label>
+            <div class="flex gap-2 items-end">
+              <input type="number" id="weight" class="form-input" min="50" max="600" placeholder="e.g. 185" />
+              <div id="bmi-display" class="flex-shrink-0 px-3 py-[10px] rounded-xl bg-mist border border-silver text-xs font-bold text-smoke whitespace-nowrap hidden">
+                BMI <span id="bmi-value">—</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ── Card 3: Coverage Needs ── -->
+      <div class="bg-white rounded-3xl border border-silver/60 shadow-card p-7 lg:p-8">
+        <p class="eyebrow mb-5">Coverage Needs</p>
+        <div class="grid grid-cols-2 gap-4">
+
+          <div>
+            <label class="form-label" for="coverage-amount">Coverage Amount Sought</label>
+            <select id="coverage-amount" class="form-input">
+              <option value="">— Select —</option>
+              <option value="low">$5,000 – $50,000</option>
+              <option value="mid">$50,001 – $250,000</option>
+              <option value="high_mid">$250,001 – $500,000</option>
+              <option value="high">$500,001+</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="form-label" for="goal">Primary Goal</label>
+            <select id="goal" class="form-input">
+              <option value="">— Select —</option>
+              <option value="funeral">Funeral / Final Expenses</option>
+              <option value="legacy">Legacy Planning</option>
+              <option value="cashvalue">Cash Value Accumulation</option>
+              <option value="living">Living Benefits</option>
+              <option value="mortgage">Mortgage Protection</option>
+              <option value="income">Income Replacement</option>
+              <option value="business">Business Planning</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="form-label" for="product-type">Product Type</label>
+            <select id="product-type" class="form-input">
+              <option value="">— Select —</option>
+              <option value="term">Term Life</option>
+              <option value="wholelife">Whole Life</option>
+              <option value="iul">Indexed Universal Life (IUL)</option>
+            </select>
+          </div>
+
+          <!-- Term Duration — conditional -->
+          <div id="term-duration-wrap" style="display:none;">
+            <label class="form-label" for="term-duration">Term Duration</label>
+            <select id="term-duration" class="form-input">
+              <option value="">— Select —</option>
+              <option value="art">ART (Annual Renewable)</option>
+              <option value="10">10 Year</option>
+              <option value="20">20 Year</option>
+              <option value="30">30 Year</option>
+            </select>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ── Card 4: Underwriting Preferences ── -->
+      <div class="bg-white rounded-3xl border border-silver/60 shadow-card p-7 lg:p-8">
+        <p class="eyebrow mb-5">Underwriting Preferences</p>
+        <div>
+          <label class="form-label">Paramed Exam Preference</label>
+          <div class="grid grid-cols-2 gap-2">
+            <label class="radio-opt">
+              <input type="radio" name="paramed" value="avoid" />
+              <span>Yes — Avoid Paramed Exam</span>
+            </label>
+            <label class="radio-opt">
+              <input type="radio" name="paramed" value="no-pref" checked />
+              <span>No Preference</span>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── Card 5: Health History ── -->
+      <div class="bg-white rounded-3xl border border-silver/60 shadow-card p-7 lg:p-8">
+        <p class="eyebrow mb-2">Health History</p>
+        <p class="text-xs text-smoke leading-relaxed mb-5">
+          Check any condition the client has been <strong class="text-slate">diagnosed with, treated for, or prescribed medication for in the last 2 years</strong> (or that is currently present). Used for MassMutual eligibility screening and NLG underwriting track determination.
+        </p>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+
+          <label class="hx-opt is-danger" onclick="toggleHx(this)">
+            <input type="checkbox" class="health-checkbox" value="terminal" />
+            <span class="hx-label"><strong>Terminal Illness</strong> — life expectancy under 24 months</span>
+          </label>
+
+          <label class="hx-opt is-danger" onclick="toggleHx(this)">
+            <input type="checkbox" class="health-checkbox" value="hiv" />
+            <span class="hx-label"><strong>AIDS / HIV</strong> positive</span>
+          </label>
+
+          <label class="hx-opt" onclick="toggleHx(this)">
+            <input type="checkbox" class="health-checkbox" value="cancer" />
+            <span class="hx-label">Cancer (excluding basal cell skin cancer)</span>
+          </label>
+
+          <label class="hx-opt" onclick="toggleHx(this)">
+            <input type="checkbox" class="health-checkbox" value="heart" />
+            <span class="hx-label">Heart attack, coronary artery disease, valve disease, heart failure, or cardiomyopathy</span>
+          </label>
+
+          <label class="hx-opt" onclick="toggleHx(this)">
+            <input type="checkbox" class="health-checkbox" value="stroke" />
+            <span class="hx-label">Stroke or TIA (transient ischemic attack)</span>
+          </label>
+
+          <label class="hx-opt" onclick="toggleHx(this)">
+            <input type="checkbox" class="health-checkbox" value="copd" />
+            <span class="hx-label">COPD, emphysema, or chronic lung disease</span>
+          </label>
+
+          <label class="hx-opt" onclick="toggleHx(this)">
+            <input type="checkbox" class="health-checkbox" value="kidney" />
+            <span class="hx-label">Chronic kidney disease or kidney failure</span>
+          </label>
+
+          <label class="hx-opt" onclick="toggleHx(this)">
+            <input type="checkbox" class="health-checkbox" value="liver" />
+            <span class="hx-label">Cirrhosis or hepatitis (excluding Hepatitis A)</span>
+          </label>
+
+          <label class="hx-opt" onclick="toggleHx(this)">
+            <input type="checkbox" class="health-checkbox" value="parkinsons" />
+            <span class="hx-label">Parkinson's disease or paralysis</span>
+          </label>
+
+          <label class="hx-opt" onclick="toggleHx(this)">
+            <input type="checkbox" class="health-checkbox" value="alcohol" />
+            <span class="hx-label">Alcohol or drug abuse / dependency treatment</span>
+          </label>
+
+          <label class="hx-opt" onclick="toggleHx(this)">
+            <input type="checkbox" class="health-checkbox" value="diabetes_insulin" />
+            <span class="hx-label">Diabetes — insulin-dependent (Type 1 or insulin-treated Type 2)</span>
+          </label>
+
+          <label class="hx-opt" onclick="toggleHx(this)">
+            <input type="checkbox" class="health-checkbox" value="disabled" />
+            <span class="hx-label">Currently confined to a hospital, nursing home, or hospice facility</span>
+          </label>
+
+          <label class="hx-opt" onclick="toggleHx(this)">
+            <input type="checkbox" class="health-checkbox" value="diabetes_type2" />
+            <span class="hx-label">Type 2 diabetes (non-insulin, diet/oral medication managed)</span>
+          </label>
+
+          <label class="hx-opt" onclick="toggleHx(this)">
+            <input type="checkbox" class="health-checkbox" value="hypertension" />
+            <span class="hx-label">Hypertension (high blood pressure) — diagnosed or medicated</span>
+          </label>
+
+        </div>
+      </div>
+
+      <!-- ── Action Buttons ── -->
+      <div class="flex gap-3">
+        <button onclick="runEngine()" class="btn-forest flex-1 justify-center px-8 py-4 text-[0.9375rem]">
+          Run Carrier Match
+        </button>
+        <button onclick="resetForm()" class="btn-ghost px-7 py-4 text-sm">
+          ↺ Reset
+        </button>
+      </div>
+
+      <!-- ── Results Section ── -->
+      <div id="results-section">
+
+        <div class="flex items-center justify-between mb-5">
+          <h2 class="text-xl font-extrabold text-ink tracking-tight">Carrier Recommendations</h2>
+          <span id="results-count" class="text-xs font-bold text-forest bg-forest-50 border border-forest/20 px-3 py-1.5 rounded-full"></span>
+        </div>
+
+        <div id="results-container" class="space-y-5"></div>
+
+      </div>
+
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ── Footer ── -->
+<footer class="bg-[#111827]">
+  <div class="max-w-[1400px] mx-auto px-6 lg:px-12 pt-20 pb-14">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-8">
+      <div class="lg:col-span-4">
+        <img src="FCPC-Logo.webp" alt="Financial Crisis Prevention Center" class="h-9 w-auto object-contain brightness-0 invert mb-7" onerror="this.style.display='none';this.nextElementSibling.style.display='block';" />
+        <span style="display:none" class="block font-serif font-bold text-white text-xl mb-7">FCPC</span>
+        <p class="text-white/45 text-sm leading-[1.8] max-w-[290px] mb-8">Helping federal employees, families, and retirees build lasting financial security through education, not pressure — since 1985.</p>
+        <div class="space-y-3">
+          <div class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded-lg bg-white/[0.06] flex items-center justify-center flex-shrink-0">
+              <svg class="w-3.5 h-3.5 text-white/40" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+            </div>
+            <span class="text-white/40 text-xs">Washington, DC Metro Area · Licensed Nationally</span>
+          </div>
+          <div class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded-lg bg-white/[0.06] flex items-center justify-center flex-shrink-0">
+              <svg class="w-3.5 h-3.5 text-white/40" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+            </div>
+            <a href="tel:+18005553272" class="text-white/40 text-xs hover:text-[#19634F] transition-colors">(800) 555-FCPC</a>
+          </div>
+          <div class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded-lg bg-white/[0.06] flex items-center justify-center flex-shrink-0">
+              <svg class="w-3.5 h-3.5 text-white/40" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+            </div>
+            <a href="mailto:info@fcpcusa.com" class="text-white/40 text-xs hover:text-[#19634F] transition-colors">info@fcpcusa.com</a>
+          </div>
+        </div>
+      </div>
+      <div class="lg:col-span-2">
+        <p class="text-[10.5px] font-bold tracking-[0.15em] uppercase text-white/30 mb-5">Company</p>
+        <ul class="space-y-3.5">
+          <li><a href="about.html"             class="group flex items-center gap-2 text-sm font-medium hover:text-[#19634F] transition-colors" style="color:rgba(226,232,240,0.60);"><span class="w-1 h-1 rounded-full bg-current opacity-40 flex-shrink-0 group-hover:opacity-100 transition-opacity"></span> About</a></li>
+          <li><a href="agent-opportunity.html" class="group flex items-center gap-2 text-sm font-medium hover:text-[#19634F] transition-colors" style="color:rgba(226,232,240,0.60);"><span class="w-1 h-1 rounded-full bg-current opacity-40 flex-shrink-0 group-hover:opacity-100 transition-opacity"></span> Agent Opportunity</a></li>
+          <li><a href="find-agent.html"        class="group flex items-center gap-2 text-sm font-medium hover:text-[#19634F] transition-colors" style="color:rgba(226,232,240,0.60);"><span class="w-1 h-1 rounded-full bg-current opacity-40 flex-shrink-0 group-hover:opacity-100 transition-opacity"></span> Find My Agent</a></li>
+          <li><a href="contact.html"           class="group flex items-center gap-2 text-sm font-medium hover:text-[#19634F] transition-colors" style="color:rgba(226,232,240,0.60);"><span class="w-1 h-1 rounded-full bg-current opacity-40 flex-shrink-0 group-hover:opacity-100 transition-opacity"></span> Contact Us</a></li>
+        </ul>
+      </div>
+      <div class="lg:col-span-2">
+        <p class="text-[10.5px] font-bold tracking-[0.15em] uppercase text-white/30 mb-5">Solutions</p>
+        <ul class="space-y-3.5">
+          <li><a href="solutions/life-insurance.html"      class="group flex items-center gap-2 text-sm font-medium hover:text-[#19634F] transition-colors" style="color:rgba(226,232,240,0.60);"><span class="w-1 h-1 rounded-full bg-current opacity-40 flex-shrink-0 group-hover:opacity-100 transition-opacity"></span> Life Insurance</a></li>
+          <li><a href="solutions/indexed-annuities.html"   class="group flex items-center gap-2 text-sm font-medium hover:text-[#19634F] transition-colors" style="color:rgba(226,232,240,0.60);"><span class="w-1 h-1 rounded-full bg-current opacity-40 flex-shrink-0 group-hover:opacity-100 transition-opacity"></span> Indexed Annuities</a></li>
+          <li><a href="solutions/final-expense.html"       class="group flex items-center gap-2 text-sm font-medium hover:text-[#19634F] transition-colors" style="color:rgba(226,232,240,0.60);"><span class="w-1 h-1 rounded-full bg-current opacity-40 flex-shrink-0 group-hover:opacity-100 transition-opacity"></span> Final Expense</a></li>
+          <li><a href="solutions/supplemental-health.html" class="group flex items-center gap-2 text-sm font-medium hover:text-[#19634F] transition-colors" style="color:rgba(226,232,240,0.60);"><span class="w-1 h-1 rounded-full bg-current opacity-40 flex-shrink-0 group-hover:opacity-100 transition-opacity"></span> Supplemental Health</a></li>
+        </ul>
+      </div>
+      <div class="lg:col-span-3">
+        <p class="text-[10.5px] font-bold tracking-[0.15em] uppercase text-white/30 mb-5">Resources</p>
+        <ul class="space-y-3.5">
+          <li><a href="blog.html"        class="group flex items-center gap-2 text-sm font-medium hover:text-[#19634F] transition-colors" style="color:rgba(226,232,240,0.60);"><span class="w-1 h-1 rounded-full bg-current opacity-40 flex-shrink-0 group-hover:opacity-100 transition-opacity"></span> Blog &amp; Articles</a></li>
+          <li><a href="guides.html"      class="group flex items-center gap-2 text-sm font-medium hover:text-[#19634F] transition-colors" style="color:rgba(226,232,240,0.60);"><span class="w-1 h-1 rounded-full bg-current opacity-40 flex-shrink-0 group-hover:opacity-100 transition-opacity"></span> Free Guides</a></li>
+          <li><a href="calculators.html" class="group flex items-center gap-2 text-sm font-medium hover:text-[#19634F] transition-colors" style="color:rgba(226,232,240,0.60);"><span class="w-1 h-1 rounded-full bg-current opacity-40 flex-shrink-0 group-hover:opacity-100 transition-opacity"></span> Calculators</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="border-t border-white/[0.07]">
+    <div class="max-w-[1400px] mx-auto px-6 lg:px-12 py-10">
+      <div class="max-w-4xl">
+        <p class="text-white/22 text-[11px] leading-[1.9] mb-2"><strong class="text-white/32">Educational Disclaimer:</strong> All content on this website is for general educational and informational purposes only and does not constitute individualized insurance, financial, tax, legal, or investment advice. FCPC agents are independent licensed insurance professionals. Product availability, premiums, and benefits vary by state, carrier, age, and health status. All products subject to carrier underwriting approval.</p>
+        <p class="text-white/22 text-[11px] leading-[1.9] mb-2"><strong class="text-white/32">Government Employee Disclaimer:</strong> The Financial Crisis Prevention Center is not affiliated with, endorsed by, or approved by OPM, any federal agency, or the District of Columbia government. Always verify current benefit information directly with your HR office or official government publications.</p>
+        <p class="text-white/22 text-[11px] leading-[1.9]"><strong class="text-white/32">Insurance Products:</strong> Not bank deposits. Not FDIC insured. Not guaranteed by any bank. Fixed and indexed annuities are insurance contracts, not securities, and are not regulated by the SEC or FINRA.</p>
+      </div>
+    </div>
+  </div>
+  <div class="border-t border-white/[0.05]">
+    <div class="max-w-[1400px] mx-auto px-6 lg:px-12 py-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+      <p class="text-white/20 text-[11px]">© 2026 The Financial Crisis Prevention Center (FCPC). All rights reserved.</p>
+      <div class="flex items-center gap-5">
+        <a href="privacy.html" class="text-white/25 text-[11px] hover:text-[#19634F] transition-colors">Privacy Policy</a>
+        <span class="text-white/10 text-[11px]">·</span>
+        <a href="terms.html"   class="text-white/25 text-[11px] hover:text-[#19634F] transition-colors">Terms &amp; Conditions</a>
+        <span class="text-white/10 text-[11px]">·</span>
+        <a href="sitemap.xml"  class="text-white/25 text-[11px] hover:text-[#19634F] transition-colors">Sitemap</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+'use strict';
+
+// ── DOM init ─────────────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', () => {
+  // Mobile nav
+  const mobBtn  = document.getElementById('mob-btn');
+  const mobMenu = document.getElementById('mob-menu');
+  if (mobBtn && mobMenu) mobBtn.addEventListener('click', () => mobMenu.classList.toggle('hidden'));
+
+  // Term duration conditional
+  document.getElementById('product-type').addEventListener('change', e => {
+    document.getElementById('term-duration-wrap').style.display = e.target.value === 'term' ? 'block' : 'none';
+  });
+
+  // BMI live calculation
+  ['height-ft','height-in','weight'].forEach(id => {
+    document.getElementById(id).addEventListener('input', updateBMI);
+  });
+});
+
+function updateBMI() {
+  const ft  = parseInt(document.getElementById('height-ft').value, 10) || 0;
+  const ins = parseInt(document.getElementById('height-in').value, 10) || 0;
+  const wt  = parseInt(document.getElementById('weight').value, 10)    || 0;
+  const totalIn = ft * 12 + ins;
+  const display = document.getElementById('bmi-display');
+  if (totalIn > 0 && wt > 0) {
+    const bmi = ((wt / (totalIn * totalIn)) * 703).toFixed(1);
+    document.getElementById('bmi-value').textContent = bmi;
+    display.classList.remove('hidden');
+  } else {
+    display.classList.add('hidden');
+  }
+}
+
+function toggleHx(labelEl) {
+  const cb = labelEl.querySelector('input[type="checkbox"]');
+  setTimeout(() => labelEl.classList.toggle('hx-checked', cb.checked), 10);
+}
+
+// ── Profile reader ────────────────────────────────────────────────────
+function readProfile() {
+  const age        = parseInt(document.getElementById('age').value, 10) || 0;
+  const gender     = document.querySelector('input[name="gender"]:checked')?.value || '';
+  const tobacco    = document.querySelector('input[name="tobacco"]:checked')?.value || 'no';
+  const employment = document.getElementById('employment').value;
+  const paramed    = document.querySelector('input[name="paramed"]:checked')?.value || 'no-pref';
+  const coverageAmount = document.getElementById('coverage-amount').value;
+  const goal       = document.getElementById('goal').value;
+  const productType = document.getElementById('product-type').value;
+  const termDuration = document.getElementById('term-duration').value;
+
+  const ft  = parseInt(document.getElementById('height-ft').value, 10) || 0;
+  const ins = parseInt(document.getElementById('height-in').value, 10) || 0;
+  const wt  = parseInt(document.getElementById('weight').value, 10)    || 0;
+  const totalIn = ft * 12 + ins;
+  const bmi = totalIn > 0 && wt > 0 ? (wt / (totalIn * totalIn)) * 703 : 0;
+
+  const conditions = [];
+  document.querySelectorAll('.health-checkbox:checked').forEach(cb => {
+    if (cb.value && !conditions.includes(cb.value)) conditions.push(cb.value);
+  });
+
+  // Convenience flags
+  const hasTerminal  = conditions.includes('terminal');
+  const hasHIV       = conditions.includes('hiv');
+  const hasDisabled  = conditions.includes('disabled');
+
+  // MassMutual 10-condition screen
+  const MM10 = ['cancer','alcohol','diabetes_insulin','heart','stroke','copd','liver','parkinsons','kidney','hiv'];
+  const hasMM10 = MM10.some(c => conditions.includes(c));
+
+  // NLG "serious" conditions (rule out simplified/accelerated tracks)
+  const NLG_SERIOUS = ['cancer','alcohol','diabetes_insulin','heart','stroke','copd','liver','parkinsons','kidney','disabled'];
+  const hasNLGSerious = NLG_SERIOUS.some(c => conditions.includes(c));
+
+  const isFederal      = employment === 'federal';
+  const isContractor   = employment === 'contractor';
+  const isFedCU        = employment === 'fedcu';
+  const isPrivate      = employment === 'private' || employment === 'other';
+  const isMassMutualEligible = isFederal || isContractor;
+  const isGlobeEligible      = isFederal || isContractor || isFedCU;
+  const hasAnyCondition      = conditions.length > 0;
+
+  return {
+    age, gender, tobacco, employment, paramed, coverageAmount, goal,
+    productType, termDuration, bmi,
+    conditions, hasTerminal, hasHIV, hasDisabled,
+    hasMM10, hasNLGSerious, hasAnyCondition,
+    isFederal, isContractor, isFedCU, isPrivate,
+    isMassMutualEligible, isGlobeEligible
+  };
+}
+
+// ── NLG evaluator ─────────────────────────────────────────────────────
+function evalNLG(p) {
+  if (p.hasHIV || p.hasTerminal) return null;
+  if (p.age > 85) return null;
+
+  const reasons = [], warnings = [];
+  let score, pill, pillLabel, track;
+
+  // Coverage in RapidProtect range: $50K–$500K
+  const rpCovOK = p.coverageAmount === 'mid' || p.coverageAmount === 'high_mid';
+
+  if (!p.hasNLGSerious && rpCovOK && p.age >= 0 && p.age <= 60) {
+    track     = 'RapidProtect (Simplified Issue)';
+    score     = 100;
+    pill      = 'preferred';
+    pillLabel = 'Preferred — Simplified';
+    reasons.push('Qualifies for RapidProtect simplified issue — instant approval decision, no paramed exam required.');
+    reasons.push('Fastest placement path in the FCPC portfolio; ideal for time-sensitive clients.');
+  } else if (!p.hasNLGSerious && p.age >= 18 && p.age <= 65) {
+    track     = 'EZ Underwriting (Accelerated)';
+    score     = 88;
+    pill      = 'preferred';
+    pillLabel = 'Preferred — Accelerated';
+    reasons.push('Eligible for EZ Underwriting — accelerated approval track, paramed exam waived if criteria are met.');
+  } else {
+    track = 'Full Underwriting';
+    if (p.hasNLGSerious) {
+      score     = 65;
+      pill      = 'alternative';
+      pillLabel = 'Alternative — Full UW';
+      reasons.push('Full underwriting required — NLG is uniquely positioned to consider complex health histories that rule out simplified and accelerated tracks.');
+      warnings.push('Serious health condition(s) detected. Rate class and final approval are subject to home office review. A rating, exclusion rider, or table premium may apply.');
+    } else {
+      score     = 76;
+      pill      = 'standard';
+      pillLabel = 'Standard — Full UW';
+      reasons.push('Full underwriting track — comprehensive medical review with competitive rate classes for qualified risks.');
+    }
+  }
+
+  // Age 65+ paramed requirement
+  if (p.age >= 65) {
+    warnings.push('Age 65 or older: a paramed exam is required for all NLG applicants regardless of product type, coverage amount, or underwriting track.');
+    if (p.paramed === 'avoid') score -= 5;
+  } else if (p.paramed === 'avoid' && track !== 'RapidProtect (Simplified Issue)' && track !== 'EZ Underwriting (Accelerated)') {
+    warnings.push('Paramed avoidance preferred but full underwriting for this profile requires a paramed exam. Consider RapidProtect-eligible products if possible.');
+  }
+
+  // Tobacco
+  if (p.tobacco === 'yes') {
+    warnings.push('Tobacco/nicotine use: tobacco rate class applies. Clients who have ceased use for 12+ months may qualify for non-tobacco rates — confirm cessation date.');
+    score -= 5;
+  }
+
+  // BMI flag
+  if (p.bmi > 40) {
+    warnings.push('High BMI noted (' + p.bmi.toFixed(1) + '). Carrier build chart may result in a table rating. Confirm with home office prior to submission.');
+    score -= 5;
+  }
+
+  // Goal-based strengths
+  if (p.goal === 'living') {
+    reasons.push('Living benefits included at no additional cost — critical illness, chronic illness, and terminal illness accelerated benefits built into every policy.');
+    score += 5;
+  }
+  if (p.goal === 'cashvalue' || p.productType === 'iul') {
+    reasons.push('Multiple indexed strategies (fixed, participation rate, cap-based) support tax-advantaged cash value accumulation.');
+  }
+  if (p.goal === 'legacy' || p.coverageAmount === 'high') {
+    reasons.push('High face amounts up to $5M+ accommodate legacy, estate, and business continuation planning.');
+  }
+
+  // NLG is always first and the preferred carrier
+  reasons.unshift('NLG is FCPC\'s #1 preferred carrier — open to all, ages 0–85, three underwriting tracks available.');
+
+  // Product guidance
+  let products;
+  if (p.productType === 'iul') {
+    products = (track === 'RapidProtect (Simplified Issue)') ? 'RapidProtect IUL' : 'FlexLife IUL / SummitLife / PeakLife NL';
+  } else if (p.productType === 'term') {
+    products = 'NLG Term Life (10 / 20 / 30-Year Level Term)';
+  } else if (p.productType === 'wholelife') {
+    products = p.coverageAmount === 'low' ? 'BasicSecure Whole Life' : 'TotalSecure Whole Life';
+  } else {
+    products = 'FlexLife IUL / TotalSecure WL / Term Life — all product lines available';
+  }
+
+  return {
+    name: 'National Life Group (NLG)',
+    logo: 'images/carriers/nlg.webp',
+    score, pill, pillLabel, track,
+    reasons, warnings, products,
+    faceAmounts: '$50,000 – $5M+',
+    ageRange: '0 – 85',
+    underwriting: track,
+    eligibility: 'Open to All'
+  };
+}
+
+// ── MassMutual evaluator ──────────────────────────────────────────────
+function evalMassMutual(p) {
+  if (!p.isMassMutualEligible) return null;
+  if (p.age < 18 || p.age > 75) return null;
+  if (p.hasTerminal) return null;
+
+  // MassMutual 10-condition knockouts
+  const MM10_DECLINES = ['cancer','alcohol','diabetes_insulin','heart','stroke','copd','liver','parkinsons','kidney','hiv'];
+  if (MM10_DECLINES.some(c => p.conditions.includes(c))) return null;
+
+  const reasons = [], warnings = [];
+  let score = 75;
+
+  reasons.push('Eligible for MassMutual@WORK Group Whole Life — exclusively available to federal employees and government contractors.');
+  reasons.push('Simplified issue underwriting — no paramed exam, no blood draw, no physician statements required.');
+
+  if (p.isFederal) {
+    reasons.push('Federal employee: seamless group enrollment workflow through agency HR or open season.');
+    score += 5;
+  }
+  if (p.conditions.includes('diabetes_type2')) {
+    warnings.push('Type 2 diabetes (non-insulin): not a listed MassMutual knockout, but full disclosure is required on the application. Underwriter review may apply.');
+  }
+  if (p.conditions.includes('hypertension')) {
+    warnings.push('Hypertension: not a knockout provided it is actively managed and controlled. Disclose all current medications.');
+  }
+  if (p.tobacco === 'yes') {
+    warnings.push('Tobacco rates apply. Separate tobacco and non-tobacco premium schedules are available — confirm with client.');
+    score -= 5;
+  }
+  if (p.coverageAmount === 'high') {
+    warnings.push('Coverage requested ($500,001+) exceeds the MassMutual@WORK maximum of $150,000. Pair with NLG for the coverage gap.');
+    score -= 10;
+  }
+
+  return {
+    name: 'MassMutual',
+    logo: 'images/carriers/massmutual.webp',
+    score, pill: 'standard', pillLabel: 'Standard — Simplified Issue', track: 'Simplified Issue',
+    reasons, warnings,
+    products: 'MassMutual@WORK Group Whole Life',
+    faceAmounts: '$25,000 – $150,000',
+    ageRange: '18 – 75',
+    underwriting: 'Simplified Issue (No Paramed)',
+    eligibility: 'Federal Employees & Gov. Contractors'
+  };
+}
+
+// ── Globe Life evaluator ──────────────────────────────────────────────
+function evalGlobe(p) {
+  if (!p.isGlobeEligible) return null;
+  if (p.age > 75) return null;
+  if (p.hasHIV || p.hasTerminal) return null;
+
+  const reasons = [], warnings = [];
+  const isGraded = p.hasAnyCondition;
+  let score = isGraded ? 55 : 68;
+
+  reasons.push('Eligible through federal employment or affiliation — Globe Life ESD provides near-guaranteed issue life coverage.');
+
+  if (isGraded) {
+    warnings.push('GRADED DEATH BENEFIT: Health conditions present. Death benefit pays 25% (Year 1) → 50% (Year 2) → 75% (Year 3) → 100% (Year 4+). Accidental death pays the full benefit amount immediately from day one.');
+    reasons.push('Health conditions present — graded issue still provides life insurance protection where many standard carriers would fully decline.');
+  } else {
+    reasons.push('No disqualifying health conditions detected — standard full death benefit from policy effective date.');
+    score = 68;
+  }
+
+  reasons.push('Terminal Illness Accelerated Benefit rider included at no additional cost: 50% of face amount payable upon diagnosis of terminal illness with a 12-month life expectancy.');
+
+  if (p.isFederal) {
+    reasons.push('Federal employee: natural fit for Globe Life ESD group enrollment through federal workplace benefits.');
+    score += 5;
+  }
+  if (p.isFedCU) {
+    reasons.push('Federal credit union member: eligible through FCUA group purchasing arrangement.');
+    score += 5;
+  }
+  if (p.coverageAmount === 'high' || p.coverageAmount === 'high_mid') {
+    warnings.push('Coverage requested may exceed the Globe Life maximum of $150,000. Pair with NLG or another carrier to meet the full coverage need.');
+    score -= 5;
+  }
+
+  return {
+    name: 'Globe Life (ESD)',
+    logo: 'images/carriers/globe-life.webp',
+    score,
+    pill: isGraded ? 'graded' : 'standard',
+    pillLabel: isGraded ? 'Graded Issue' : 'Standard Issue',
+    track: isGraded ? 'Graded Issue' : 'Standard Issue',
+    reasons, warnings,
+    products: 'Group Term Life / Group Whole Life',
+    faceAmounts: '$5,000 – $150,000',
+    ageRange: '0 – 75',
+    underwriting: 'Near Guaranteed Issue',
+    eligibility: 'Federal / Gov. Contractors / Fed. Credit Union'
+  };
+}
+
+// ── LCBA evaluator ────────────────────────────────────────────────────
+function evalLCBA(p) {
+  if (p.age > 85) return null;
+  if (p.hasTerminal) return null;
+
+  // Only surface LCBA when it adds value
+  const isHighAge    = p.age >= 76;
+  const noOtherAccess = p.isPrivate && !p.isGlobeEligible && !p.isMassMutualEligible;
+  const isHIVFallback = p.hasHIV;
+  const hasConditions = p.conditions.filter(c => c !== 'terminal').length > 0;
+
+  if (!hasConditions && !isHighAge && !noOtherAccess && !isHIVFallback) return null;
+
+  const reasons = [], warnings = [];
+  let score = 45;
+
+  reasons.push('LCBA is FCPC\'s final expense and hard-to-place carrier — designed for prospects who cannot qualify for standard coverage elsewhere.');
+
+  if (isHIVFallback) {
+    reasons.push('HIV positive: most carriers issue a hard decline. LCBA graded/GI options may still provide coverage for this client.');
+    warnings.push('HIV status requires full disclosure on the application. A graded death benefit will apply.');
+    score += 20;
+  }
+  if (isHighAge) {
+    reasons.push('Age 76–85: very few carriers accept new applicants in this age range — LCBA is one of the only viable options.');
+    score += 15;
+  }
+  if (hasConditions && !isHIVFallback) {
+    reasons.push('Health conditions present: LCBA provides an important safety net for clients who are rated out or declined by other carriers.');
+    score += 10;
+  }
+  if (noOtherAccess) {
+    reasons.push('Private sector employment: no MassMutual or Globe Life ESD access available. LCBA is the key fallback for this profile.');
+    score += 10;
+  }
+  if (p.isFederal || p.isFedCU) {
+    reasons.push('Federal / credit union affiliation: LCBA maintains strong relationships with government and civic associations.');
+    score += 8;
+  }
+  if (p.goal === 'funeral' || p.coverageAmount === 'low') {
+    reasons.push('Final expense / burial goal: LCBA face amounts ($5,000–$50,000) align precisely with this coverage need.');
+    score += 8;
+  }
+
+  warnings.push('LCBA is positioned as a final expense and hard-to-place carrier. Maximum face amount is $50,000. Not appropriate as a primary carrier for income replacement or legacy planning.');
+
+  return {
+    name: 'LCBA',
+    logo: 'images/carriers/lcba.webp',
+    score,
+    pill: 'fallback',
+    pillLabel: 'Final Expense / Fallback',
+    track: 'Simplified / Guaranteed Issue',
+    reasons, warnings,
+    products: 'Final Expense Whole Life / Graded Issue WL',
+    faceAmounts: '$5,000 – $50,000',
+    ageRange: '0 – 85',
+    underwriting: 'Simplified / GI',
+    eligibility: 'Open to All'
+  };
+}
+
+// ── Main engine ───────────────────────────────────────────────────────
+function runEngine() {
+  const p = readProfile();
+
+  if (!p.age || p.age < 1) { alert('Please enter the client\'s age.'); return; }
+  if (!p.gender)            { alert('Please select a gender.');          return; }
+
+  const recs = [evalNLG(p), evalMassMutual(p), evalGlobe(p), evalLCBA(p)].filter(Boolean);
+  recs.sort((a, b) => b.score - a.score);
+  renderResults(recs);
+}
+
+// ── Render results ────────────────────────────────────────────────────
+function renderResults(recs) {
+  const container = document.getElementById('results-container');
+  const section   = document.getElementById('results-section');
+  const countEl   = document.getElementById('results-count');
+  container.innerHTML = '';
+
+  if (recs.length === 0) {
+    countEl.textContent = '0 carriers eligible';
+    container.innerHTML = `
+      <div class="bg-white rounded-3xl border border-red-100 shadow-card p-8 text-center">
+        <div class="w-12 h-12 bg-red-50 rounded-2xl flex items-center justify-center mx-auto mb-4 text-2xl">⚠️</div>
+        <h3 class="text-lg font-bold text-ink mb-2">No Eligible Carriers Found</h3>
+        <p class="text-smoke text-sm leading-relaxed max-w-md mx-auto">
+          Based on this profile — terminal illness diagnosis, age over 85, or a combination of hard-decline conditions — no carrier in the current FCPC portfolio can issue coverage. Contact the home office underwriting desk for manual review or specialty market referral.
+        </p>
+      </div>`;
+  } else {
+    countEl.textContent = `${recs.length} eligible carrier${recs.length > 1 ? 's' : ''} identified`;
+    recs.forEach((rec, idx) => {
+      const rankClass = idx === 0 ? 'rank-1' : idx === 1 ? 'rank-2' : 'rank-other';
+      const reasonsHtml  = rec.reasons.map(r  => `<li>${r}</li>`).join('');
+      const warningsHtml = rec.warnings.length
+        ? `<div class="mt-3 bg-amber-50 border border-amber-100 rounded-2xl px-4 py-3">
+             <ul class="warning-list list-none space-y-1">${rec.warnings.map(w => `<li>${w}</li>`).join('')}</ul>
+           </div>`
+        : '';
+
+      container.innerHTML += `
+        <div class="carrier-card ${rankClass}">
+          <div class="p-6 lg:p-7">
+            <!-- Top row -->
+            <div class="flex items-start justify-between gap-4 mb-5">
+              <div class="flex items-center gap-3">
+                <div class="rank-badge ${rankClass}">${idx + 1}</div>
+                <div>
+                  <div class="font-extrabold text-ink text-[1.0625rem] leading-tight">${rec.name}</div>
+                  <div class="text-smoke text-xs mt-0.5">${rec.track}</div>
+                </div>
+              </div>
+              <span class="pill pill-${rec.pill} mt-0.5">${rec.pillLabel}</span>
+            </div>
+
+            <!-- Reasons -->
+            <ul class="reason-list list-none space-y-0.5 mb-3">${reasonsHtml}</ul>
+
+            <!-- Warnings -->
+            ${warningsHtml}
+
+            <!-- Meta strip -->
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-5 pt-5 border-t border-silver/60">
+              <div>
+                <div class="text-[10px] font-bold uppercase tracking-widest text-smoke mb-1">Face Amounts</div>
+                <div class="text-sm font-semibold text-slate">${rec.faceAmounts}</div>
+              </div>
+              <div>
+                <div class="text-[10px] font-bold uppercase tracking-widest text-smoke mb-1">Age Range</div>
+                <div class="text-sm font-semibold text-slate">${rec.ageRange}</div>
+              </div>
+              <div>
+                <div class="text-[10px] font-bold uppercase tracking-widest text-smoke mb-1">Underwriting</div>
+                <div class="text-sm font-semibold text-slate">${rec.underwriting}</div>
+              </div>
+              <div>
+                <div class="text-[10px] font-bold uppercase tracking-widest text-smoke mb-1">Eligibility</div>
+                <div class="text-sm font-semibold text-slate">${rec.eligibility}</div>
+              </div>
+            </div>
+
+            <!-- Products -->
+            <div class="mt-3 pt-3 border-t border-silver/60">
+              <span class="text-[10px] font-bold uppercase tracking-widest text-smoke">Recommended Products: </span>
+              <span class="text-xs font-semibold text-forest">${rec.products}</span>
+            </div>
+          </div>
+        </div>`;
+    });
+  }
+
+  section.classList.add('visible');
+  section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+// ── Reset ─────────────────────────────────────────────────────────────
+function resetForm() {
+  document.getElementById('age').value         = '';
+  document.getElementById('weight').value      = '';
+  document.getElementById('height-ft').value   = '';
+  document.getElementById('height-in').value   = '';
+  document.getElementById('employment').value  = '';
+  document.getElementById('coverage-amount').value = '';
+  document.getElementById('goal').value        = '';
+  document.getElementById('product-type').value = '';
+  document.getElementById('term-duration').value = '';
+  document.getElementById('bmi-display').classList.add('hidden');
+  document.getElementById('term-duration-wrap').style.display = 'none';
+
+  document.querySelectorAll('input[name="gender"]').forEach(r => r.checked = false);
+  document.querySelectorAll('input[name="paramed"]').forEach(r => { r.checked = r.value === 'no-pref'; });
+  document.querySelectorAll('input[name="tobacco"]').forEach(r => { r.checked = r.value === 'no'; });
+
+  document.querySelectorAll('.health-checkbox').forEach(cb => { cb.checked = false; });
+  document.querySelectorAll('.hx-opt').forEach(el => el.classList.remove('hx-checked'));
+
+  const section = document.getElementById('results-section');
+  section.classList.remove('visible');
+  document.getElementById('results-container').innerHTML = '';
+  document.getElementById('results-count').textContent = '';
+
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+</body>
+</html>

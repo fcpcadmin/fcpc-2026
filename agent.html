@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title id="page-title">FCPC Licensed Advisor — Financial Crisis Prevention Center</title>
+  <meta name="description" content="Connect with your FCPC licensed advisor. Schedule a consultation and start building your family's financial security today." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,700;0,800;1,700&display=swap" rel="stylesheet" />
+
+  <script>
+    tailwind = { config: { theme: { extend: {
+      colors: {
+        forest: { dark: '#0B3226', DEFAULT: '#19634F', mid: '#22896C', light: '#2AB08A', 50: '#F0FDF8' },
+        gold:   { DEFAULT: '#D4AF37', dark: '#B8960F', light: '#EAC84A', pale: '#FDFAEE' },
+        ink:    '#1A202C',
+        slate:  '#2D3748',
+        mist:   '#F7FAFC',
+        silver: '#E2E8F0',
+        smoke:  '#64748B',
+      },
+      fontFamily: {
+        sans:  ['Inter', 'system-ui', 'sans-serif'],
+        serif: ['Playfair Display', 'Georgia', 'serif'],
+      },
+      boxShadow: {
+        'gold':    '0 4px 24px rgba(212,175,55,0.35)',
+        'card':    '0 8px 40px rgba(0,0,0,0.05)',
+        'card-lg': '0 20px 60px rgba(0,0,0,0.09)',
+        'nav':     '0 2px 32px rgba(0,0,0,0.07)',
+      },
+    }}}}
+  </script>
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', system-ui, sans-serif; -webkit-font-smoothing: antialiased; color: #1A202C; background: #fff; }
+
+    .nav-item {
+      font-size: 0.875rem; font-weight: 600; color: #2D3748;
+      padding: 8px 14px; border-radius: 10px;
+      transition: color 0.15s, background 0.15s;
+      white-space: nowrap; text-decoration: none;
+    }
+    .nav-item:hover { color: #19634F; background: rgba(25,99,79,0.07); }
+    .has-drop { position: relative; }
+    .has-drop .drop { display: none; }
+    .has-drop:hover .drop { display: block; animation: fadeUp 0.16s ease; }
+    @keyframes fadeUp { from { opacity:0; transform:translateY(6px); } to { opacity:1; transform:translateY(0); } }
+    @media (max-width: 1023px) { .desk-nav { display: none !important; } }
+    @media (min-width: 1024px) { #mob-menu { display: none !important; } #mob-btn { display: none !important; } }
+
+    .btn-gold {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: linear-gradient(135deg, #DDB84E 0%, #C9A52A 100%);
+      color: #1A202C; font-weight: 700; border-radius: 999px;
+      transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+      box-shadow: 0 4px 20px rgba(212,175,55,0.38), 0 1px 2px rgba(0,0,0,0.08);
+      text-decoration: none; white-space: nowrap;
+    }
+    .btn-gold:hover { transform: scale(1.04) translateY(-1px); background: linear-gradient(135deg, #E8C84A 0%, #C9A52A 100%); box-shadow: 0 8px 32px rgba(212,175,55,0.45), 0 0 22px rgba(221,186,78,0.38); }
+
+    .btn-forest {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: linear-gradient(135deg, #22896C 0%, #19634F 100%);
+      color: #fff; font-weight: 700; border-radius: 999px;
+      transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+      box-shadow: 0 4px 16px rgba(25,99,79,0.28);
+      text-decoration: none; white-space: nowrap;
+    }
+    .btn-forest:hover { transform: scale(1.04) translateY(-1px); background: linear-gradient(135deg, #22896C 0%, #0B3226 100%); box-shadow: 0 8px 28px rgba(25,99,79,0.38); }
+
+    .btn-ghost {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: transparent; color: #2D3748;
+      font-weight: 600; border-radius: 999px;
+      border: 1.5px solid #DDE3EC;
+      transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+      text-decoration: none; white-space: nowrap;
+    }
+    .btn-ghost:hover { border-color: #19634F; background: rgba(25,99,79,0.05); color: #19634F; transform: translateY(-1px); }
+
+    /* Badge pill */
+    .badge-pill {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 5px 12px; border-radius: 999px;
+      font-size: 0.75rem; font-weight: 600; line-height: 1;
+      background: rgba(25,99,79,0.07);
+      border: 1px solid rgba(25,99,79,0.13);
+      color: #19634F;
+      white-space: nowrap;
+    }
+    .badge-state {
+      background: rgba(212,175,55,0.08);
+      border-color: rgba(212,175,55,0.22);
+      color: #8A6B10;
+    }
+
+    /* Profile image shimmer while loading */
+    #agent-image { transition: opacity 0.4s ease; }
+    #agent-image.loading { opacity: 0; }
+
+    /* Calendar CTA */
+    #agent-calendar {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 16px 32px;
+      background: linear-gradient(135deg, #DDB84E 0%, #C9A52A 100%);
+      color: #1A202C; font-weight: 700; font-size: 0.9375rem;
+      border-radius: 999px; text-decoration: none;
+      box-shadow: 0 4px 20px rgba(212,175,55,0.38), 0 1px 2px rgba(0,0,0,0.08);
+      transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+      cursor: pointer; border: none; font-family: inherit;
+    }
+    #agent-calendar:hover { transform: scale(1.04) translateY(-1px); box-shadow: 0 8px 32px rgba(212,175,55,0.48); }
+  </style>
+</head>
+<body>
+
+<!-- ── ANNOUNCEMENT BAR ───────────────────────────────────────────────── -->
+<div style="background: linear-gradient(90deg,#0B3226 0%,#19634F 50%,#0B3226 100%);" class="py-2.5 px-4 text-center">
+  <p class="text-white/80 text-[13px] font-medium tracking-wide">
+    Protect your family with a personalized life insurance quote — at no cost.
+    <a href="get-quote.html" class="text-gold font-bold underline underline-offset-2 hover:text-gold-light ml-2 transition-colors">Start Now →</a>
+  </p>
+</div>
+
+<!-- ── STICKY NAV ─────────────────────────────────────────────────────── -->
+<header id="site-nav" class="sticky top-0 z-50 bg-white/75 backdrop-blur-xl border-b border-black/[0.06] transition-shadow duration-300">
+  <div class="max-w-[1400px] mx-auto px-6 lg:px-12 flex items-center h-[72px] gap-8">
+
+    <a href="index.html" class="flex-shrink-0">
+      <img src="FCPC-Logo.webp" alt="Financial Crisis Prevention Center" class="h-10 w-auto object-contain"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+      <span style="display:none" class="font-serif font-bold text-forest text-lg tracking-tight items-center">FCPC</span>
+    </a>
+
+    <nav class="desk-nav flex-1 flex items-center gap-1">
+      <a href="about.html" class="nav-item">About</a>
+
+      <div class="has-drop">
+        <a href="solutions.html" class="nav-item flex items-center gap-1">
+          Solutions
+          <svg class="w-3 h-3 opacity-40" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 4l4 4 4-4"/></svg>
+        </a>
+        <div class="drop absolute top-full left-0 mt-3 bg-white rounded-2xl shadow-card-lg border border-silver/60 min-w-[240px] py-3 z-50">
+          <a href="solutions/life-insurance.html"      class="flex items-center gap-3 px-4 py-3 text-sm font-medium text-slate hover:text-forest hover:bg-mist transition-colors mx-1 rounded-xl"><span class="w-8 h-8 rounded-xl bg-forest-50 flex items-center justify-center text-base flex-shrink-0">🛡</span> Life Insurance</a>
+          <a href="solutions/indexed-annuities.html"   class="flex items-center gap-3 px-4 py-3 text-sm font-medium text-slate hover:text-forest hover:bg-mist transition-colors mx-1 rounded-xl"><span class="w-8 h-8 rounded-xl bg-forest-50 flex items-center justify-center text-base flex-shrink-0">📊</span> Indexed Annuities</a>
+          <a href="solutions/final-expense.html"       class="flex items-center gap-3 px-4 py-3 text-sm font-medium text-slate hover:text-forest hover:bg-mist transition-colors mx-1 rounded-xl"><span class="w-8 h-8 rounded-xl bg-forest-50 flex items-center justify-center text-base flex-shrink-0">🌿</span> Final Expense</a>
+          <a href="solutions/supplemental-health.html" class="flex items-center gap-3 px-4 py-3 text-sm font-medium text-slate hover:text-forest hover:bg-mist transition-colors mx-1 rounded-xl"><span class="w-8 h-8 rounded-xl bg-forest-50 flex items-center justify-center text-base flex-shrink-0">🏥</span> Supplemental Health</a>
+        </div>
+      </div>
+
+      <div class="has-drop">
+        <a href="resources.html" class="nav-item flex items-center gap-1">
+          Resources
+          <svg class="w-3 h-3 opacity-40" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 4l4 4 4-4"/></svg>
+        </a>
+        <div class="drop absolute top-full left-0 mt-3 bg-white rounded-2xl shadow-card-lg border border-silver/60 min-w-[200px] py-3 z-50">
+          <a href="blog.html"        class="block px-5 py-3 text-sm font-medium text-slate hover:text-forest hover:bg-mist transition-colors rounded-xl mx-1">Blog &amp; Articles</a>
+          <a href="guides.html"      class="block px-5 py-3 text-sm font-medium text-slate hover:text-forest hover:bg-mist transition-colors rounded-xl mx-1">Free Guides</a>
+          <a href="calculators.html" class="block px-5 py-3 text-sm font-medium text-slate hover:text-forest hover:bg-mist transition-colors rounded-xl mx-1">Calculators</a>
+        </div>
+      </div>
+
+      <a href="opportunity.html" class="nav-item font-semibold text-forest">Agent Opportunity</a>
+      <a href="find-agent.html"  class="nav-item">Find My Agent</a>
+    </nav>
+
+    <div class="flex items-center gap-3 flex-shrink-0">
+      <a href="get-quote.html" class="hidden md:inline-flex btn-gold text-sm px-5 py-2.5">I Want Life Insurance</a>
+      <button id="mob-btn" class="p-2 rounded-xl hover:bg-mist transition-colors" aria-label="Open menu">
+        <svg class="w-5 h-5 text-slate" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <div id="mob-menu" class="hidden border-t border-silver bg-white">
+    <div class="max-w-[1400px] mx-auto px-6 py-3 flex flex-col gap-1">
+      <a href="about.html"       class="block px-4 py-3 rounded-xl text-sm font-semibold text-slate hover:text-forest hover:bg-mist transition-colors">About</a>
+      <a href="solutions.html"   class="block px-4 py-3 rounded-xl text-sm font-semibold text-slate hover:text-forest hover:bg-mist transition-colors">Solutions</a>
+      <a href="resources.html"   class="block px-4 py-3 rounded-xl text-sm font-semibold text-slate hover:text-forest hover:bg-mist transition-colors">Resources</a>
+      <a href="opportunity.html" class="block px-4 py-3 rounded-xl text-sm font-semibold text-forest hover:bg-forest-50 transition-colors">Agent Opportunity</a>
+      <a href="find-agent.html"  class="block px-4 py-3 rounded-xl text-sm font-semibold text-slate hover:text-forest hover:bg-mist transition-colors">Find My Agent</a>
+      <div class="pt-2 pb-3">
+        <a href="get-quote.html" class="btn-gold w-full justify-center px-6 py-3 text-sm">I Want Life Insurance</a>
+      </div>
+    </div>
+  </div>
+</header>
+
+
+<!-- ── PROFILE HERO ───────────────────────────────────────────────────── -->
+<section style="background: linear-gradient(145deg, #ffffff 0%, #F7FAFC 50%, rgba(25,99,79,0.04) 100%);">
+  <div class="max-w-7xl mx-auto px-6 pt-16 pb-12 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+
+    <!-- Left: Dynamic content -->
+    <div>
+      <!-- Eyebrow -->
+      <span id="agent-eyebrow" class="inline-block text-[0.6rem] font-bold tracking-[0.22em] uppercase mb-5 block" style="color:#19634F; opacity:0.85;">FCPC Licensed Advisor</span>
+
+      <!-- Name -->
+      <h1 id="agent-name"
+          class="font-extrabold leading-none tracking-tight mb-5"
+          style="font-family:'Playfair Display',Georgia,serif; font-size:clamp(2rem,4.5vw,3.25rem); color:#1A202C;">
+        FCPC Licensed Advisor
+      </h1>
+
+      <!-- Bio -->
+      <p id="agent-bio"
+         class="text-lg leading-relaxed mb-8"
+         style="color:#4A5568; max-width:520px;">
+        Dedicated to helping families move onto a road to somewhere. Reach out to start a no-pressure conversation about your coverage options.
+      </p>
+
+      <!-- Specialties -->
+      <div class="mb-5">
+        <p class="text-[10px] font-bold tracking-[0.18em] uppercase mb-3" style="color:#64748B;">Specialties</p>
+        <div id="agent-specialties" class="flex flex-wrap gap-2">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+
+      <!-- State licenses -->
+      <div class="mb-8">
+        <p class="text-[10px] font-bold tracking-[0.18em] uppercase mb-3" style="color:#64748B;">Licensed In</p>
+        <div id="agent-states" class="flex flex-wrap gap-2">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+
+      <!-- Contact row -->
+      <div id="agent-contact-row" class="flex flex-wrap items-center gap-3 mb-8">
+        <!-- Populated by JS -->
+      </div>
+
+      <!-- CTA -->
+      <a id="agent-calendar" href="get-quote.html" target="_blank" rel="noopener">
+        <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+        </svg>
+        Schedule a Consultation
+      </a>
+    </div>
+
+    <!-- Right: Profile image -->
+    <div class="w-full aspect-[3/4] rounded-2xl overflow-hidden bg-slate-100 shadow-lg relative">
+      <img id="agent-image"
+           src=""
+           alt="FCPC Licensed Advisor"
+           class="w-full h-full object-cover object-top loading"
+           loading="eager"
+           decoding="async" />
+      <!-- Fallback initials avatar (shown if no image) -->
+      <div id="agent-avatar-fallback"
+           class="absolute inset-0 flex flex-col items-center justify-center"
+           style="background: linear-gradient(145deg, #0B3226 0%, #19634F 60%, #22896C 100%); display:none !important;">
+        <span id="agent-initials" class="text-white font-extrabold mb-2"
+              style="font-family:'Playfair Display',Georgia,serif; font-size:clamp(3rem,8vw,5rem); opacity:0.9;">FA</span>
+        <span class="text-white/50 text-sm font-semibold tracking-widest uppercase">FCPC Advisor</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ── TRUST STRIP ────────────────────────────────────────────────────── -->
+<section class="border-t border-b border-silver/60" style="background:#fff;">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="grid grid-cols-1 sm:grid-cols-3 divide-y sm:divide-y-0 sm:divide-x divide-silver/60">
+      <div class="flex flex-col items-center justify-center py-9 px-6 text-center">
+        <p style="font-size:2rem; color:#1A202C; letter-spacing:-0.03em;" class="font-extrabold leading-none mb-1.5">40+</p>
+        <p class="text-[11px] font-bold uppercase tracking-widest" style="color:#64748B;">Years of FCPC Service</p>
+      </div>
+      <div class="flex flex-col items-center justify-center py-9 px-6 text-center">
+        <p style="font-size:2rem; color:#1A202C; letter-spacing:-0.03em;" class="font-extrabold leading-none mb-1.5">10K+</p>
+        <p class="text-[11px] font-bold uppercase tracking-widest" style="color:#64748B;">Agents Trained</p>
+      </div>
+      <div class="flex flex-col items-center justify-center py-9 px-6 text-center">
+        <p style="font-size:2rem; color:#1A202C; letter-spacing:-0.03em;" class="font-extrabold leading-none mb-1.5">100K+</p>
+        <p class="text-[11px] font-bold uppercase tracking-widest" style="color:#64748B;">Families Served</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ── ABOUT SECTION ──────────────────────────────────────────────────── -->
+<section class="py-16 lg:py-20">
+  <div class="max-w-4xl mx-auto px-6">
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-10">
+
+      <!-- Long-form bio -->
+      <div class="lg:col-span-2">
+        <span class="text-[0.6rem] font-bold tracking-[0.22em] uppercase block mb-4" style="color:#19634F; opacity:0.85;">About This Advisor</span>
+        <p id="agent-bio-long"
+           class="text-base leading-[1.85]"
+           style="color:#374151;">
+          <!-- Populated by JS if long bio exists, otherwise hidden -->
+        </p>
+      </div>
+
+      <!-- Sidebar: quick facts -->
+      <div class="lg:col-span-1">
+        <div class="rounded-2xl p-6 border border-silver/70" style="background:#F7FAFC;">
+          <p class="text-[10px] font-bold tracking-[0.18em] uppercase mb-5" style="color:#64748B;">Quick Facts</p>
+          <ul id="agent-facts" class="space-y-4 text-sm" style="color:#4A5568;">
+            <!-- Populated by JS -->
+          </ul>
+          <div class="mt-6 pt-5 border-t border-silver/60">
+            <a href="find-agent.html"
+               class="text-[#19634F] text-xs font-semibold hover:underline flex items-center gap-1.5 transition-colors">
+              <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"/>
+              </svg>
+              Browse All FCPC Advisors
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ── CLOSING CTA ────────────────────────────────────────────────────── -->
+<section class="py-16 lg:py-20 relative overflow-hidden" style="background: linear-gradient(145deg, #0B3226 0%, #19634F 55%, #0D3E2A 100%);">
+  <!-- Dot texture -->
+  <div class="absolute inset-0 pointer-events-none" style="background-image:radial-gradient(circle, rgba(255,255,255,0.04) 1px, transparent 1px); background-size:28px 28px;"></div>
+  <!-- Radial glow -->
+  <div class="absolute inset-0 pointer-events-none" style="background: radial-gradient(ellipse 60% 60% at 50% 50%, rgba(212,175,55,0.07) 0%, transparent 70%);"></div>
+
+  <div class="relative max-w-3xl mx-auto px-6 text-center">
+    <span class="text-[0.6rem] font-bold tracking-[0.22em] uppercase block mb-6" style="color:rgba(212,175,55,0.7);">Ready to Begin</span>
+    <h2 class="font-extrabold text-white mb-5 leading-tight"
+        style="font-family:'Playfair Display',Georgia,serif; font-size:clamp(1.75rem,3.5vw,2.75rem);">
+      Your family's financial peace of mind<br>
+      <span style="background: linear-gradient(90deg,#DDB84E,#EAC84A); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;">starts with one honest conversation.</span>
+    </h2>
+    <p class="text-white/60 text-base leading-relaxed mb-10 max-w-xl mx-auto">
+      No pressure. No jargon. Just a clear look at your options and a plan built around your life.
+    </p>
+    <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+      <a id="cta-calendar" href="get-quote.html" class="btn-gold px-8 py-4 text-[15px]">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+        </svg>
+        Schedule a Consultation
+      </a>
+      <a href="get-quote.html" class="btn-ghost px-8 py-4 text-[15px]" style="color:rgba(255,255,255,0.65); border-color:rgba(255,255,255,0.18);">
+        I Want Life Insurance
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+        </svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+
+<!-- ── FOOTER ─────────────────────────────────────────────────────────── -->
+<footer class="bg-[#111827]">
+
+  <div class="max-w-[1400px] mx-auto px-6 lg:px-12 pt-20 pb-14">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-8">
+
+      <div class="lg:col-span-4">
+        <img src="FCPC-Logo.webp" alt="Financial Crisis Prevention Center"
+             class="h-9 w-auto object-contain brightness-0 invert mb-7"
+             onerror="this.style.display:'none';this.nextElementSibling.style.display='block';" />
+        <span style="display:none" class="block font-serif font-bold text-white text-xl mb-7">FCPC</span>
+        <p class="text-white/45 text-sm leading-[1.8] max-w-[290px] mb-8">Helping federal employees, families, and retirees build lasting financial security through education, not pressure — since 1985.</p>
+        <div class="space-y-3">
+          <div class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded-lg bg-white/[0.06] flex items-center justify-center flex-shrink-0">
+              <svg class="w-3.5 h-3.5 text-white/40" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+            </div>
+            <span class="text-white/40 text-xs">Washington, DC Metro Area · Licensed Nationally</span>
+          </div>
+          <div class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded-lg bg-white/[0.06] flex items-center justify-center flex-shrink-0">
+              <svg class="w-3.5 h-3.5 text-white/40" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+            </div>
+            <a href="tel:+18005553272" class="text-white/40 text-xs hover:text-[#19634F] transition-colors duration-200">(800) 555-FCPC</a>
+          </div>
+          <div class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded-lg bg-white/[0.06] flex items-center justify-center flex-shrink-0">
+              <svg class="w-3.5 h-3.5 text-white/40" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+            </div>
+            <a href="mailto:info@fcpcusa.com" class="text-white/40 text-xs hover:text-[#19634F] transition-colors duration-200">info@fcpcusa.com</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="lg:col-span-2">
+        <p class="text-[10.5px] font-bold tracking-[0.15em] uppercase text-white/30 mb-5">Company</p>
+        <ul class="space-y-3.5">
+          <li><a href="about.html"       class="group flex items-center gap-2 text-sm font-medium hover:text-[#19634F] transition-colors duration-200" style="color:rgba(226,232,240,0.60);"><span class="w-1 h-1 rounded-full bg-current opacity-40 flex-shrink-0 group-hover:opacity-100 transition-opacity"></span> About</a></li>
+          <li><a href="opportunity.html" class="group flex items-center gap-2 text-sm font-medium hover:text-[#19634F] transition-colors duration-200" style="color:rgba(226,232,240,0.60);"><span class="w-1 h-1 rounded-full bg-current opacity-40 flex-shrink-0 group-hover:opacity-100 transition-opacity"></span> Agent Opportunity</a></li>
+          <li><a href="find-agent.html"  class="group flex items-center gap-2 text-sm font-medium hover:text-[#19634F] transition-colors duration-200" style="color:rgba(226,232,240,0.60);"><span class="w-1 h-1 rounded-full bg-current opacity-40 flex-shrink-0 group-hover:opacity-100 transition-opacity"></span> Find My Agent</a></li>
+          <li><a href="contact.html"     class="group flex items-center gap-2 text-sm font-medium hover:text-[#19634F] transition-colors duration-200" style="color:rgba(226,232,240,0.60);"><span class="w-1 h-1 rounded-full bg-current opacity-40 flex-shrink-0 group-hover:opacity-100 transition-opacity"></span> Contact Us</a></li>
+        </ul>
+      </div>
+
+      <div class="lg:col-span-2">
+        <p class="text-[10.5px] font-bold tracking-[0.15em] uppercase text-white/30 mb-5">Solutions</p>
+        <ul class="space-y-3.5">
+          <li><a href="solutions/life-insurance.html"      class="group flex items-center gap-2 text-sm font-medium hover:text-[#19634F] transition-colors duration-200" style="color:rgba(226,232,240,0.60);"><span class="w-1 h-1 rounded-full bg-current opacity-40 flex-shrink-0 group-hover:opacity-100 transition-opacity"></span> Life Insurance</a></li>
+          <li><a href="solutions/indexed-annuities.html"   class="group flex items-center gap-2 text-sm font-medium hover:text-[#19634F] transition-colors duration-200" style="color:rgba(226,232,240,0.60);"><span class="w-1 h-1 rounded-full bg-current opacity-40 flex-shrink-0 group-hover:opacity-100 transition-opacity"></span> Indexed Annuities</a></li>
+          <li><a href="solutions/final-expense.html"       class="group flex items-center gap-2 text-sm font-medium hover:text-[#19634F] transition-colors duration-200" style="color:rgba(226,232,240,0.60);"><span class="w-1 h-1 rounded-full bg-current opacity-40 flex-shrink-0 group-hover:opacity-100 transition-opacity"></span> Final Expense</a></li>
+          <li><a href="solutions/supplemental-health.html" class="group flex items-center gap-2 text-sm font-medium hover:text-[#19634F] transition-colors duration-200" style="color:rgba(226,232,240,0.60);"><span class="w-1 h-1 rounded-full bg-current opacity-40 flex-shrink-0 group-hover:opacity-100 transition-opacity"></span> Supplemental Health</a></li>
+        </ul>
+      </div>
+
+      <div class="lg:col-span-3">
+        <p class="text-[10.5px] font-bold tracking-[0.15em] uppercase text-white/30 mb-5">Resources</p>
+        <ul class="space-y-3.5">
+          <li><a href="blog.html"        class="group flex items-center gap-2 text-sm font-medium hover:text-[#19634F] transition-colors duration-200" style="color:rgba(226,232,240,0.60);"><span class="w-1 h-1 rounded-full bg-current opacity-40 flex-shrink-0 group-hover:opacity-100 transition-opacity"></span> Blog &amp; Articles</a></li>
+          <li><a href="guides.html"      class="group flex items-center gap-2 text-sm font-medium hover:text-[#19634F] transition-colors duration-200" style="color:rgba(226,232,240,0.60);"><span class="w-1 h-1 rounded-full bg-current opacity-40 flex-shrink-0 group-hover:opacity-100 transition-opacity"></span> Free Guides</a></li>
+          <li><a href="calculators.html" class="group flex items-center gap-2 text-sm font-medium hover:text-[#19634F] transition-colors duration-200" style="color:rgba(226,232,240,0.60);"><span class="w-1 h-1 rounded-full bg-current opacity-40 flex-shrink-0 group-hover:opacity-100 transition-opacity"></span> Calculators</a></li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="border-t border-white/[0.07]">
+    <div class="max-w-[1400px] mx-auto px-6 lg:px-12 py-10">
+      <div class="max-w-4xl">
+        <p class="text-white/22 text-[11px] leading-[1.9] mb-2">
+          <strong class="text-white/32">Educational Disclaimer:</strong> All content on this website is for general educational and informational purposes only and does not constitute individualized insurance, financial, tax, legal, or investment advice. FCPC agents are independent licensed insurance professionals. Product availability, premiums, and benefits vary by state, carrier, age, and health status. All products subject to carrier underwriting approval.
+        </p>
+        <p class="text-white/22 text-[11px] leading-[1.9]">
+          <strong class="text-white/32">Insurance Products:</strong> Not bank deposits. Not FDIC insured. Not guaranteed by any bank. Insurance products are not securities and are not regulated by the SEC or FINRA. Fixed and indexed annuities are insurance contracts, not securities.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="border-t border-white/[0.05]">
+    <div class="max-w-[1400px] mx-auto px-6 lg:px-12 py-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+      <p class="text-white/20 text-[11px]">© 2026 The Financial Crisis Prevention Center (FCPC). All rights reserved.</p>
+      <div class="flex items-center gap-5">
+        <a href="privacy.html" class="text-white/25 text-[11px] hover:text-[#19634F] transition-colors duration-200">Privacy Policy</a>
+        <span class="text-white/10 text-[11px]">·</span>
+        <a href="terms.html"   class="text-white/25 text-[11px] hover:text-[#19634F] transition-colors duration-200">Terms &amp; Conditions</a>
+        <span class="text-white/10 text-[11px]">·</span>
+        <a href="sitemap.xml"  class="text-white/25 text-[11px] hover:text-[#19634F] transition-colors duration-200">Sitemap</a>
+      </div>
+    </div>
+  </div>
+
+</footer>
+
+<script src="js/zoho-config.js"></script>
+<script src="js/zoho-integration.js"></script>
+<script src="agents-data.js"></script>
+
+<!-- ── AGENT LOOKUP ENGINE ────────────────────────────────────────────── -->
+<script>
+(function () {
+  'use strict';
+
+  // ── Agent data store — sourced from agents-data.js ───────────────────
+  const AGENTS = (typeof GLOBAL_AGENTS !== 'undefined') ? GLOBAL_AGENTS : {};
+
+  // ── Fallback / corporate default ─────────────────────────────────────
+  const FALLBACK = {
+    name:        'FCPC Licensed Advisor',
+    eyebrow:     'FCPC Licensed Advisor',
+    initials:    'FA',
+    image:       '',
+    bio:         'Dedicated to helping families move onto a road to somewhere. Reach out to start a no-pressure conversation about your coverage options.',
+    bioLong:     '',
+    specialties: ['Life Insurance', 'Indexed Annuities', 'Final Expense', 'Supplemental Health'],
+    states:      ['MD', 'VA', 'DC'],
+    phone:       '(800) 555-FCPC',
+    email:       'info@fcpcusa.com',
+    calendar:    'get-quote.html',
+    facts: [
+      { label: 'Founded',      value: '1985' },
+      { label: 'Service Area', value: 'Washington, DC Metro · Licensed Nationally' },
+      { label: 'Approach',     value: 'Education-First, No Pressure' },
+    ],
+  };
+
+  // ── Read ?id= param ───────────────────────────────────────────────────
+  function getAgentId() {
+    try {
+      const params = new URLSearchParams(window.location.search);
+      return (params.get('id') || '').trim().toLowerCase().replace(/[^a-z0-9_]/g, '');
+    } catch (_) { return ''; }
+  }
+
+  // ── DOM helpers ───────────────────────────────────────────────────────
+  function el(id) { return document.getElementById(id); }
+
+  function renderBadges(containerId, items, extraClass) {
+    const container = el(containerId);
+    if (!container) return;
+    container.innerHTML = items.map(item =>
+      `<span class="badge-pill${extraClass ? ' ' + extraClass : ''}">${item}</span>`
+    ).join('');
+  }
+
+  function renderFacts(facts) {
+    const list = el('agent-facts');
+    if (!list) return;
+    list.innerHTML = facts.map(f => `
+      <li class="flex justify-between gap-4">
+        <span class="font-semibold" style="color:#64748B;">${f.label}</span>
+        <span style="color:#1A202C; text-align:right;">${f.value}</span>
+      </li>`).join('');
+  }
+
+  function renderContactRow(agent) {
+    const row = el('agent-contact-row');
+    if (!row) return;
+    const items = [];
+    if (agent.phone) {
+      items.push(`<a href="tel:${agent.phone.replace(/\D/g,'')}"
+        class="flex items-center gap-2 text-sm font-semibold transition-colors"
+        style="color:#19634F;">
+        <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+        </svg>
+        ${agent.phone}
+      </a>`);
+    }
+    if (agent.email) {
+      items.push(`<a href="mailto:${agent.email}"
+        class="flex items-center gap-2 text-sm font-semibold transition-colors"
+        style="color:#19634F;">
+        <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+        </svg>
+        ${agent.email}
+      </a>`);
+    }
+    row.innerHTML = items.join('<span style="color:#CBD5E0;">·</span>');
+  }
+
+  // ── Populate all DOM elements ─────────────────────────────────────────
+  function populate(agent) {
+    // Page title
+    document.title = `${agent.name} — FCPC Licensed Advisor`;
+
+    // Eyebrow + name + bio
+    if (el('agent-eyebrow')) el('agent-eyebrow').textContent = agent.eyebrow;
+    if (el('agent-name'))    el('agent-name').textContent    = agent.name;
+    if (el('agent-bio'))     el('agent-bio').textContent     = agent.bio;
+
+    // Profile image
+    const img    = el('agent-image');
+    const avatar = el('agent-avatar-fallback');
+    const inits  = el('agent-initials');
+    if (img) {
+      if (agent.image) {
+        img.alt = agent.name;
+        img.src = agent.image;
+        img.addEventListener('load',  () => img.classList.remove('loading'));
+        img.addEventListener('error', () => {
+          img.style.display = 'none';
+          if (avatar) { avatar.style.removeProperty('display'); }
+          if (inits)  { inits.textContent = agent.initials; }
+        });
+      } else {
+        img.style.display = 'none';
+        if (avatar) { avatar.style.removeProperty('display'); }
+        if (inits)  { inits.textContent = agent.initials; }
+      }
+    }
+
+    // Badges
+    renderBadges('agent-specialties', agent.specialties, '');
+    renderBadges('agent-states',      agent.states,      'badge-state');
+
+    // Contact row
+    renderContactRow(agent);
+
+    // Calendar CTA link
+    const calBtn   = el('agent-calendar');
+    const ctaBtn   = el('cta-calendar');
+    const calHref  = agent.calendar || 'get-quote.html';
+    if (calBtn) calBtn.href = calHref;
+    if (ctaBtn) ctaBtn.href = calHref;
+
+    // Long bio
+    const longBioEl = el('agent-bio-long');
+    if (longBioEl) {
+      if (agent.bioLong) {
+        longBioEl.textContent = agent.bioLong;
+      } else {
+        const section = longBioEl.closest('section');
+        if (section) section.style.display = 'none';
+      }
+    }
+
+    // Facts sidebar
+    renderFacts(agent.facts || []);
+  }
+
+  // ── Init ──────────────────────────────────────────────────────────────
+  const id    = getAgentId();
+  const agent = (id && AGENTS[id]) ? AGENTS[id] : FALLBACK;
+  populate(agent);
+
+})();
+</script>
+
+<!-- ── NAV BEHAVIOUR ──────────────────────────────────────────────────── -->
+<script>
+  const mobBtn  = document.getElementById('mob-btn');
+  const mobMenu = document.getElementById('mob-menu');
+  if (mobBtn && mobMenu) mobBtn.addEventListener('click', () => mobMenu.classList.toggle('hidden'));
+
+  const siteNav = document.getElementById('site-nav');
+  window.addEventListener('scroll', () => {
+    siteNav.classList.toggle('shadow-nav', window.scrollY > 12);
+  }, { passive: true });
+</script>
+
+</body>
+</html>

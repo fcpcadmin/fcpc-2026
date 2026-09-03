@@ -1,0 +1,1156 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Protection Solutions — FCPC</title>
+  <meta name="description" content="Explore FCPC's full suite of protection solutions: life insurance, retirement income, Indexed Annuities, supplemental health, final expense planning, and specialized Federal employee benefits." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,700;0,800;1,700&display=swap" rel="stylesheet" />
+
+  <script>
+    tailwind = { config: { theme: { extend: {
+      colors: {
+        forest: { dark: '#0B3226', DEFAULT: '#19634F', mid: '#22896C', light: '#2AB08A', 50: '#F0FDF8' },
+        gold:   { DEFAULT: '#D4AF37', dark: '#B8960F', light: '#EAC84A', pale: '#FDFAEE' },
+        ink:    '#1A202C',
+        slate:  '#2D3748',
+        mist:   '#F7FAFC',
+        silver: '#E2E8F0',
+        smoke:  '#64748B',
+      },
+      fontFamily: {
+        sans:  ['Inter', 'system-ui', 'sans-serif'],
+        serif: ['Playfair Display', 'Georgia', 'serif'],
+      },
+      boxShadow: {
+        'gold':    '0 4px 24px rgba(212,175,55,0.35)',
+        'card':    '0 8px 40px rgba(0,0,0,0.05)',
+        'card-lg': '0 20px 60px rgba(0,0,0,0.09)',
+        'nav':     '0 2px 32px rgba(0,0,0,0.07)',
+      },
+    }}}}
+  </script>
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', system-ui, sans-serif; -webkit-font-smoothing: antialiased; color: #1A202C; background: #fff; }
+
+    /* ── Typography ── */
+    .display-headline {
+      font-size: clamp(2.75rem, 6.5vw, 5.25rem);
+      font-weight: 800; line-height: 1.04; letter-spacing: -0.03em; color: #2D3748;
+    }
+    .section-headline {
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 800; line-height: 1.1; letter-spacing: -0.025em; color: #1A202C;
+    }
+    .eyebrow {
+      font-size: 0.6rem; font-weight: 800;
+      letter-spacing: 0.22em; text-transform: uppercase; color: #19634F; opacity: 0.85;
+    }
+
+    /* ── Nav ── */
+    .nav-item {
+      font-size: 0.875rem; font-weight: 600; color: #2D3748;
+      padding: 8px 14px; border-radius: 10px;
+      transition: color 0.15s, background 0.15s;
+      white-space: nowrap; text-decoration: none;
+    }
+    .nav-item:hover { color: #19634F; background: rgba(25,99,79,0.07); }
+    .has-drop { position: relative; }
+    .has-drop .drop { display: none; }
+    .has-drop:hover .drop { display: block; animation: fadeUp 0.16s ease; }
+    @keyframes fadeUp { from { opacity:0; transform:translateY(6px); } to { opacity:1; transform:translateY(0); } }
+    @media (max-width: 1023px) { .desk-nav { display: none !important; } }
+    @media (min-width: 1024px) { #mob-menu { display: none !important; } #mob-btn { display: none !important; } }
+
+    /* ── Buttons ── */
+    .btn-gold {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: linear-gradient(135deg, #DDB84E 0%, #C9A52A 100%);
+      color: #1A202C; font-weight: 700; border-radius: 999px;
+      transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+      box-shadow: 0 4px 20px rgba(212,175,55,0.38), 0 1px 2px rgba(0,0,0,0.08);
+      text-decoration: none; white-space: nowrap;
+    }
+    .btn-gold:hover {
+      transform: scale(1.04) translateY(-1px);
+      background: linear-gradient(135deg, #E8C84A 0%, #C9A52A 100%);
+      box-shadow: 0 8px 32px rgba(212,175,55,0.45), 0 0 22px rgba(221,186,78,0.38);
+    }
+    .btn-ghost {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: transparent; color: #2D3748;
+      font-weight: 600; border-radius: 999px;
+      border: 1.5px solid #DDE3EC;
+      transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+      text-decoration: none; white-space: nowrap;
+    }
+    .btn-ghost:hover { border-color: #19634F; background: rgba(25,99,79,0.05); color: #19634F; transform: translateY(-1px); }
+    .btn-forest {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: linear-gradient(135deg, #22896C 0%, #19634F 100%);
+      color: #fff; font-weight: 700; border-radius: 999px;
+      transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+      box-shadow: 0 4px 16px rgba(25,99,79,0.28);
+      text-decoration: none; white-space: nowrap;
+    }
+    .btn-forest:hover { transform: scale(1.04) translateY(-1px); background: linear-gradient(135deg, #22896C 0%, #0B3226 100%); box-shadow: 0 8px 28px rgba(25,99,79,0.38); }
+
+    /* ── Solution cards ── */
+    .track-card {
+      border-radius: 28px;
+      border: 1.5px solid #EEF2F7;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.02), 0 12px 40px rgba(0,0,0,0.04);
+      transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+      overflow: hidden; position: relative; background: #fff;
+    }
+    .track-card::before {
+      content: ''; position: absolute; inset: 0; border-radius: inherit; opacity: 0;
+      background: linear-gradient(135deg, rgba(25,99,79,0.035) 0%, transparent 60%);
+      transition: opacity 0.5s ease; pointer-events: none;
+    }
+    .track-card:hover {
+      box-shadow: 0 8px 12px rgba(0,0,0,0.03), 0 28px 72px rgba(0,0,0,0.09);
+      border-color: rgba(25,99,79,0.20);
+      transform: translateY(-6px);
+    }
+    .track-card:hover::before { opacity: 1; }
+
+    /* ── Label pills ── */
+    .solution-pill {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(25,99,79,0.07); border: 1px solid rgba(25,99,79,0.12);
+      border-radius: 999px; padding: 5px 12px;
+      font-size: 0.7rem; font-weight: 700; color: #19634F;
+      letter-spacing: 0.06em; text-transform: uppercase; white-space: nowrap;
+    }
+
+    /* ── Federal gold band ── */
+    .federal-band {
+      border-radius: 28px; overflow: hidden; position: relative;
+      background: linear-gradient(135deg, #0B3226 0%, #19634F 55%, #0D4034 100%);
+      border: 1px solid rgba(212,175,55,0.18);
+      box-shadow: 0 8px 40px rgba(11,50,38,0.22), 0 2px 8px rgba(0,0,0,0.10);
+      transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .federal-band:hover {
+      box-shadow: 0 16px 60px rgba(11,50,38,0.30), 0 4px 16px rgba(0,0,0,0.12);
+      transform: translateY(-4px);
+    }
+
+    /* ── Stat divider ── */
+    .stat-divider { width: 1px; height: 36px; background: #E2E8F0; flex-shrink: 0; }
+
+    /* ── Marquee ── */
+    @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+    .marquee-track { animation: marquee 32s linear infinite; white-space: nowrap; display: flex; }
+    .marquee-track:hover { animation-play-state: paused; }
+
+    /* ── Section spacing ── */
+    .section { padding-top: 7rem; padding-bottom: 7rem; }
+    @media (min-width: 1024px) { .section { padding-top: 9rem; padding-bottom: 9rem; } }
+  </style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════════════════════════════
+     ANNOUNCEMENT BAR
+════════════════════════════════════════════════════════════ -->
+<div style="background: linear-gradient(90deg,#0B3226 0%,#19634F 50%,#0B3226 100%);" class="py-2.5 px-4 text-center">
+  <p class="text-white/80 text-[13px] font-medium tracking-wide">
+    Protect your family with a personalized life insurance quote — at no cost.
+    <a href="get-quote.html" class="text-gold font-bold underline underline-offset-2 hover:text-gold-light ml-2 transition-colors">Start Now →</a>
+  </p>
+</div>
+
+<!-- ════════════════════════════════════════════════════════════
+     NAVBAR — frosted glass, sticky
+════════════════════════════════════════════════════════════ -->
+<header id="site-nav" class="sticky top-0 z-50 bg-white/75 backdrop-blur-xl border-b border-black/[0.06] transition-shadow duration-300">
+  <div class="max-w-[1400px] mx-auto px-6 lg:px-12 flex items-center h-[72px] gap-8">
+
+    <!-- Logo -->
+    <a href="index.html" class="flex-shrink-0">
+      <img src="FCPC-Logo.webp" alt="Financial Crisis Prevention Center" class="h-10 w-auto object-contain"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+      <span style="display:none" class="font-serif font-bold text-forest text-lg tracking-tight items-center">FCPC</span>
+    </a>
+
+    <!-- Desktop nav -->
+    <nav class="desk-nav flex-1 flex items-center gap-1">
+
+      <a href="about.html" class="nav-item">About</a>
+
+      <div class="has-drop">
+        <a href="solutions.html" class="nav-item flex items-center gap-1" style="color:#19634F; background:rgba(25,99,79,0.07);">
+          Solutions
+          <svg class="w-3 h-3 opacity-40" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 4l4 4 4-4"/></svg>
+        </a>
+        <div class="drop absolute top-full left-0 mt-3 bg-white rounded-2xl shadow-card-lg border border-silver/60 min-w-[240px] py-3 z-50">
+          <a href="solutions/life-insurance.html"      class="flex items-center gap-3 px-4 py-3 text-sm font-medium text-slate hover:text-forest hover:bg-mist transition-colors mx-1 rounded-xl">
+            <span class="w-8 h-8 rounded-xl bg-forest-50 flex items-center justify-center text-base flex-shrink-0">🛡</span> Life Insurance
+          </a>
+            <span class="w-8 h-8 rounded-xl bg-forest-50 flex items-center justify-center text-base flex-shrink-0">📈</span> Retirement Income
+          </a>
+          <a href="solutions/indexed-annuities.html"           class="flex items-center gap-3 px-4 py-3 text-sm font-medium text-slate hover:text-forest hover:bg-mist transition-colors mx-1 rounded-xl">
+            <span class="w-8 h-8 rounded-xl bg-forest-50 flex items-center justify-center text-base flex-shrink-0">📊</span> Indexed Annuities
+          </a>
+          <a href="solutions/final-expense.html"       class="flex items-center gap-3 px-4 py-3 text-sm font-medium text-slate hover:text-forest hover:bg-mist transition-colors mx-1 rounded-xl">
+            <span class="w-8 h-8 rounded-xl bg-forest-50 flex items-center justify-center text-base flex-shrink-0">🌿</span> Final Expense
+          </a>
+          <a href="solutions/supplemental-health.html" class="flex items-center gap-3 px-4 py-3 text-sm font-medium text-slate hover:text-forest hover:bg-mist transition-colors mx-1 rounded-xl">
+            <span class="w-8 h-8 rounded-xl bg-forest-50 flex items-center justify-center text-base flex-shrink-0">🏥</span> Supplemental Health
+          </a>
+        </div>
+      </div>
+
+
+      <div class="has-drop">
+        <a href="resources.html" class="nav-item flex items-center gap-1">
+          Resources
+          <svg class="w-3 h-3 opacity-40" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 4l4 4 4-4"/></svg>
+        </a>
+        <div class="drop absolute top-full left-0 mt-3 bg-white rounded-2xl shadow-card-lg border border-silver/60 min-w-[200px] py-3 z-50">
+          <a href="blog.html"        class="block px-5 py-3 text-sm font-medium text-slate hover:text-forest hover:bg-mist transition-colors rounded-xl mx-1">Blog &amp; Articles</a>
+          <a href="guides.html"      class="block px-5 py-3 text-sm font-medium text-slate hover:text-forest hover:bg-mist transition-colors rounded-xl mx-1">Free Guides</a>
+          <a href="calculators.html" class="block px-5 py-3 text-sm font-medium text-slate hover:text-forest hover:bg-mist transition-colors rounded-xl mx-1">Calculators</a>
+        </div>
+      </div>
+
+      <a href="agent-opportunity.html" class="nav-item font-semibold text-forest">Agent Opportunity</a>
+      <a href="find-agent.html"        class="nav-item">Find My Agent</a>
+    </nav>
+
+    <!-- CTA group -->
+    <div class="flex items-center gap-3 flex-shrink-0">
+      <a href="get-quote.html" class="hidden md:inline-flex btn-gold text-sm px-5 py-2.5" data-booking="consultation">
+        I Want Life Insurance
+      </a>
+      <button id="mob-btn" class="p-2 rounded-xl hover:bg-mist transition-colors" aria-label="Open menu">
+        <svg class="w-5 h-5 text-slate" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile menu -->
+  <div id="mob-menu" class="hidden border-t border-silver bg-white">
+    <div class="max-w-[1400px] mx-auto px-6 py-3 flex flex-col gap-1">
+      <a href="about.html"                   class="block px-4 py-3 rounded-xl text-sm font-semibold text-slate hover:text-forest hover:bg-mist transition-colors">About</a>
+      <a href="solutions.html"               class="block px-4 py-3 rounded-xl text-sm font-semibold text-forest bg-forest-50">Solutions</a>
+      <a href="resources.html"               class="block px-4 py-3 rounded-xl text-sm font-semibold text-slate hover:text-forest hover:bg-mist transition-colors">Resources</a>
+      <a href="agent-opportunity.html"       class="block px-4 py-3 rounded-xl text-sm font-semibold text-forest hover:bg-forest-50 transition-colors">Agent Opportunity</a>
+      <a href="find-agent.html"              class="block px-4 py-3 rounded-xl text-sm font-semibold text-slate hover:text-forest hover:bg-mist transition-colors">Find My Agent</a>
+      <div class="pt-2 pb-3">
+        <a href="get-quote.html" class="btn-gold w-full justify-center px-6 py-3 text-sm">I Want Life Insurance</a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<!-- ════════════════════════════════════════════════════════════
+     HERO — wide-canvas split header
+════════════════════════════════════════════════════════════ -->
+<section class="relative overflow-hidden" style="background: linear-gradient(145deg, #ffffff 0%, #F7FAFC 50%, rgba(25,99,79,0.05) 100%);">
+
+  <!-- Background dot grid -->
+  <div class="absolute inset-0 pointer-events-none" style="background-image: radial-gradient(circle at 1px 1px, rgba(0,0,0,0.03) 1px, transparent 0); background-size: 40px 40px;"></div>
+  <!-- Soft green ambient glow left -->
+  <div class="absolute inset-0 pointer-events-none" style="background: radial-gradient(ellipse 55% 65% at 15% 60%, rgba(25,99,79,0.06) 0%, transparent 70%);"></div>
+
+  <div class="max-w-[1400px] mx-auto px-6 lg:px-12 pt-20 pb-12 lg:pt-28 lg:pb-16 relative z-10">
+    <div class="grid grid-cols-1 md:grid-cols-12 items-center gap-12">
+
+      <!-- ── Text column — 7/12 ── -->
+      <div class="md:col-span-7">
+
+        <span class="eyebrow mb-6 block">Complete Protection Solutions</span>
+
+        <h1 class="font-extrabold tracking-[-0.035em] mb-6" style="font-size: clamp(2.8rem, 5.5vw, 4.75rem); line-height: 1.06; color: #2D3748;">
+          <span class="block whitespace-nowrap">Everything Your Family Needs.</span>
+          <span class="block whitespace-nowrap" style="background: linear-gradient(130deg, #19634F 0%, #2AB08A 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">
+            Under One Roof.
+          </span>
+        </h1>
+
+        <p class="text-[#2D3748]/75 text-[1.0625rem] leading-[1.85] mb-4 max-w-2xl">
+          From life insurance and retirement income to final expense planning and supplemental health coverage — FCPC specialists help families at every stage of life build a protection plan that holds up. We work with anyone who wants to secure their financial future.
+        </p>
+        <p class="text-smoke/60 text-sm leading-relaxed mb-10 max-w-xl">
+          We also carry deep, specialized expertise in the complex benefit systems available to federal and DC government employees — including FEGLI, FERS, TSP, and FEHB.
+        </p>
+
+        <div class="flex flex-wrap items-center gap-4">
+          <a href="get-quote.html" class="btn-gold px-8 py-4 text-[15px]">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+            I Want Life Insurance
+          </a>
+          <a href="education.html" class="btn-ghost px-8 py-4 text-[15px]">
+            Browse Educational Guides
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+          </a>
+        </div>
+
+        <!-- Proof stats row -->
+        <div class="flex flex-row flex-nowrap items-center gap-8 md:gap-12 pt-10 mt-10 border-t border-black/[0.06]">
+          <div class="flex-shrink-0 text-center">
+            <p class="text-ink font-extrabold text-2xl leading-none tracking-tight">1985</p>
+            <p class="text-smoke text-xs mt-1.5 whitespace-nowrap">Established</p>
+          </div>
+          <div class="stat-divider flex-shrink-0"></div>
+          <div class="flex-shrink-0 text-center">
+            <p class="text-ink font-extrabold text-2xl leading-none tracking-tight">100K+</p>
+            <p class="text-smoke text-xs mt-1.5 whitespace-nowrap">Families Protected</p>
+          </div>
+          <div class="stat-divider flex-shrink-0"></div>
+          <div class="flex-shrink-0 text-center">
+            <p class="text-ink font-extrabold text-2xl leading-none tracking-tight">50</p>
+            <p class="text-smoke text-xs mt-1.5 whitespace-nowrap">States Licensed</p>
+          </div>
+          <div class="stat-divider flex-shrink-0"></div>
+          <div class="flex-shrink-0 text-center">
+            <p class="text-ink font-extrabold text-2xl leading-none tracking-tight">$0</p>
+            <p class="text-smoke text-xs mt-1.5 whitespace-nowrap">Quote Cost</p>
+          </div>
+        </div>
+
+      </div><!-- end text col -->
+
+      <!-- ── Media column — 5/12 ── -->
+      <div class="md:col-span-5 flex items-center justify-center md:justify-end">
+
+        <div class="relative w-full" style="max-width: 460px;">
+
+          <!-- Ambient glow behind card -->
+          <div class="absolute -inset-6 rounded-3xl pointer-events-none" style="background: radial-gradient(ellipse 80% 70% at 50% 50%, rgba(25,99,79,0.10) 0%, rgba(212,175,55,0.07) 60%, transparent 100%); filter: blur(28px);"></div>
+
+          <!-- Hero visual card -->
+          <div class="relative rounded-3xl overflow-hidden shadow-card-lg border border-white/60">
+
+            <!-- Gold accent top line -->
+            <div class="absolute top-0 left-0 right-0 h-[3px] z-10" style="background: linear-gradient(90deg, #19634F 0%, #D4AF37 55%, transparent 100%);"></div>
+
+            <!-- INSERT HERO BACKGROUND WEBP ILLUSTRATION HERE -->
+            <!-- Placeholder: Protection dashboard — dark forest green with shield + floating metric cards -->
+            <div class="relative overflow-hidden" style="background: linear-gradient(145deg, #0B3226 0%, #19634F 55%, #0D4C3A 100%); aspect-ratio: 4/3;">
+
+              <!-- Dot grid texture -->
+              <div class="absolute inset-0" style="background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,0.055) 1px, transparent 0); background-size: 28px 28px;"></div>
+              <!-- Gold radial glow upper-right -->
+              <div class="absolute -top-10 -right-10 w-72 h-72" style="background: radial-gradient(ellipse at 70% 30%, rgba(212,175,55,0.22) 0%, transparent 65%);"></div>
+
+              <!-- Central shield composition -->
+              <div class="absolute inset-0 flex flex-col items-center justify-center gap-5">
+
+                <!-- Shield icon -->
+                <div class="w-24 h-24 rounded-3xl flex items-center justify-center" style="background: rgba(212,175,55,0.14); border: 1.5px solid rgba(212,175,55,0.32);">
+                  <svg class="w-12 h-12" style="color:#D4AF37;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.4" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+                  </svg>
+                </div>
+
+                <!-- Floating metric row -->
+                <div class="flex items-stretch gap-3">
+                  <div class="rounded-2xl px-4 py-3 text-center" style="background: rgba(255,255,255,0.09); border: 1px solid rgba(255,255,255,0.13);">
+                    <p class="font-extrabold text-xl leading-none" style="color:#D4AF37;">6</p>
+                    <p class="text-white/45 text-[9px] mt-1 uppercase tracking-widest">Solutions</p>
+                  </div>
+                  <div class="rounded-2xl px-4 py-3 text-center" style="background: rgba(255,255,255,0.09); border: 1px solid rgba(255,255,255,0.13);">
+                    <p class="font-extrabold text-xl leading-none" style="color:#D4AF37;">40+</p>
+                    <p class="text-white/45 text-[9px] mt-1 uppercase tracking-widest">Carriers</p>
+                  </div>
+                  <div class="rounded-2xl px-4 py-3 text-center" style="background: rgba(255,255,255,0.09); border: 1px solid rgba(255,255,255,0.13);">
+                    <p class="font-extrabold text-xl leading-none" style="color:#D4AF37;">$0</p>
+                    <p class="text-white/45 text-[9px] mt-1 uppercase tracking-widest">To Start</p>
+                  </div>
+                </div>
+
+                <p class="text-white/30 text-[10px] font-bold tracking-widest uppercase">FCPC Protection Suite</p>
+              </div>
+
+            </div><!-- end placeholder -->
+
+          </div><!-- end hero card -->
+
+
+        </div>
+      </div><!-- end media col -->
+
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════
+     TRUST MARQUEE
+════════════════════════════════════════════════════════════ -->
+<div class="border-t border-b border-silver/50 py-4 overflow-hidden bg-white">
+  <div class="marquee-track gap-10">
+    <span class="text-smoke/45 font-bold text-sm tracking-widest uppercase whitespace-nowrap">Established 1985</span>
+    <span class="w-1 h-1 rounded-full bg-silver flex-shrink-0 self-center"></span>
+    <span class="text-smoke/45 font-bold text-sm tracking-widest uppercase whitespace-nowrap">Licensed in All 50 States</span>
+    <span class="w-1 h-1 rounded-full bg-silver flex-shrink-0 self-center"></span>
+    <span class="text-smoke/45 font-bold text-sm tracking-widest uppercase whitespace-nowrap">Federal Benefit Specialists</span>
+    <span class="w-1 h-1 rounded-full bg-silver flex-shrink-0 self-center"></span>
+    <span class="text-smoke/45 font-bold text-sm tracking-widest uppercase whitespace-nowrap">100,000+ Families Protected</span>
+    <span class="w-1 h-1 rounded-full bg-silver flex-shrink-0 self-center"></span>
+    <span class="text-smoke/45 font-bold text-sm tracking-widest uppercase whitespace-nowrap">Education-First Philosophy</span>
+    <span class="w-1 h-1 rounded-full bg-silver flex-shrink-0 self-center"></span>
+    <span class="text-smoke/45 font-bold text-sm tracking-widest uppercase whitespace-nowrap">40+ Carrier Relationships</span>
+    <span class="w-1 h-1 rounded-full bg-silver flex-shrink-0 self-center"></span>
+    <span class="text-smoke/45 font-bold text-sm tracking-widest uppercase whitespace-nowrap">No Commission Pressure</span>
+    <span class="w-1 h-1 rounded-full bg-silver flex-shrink-0 self-center"></span>
+    <!-- Duplicate for seamless loop -->
+    <span class="text-smoke/45 font-bold text-sm tracking-widest uppercase whitespace-nowrap">Established 1985</span>
+    <span class="w-1 h-1 rounded-full bg-silver flex-shrink-0 self-center"></span>
+    <span class="text-smoke/45 font-bold text-sm tracking-widest uppercase whitespace-nowrap">Licensed in All 50 States</span>
+    <span class="w-1 h-1 rounded-full bg-silver flex-shrink-0 self-center"></span>
+    <span class="text-smoke/45 font-bold text-sm tracking-widest uppercase whitespace-nowrap">Federal Benefit Specialists</span>
+    <span class="w-1 h-1 rounded-full bg-silver flex-shrink-0 self-center"></span>
+    <span class="text-smoke/45 font-bold text-sm tracking-widest uppercase whitespace-nowrap">100,000+ Families Protected</span>
+    <span class="w-1 h-1 rounded-full bg-silver flex-shrink-0 self-center"></span>
+    <span class="text-smoke/45 font-bold text-sm tracking-widest uppercase whitespace-nowrap">Education-First Philosophy</span>
+    <span class="w-1 h-1 rounded-full bg-silver flex-shrink-0 self-center"></span>
+    <span class="text-smoke/45 font-bold text-sm tracking-widest uppercase whitespace-nowrap">40+ Carrier Relationships</span>
+    <span class="w-1 h-1 rounded-full bg-silver flex-shrink-0 self-center"></span>
+    <span class="text-smoke/45 font-bold text-sm tracking-widest uppercase whitespace-nowrap">No Commission Pressure</span>
+    <span class="w-1 h-1 rounded-full bg-silver flex-shrink-0 self-center"></span>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════════
+     SECTION HEADER — Core Solutions
+════════════════════════════════════════════════════════════ -->
+<div class="border-t border-slate-100/0 pt-20 lg:pt-28" style="background: #ffffff;">
+  <div class="max-w-[1400px] mx-auto px-6 lg:px-12">
+    <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-4">
+      <div class="max-w-[580px]">
+        <span class="eyebrow mb-5 block">Core Protection Solutions</span>
+        <h2 class="section-headline">The Right Coverage at<br />Every Stage of Life.</h2>
+      </div>
+      <p class="text-smoke text-base leading-relaxed max-w-[420px] lg:text-right">
+        Six proven solutions — designed to work together, available independently. A specialist helps you choose what fits.
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════════
+     SOLUTIONS GRID — 3 × 2 uniform cards
+════════════════════════════════════════════════════════════ -->
+<section class="pt-8 pb-20 lg:pb-28" style="background: #ffffff;">
+  <div class="max-w-[1400px] mx-auto px-6 lg:px-12">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 items-stretch">
+
+      <!-- ══════════════════════════════════════
+           SOLUTION 1: Life Insurance
+      ══════════════════════════════════════ -->
+      <div class="track-card flex flex-col">
+
+        <!-- INSERT OPTIMIZED WEBP IMAGE FOR LIFE INSURANCE HERE -->
+        <!-- Placeholder: Dark forest green — family protection composition -->
+        <div class="aspect-[4/3] relative overflow-hidden flex-shrink-0" style="background: linear-gradient(145deg, #0B3226 0%, #19634F 55%, #0D4C3A 100%);">
+          <div class="absolute inset-0" style="background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,0.06) 1px, transparent 0); background-size: 28px 28px;"></div>
+          <div class="absolute top-0 right-0 w-3/4 h-3/4" style="background: radial-gradient(ellipse at 80% 20%, rgba(212,175,55,0.20) 0%, transparent 60%);"></div>
+          <div class="absolute top-0 left-0 right-0 h-[3px] z-10" style="background: linear-gradient(90deg, #19634F 0%, #D4AF37 55%, transparent 100%);"></div>
+
+          <div class="absolute inset-0 flex flex-col items-center justify-center gap-5">
+            <!-- Shield icon -->
+            <div class="w-20 h-20 rounded-2xl flex items-center justify-center" style="background: rgba(212,175,55,0.15); border: 1.5px solid rgba(212,175,55,0.32);">
+              <svg class="w-10 h-10" style="color:#D4AF37;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+              </svg>
+            </div>
+            <!-- Family node cluster -->
+            <div class="flex items-center gap-3">
+              <div class="flex flex-col items-center gap-1">
+                <div class="w-8 h-8 rounded-full bg-white/15 border border-white/25 flex items-center justify-center">
+                  <svg style="width:14px;height:14px;" class="text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12z"/></svg>
+                </div>
+                <p class="text-white/50 text-[8px] font-semibold uppercase tracking-wider">You</p>
+              </div>
+              <div class="w-6 h-px bg-white/20"></div>
+              <div class="flex flex-col items-center gap-1">
+                <div class="w-8 h-8 rounded-full bg-white/15 border border-white/25 flex items-center justify-center">
+                  <svg style="width:14px;height:14px;" class="text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12z"/></svg>
+                </div>
+                <p class="text-white/50 text-[8px] font-semibold uppercase tracking-wider">Spouse</p>
+              </div>
+              <div class="w-6 h-px bg-white/20"></div>
+              <div class="flex flex-col items-center gap-1">
+                <div class="w-7 h-7 rounded-full bg-white/10 border border-white/20 flex items-center justify-center">
+                  <svg style="width:11px;height:11px;" class="text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12z"/></svg>
+                </div>
+                <p class="text-white/50 text-[8px] font-semibold uppercase tracking-wider">Family</p>
+              </div>
+            </div>
+            <!-- Protected pill -->
+            <div class="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5" style="background: rgba(212,175,55,0.12); border: 1px solid rgba(212,175,55,0.28);">
+              <svg style="width:10px;height:10px;" style2="color:#D4AF37;" fill="none" stroke="#D4AF37" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+              <span style="color:#D4AF37;" class="text-[9px] font-bold tracking-wide uppercase">Protected</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex flex-col flex-1 p-6 pt-5">
+          <div class="flex items-center justify-between mb-5">
+            <span class="solution-pill">Solution 01</span>
+            <span class="text-smoke/20 font-black text-3xl leading-none select-none">01</span>
+          </div>
+          <div class="w-12 h-12 rounded-xl bg-forest flex items-center justify-center mb-5 flex-shrink-0 shadow-sm">
+            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+            </svg>
+          </div>
+          <h3 class="text-ink font-extrabold text-xl leading-tight mb-3 tracking-tight">Life Insurance</h3>
+          <p class="text-smoke text-[0.9375rem] leading-relaxed flex-grow mb-6">
+            Term, whole, and universal life coverage that protects your family's income, settles debts, and funds the future — matched to your stage of life without unnecessary complexity.
+          </p>
+          <a href="solutions/life-insurance.html" class="btn-forest px-6 py-3 text-sm justify-center">
+            Explore Life Insurance
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+          </a>
+        </div>
+
+      </div><!-- end Solution 1 -->
+
+
+      <!-- ══════════════════════════════════════
+           SOLUTION 2: Retirement Income Planning
+      ══════════════════════════════════════ -->
+      <div class="track-card flex flex-col">
+
+        <!-- INSERT OPTIMIZED WEBP IMAGE FOR RETIREMENT INCOME HERE -->
+        <!-- Placeholder: Light mint/white — ascending bar chart with growth curve -->
+        <div class="aspect-[4/3] relative overflow-hidden flex-shrink-0" style="background: linear-gradient(145deg, #F0FDF8 0%, #ffffff 55%, #F7FAFC 100%);">
+          <div class="absolute inset-0" style="background-image: radial-gradient(circle at 1px 1px, rgba(25,99,79,0.06) 1px, transparent 0); background-size: 28px 28px;"></div>
+          <div class="absolute top-0 left-0 right-0 h-[3px] z-10" style="background: linear-gradient(90deg, #22896C 0%, #19634F 45%, rgba(25,99,79,0.10) 100%);"></div>
+
+          <div class="absolute inset-0 flex flex-col items-center justify-center gap-5 px-8">
+            <!-- Bar chart ascending -->
+            <div class="flex items-end gap-2.5 w-full justify-center">
+              <div class="flex flex-col items-center gap-1.5">
+                <p class="text-[8px] font-bold text-smoke/50 tracking-wider">Now</p>
+                <div class="w-9 rounded-t-lg" style="height:28px; background: rgba(25,99,79,0.20);"></div>
+              </div>
+              <div class="flex flex-col items-center gap-1.5">
+                <p class="text-[8px] font-bold text-smoke/50 tracking-wider">5yr</p>
+                <div class="w-9 rounded-t-lg" style="height:44px; background: rgba(25,99,79,0.35);"></div>
+              </div>
+              <div class="flex flex-col items-center gap-1.5">
+                <p class="text-[8px] font-bold text-smoke/50 tracking-wider">10yr</p>
+                <div class="w-9 rounded-t-lg" style="height:62px; background: rgba(25,99,79,0.55);"></div>
+              </div>
+              <div class="flex flex-col items-center gap-1.5">
+                <p class="text-[8px] font-bold text-smoke/50 tracking-wider">15yr</p>
+                <div class="w-9 rounded-t-lg" style="height:80px; background: rgba(25,99,79,0.75);"></div>
+              </div>
+              <div class="flex flex-col items-center gap-1.5">
+                <p class="text-[8px] font-bold text-forest font-bold tracking-wider">Retire</p>
+                <div class="w-9 rounded-t-lg" style="height:100px; background: #19634F;"></div>
+              </div>
+            </div>
+            <!-- Paycheck pill -->
+            <div class="bg-white rounded-2xl px-5 py-3 shadow-md border border-black/[0.05] flex items-center gap-3">
+              <div class="w-8 h-8 rounded-xl bg-forest flex items-center justify-center flex-shrink-0">
+                <svg style="width:14px;height:14px;" class="text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+              </div>
+              <div>
+                <p class="text-ink font-bold text-sm leading-none">Lifetime Income</p>
+                <p class="text-smoke text-[10px] mt-0.5">Never outlive your paycheck</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex flex-col flex-1 p-6 pt-5">
+          <div class="flex items-center justify-between mb-5">
+            <span class="solution-pill">Solution 02</span>
+            <span class="text-smoke/20 font-black text-3xl leading-none select-none">02</span>
+          </div>
+          <div class="w-12 h-12 rounded-xl bg-forest flex items-center justify-center mb-5 flex-shrink-0 shadow-sm">
+            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/>
+            </svg>
+          </div>
+          <h3 class="text-ink font-extrabold text-xl leading-tight mb-3 tracking-tight">Retirement Income Planning</h3>
+          <p class="text-smoke text-[0.9375rem] leading-relaxed flex-grow mb-6">
+            A retirement paycheck that lasts as long as you do. We build income strategies that bridge your pension, Social Security, and savings so you never have to worry about running short.
+          </p>
+            Plan My Retirement
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+          </a>
+        </div>
+
+      </div><!-- end Solution 2 -->
+
+
+      <!-- ══════════════════════════════════════
+           SOLUTION 3: Indexed Annuities
+      ══════════════════════════════════════ -->
+      <div class="track-card flex flex-col">
+
+        <!-- INSERT OPTIMIZED WEBP IMAGE FOR Indexed Annuities HERE -->
+        <!-- Placeholder: Dark navy/slate — guaranteed rate visual with stability rings -->
+        <div class="aspect-[4/3] relative overflow-hidden flex-shrink-0" style="background: linear-gradient(145deg, #1A2232 0%, #2D3748 55%, #1E2A3D 100%);">
+          <div class="absolute inset-0" style="background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,0.05) 1px, transparent 0); background-size: 28px 28px;"></div>
+          <div class="absolute top-0 left-0 right-0 h-[3px] z-10" style="background: linear-gradient(90deg, #D4AF37 0%, #DDB84E 45%, rgba(212,175,55,0.12) 100%);"></div>
+          <!-- Gold glow center-left -->
+          <div class="absolute inset-0" style="background: radial-gradient(ellipse 55% 55% at 35% 45%, rgba(212,175,55,0.14) 0%, transparent 65%);"></div>
+
+          <div class="absolute inset-0 flex flex-col items-center justify-center gap-4">
+            <!-- Concentric stability rings -->
+            <div class="relative flex items-center justify-center" style="width:120px; height:120px;">
+              <div class="absolute inset-0 rounded-full" style="border: 1.5px solid rgba(212,175,55,0.12);"></div>
+              <div class="absolute rounded-full" style="inset:16px; border: 1.5px solid rgba(212,175,55,0.20);"></div>
+              <div class="absolute rounded-full" style="inset:32px; border: 1.5px solid rgba(212,175,55,0.32);"></div>
+              <!-- Center rate badge -->
+              <div class="relative z-10 text-center">
+                <p class="font-extrabold text-2xl leading-none" style="color:#D4AF37;">4.8%</p>
+                <p class="text-white/40 text-[8px] mt-0.5 uppercase tracking-widest">Guaranteed</p>
+              </div>
+            </div>
+            <!-- Zero risk label -->
+            <div class="flex items-center gap-2 rounded-full px-4 py-1.5" style="background: rgba(212,175,55,0.10); border: 1px solid rgba(212,175,55,0.22);">
+              <svg style="width:9px;height:9px;" fill="none" stroke="#D4AF37" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+              <span style="color:#D4AF37;" class="text-[9px] font-bold tracking-wide uppercase">Zero Market Risk</span>
+            </div>
+            <p class="text-white/25 text-[10px] font-bold tracking-widest uppercase">Indexed Annuities</p>
+          </div>
+        </div>
+
+        <div class="flex flex-col flex-1 p-6 pt-5">
+          <div class="flex items-center justify-between mb-5">
+            <span class="solution-pill" style="background: rgba(212,175,55,0.10); border-color: rgba(212,175,55,0.22); color: #B8960F;">Solution 03</span>
+            <span class="text-smoke/20 font-black text-3xl leading-none select-none">03</span>
+          </div>
+          <div class="w-12 h-12 rounded-xl flex items-center justify-center mb-5 flex-shrink-0" style="background: linear-gradient(135deg, #DDB84E, #C9A52A);">
+            <svg class="w-6 h-6 text-[#1A202C]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+            </svg>
+          </div>
+          <h3 class="text-ink font-extrabold text-xl leading-tight mb-3 tracking-tight">Indexed Annuities</h3>
+          <p class="text-smoke text-[0.9375rem] leading-relaxed flex-grow mb-6">
+            Contractually guaranteed growth with zero market risk. Indexed Annuities provide a safe place to grow retirement savings at a locked rate — predictable, protected, and simple.
+          </p>
+          <a href="solutions/indexed-annuities.html" class="btn-ghost px-6 py-3 text-sm justify-center">
+            Explore Annuities
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+          </a>
+        </div>
+
+      </div><!-- end Solution 3 -->
+
+
+      <!-- ══════════════════════════════════════
+           SOLUTION 4: Supplemental Health Coverage
+      ══════════════════════════════════════ -->
+      <div class="track-card flex flex-col">
+
+        <!-- INSERT OPTIMIZED WEBP IMAGE FOR SUPPLEMENTAL HEALTH HERE -->
+        <!-- Placeholder: Light mint white — medical cross + concentric coverage rings -->
+        <div class="aspect-[4/3] relative overflow-hidden flex-shrink-0" style="background: linear-gradient(145deg, #F0FDF8 0%, #ffffff 55%, #F7FAFC 100%);">
+          <div class="absolute inset-0" style="background-image: radial-gradient(circle at 1px 1px, rgba(25,99,79,0.05) 1px, transparent 0); background-size: 28px 28px;"></div>
+          <div class="absolute top-0 left-0 right-0 h-[3px] z-10" style="background: linear-gradient(90deg, #22896C 0%, #19634F 45%, rgba(25,99,79,0.10) 100%);"></div>
+
+          <div class="absolute inset-0 flex items-center justify-center">
+            <div class="relative flex items-center justify-center">
+              <!-- Rings -->
+              <div class="absolute w-52 h-52 rounded-full" style="background: rgba(25,99,79,0.04); border: 1.5px solid rgba(25,99,79,0.09);"></div>
+              <div class="absolute w-36 h-36 rounded-full" style="background: rgba(25,99,79,0.06); border: 1.5px solid rgba(25,99,79,0.13);"></div>
+              <div class="absolute w-24 h-24 rounded-full" style="background: rgba(25,99,79,0.09); border: 1.5px solid rgba(25,99,79,0.18);"></div>
+              <!-- Cross icon center -->
+              <div class="w-16 h-16 rounded-xl flex items-center justify-center shadow-md" style="background: #19634F; position: relative; z-index:1;">
+                <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.5 12h15M12 4.5v15"/>
+                </svg>
+              </div>
+              <!-- Orbiting labels -->
+              <div class="absolute" style="top:6px; right:-44px;">
+                <div class="bg-white rounded-xl px-2.5 py-2 shadow-md border border-black/[0.05] text-center">
+                  <p class="text-ink font-bold text-[11px] leading-none">Hospital</p>
+                  <p class="text-smoke text-[9px] mt-0.5">Coverage</p>
+                </div>
+              </div>
+              <div class="absolute" style="bottom:6px; left:-48px;">
+                <div class="bg-white rounded-xl px-2.5 py-2 shadow-md border border-black/[0.05] text-center">
+                  <p class="text-ink font-bold text-[11px] leading-none">Critical</p>
+                  <p class="text-smoke text-[9px] mt-0.5">Illness</p>
+                </div>
+              </div>
+              <div class="absolute" style="bottom:6px; right:-40px;">
+                <div class="bg-white rounded-xl px-2.5 py-2 shadow-md border border-black/[0.05] text-center">
+                  <p class="text-ink font-bold text-[11px] leading-none">Accident</p>
+                  <p class="text-smoke text-[9px] mt-0.5">Plan</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex flex-col flex-1 p-6 pt-5">
+          <div class="flex items-center justify-between mb-5">
+            <span class="solution-pill">Solution 04</span>
+            <span class="text-smoke/20 font-black text-3xl leading-none select-none">04</span>
+          </div>
+          <div class="w-12 h-12 rounded-xl bg-forest flex items-center justify-center mb-5 flex-shrink-0 shadow-sm">
+            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+            </svg>
+          </div>
+          <h3 class="text-ink font-extrabold text-xl leading-tight mb-3 tracking-tight">Supplemental Health Coverage</h3>
+          <p class="text-smoke text-[0.9375rem] leading-relaxed flex-grow mb-6">
+            Hospital, accident, and critical illness coverage that picks up where your primary health plan stops. One serious medical event shouldn't wipe out a family's savings account.
+          </p>
+          <a href="solutions/supplemental-health.html" class="btn-forest px-6 py-3 text-sm justify-center">
+            Explore Health Coverage
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+          </a>
+        </div>
+
+      </div><!-- end Solution 4 -->
+
+
+      <!-- ══════════════════════════════════════
+           SOLUTION 5: Final Expense Planning
+      ══════════════════════════════════════ -->
+      <div class="track-card flex flex-col">
+
+        <!-- INSERT OPTIMIZED WEBP IMAGE FOR FINAL EXPENSE HERE -->
+        <!-- Placeholder: Warm cream/gold — family legacy visual -->
+        <div class="aspect-[4/3] relative overflow-hidden flex-shrink-0" style="background: linear-gradient(145deg, #FDFAEE 0%, #F9F3E2 55%, #FDFAEE 100%);">
+          <div class="absolute inset-0" style="background-image: radial-gradient(circle at 1px 1px, rgba(212,175,55,0.08) 1px, transparent 0); background-size: 28px 28px;"></div>
+          <div class="absolute top-0 left-0 right-0 h-[3px] z-10" style="background: linear-gradient(90deg, #D4AF37 0%, #DDB84E 45%, rgba(212,175,55,0.15) 100%);"></div>
+          <!-- Warm gold glow -->
+          <div class="absolute inset-0" style="background: radial-gradient(ellipse 55% 55% at 70% 30%, rgba(212,175,55,0.18) 0%, transparent 65%);"></div>
+
+          <div class="absolute inset-0 flex flex-col items-center justify-center gap-4">
+            <!-- Heart icon -->
+            <div class="w-20 h-20 rounded-2xl flex items-center justify-center" style="background: rgba(212,175,55,0.15); border: 1.5px solid rgba(212,175,55,0.30);">
+              <svg class="w-10 h-10" style="color:#B8960F;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+              </svg>
+            </div>
+            <!-- Coverage cards row -->
+            <div class="flex items-center gap-2.5">
+              <div class="bg-white rounded-xl px-3 py-2 shadow-sm border border-black/[0.05] text-center">
+                <p class="font-bold text-xs text-ink leading-none">$5,000</p>
+                <p class="text-smoke text-[9px] mt-0.5">Burial</p>
+              </div>
+              <div class="w-px h-6 bg-gold/25 flex-shrink-0"></div>
+              <div class="bg-white rounded-xl px-3 py-2 shadow-sm border border-black/[0.05] text-center">
+                <p class="font-bold text-xs text-ink leading-none">$25,000</p>
+                <p class="text-smoke text-[9px] mt-0.5">Estate</p>
+              </div>
+            </div>
+            <!-- Guaranteed issue badge -->
+            <div class="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5" style="background: rgba(212,175,55,0.12); border: 1px solid rgba(212,175,55,0.28);">
+              <svg style="width:9px;height:9px;" fill="none" stroke="#B8960F" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+              <span style="color:#B8960F;" class="text-[9px] font-bold tracking-wide uppercase">Guaranteed Issue Available</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex flex-col flex-1 p-6 pt-5">
+          <div class="flex items-center justify-between mb-5">
+            <span class="solution-pill" style="background: rgba(212,175,55,0.10); border-color: rgba(212,175,55,0.22); color: #B8960F;">Solution 05</span>
+            <span class="text-smoke/20 font-black text-3xl leading-none select-none">05</span>
+          </div>
+          <div class="w-12 h-12 rounded-xl flex items-center justify-center mb-5 flex-shrink-0" style="background: linear-gradient(135deg, #DDB84E, #C9A52A);">
+            <svg class="w-6 h-6 text-[#1A202C]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
+            </svg>
+          </div>
+          <h3 class="text-ink font-extrabold text-xl leading-tight mb-3 tracking-tight">Final Expense Planning</h3>
+          <p class="text-smoke text-[0.9375rem] leading-relaxed flex-grow mb-6">
+            Modest, guaranteed-issue coverage designed to handle funeral costs and end-of-life expenses — so the people you love don't carry that financial burden during an already difficult time.
+          </p>
+          <a href="solutions/final-expense.html" class="btn-ghost px-6 py-3 text-sm justify-center">
+            Explore Final Expense
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+          </a>
+        </div>
+
+      </div><!-- end Solution 5 -->
+
+
+      <!-- ══════════════════════════════════════
+           SOLUTION 6: Income Protection
+      ══════════════════════════════════════ -->
+      <div class="track-card flex flex-col">
+
+        <!-- INSERT OPTIMIZED WEBP IMAGE FOR INCOME PROTECTION HERE -->
+        <!-- Placeholder: Dark amber/warm — income stream with lock visual -->
+        <div class="aspect-[4/3] relative overflow-hidden flex-shrink-0" style="background: linear-gradient(145deg, #1A1400 0%, #2D2200 55%, #1C1800 100%);">
+          <div class="absolute inset-0" style="background-image: radial-gradient(circle at 1px 1px, rgba(212,175,55,0.08) 1px, transparent 0); background-size: 28px 28px;"></div>
+          <div class="absolute top-0 left-0 right-0 h-[3px] z-10" style="background: linear-gradient(90deg, #D4AF37 0%, #DDB84E 45%, rgba(212,175,55,0.12) 100%);"></div>
+          <div class="absolute inset-0" style="background: radial-gradient(ellipse 55% 50% at 25% 30%, rgba(212,175,55,0.15) 0%, transparent 65%);"></div>
+
+          <div class="absolute inset-0 flex flex-col items-center justify-center gap-4">
+            <!-- Lock icon -->
+            <div class="w-20 h-20 rounded-2xl flex items-center justify-center" style="background: rgba(212,175,55,0.13); border: 1.5px solid rgba(212,175,55,0.28);">
+              <svg class="w-10 h-10" style="color:#D4AF37;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+              </svg>
+            </div>
+            <!-- Income stat row -->
+            <div class="flex items-center gap-5">
+              <div class="text-center">
+                <p class="font-extrabold text-xl leading-none" style="color:#D4AF37;">60%</p>
+                <p class="text-white/35 text-[9px] mt-1 uppercase tracking-widest">of Income</p>
+              </div>
+              <div class="w-px h-7 flex-shrink-0" style="background: rgba(212,175,55,0.20);"></div>
+              <div class="text-center">
+                <p class="font-extrabold text-xl leading-none" style="color:#D4AF37;">2 yrs</p>
+                <p class="text-white/35 text-[9px] mt-1 uppercase tracking-widest">Short-Term</p>
+              </div>
+              <div class="w-px h-7 flex-shrink-0" style="background: rgba(212,175,55,0.20);"></div>
+              <div class="text-center">
+                <p class="font-extrabold text-xl leading-none" style="color:#D4AF37;">Life</p>
+                <p class="text-white/35 text-[9px] mt-1 uppercase tracking-widest">Long-Term</p>
+              </div>
+            </div>
+            <p class="text-white/25 text-[10px] font-bold tracking-widest uppercase">Income Protection</p>
+          </div>
+        </div>
+
+        <div class="flex flex-col flex-1 p-6 pt-5">
+          <div class="flex items-center justify-between mb-5">
+            <span class="solution-pill">Solution 06</span>
+            <span class="text-smoke/20 font-black text-3xl leading-none select-none">06</span>
+          </div>
+          <div class="w-12 h-12 rounded-xl bg-forest flex items-center justify-center mb-5 flex-shrink-0 shadow-sm">
+            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+            </svg>
+          </div>
+          <h3 class="text-ink font-extrabold text-xl leading-tight mb-3 tracking-tight">Income Protection</h3>
+          <p class="text-smoke text-[0.9375rem] leading-relaxed flex-grow mb-6">
+            Short-term and long-term disability coverage that replaces your paycheck if illness or injury prevents you from working. Your income is your most valuable asset — protect it first.
+          </p>
+          <a href="solutions/income-protection.html" class="btn-forest px-6 py-3 text-sm justify-center">
+            Explore Income Protection
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+          </a>
+        </div>
+
+      </div><!-- end Solution 6 -->
+
+    </div><!-- end 3×2 solutions grid -->
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════
+     FEDERAL & DC GOVERNMENT EMPLOYEE SPECIALIZATION BAND
+════════════════════════════════════════════════════════════ -->
+<section class="py-16 border-t border-slate-100" style="background: #F7FAFC;">
+  <div class="max-w-[1400px] mx-auto px-6 lg:px-12">
+
+    <!-- Label above band -->
+    <div class="text-center mb-8">
+      <span class="inline-flex items-center gap-2 bg-[#D4AF37]/12 border border-[#D4AF37]/25 rounded-full px-5 py-2 text-[11px] font-bold tracking-[0.16em] uppercase text-[#B8960F]">
+        ★ Specialized Expertise — Federal &amp; DC Government Employees
+      </span>
+    </div>
+
+    <!-- Federal band card -->
+    <div class="federal-band p-10 lg:p-14">
+
+      <!-- Background dot grid -->
+      <div class="absolute inset-0 pointer-events-none" style="background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,0.04) 1px, transparent 0); background-size: 28px 28px;"></div>
+      <!-- Gold glow right -->
+      <div class="absolute right-0 top-0 bottom-0 w-1/3 pointer-events-none" style="background: radial-gradient(ellipse 80% 100% at 100% 50%, rgba(212,175,55,0.12) 0%, transparent 70%);"></div>
+
+      <div class="relative z-10 flex flex-col lg:flex-row items-start lg:items-center gap-10 lg:gap-16">
+
+        <!-- Left: icon + label -->
+        <div class="flex-shrink-0 flex flex-col items-start gap-5">
+          <div class="w-20 h-20 rounded-2xl flex items-center justify-center" style="background: rgba(212,175,55,0.15); border: 1.5px solid rgba(212,175,55,0.28);">
+            <svg class="w-10 h-10" style="color:#D4AF37;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
+            </svg>
+          </div>
+          <div>
+            <p class="text-white/40 text-[10px] font-bold tracking-[0.15em] uppercase mb-1">Elite Track</p>
+            <p class="text-white font-bold text-lg leading-snug">Federal &amp; DC<br />Gov. Employee<br />Planning</p>
+          </div>
+        </div>
+
+        <!-- Center: headline + 3-pillar grid -->
+        <div class="flex-1 min-w-0">
+          <h2 class="font-serif font-bold italic mb-4" style="font-size: clamp(1.5rem, 3vw, 2.25rem); line-height: 1.15; color: #D4AF37;">
+            Your Federal Benefits Are Complex.<br />We Know Them Cold.
+          </h2>
+          <p class="text-white/55 text-[0.9375rem] leading-relaxed mb-8 max-w-[560px]">
+            Federal and DC government employees have access to benefit systems — FEGLI, FERS, CSRS, TSP, FEHB — that no off-the-shelf plan accounts for. FCPC specialists have spent decades inside these programs, helping employees make the most of what they've earned.
+          </p>
+
+          <!-- Three pillars -->
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <div class="rounded-2xl p-5" style="background: rgba(255,255,255,0.06); border: 1px solid rgba(212,175,55,0.12);">
+              <div class="w-9 h-9 rounded-xl flex items-center justify-center mb-4" style="background: rgba(212,175,55,0.14); border: 1px solid rgba(212,175,55,0.25);">
+                <svg style="width:16px;height:16px;color:#D4AF37;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+              </div>
+              <p class="text-white font-bold text-sm mb-1.5">FEGLI Optimization</p>
+              <p class="text-white/45 text-[0.8125rem] leading-relaxed">Review your life insurance elections and identify whether FEGLI Basic, Option A, B, or C is truly cost-effective for your situation.</p>
+            </div>
+            <div class="rounded-2xl p-5" style="background: rgba(255,255,255,0.06); border: 1px solid rgba(212,175,55,0.12);">
+              <div class="w-9 h-9 rounded-xl flex items-center justify-center mb-4" style="background: rgba(212,175,55,0.14); border: 1px solid rgba(212,175,55,0.25);">
+                <svg style="width:16px;height:16px;color:#D4AF37;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>
+              </div>
+              <p class="text-white font-bold text-sm mb-1.5">FERS &amp; TSP Strategy</p>
+              <p class="text-white/45 text-[0.8125rem] leading-relaxed">Coordinate your FERS pension, Thrift Savings Plan, and Social Security into a coherent retirement income plan that covers every gap.</p>
+            </div>
+            <div class="rounded-2xl p-5" style="background: rgba(255,255,255,0.06); border: 1px solid rgba(212,175,55,0.12);">
+              <div class="w-9 h-9 rounded-xl flex items-center justify-center mb-4" style="background: rgba(212,175,55,0.14); border: 1px solid rgba(212,175,55,0.25);">
+                <svg style="width:16px;height:16px;color:#D4AF37;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
+              </div>
+              <p class="text-white font-bold text-sm mb-1.5">FEHB Gap Coverage</p>
+              <p class="text-white/45 text-[0.8125rem] leading-relaxed">Supplement your Federal Employees Health Benefits plan with gap, dental, vision, and critical illness coverage — protecting you on all sides.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: CTA -->
+        <div class="flex-shrink-0 flex flex-col items-center lg:items-end gap-4 text-center lg:text-right">
+          <p class="text-white/30 text-xs max-w-[200px]">Federal &amp; DC government employees only. Free consultation.</p>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════
+     HOW IT WORKS — 3-step process strip
+════════════════════════════════════════════════════════════ -->
+<section class="py-20 lg:py-24 border-t border-slate-100" style="background: #ffffff;">
+  <div class="max-w-[1400px] mx-auto px-6 lg:px-12">
+    <div class="text-center mb-14">
+      <span class="eyebrow mb-4 block">Simple Process</span>
+      <h2 class="section-headline">From First Conversation<br />to Coverage in Place.</h2>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-8 lg:gap-12 relative">
+
+      <!-- Connector line (desktop) -->
+      <div class="hidden sm:block absolute top-8 left-1/3 right-1/3 h-px" style="background: linear-gradient(90deg, transparent 0%, rgba(25,99,79,0.20) 20%, rgba(25,99,79,0.20) 80%, transparent 100%);"></div>
+
+      <!-- Step 1 -->
+      <div class="flex flex-col items-center text-center">
+        <div class="w-16 h-16 rounded-2xl bg-forest-50 border border-forest/12 flex items-center justify-center mb-6 flex-shrink-0 relative z-10">
+          <svg class="w-7 h-7 text-forest" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+          </svg>
+        </div>
+        <p class="text-smoke text-[10px] font-bold tracking-[0.18em] uppercase mb-3">Step One</p>
+        <h3 class="text-ink font-bold text-lg leading-snug mb-3">Tell Us Your Situation</h3>
+        <p class="text-smoke text-sm leading-relaxed max-w-[260px]">A brief, no-pressure conversation about your family, your goals, and any existing coverage you already carry.</p>
+      </div>
+
+      <!-- Step 2 -->
+      <div class="flex flex-col items-center text-center">
+        <div class="w-16 h-16 rounded-2xl bg-forest-50 border border-forest/12 flex items-center justify-center mb-6 flex-shrink-0 relative z-10">
+          <svg class="w-7 h-7 text-forest" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/>
+          </svg>
+        </div>
+        <p class="text-smoke text-[10px] font-bold tracking-[0.18em] uppercase mb-3">Step Two</p>
+        <h3 class="text-ink font-bold text-lg leading-snug mb-3">We Build Your Plan</h3>
+        <p class="text-smoke text-sm leading-relaxed max-w-[260px]">Our specialists identify the right combination of solutions from our 40+ carrier network — and explain every option clearly before you decide anything.</p>
+      </div>
+
+      <!-- Step 3 -->
+      <div class="flex flex-col items-center text-center">
+        <div class="w-16 h-16 rounded-2xl bg-forest-50 border border-forest/12 flex items-center justify-center mb-6 flex-shrink-0 relative z-10">
+          <svg class="w-7 h-7 text-forest" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/>
+          </svg>
+        </div>
+        <p class="text-smoke text-[10px] font-bold tracking-[0.18em] uppercase mb-3">Step Three</p>
+        <h3 class="text-ink font-bold text-lg leading-snug mb-3">Coverage Is in Place</h3>
+        <p class="text-smoke text-sm leading-relaxed max-w-[260px]">Once you choose, we handle the application and keep you informed through every step — and remain your point of contact long after the policy is issued.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════
+     FULL-BLEED CTA BAND
+════════════════════════════════════════════════════════════ -->
+<section class="relative overflow-hidden border-t border-slate-100" style="background: linear-gradient(135deg, #0B3226 0%, #19634F 55%, #0B3226 100%);">
+  <div class="absolute inset-0 pointer-events-none" style="background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,0.04) 1px, transparent 0); background-size: 36px 36px;"></div>
+  <div class="absolute right-0 top-0 bottom-0 w-1/3 pointer-events-none" style="background: radial-gradient(ellipse 80% 100% at 100% 50%, rgba(212,175,55,0.10) 0%, transparent 70%);"></div>
+  <div class="relative z-10 max-w-[1400px] mx-auto px-6 lg:px-12 py-24 lg:py-32 flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
+    <div class="flex-1 text-center lg:text-left">
+      <p class="text-gold text-[11px] font-bold tracking-[0.18em] uppercase mb-5">No Cost. No Pressure. No Sales Pitch.</p>
+      <h2 class="text-white font-extrabold leading-[1.07] tracking-tight mb-6" style="font-size: clamp(2rem,4.5vw,3.5rem);">
+        Ready to See What the<br />Right Coverage Looks Like?
+      </h2>
+      <p class="text-white/60 text-lg leading-relaxed max-w-[500px] mx-auto lg:mx-0">
+        A 20-minute conversation with an FCPC specialist is all it takes to understand your options — clearly, without obligation.
+      </p>
+    </div>
+    <div class="flex-shrink-0 flex flex-col items-center gap-4 text-center">
+      <a href="get-quote.html" class="btn-gold px-10 py-5 text-[16px]">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+        Schedule My Free Review
+      </a>
+      <p class="text-white/35 text-xs">Licensed specialists · Education-first · No obligation</p>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════
+     EMAIL NEWSLETTER STRIP
+════════════════════════════════════════════════════════════ -->
+<section class="bg-mist py-16 border-t border-silver/60">
+  <div class="max-w-[1400px] mx-auto px-6 lg:px-12 flex flex-col lg:flex-row items-center gap-8">
+    <div class="flex-1">
+      <h3 class="text-ink font-bold text-xl mb-2">Stay Informed on Benefits &amp; Coverage.</h3>
+      <p class="text-smoke text-sm leading-relaxed max-w-[400px]">Benefit updates, new guides, and webinar invitations — 2–4 times a month. No spam.</p>
+    </div>
+    <form class="flex gap-3 w-full max-w-[440px]" data-form-type="newsletter" data-lead-source="Solutions - Newsletter">
+      <input type="email" name="Email" required placeholder="Your email address"
+             class="flex-1 px-5 py-3.5 rounded-full border border-silver bg-white text-ink text-sm placeholder-smoke/50 outline-none focus:border-forest focus:ring-2 focus:ring-forest/10 transition-all font-medium" />
+      <button type="submit" class="btn-forest flex-shrink-0 px-6 py-3.5 text-sm">Subscribe</button>
+    </form>
+  </div>
+  <p class="text-smoke/40 text-xs text-center mt-6 max-w-[1280px] mx-auto px-6">We respect your privacy. Unsubscribe any time. We will never sell your information.</p>
+</section>
+
+</main>
+
+<!-- ════════════════════════════════════════════════════════════
+     FOOTER
+════════════════════════════════════════════════════════════ -->
+<footer class="bg-[#111827]">
+
+  <!-- ── Main link columns ── -->
+  <div class="max-w-[1400px] mx-auto px-6 lg:px-12 pt-20 pb-14">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-8">
+
+      <!-- Brand — 4 cols -->
+      <div class="lg:col-span-4">
+        <img src="FCPC-Logo.webp" alt="Financial Crisis Prevention Center"
+             class="h-9 w-auto object-contain brightness-0 invert mb-7"
+             onerror="this.style.display='none';this.nextElementSibling.style.display='block';" />
+        <span style="display:none" class="block font-serif font-bold text-white text-xl mb-7">FCPC</span>
+        <p class="text-white/45 text-sm leading-[1.8] max-w-[290px] mb-8">
+          Helping federal employees, families, and retirees build lasting financial security through education, not pressure — since 1985.
+        </p>
+        <div class="space-y-3">
+          <div class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded-lg bg-white/[0.06] flex items-center justify-center flex-shrink-0">
+              <svg class="w-3.5 h-3.5 text-white/40" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+            </div>
+            <span class="text-white/40 text-xs">Washington, DC Metro Area · Licensed Nationally</span>
+          </div>
+          <div class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded-lg bg-white/[0.06] flex items-center justify-center flex-shrink-0">
+              <svg class="w-3.5 h-3.5 text-white/40" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+            </div>
+            <a href="tel:+18005553272" class="text-white/40 text-xs hover:text-[#19634F] transition-colors duration-200">(800) 555-FCPC</a>
+          </div>
+          <div class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded-lg bg-white/[0.06] flex items-center justify-center flex-shrink-0">
+              <svg class="w-3.5 h-3.5 text-white/40" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+            </div>
+            <a href="mailto:info@fcpcusa.com" class="text-white/40 text-xs hover:text-[#19634F] transition-colors duration-200">info@fcpcusa.com</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Primary Solutions — 2 cols -->
+      <div class="lg:col-span-2">
+        <p class="text-[10.5px] font-bold tracking-[0.15em] uppercase text-white/30 mb-5">Company</p>
+        <ul class="space-y-3.5">
+          <li><a href="about.html" class="group flex items-center gap-2 text-sm font-medium hover:text-[#19634F] transition-colors duration-200" style="color:rgba(226,232,240,0.60);"><span class="w-1 h-1 rounded-full bg-current opacity-40 flex-shrink-0 group-hover:opacity-100 transition-opacity"></span> About</a></li>
+          <li><a href="opportunity.html" class="group flex items-center gap-2 text-sm font-medium hover:text-[#19634F] transition-colors duration-200" style="color:rgba(226,232,240,0.60);"><span class="w-1 h-1 rounded-full bg-current opacity-40 flex-shrink-0 group-hover:opacity-100 transition-opacity"></span> Agent Opportunity</a></li>
+          <li><a href="find-agent.html" class="group flex items-center gap-2 text-sm font-medium hover:text-[#19634F] transition-colors duration-200" style="color:rgba(226,232,240,0.60);"><span class="w-1 h-1 rounded-full bg-current opacity-40 flex-shrink-0 group-hover:opacity-100 transition-opacity"></span> Find My Agent</a></li>
+          <li><a href="contact.html" class="group flex items-center gap-2 text-sm font-medium hover:text-[#19634F] transition-colors duration-200" style="color:rgba(226,232,240,0.60);"><span class="w-1 h-1 rounded-full bg-current opacity-40 flex-shrink-0 group-hover:opacity-100 transition-opacity"></span> Contact Us</a></li>
+        </ul>
+      </div>
+
+      <div class="lg:col-span-2">
+        <p class="text-[10.5px] font-bold tracking-[0.15em] uppercase text-white/30 mb-5">Solutions</p>
+        <ul class="space-y-3.5">
+          <li><a href="solutions/life-insurance.html" class="group flex items-center gap-2 text-sm font-medium hover:text-[#19634F] transition-colors duration-200" style="color:rgba(226,232,240,0.60);"><span class="w-1 h-1 rounded-full bg-current opacity-40 flex-shrink-0 group-hover:opacity-100 transition-opacity"></span> Life Insurance</a></li>
+          <li><a href="solutions/indexed-annuities.html" class="group flex items-center gap-2 text-sm font-medium hover:text-[#19634F] transition-colors duration-200" style="color:rgba(226,232,240,0.60);"><span class="w-1 h-1 rounded-full bg-current opacity-40 flex-shrink-0 group-hover:opacity-100 transition-opacity"></span> Indexed Annuities</a></li>
+          <li><a href="solutions/final-expense.html" class="group flex items-center gap-2 text-sm font-medium hover:text-[#19634F] transition-colors duration-200" style="color:rgba(226,232,240,0.60);"><span class="w-1 h-1 rounded-full bg-current opacity-40 flex-shrink-0 group-hover:opacity-100 transition-opacity"></span> Final Expense</a></li>
+          <li><a href="solutions/supplemental-health.html" class="group flex items-center gap-2 text-sm font-medium hover:text-[#19634F] transition-colors duration-200" style="color:rgba(226,232,240,0.60);"><span class="w-1 h-1 rounded-full bg-current opacity-40 flex-shrink-0 group-hover:opacity-100 transition-opacity"></span> Supplemental Health</a></li>
+        </ul>
+      </div>
+
+      <div class="lg:col-span-3">
+        <p class="text-[10.5px] font-bold tracking-[0.15em] uppercase text-white/30 mb-5">Resources</p>
+        <ul class="space-y-3.5">
+          <li><a href="blog.html" class="group flex items-center gap-2 text-sm font-medium hover:text-[#19634F] transition-colors duration-200" style="color:rgba(226,232,240,0.60);"><span class="w-1 h-1 rounded-full bg-current opacity-40 flex-shrink-0 group-hover:opacity-100 transition-opacity"></span> Blog &amp; Articles</a></li>
+          <li><a href="guides.html" class="group flex items-center gap-2 text-sm font-medium hover:text-[#19634F] transition-colors duration-200" style="color:rgba(226,232,240,0.60);"><span class="w-1 h-1 rounded-full bg-current opacity-40 flex-shrink-0 group-hover:opacity-100 transition-opacity"></span> Free Guides</a></li>
+          <li><a href="calculators.html" class="group flex items-center gap-2 text-sm font-medium hover:text-[#19634F] transition-colors duration-200" style="color:rgba(226,232,240,0.60);"><span class="w-1 h-1 rounded-full bg-current opacity-40 flex-shrink-0 group-hover:opacity-100 transition-opacity"></span> Calculators</a></li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="border-t border-white/[0.07]">
+    <div class="max-w-[1400px] mx-auto px-6 lg:px-12 py-10">
+      <div class="max-w-4xl">
+        <p class="text-white/22 text-[11px] leading-[1.9] mb-2">
+          <strong class="text-white/32">Educational Disclaimer:</strong> All content on this website is for general educational and informational purposes only and does not constitute individualized insurance, financial, tax, legal, or investment advice. FCPC agents are independent licensed insurance professionals. Product availability, premiums, and benefits vary by state, carrier, age, and health status. All products subject to carrier underwriting approval.
+        </p>
+        <p class="text-white/22 text-[11px] leading-[1.9] mb-2">
+          <strong class="text-white/32">Government Employee Disclaimer:</strong> The Financial Crisis Prevention Center is not affiliated with, endorsed by, or approved by OPM, any federal agency, or the District of Columbia government. Always verify current benefit information directly with your HR office or official government publications.
+        </p>
+        <p class="text-white/22 text-[11px] leading-[1.9]">
+          <strong class="text-white/32">Insurance Products:</strong> Not bank deposits. Not FDIC insured. Not guaranteed by any bank. Fixed and indexed annuities are insurance contracts, not securities, and are not regulated by the SEC or FINRA.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom bar -->
+  <div class="border-t border-white/[0.05]">
+    <div class="max-w-[1400px] mx-auto px-6 lg:px-12 py-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+      <p class="text-white/20 text-[11px]">© 2026 The Financial Crisis Prevention Center (FCPC). All rights reserved.</p>
+      <div class="flex items-center gap-5">
+        <a href="privacy.html" class="text-white/25 text-[11px] hover:text-[#19634F] transition-colors duration-200">Privacy Policy</a>
+        <span class="text-white/10 text-[11px]">·</span>
+        <a href="terms.html"   class="text-white/25 text-[11px] hover:text-[#19634F] transition-colors duration-200">Terms &amp; Conditions</a>
+        <span class="text-white/10 text-[11px]">·</span>
+        <a href="sitemap.xml"  class="text-white/25 text-[11px] hover:text-[#19634F] transition-colors duration-200">Sitemap</a>
+      </div>
+    </div>
+  </div>
+
+</footer>
+
+<!-- Scripts -->
+<script src="js/zoho-config.js"></script>
+<script src="js/zoho-integration.js"></script>
+<script>
+  const mobBtn  = document.getElementById('mob-btn');
+  const mobMenu = document.getElementById('mob-menu');
+  if (mobBtn && mobMenu) {
+    mobBtn.addEventListener('click', () => mobMenu.classList.toggle('hidden'));
+  }
+
+  const nav = document.getElementById('site-nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('shadow-nav', window.scrollY > 12);
+  }, { passive: true });
+</script>
+
+</body>
+</html>
