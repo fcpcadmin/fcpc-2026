@@ -1,4 +1,4 @@
-/* ============================================================
+﻿/* ============================================================
    FCPC Agent Directory — Single Source of Truth
    Usage: include via <script src="agents-data.js"></script>
    Access: GLOBAL_AGENTS["agent_id"]
@@ -11,7 +11,7 @@ const GLOBAL_AGENTS = {
     eyebrow:     'Founder & Senior Advisor',
     initials:    'CS',
     image:       'images/agents/charles-scott.webp',
-    bio:         'Charles started FCPC in 1985 with a single conviction — that every family deserves someone in their corner. Over four decades he has personally mentored hundreds of agents and helped thousands of families build financial peace of mind, one honest conversation at a time.',
+    bio:         'Charles started FCPC in 1985 with a single conviction — that every family deserves someone in their corner. Over four decades he has personally mentored hundreds of advisors and helped thousands of families build financial peace of mind, one honest conversation at a time.',
     bioLong:     'Charles Scott founded the Financial Crisis Prevention Center in 1985 after seeing first-hand how underserved families were left without guidance during life\'s most critical financial moments. Drawing on the mentorship tradition he inherited from Joe Dudley Sr., who himself was mentored by the legendary S.B. Fuller, Charles built FCPC on a foundation of servant leadership and education-first service. Today, FCPC\'s network of licensed advisors carries that same commitment into every kitchen-table conversation — no pressure, no jargon, just honest answers and real coverage built for real lives.',
     specialties: ['Life Insurance', 'Indexed Annuities', 'Final Expense', 'Supplemental Health', 'Agency Development'],
     states:      ['MD', 'VA', 'DC', 'FL', 'GA', 'TX', 'NC', 'SC'],
@@ -21,7 +21,7 @@ const GLOBAL_AGENTS = {
     location:    'Washington, DC',
     facts: [
       { label: 'Founded FCPC',    value: '1985' },
-      { label: 'Agents Mentored', value: '500+' },
+      { label: 'Advisors Mentored', value: '500+' },
       { label: 'Years in Field',  value: '40+' },
       { label: 'Home Office',     value: 'Washington, DC Metro' },
     ],
