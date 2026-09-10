@@ -244,106 +244,61 @@
 <main>
 
 <!-- ════════════════════════════════════════════════════════════
-     HERO — wide-canvas split header
+     HERO — full-bleed photo background
 ════════════════════════════════════════════════════════════ -->
-<section class="relative overflow-hidden" style="background: linear-gradient(145deg, #ffffff 0%, #F7FAFC 50%, rgba(25,99,79,0.05) 100%);">
+<section class="relative overflow-hidden" style="background: #0B3226;">
 
-  <!-- Background dot grid -->
-  <div class="absolute inset-0 pointer-events-none" style="background-image: radial-gradient(circle at 1px 1px, rgba(0,0,0,0.03) 1px, transparent 0); background-size: 40px 40px;"></div>
-  <!-- Soft green ambient glow left -->
-  <div class="absolute inset-0 pointer-events-none" style="background: radial-gradient(ellipse 55% 65% at 15% 60%, rgba(25,99,79,0.06) 0%, transparent 70%);"></div>
+  <!-- Background photo -->
+  <img src="images/solutionspage_hero_fcpcsite.webp"
+       alt="A family — two adults and two children — relaxing comfortably at home together, smiling and at ease"
+       class="absolute inset-0 w-full h-full object-cover"
+       style="object-position: center 30%;"
+       loading="eager" decoding="async" />
 
-  <div class="max-w-[1400px] mx-auto px-6 lg:px-12 pt-20 pb-12 lg:pt-28 lg:pb-16 relative z-10">
-    <div class="grid grid-cols-1 md:grid-cols-12 items-center gap-12">
+  <!-- Dark gradient overlay for text legibility -->
+  <div class="absolute inset-0 pointer-events-none" style="background: linear-gradient(to bottom, rgba(8,22,16,0.52) 0%, rgba(5,15,10,0.74) 100%);"></div>
 
-      <!-- ── Text column — 7/12 ── -->
-      <div class="md:col-span-7">
+  <div class="max-w-[1400px] mx-auto px-6 lg:px-12 pt-24 pb-16 lg:pt-32 lg:pb-20 relative z-10">
 
-        <span class="eyebrow mb-6 block">Complete Protection Solutions</span>
+    <span class="eyebrow mb-6 block" style="color:rgba(255,255,255,0.65);">Complete Protection Solutions</span>
 
-        <h1 class="font-extrabold tracking-[-0.035em] mb-6" style="font-size: clamp(2.8rem, 5.5vw, 4.75rem); line-height: 1.06; color: #2D3748;">
-          Find the Right Plan for Where You Are.
-        </h1>
+    <h1 class="font-extrabold tracking-[-0.035em] mb-6 text-white" style="font-size: clamp(2.8rem, 5.5vw, 4.75rem); line-height: 1.06;">
+      Find the Right Plan for Where You Are.
+    </h1>
 
-        <p class="text-[#2D3748]/75 text-[1.0625rem] leading-[1.85] mb-10 max-w-2xl">
-          FCPC offers four core protection solutions, each one built to solve a specific gap in a family's financial picture. Browse below to find the one that fits your situation, or talk to a specialist if you're not sure where to start.
-        </p>
+    <p class="text-white/70 text-[1.0625rem] leading-[1.85] mb-10 max-w-2xl">
+      FCPC offers four core protection solutions, each one built to solve a specific gap in a family's financial picture. Browse below to find the one that fits your situation, or talk to a specialist if you're not sure where to start.
+    </p>
 
-        <div class="flex flex-wrap items-center gap-4">
-          <a href="get-quote.html" class="btn-gold px-8 py-4 text-[15px]">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
-            I Want Life Insurance
-          </a>
-          <a href="education.html" class="btn-ghost px-8 py-4 text-[15px]">
-            Browse Educational Guides
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
-          </a>
-        </div>
-
-
-      </div><!-- end text col -->
-
-      <!-- ── Media column — 5/12 ── -->
-      <div class="md:col-span-5 flex items-center justify-center md:justify-end">
-
-        <div class="relative w-full" style="max-width: 460px;">
-
-          <!-- Ambient glow behind card -->
-          <div class="absolute -inset-6 rounded-3xl pointer-events-none" style="background: radial-gradient(ellipse 80% 70% at 50% 50%, rgba(25,99,79,0.10) 0%, rgba(212,175,55,0.07) 60%, transparent 100%); filter: blur(28px);"></div>
-
-          <!-- Hero visual card -->
-          <div class="relative rounded-3xl overflow-hidden shadow-card-lg border border-white/60">
-
-            <!-- Gold accent top line -->
-            <div class="absolute top-0 left-0 right-0 h-[3px] z-10" style="background: linear-gradient(90deg, #19634F 0%, #D4AF37 55%, transparent 100%);"></div>
-
-            <!-- INSERT HERO BACKGROUND WEBP ILLUSTRATION HERE -->
-            <!-- Placeholder: Protection dashboard — dark forest green with shield + floating metric cards -->
-            <div class="relative overflow-hidden" style="background: linear-gradient(145deg, #0B3226 0%, #19634F 55%, #0D4C3A 100%); aspect-ratio: 4/3;">
-
-              <!-- Dot grid texture -->
-              <div class="absolute inset-0" style="background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,0.055) 1px, transparent 0); background-size: 28px 28px;"></div>
-              <!-- Gold radial glow upper-right -->
-              <div class="absolute -top-10 -right-10 w-72 h-72" style="background: radial-gradient(ellipse at 70% 30%, rgba(212,175,55,0.22) 0%, transparent 65%);"></div>
-
-              <!-- Central shield composition -->
-              <div class="absolute inset-0 flex flex-col items-center justify-center gap-5">
-
-                <!-- Shield icon -->
-                <div class="w-24 h-24 rounded-3xl flex items-center justify-center" style="background: rgba(212,175,55,0.14); border: 1.5px solid rgba(212,175,55,0.32);">
-                  <svg class="w-12 h-12" style="color:#D4AF37;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.4" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
-                  </svg>
-                </div>
-
-                <!-- Floating metric row -->
-                <div class="flex items-stretch gap-3">
-                  <div class="rounded-2xl px-4 py-3 text-center" style="background: rgba(255,255,255,0.09); border: 1px solid rgba(255,255,255,0.13);">
-                    <p class="font-extrabold text-xl leading-none" style="color:#D4AF37;">6</p>
-                    <p class="text-white/45 text-[9px] mt-1 uppercase tracking-widest">Solutions</p>
-                  </div>
-                  <div class="rounded-2xl px-4 py-3 text-center" style="background: rgba(255,255,255,0.09); border: 1px solid rgba(255,255,255,0.13);">
-                    <p class="font-extrabold text-xl leading-none" style="color:#D4AF37;">40+</p>
-                    <p class="text-white/45 text-[9px] mt-1 uppercase tracking-widest">Carriers</p>
-                  </div>
-                  <div class="rounded-2xl px-4 py-3 text-center" style="background: rgba(255,255,255,0.09); border: 1px solid rgba(255,255,255,0.13);">
-                    <p class="font-extrabold text-xl leading-none" style="color:#D4AF37;">$0</p>
-                    <p class="text-white/45 text-[9px] mt-1 uppercase tracking-widest">To Start</p>
-                  </div>
-                </div>
-
-                <p class="text-white/30 text-[10px] font-bold tracking-widest uppercase">FCPC Protection Suite</p>
-              </div>
-
-            </div><!-- end placeholder -->
-
-          </div><!-- end hero card -->
-
-
-        </div>
-      </div><!-- end media col -->
-
+    <div class="flex flex-wrap items-center gap-4">
+      <a href="contact.html" class="btn-gold px-8 py-4 text-[15px]">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+        Schedule My Free Review
+      </a>
+      <a href="education.html" class="btn-ghost px-8 py-4 text-[15px]" style="color:#fff; border-color:rgba(255,255,255,0.30);">
+        Browse Educational Guides
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+      </a>
     </div>
+
+    <!-- Stat strip -->
+    <div class="mt-10 flex items-center gap-6 lg:gap-10 w-fit rounded-2xl border px-6 py-4" style="background: rgba(255,255,255,0.10); border-color: rgba(255,255,255,0.18); backdrop-filter: blur(8px);">
+      <div class="text-center">
+        <p class="text-white font-extrabold text-2xl tracking-tight leading-none">6</p>
+        <p class="text-white/55 text-[10px] font-bold tracking-widest uppercase mt-1.5">Solutions</p>
+      </div>
+      <div style="width:1px;height:36px;background:rgba(255,255,255,0.20);"></div>
+      <div class="text-center">
+        <p class="text-white font-extrabold text-2xl tracking-tight leading-none">40+</p>
+        <p class="text-white/55 text-[10px] font-bold tracking-widest uppercase mt-1.5">Carriers</p>
+      </div>
+      <div style="width:1px;height:36px;background:rgba(255,255,255,0.20);"></div>
+      <div class="text-center">
+        <p class="text-white font-extrabold text-2xl tracking-tight leading-none">$0</p>
+        <p class="text-white/55 text-[10px] font-bold tracking-widest uppercase mt-1.5">To Start</p>
+      </div>
+    </div>
+
   </div>
 </section>
 
@@ -374,49 +329,10 @@
       ══════════════════════════════════════ -->
       <div class="track-card flex flex-col">
 
-        <!-- INSERT OPTIMIZED WEBP IMAGE FOR LIFE INSURANCE HERE -->
-        <!-- Placeholder: Dark forest green — family protection composition -->
-        <div class="aspect-[4/3] relative overflow-hidden flex-shrink-0" style="background: linear-gradient(145deg, #0B3226 0%, #19634F 55%, #0D4C3A 100%);">
-          <div class="absolute inset-0" style="background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,0.06) 1px, transparent 0); background-size: 28px 28px;"></div>
-          <div class="absolute top-0 right-0 w-3/4 h-3/4" style="background: radial-gradient(ellipse at 80% 20%, rgba(212,175,55,0.20) 0%, transparent 60%);"></div>
-          <div class="absolute top-0 left-0 right-0 h-[3px] z-10" style="background: linear-gradient(90deg, #19634F 0%, #D4AF37 55%, transparent 100%);"></div>
-
-          <div class="absolute inset-0 flex flex-col items-center justify-center gap-5">
-            <!-- Shield icon -->
-            <div class="w-20 h-20 rounded-2xl flex items-center justify-center" style="background: rgba(212,175,55,0.15); border: 1.5px solid rgba(212,175,55,0.32);">
-              <svg class="w-10 h-10" style="color:#D4AF37;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
-              </svg>
-            </div>
-            <!-- Family node cluster -->
-            <div class="flex items-center gap-3">
-              <div class="flex flex-col items-center gap-1">
-                <div class="w-8 h-8 rounded-full bg-white/15 border border-white/25 flex items-center justify-center">
-                  <svg style="width:14px;height:14px;" class="text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12z"/></svg>
-                </div>
-                <p class="text-white/50 text-[8px] font-semibold uppercase tracking-wider">You</p>
-              </div>
-              <div class="w-6 h-px bg-white/20"></div>
-              <div class="flex flex-col items-center gap-1">
-                <div class="w-8 h-8 rounded-full bg-white/15 border border-white/25 flex items-center justify-center">
-                  <svg style="width:14px;height:14px;" class="text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12z"/></svg>
-                </div>
-                <p class="text-white/50 text-[8px] font-semibold uppercase tracking-wider">Spouse</p>
-              </div>
-              <div class="w-6 h-px bg-white/20"></div>
-              <div class="flex flex-col items-center gap-1">
-                <div class="w-7 h-7 rounded-full bg-white/10 border border-white/20 flex items-center justify-center">
-                  <svg style="width:11px;height:11px;" class="text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12z"/></svg>
-                </div>
-                <p class="text-white/50 text-[8px] font-semibold uppercase tracking-wider">Family</p>
-              </div>
-            </div>
-            <!-- Protected pill -->
-            <div class="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5" style="background: rgba(212,175,55,0.12); border: 1px solid rgba(212,175,55,0.28);">
-              <svg style="width:10px;height:10px;" style2="color:#D4AF37;" fill="none" stroke="#D4AF37" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
-              <span style="color:#D4AF37;" class="text-[9px] font-bold tracking-wide uppercase">Protected</span>
-            </div>
-          </div>
+        <div class="aspect-[4/3] relative overflow-hidden flex-shrink-0">
+          <img src="images/solutionspage_lifeinsurance_fcpcsite.webp"
+               alt="A couple smiling warmly together, representing the peace of mind that comes with life insurance coverage for your family"
+               class="w-full h-full object-cover object-center" loading="lazy" />
         </div>
 
         <div class="flex flex-col flex-1 p-5 pt-4">
@@ -447,33 +363,10 @@
       ══════════════════════════════════════ -->
       <div class="track-card flex flex-col">
 
-        <!-- INSERT OPTIMIZED WEBP IMAGE FOR Indexed Annuities HERE -->
-        <!-- Placeholder: Dark navy/slate — guaranteed rate visual with stability rings -->
-        <div class="aspect-[4/3] relative overflow-hidden flex-shrink-0" style="background: linear-gradient(145deg, #1A2232 0%, #2D3748 55%, #1E2A3D 100%);">
-          <div class="absolute inset-0" style="background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,0.05) 1px, transparent 0); background-size: 28px 28px;"></div>
-          <div class="absolute top-0 left-0 right-0 h-[3px] z-10" style="background: linear-gradient(90deg, #D4AF37 0%, #DDB84E 45%, rgba(212,175,55,0.12) 100%);"></div>
-          <!-- Gold glow center-left -->
-          <div class="absolute inset-0" style="background: radial-gradient(ellipse 55% 55% at 35% 45%, rgba(212,175,55,0.14) 0%, transparent 65%);"></div>
-
-          <div class="absolute inset-0 flex flex-col items-center justify-center gap-4">
-            <!-- Concentric stability rings -->
-            <div class="relative flex items-center justify-center" style="width:120px; height:120px;">
-              <div class="absolute inset-0 rounded-full" style="border: 1.5px solid rgba(212,175,55,0.12);"></div>
-              <div class="absolute rounded-full" style="inset:16px; border: 1.5px solid rgba(212,175,55,0.20);"></div>
-              <div class="absolute rounded-full" style="inset:32px; border: 1.5px solid rgba(212,175,55,0.32);"></div>
-              <!-- Center rate badge -->
-              <div class="relative z-10 text-center">
-                <p class="font-extrabold text-2xl leading-none" style="color:#D4AF37;">4.8%</p>
-                <p class="text-white/40 text-[8px] mt-0.5 uppercase tracking-widest">Guaranteed</p>
-              </div>
-            </div>
-            <!-- Zero risk label -->
-            <div class="flex items-center gap-2 rounded-full px-4 py-1.5" style="background: rgba(212,175,55,0.10); border: 1px solid rgba(212,175,55,0.22);">
-              <svg style="width:9px;height:9px;" fill="none" stroke="#D4AF37" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
-              <span style="color:#D4AF37;" class="text-[9px] font-bold tracking-wide uppercase">Zero Market Risk</span>
-            </div>
-            <p class="text-white/25 text-[10px] font-bold tracking-widest uppercase">Indexed Annuities</p>
-          </div>
+        <div class="aspect-[4/3] relative overflow-hidden flex-shrink-0">
+          <img src="images/solutionspage_indexedannuities_fcpcsite.webp"
+               alt="A retired couple enjoying a relaxed afternoon outdoors, representing the financial security and steady income of indexed annuities"
+               class="w-full h-full object-cover object-center" loading="lazy" />
         </div>
 
         <div class="flex flex-col flex-1 p-5 pt-4">
@@ -504,45 +397,10 @@
       ══════════════════════════════════════ -->
       <div class="track-card flex flex-col">
 
-        <!-- INSERT OPTIMIZED WEBP IMAGE FOR SUPPLEMENTAL HEALTH HERE -->
-        <!-- Placeholder: Light mint white — medical cross + concentric coverage rings -->
-        <div class="aspect-[4/3] relative overflow-hidden flex-shrink-0" style="background: linear-gradient(145deg, #F0FDF8 0%, #ffffff 55%, #F7FAFC 100%);">
-          <div class="absolute inset-0" style="background-image: radial-gradient(circle at 1px 1px, rgba(25,99,79,0.05) 1px, transparent 0); background-size: 28px 28px;"></div>
-          <div class="absolute top-0 left-0 right-0 h-[3px] z-10" style="background: linear-gradient(90deg, #22896C 0%, #19634F 45%, rgba(25,99,79,0.10) 100%);"></div>
-
-          <div class="absolute inset-0 flex items-center justify-center">
-            <div class="relative flex items-center justify-center">
-              <!-- Rings -->
-              <div class="absolute w-52 h-52 rounded-full" style="background: rgba(25,99,79,0.04); border: 1.5px solid rgba(25,99,79,0.09);"></div>
-              <div class="absolute w-36 h-36 rounded-full" style="background: rgba(25,99,79,0.06); border: 1.5px solid rgba(25,99,79,0.13);"></div>
-              <div class="absolute w-24 h-24 rounded-full" style="background: rgba(25,99,79,0.09); border: 1.5px solid rgba(25,99,79,0.18);"></div>
-              <!-- Cross icon center -->
-              <div class="w-16 h-16 rounded-xl flex items-center justify-center shadow-md" style="background: #19634F; position: relative; z-index:1;">
-                <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.5 12h15M12 4.5v15"/>
-                </svg>
-              </div>
-              <!-- Orbiting labels -->
-              <div class="absolute" style="top:6px; right:-44px;">
-                <div class="bg-white rounded-xl px-2.5 py-2 shadow-md border border-black/[0.05] text-center">
-                  <p class="text-ink font-bold text-[11px] leading-none">Hospital</p>
-                  <p class="text-smoke text-[9px] mt-0.5">Coverage</p>
-                </div>
-              </div>
-              <div class="absolute" style="bottom:6px; left:-48px;">
-                <div class="bg-white rounded-xl px-2.5 py-2 shadow-md border border-black/[0.05] text-center">
-                  <p class="text-ink font-bold text-[11px] leading-none">Critical</p>
-                  <p class="text-smoke text-[9px] mt-0.5">Illness</p>
-                </div>
-              </div>
-              <div class="absolute" style="bottom:6px; right:-40px;">
-                <div class="bg-white rounded-xl px-2.5 py-2 shadow-md border border-black/[0.05] text-center">
-                  <p class="text-ink font-bold text-[11px] leading-none">Accident</p>
-                  <p class="text-smoke text-[9px] mt-0.5">Plan</p>
-                </div>
-              </div>
-            </div>
-          </div>
+        <div class="aspect-[4/3] relative overflow-hidden flex-shrink-0">
+          <img src="images/solutionspage_finalexpense_fcpcsite.webp"
+               alt="An older couple sitting together peacefully at home, representing final expense planning that protects loved ones from end-of-life costs"
+               class="w-full h-full object-cover object-center" loading="lazy" />
         </div>
 
         <div class="flex flex-col flex-1 p-5 pt-4">
@@ -573,39 +431,10 @@
       ══════════════════════════════════════ -->
       <div class="track-card flex flex-col">
 
-        <!-- INSERT OPTIMIZED WEBP IMAGE FOR FINAL EXPENSE HERE -->
-        <!-- Placeholder: Warm cream/gold — family legacy visual -->
-        <div class="aspect-[4/3] relative overflow-hidden flex-shrink-0" style="background: linear-gradient(145deg, #FDFAEE 0%, #F9F3E2 55%, #FDFAEE 100%);">
-          <div class="absolute inset-0" style="background-image: radial-gradient(circle at 1px 1px, rgba(212,175,55,0.08) 1px, transparent 0); background-size: 28px 28px;"></div>
-          <div class="absolute top-0 left-0 right-0 h-[3px] z-10" style="background: linear-gradient(90deg, #D4AF37 0%, #DDB84E 45%, rgba(212,175,55,0.15) 100%);"></div>
-          <!-- Warm gold glow -->
-          <div class="absolute inset-0" style="background: radial-gradient(ellipse 55% 55% at 70% 30%, rgba(212,175,55,0.18) 0%, transparent 65%);"></div>
-
-          <div class="absolute inset-0 flex flex-col items-center justify-center gap-4">
-            <!-- Heart icon -->
-            <div class="w-20 h-20 rounded-2xl flex items-center justify-center" style="background: rgba(212,175,55,0.15); border: 1.5px solid rgba(212,175,55,0.30);">
-              <svg class="w-10 h-10" style="color:#B8960F;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
-              </svg>
-            </div>
-            <!-- Coverage cards row -->
-            <div class="flex items-center gap-2.5">
-              <div class="bg-white rounded-xl px-3 py-2 shadow-sm border border-black/[0.05] text-center">
-                <p class="font-bold text-xs text-ink leading-none">$5,000</p>
-                <p class="text-smoke text-[9px] mt-0.5">Burial</p>
-              </div>
-              <div class="w-px h-6 bg-gold/25 flex-shrink-0"></div>
-              <div class="bg-white rounded-xl px-3 py-2 shadow-sm border border-black/[0.05] text-center">
-                <p class="font-bold text-xs text-ink leading-none">$25,000</p>
-                <p class="text-smoke text-[9px] mt-0.5">Estate</p>
-              </div>
-            </div>
-            <!-- Guaranteed issue badge -->
-            <div class="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5" style="background: rgba(212,175,55,0.12); border: 1px solid rgba(212,175,55,0.28);">
-              <svg style="width:9px;height:9px;" fill="none" stroke="#B8960F" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
-              <span style="color:#B8960F;" class="text-[9px] font-bold tracking-wide uppercase">Guaranteed Issue Available</span>
-            </div>
-          </div>
+        <div class="aspect-[4/3] relative overflow-hidden flex-shrink-0">
+          <img src="images/solutionspage_supplementalhealth_fcpcsite.webp"
+               alt="A person smiling with a healthcare professional in a bright clinical setting, representing supplemental health and cancer coverage that goes beyond standard insurance"
+               class="w-full h-full object-cover object-center" loading="lazy" />
         </div>
 
         <div class="flex flex-col flex-1 p-5 pt-4">
@@ -651,10 +480,16 @@
     <!-- Federal band card -->
     <div class="federal-band p-10 lg:p-14">
 
-      <!-- Background dot grid -->
-      <div class="absolute inset-0 pointer-events-none" style="background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,0.04) 1px, transparent 0); background-size: 28px 28px;"></div>
+      <!-- Background photo -->
+      <img src="images/solutionspage_federalemployees_fcpcsite.webp"
+           alt="The United States Capitol building against a clear blue sky, representing FCPC's decades of service to federal and DC government employees"
+           class="absolute inset-0 w-full h-full object-cover"
+           style="object-position: center 40%;"
+           loading="lazy" />
+      <!-- Dark overlay for legibility -->
+      <div class="absolute inset-0 pointer-events-none" style="background: rgba(8,30,20,0.74);"></div>
       <!-- Gold glow right -->
-      <div class="absolute right-0 top-0 bottom-0 w-1/3 pointer-events-none" style="background: radial-gradient(ellipse 80% 100% at 100% 50%, rgba(212,175,55,0.12) 0%, transparent 70%);"></div>
+      <div class="absolute right-0 top-0 bottom-0 w-1/3 pointer-events-none" style="background: radial-gradient(ellipse 80% 100% at 100% 50%, rgba(212,175,55,0.14) 0%, transparent 70%);"></div>
 
       <div class="relative z-10 flex flex-col lg:flex-row items-start lg:items-center gap-10 lg:gap-16">
 
@@ -744,9 +579,15 @@
 <!-- ════════════════════════════════════════════════════════════
      FULL-BLEED CTA BAND
 ════════════════════════════════════════════════════════════ -->
-<section class="relative overflow-hidden border-t border-slate-100" style="background: linear-gradient(135deg, #0B3226 0%, #19634F 55%, #0B3226 100%);">
-  <div class="absolute inset-0 pointer-events-none" style="background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,0.04) 1px, transparent 0); background-size: 36px 36px;"></div>
-  <div class="absolute right-0 top-0 bottom-0 w-1/3 pointer-events-none" style="background: radial-gradient(ellipse 80% 100% at 100% 50%, rgba(212,175,55,0.10) 0%, transparent 70%);"></div>
+<section class="relative overflow-hidden border-t border-slate-100" style="background: #0B2818;">
+  <!-- Background photo -->
+  <img src="images/solutionspage_cta_fcpcsite.webp"
+       alt="Two people shaking hands in a professional setting, representing the trusted partnership between FCPC advisors and their clients"
+       class="absolute inset-0 w-full h-full object-cover"
+       style="object-position: center 30%;"
+       loading="lazy" decoding="async" />
+  <!-- Dark overlay -->
+  <div class="absolute inset-0 pointer-events-none" style="background: linear-gradient(135deg, rgba(5,20,12,0.84) 0%, rgba(8,28,18,0.76) 55%, rgba(5,20,12,0.82) 100%);"></div>
   <div class="relative z-10 max-w-[1400px] mx-auto px-6 lg:px-12 py-24 lg:py-32 flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
     <div class="flex-1 text-center lg:text-left">
       <p class="text-gold text-[11px] font-bold tracking-[0.18em] uppercase mb-5">No Cost. No Pressure. No Sales Pitch.</p>
@@ -758,7 +599,7 @@
       </p>
     </div>
     <div class="flex-shrink-0 flex flex-col items-center gap-4 text-center">
-      <a href="get-quote.html" class="btn-gold px-10 py-5 text-[16px]">
+      <a href="contact.html" class="btn-gold px-10 py-5 text-[16px]">
         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
         Schedule My Free Review
       </a>
