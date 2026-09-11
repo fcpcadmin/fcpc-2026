@@ -168,7 +168,7 @@
 <div style="background: linear-gradient(90deg,#0B3226 0%,#19634F 50%,#0B3226 100%);" class="py-2.5 px-4 text-center">
   <p class="text-white/80 text-[13px] font-medium tracking-wide">
     Protect your family with a personalized life insurance quote — at no cost.
-    <a href="../get-quote.html" class="text-gold font-bold underline underline-offset-2 hover:text-gold-light ml-2 transition-colors">Start Now →</a>
+    <a href="../contact.html" class="text-gold font-bold underline underline-offset-2 hover:text-gold-light ml-2 transition-colors">Start Now →</a>
   </p>
 </div>
 
@@ -247,98 +247,73 @@
 <main>
 
 <!-- ════════════════════════════════════════════════════════════
-     HERO — wide-canvas horizontal
+     HERO — full-bleed photo background
 ════════════════════════════════════════════════════════════ -->
-<section class="relative overflow-hidden" style="background: linear-gradient(145deg, #ffffff 0%, #F7FAFC 50%, rgba(25,99,79,0.04) 100%);">
+<section class="relative overflow-hidden" style="background: #0B3226;">
 
-  <!-- Background dot grid -->
-  <div class="absolute inset-0 pointer-events-none" style="background-image: radial-gradient(circle at 1px 1px, rgba(0,0,0,0.03) 1px, transparent 0); background-size: 40px 40px;"></div>
-  <!-- Soft green ambient glow -->
-  <div class="absolute inset-0 pointer-events-none" style="background: radial-gradient(ellipse 55% 65% at 15% 60%, rgba(25,99,79,0.05) 0%, transparent 70%);"></div>
+  <!-- Background photo -->
+  <!-- object-position: 40% 25% — left-of-center horizontal anchor, upper-quarter vertical anchor to keep
+       faces in frame on mobile (375px). Wide 1920×1080 family group: cover crops to portrait on mobile,
+       center would show torsos; 25% pulls up toward faces. MAY NEED A SECOND-PASS LIVE TUNING. -->
+  <img src="../images/lifeinsurance_hero_fcpcsite.webp"
+       alt="A multi-generational family gathering together outdoors, grandparents, parents, and children sharing a warm joyful moment"
+       class="absolute inset-0 w-full h-full object-cover"
+       style="object-position: 40% 25%;"
+       loading="eager" decoding="async" />
+
+  <!-- Dark gradient overlay -->
+  <div class="absolute inset-0 pointer-events-none" style="background: linear-gradient(to bottom, rgba(8,22,16,0.52) 0%, rgba(5,15,10,0.74) 100%);"></div>
 
   <div class="max-w-[1400px] mx-auto px-6 lg:px-12 pt-20 pb-16 lg:pt-28 lg:pb-20 relative z-10">
 
     <!-- Breadcrumb -->
     <nav class="flex items-center gap-2 text-xs font-medium mb-10" aria-label="Breadcrumb">
-      <a href="../index.html" class="text-smoke/60 hover:text-forest transition-colors">Home</a>
-      <svg class="w-3 h-3 text-smoke/30" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-      <a href="../solutions.html" class="text-smoke/60 hover:text-forest transition-colors">Solutions</a>
-      <svg class="w-3 h-3 text-smoke/30" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-      <span class="text-forest font-semibold">Life Insurance</span>
+      <a href="../index.html" class="text-white/50 hover:text-white transition-colors">Home</a>
+      <svg class="w-3 h-3 text-white/25" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+      <a href="../solutions.html" class="text-white/50 hover:text-white transition-colors">Solutions</a>
+      <svg class="w-3 h-3 text-white/25" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+      <span class="text-white/80 font-semibold">Life Insurance</span>
     </nav>
 
     <!-- Headline block -->
-    <div class="mb-14">
-      <span class="eyebrow mb-5 block">Life Insurance — Solutions</span>
-      <h1 class="font-extrabold tracking-[-0.035em] mb-7" style="font-size: clamp(2.8rem, 5.5vw, 4.75rem); line-height: 1.06; color: #2D3748; max-width: 18ch;">
+    <div class="mb-10">
+      <span class="eyebrow mb-5 block" style="color:rgba(255,255,255,0.65);">Life Insurance — Solutions</span>
+      <h1 class="font-extrabold tracking-[-0.035em] mb-7 text-white" style="font-size: clamp(2.8rem, 5.5vw, 4.75rem); line-height: 1.06; max-width: 18ch;">
         The Foundation of Every Strong Financial Plan.
       </h1>
-      <p class="text-smoke text-lg leading-relaxed max-w-[600px]">
+      <p class="text-white/70 text-lg leading-relaxed max-w-[600px] mb-10">
         Life insurance does more than protect against loss. The right policy can become the foundation for your family's stability today and the wealth you pass on tomorrow.
       </p>
+
+      <div class="flex flex-wrap items-center gap-4">
+        <a href="../contact.html" class="btn-gold px-8 py-4 text-[15px]">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+          Schedule My Free Review
+        </a>
+        <a href="../about.html" class="btn-ghost px-8 py-4 text-[15px]" style="color:#fff; border-color:rgba(255,255,255,0.30);">
+          About FCPC
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+        </a>
+      </div>
     </div>
 
-    <!-- Wide hero image placeholder — full bleed, no overlays -->
-    <div class="w-full rounded-3xl overflow-hidden border border-black/[0.06] shadow-card-lg" style="aspect-ratio: 16/6;">
-
-      <!-- INSERT OPTIMIZED HERO WEBP IMAGE FOR LIFE INSURANCE PAGE HERE -->
-      <!-- Recommended: Wide-format illustration — family silhouette, shield motif, soft forest green palette -->
-
-      <!-- Placeholder: premium dark-forest wide composition -->
-      <div class="w-full h-full relative overflow-hidden" style="background: linear-gradient(145deg, #0B3226 0%, #19634F 45%, #0D4C3A 80%, #0B3226 100%);">
-
-        <!-- Dot grid texture -->
-        <div class="absolute inset-0" style="background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,0.05) 1px, transparent 0); background-size: 32px 32px;"></div>
-
-        <!-- Gold radial glow — right anchor -->
-        <div class="absolute -top-20 right-0 w-[600px] h-[600px] pointer-events-none" style="background: radial-gradient(ellipse at 80% 30%, rgba(212,175,55,0.16) 0%, transparent 65%);"></div>
-
-        <!-- Left glow -->
-        <div class="absolute bottom-0 left-0 w-96 h-96 pointer-events-none" style="background: radial-gradient(ellipse at 20% 80%, rgba(42,176,138,0.12) 0%, transparent 65%);"></div>
-
-        <!-- Centered composition -->
-        <div class="absolute inset-0 flex items-center justify-center gap-16 px-12">
-
-          <!-- Left — headline text inside image -->
-          <div class="flex flex-col gap-4 flex-shrink-0">
-            <p class="text-white/30 text-[11px] font-bold tracking-[0.22em] uppercase">FCPC · Life Insurance</p>
-            <p class="text-white font-extrabold leading-tight" style="font-size: clamp(1.5rem, 2.5vw, 2.25rem);">
-              Protect What<br/>Matters Most.
-            </p>
-            <div class="flex items-center gap-3 mt-2">
-              <div class="w-1.5 h-1.5 rounded-full bg-gold"></div>
-              <span class="text-white/45 text-sm">Term · Whole · Final Expense · FEGLI</span>
-            </div>
-          </div>
-
-          <!-- Center divider -->
-          <div class="w-px h-28 bg-white/10 flex-shrink-0 hidden lg:block"></div>
-
-          <!-- Right — floating stat cards -->
-          <div class="flex items-center gap-4 flex-shrink-0">
-            <div class="flex flex-col gap-3">
-              <div class="rounded-2xl px-5 py-4" style="background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12);">
-                <p class="font-extrabold text-2xl leading-none" style="color:#D4AF37;">1985</p>
-                <p class="text-white/40 text-[10px] mt-1.5 uppercase tracking-widest">Established</p>
-              </div>
-              <div class="rounded-2xl px-5 py-4" style="background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12);">
-                <p class="font-extrabold text-base leading-none text-white">Licensed</p>
-                <p class="text-white/40 text-[10px] mt-1.5 uppercase tracking-widest">In Multiple States</p>
-              </div>
-            </div>
-            <div class="flex flex-col gap-3">
-              <div class="rounded-2xl px-5 py-4" style="background: rgba(212,175,55,0.14); border: 1px solid rgba(212,175,55,0.28);">
-                <p class="font-extrabold text-2xl leading-none text-white">$0</p>
-                <p class="text-white/40 text-[10px] mt-1.5 uppercase tracking-widest">To Start</p>
-              </div>
-            </div>
-          </div>
-
-        </div>
+    <!-- Stat strip -->
+    <div class="flex items-center gap-6 lg:gap-10 w-fit rounded-2xl border px-6 py-4" style="background: rgba(255,255,255,0.10); border-color: rgba(255,255,255,0.18); backdrop-filter: blur(8px);">
+      <div class="text-center">
+        <p class="text-white font-extrabold text-2xl tracking-tight leading-none">1985</p>
+        <p class="text-white/55 text-[10px] font-bold tracking-widest uppercase mt-1.5">Established</p>
       </div>
-      <!-- end placeholder -->
-
-    </div><!-- end hero image container -->
+      <div style="width:1px;height:36px;background:rgba(255,255,255,0.20);"></div>
+      <div class="text-center">
+        <p class="text-white font-extrabold text-2xl tracking-tight leading-none">40+</p>
+        <p class="text-white/55 text-[10px] font-bold tracking-widest uppercase mt-1.5">Carriers</p>
+      </div>
+      <div style="width:1px;height:36px;background:rgba(255,255,255,0.20);"></div>
+      <div class="text-center">
+        <p class="text-white font-extrabold text-2xl tracking-tight leading-none">$0</p>
+        <p class="text-white/55 text-[10px] font-bold tracking-widest uppercase mt-1.5">To Start</p>
+      </div>
+    </div>
 
   </div>
 </section>
@@ -367,37 +342,10 @@
       <!-- ── CARD 1: Indexed Universal Life ── -->
       <div class="track-card flex flex-col h-full">
 
-        <!-- INSERT OPTIMIZED WEBP IMAGE FOR INDEXED UNIVERSAL LIFE HERE -->
-        <!-- Recommended: Dark forest, upward-trending index line chart, gold accent, premium fintech aesthetic -->
-        <div class="aspect-video relative overflow-hidden flex-shrink-0" style="background: linear-gradient(145deg, #0B3226 0%, #19634F 50%, #0D4C3A 100%);">
-          <div class="absolute inset-0" style="background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,0.055) 1px, transparent 0); background-size: 22px 22px;"></div>
-          <div class="absolute -top-8 -right-8 w-48 h-48" style="background: radial-gradient(ellipse at 70% 30%, rgba(212,175,55,0.22) 0%, transparent 65%);"></div>
-          <!-- IUL index line composition -->
-          <div class="absolute inset-0 flex flex-col items-center justify-center gap-3 px-7">
-            <svg viewBox="0 0 120 52" class="w-28" fill="none">
-              <!-- Floor line -->
-              <line x1="0" y1="46" x2="120" y2="46" stroke="rgba(255,255,255,0.10)" stroke-width="1"/>
-              <!-- Index trend line -->
-              <polyline points="0,42 20,38 38,28 52,32 68,18 84,12 100,8 120,4"
-                        stroke="#D4AF37" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-              <!-- Floor gradient fill -->
-              <polyline points="0,46 0,42 20,38 38,28 52,32 68,18 84,12 100,8 120,4 120,46"
-                        fill="rgba(212,175,55,0.10)" stroke="none"/>
-              <!-- 0% floor label -->
-              <text x="2" y="51" font-size="5" fill="rgba(255,255,255,0.30)" font-family="Inter,sans-serif" font-weight="700">0% floor</text>
-            </svg>
-            <div class="flex items-center gap-3">
-              <div class="text-center">
-                <p class="font-extrabold text-base leading-none" style="color:#D4AF37;">+12%</p>
-                <p class="text-white/30 text-[8px] mt-1 uppercase tracking-widest">Cap</p>
-              </div>
-              <div class="w-px h-6 bg-white/10"></div>
-              <div class="text-center">
-                <p class="font-extrabold text-base leading-none text-white">0%</p>
-                <p class="text-white/30 text-[8px] mt-1 uppercase tracking-widest">Floor</p>
-              </div>
-            </div>
-          </div>
+        <div class="aspect-square relative overflow-hidden flex-shrink-0">
+          <img src="../images/lifeinsurance_iul_fcpcsite.webp"
+               alt="A family carrying boxes and belongings into their new home, representing the growth potential and lifelong protection of Indexed Universal Life insurance"
+               class="w-full h-full object-cover object-center" loading="lazy" />
         </div>
 
         <div class="flex flex-col flex-1 p-6 pt-5">
@@ -424,31 +372,10 @@
       <!-- ── CARD 2: Whole Life ── -->
       <div class="track-card flex flex-col h-full">
 
-        <!-- INSERT OPTIMIZED WEBP IMAGE FOR WHOLE LIFE HERE -->
-        <!-- Recommended: Light/cream background, family tree graphic, legacy/wealth visual language -->
-        <div class="aspect-video relative overflow-hidden flex-shrink-0" style="background: linear-gradient(145deg, #F0FDF8 0%, #ffffff 50%, #F7FAFC 100%);">
-          <div class="absolute inset-0" style="background-image: radial-gradient(circle at 1px 1px, rgba(25,99,79,0.06) 1px, transparent 0); background-size: 20px 20px;"></div>
-          <!-- Tree node composition -->
-          <div class="absolute inset-0 flex items-center justify-center">
-            <div class="flex flex-col items-center gap-3">
-              <div class="px-5 py-2.5 rounded-full text-[11px] font-bold text-white" style="background: #19634F;">You &amp; Family</div>
-              <div class="w-px h-5 bg-forest/20"></div>
-              <div class="flex items-start gap-6">
-                <div class="flex flex-col items-center gap-2">
-                  <div class="w-px h-4 bg-forest/20"></div>
-                  <div class="px-3 py-1.5 rounded-full text-[10px] font-semibold text-forest" style="background: rgba(25,99,79,0.10); border: 1px solid rgba(25,99,79,0.15);">Child A</div>
-                </div>
-                <div class="flex flex-col items-center gap-2">
-                  <div class="w-px h-4 bg-forest/20"></div>
-                  <div class="px-3 py-1.5 rounded-full text-[10px] font-semibold text-forest" style="background: rgba(25,99,79,0.10); border: 1px solid rgba(25,99,79,0.15);">Child B</div>
-                </div>
-                <div class="flex flex-col items-center gap-2">
-                  <div class="w-px h-4 bg-forest/20"></div>
-                  <div class="px-3 py-1.5 rounded-full text-[10px] font-semibold" style="background: rgba(212,175,55,0.12); border: 1px solid rgba(212,175,55,0.22); color:#B8960F;">Legacy</div>
-                </div>
-              </div>
-            </div>
-          </div>
+        <div class="aspect-square relative overflow-hidden flex-shrink-0">
+          <img src="../images/lifeinsurance_wholelife_fcpcsite.webp"
+               alt="A grandmother and granddaughter smiling warmly together in the kitchen while making sandwiches, representing the generational legacy and permanence of whole life insurance"
+               class="w-full h-full object-cover object-center" loading="lazy" />
         </div>
 
         <div class="flex flex-col flex-1 p-6 pt-5">
@@ -475,29 +402,10 @@
       <!-- ── CARD 3: Term Life ── -->
       <div class="track-card flex flex-col h-full">
 
-        <!-- INSERT OPTIMIZED WEBP IMAGE FOR TERM LIFE HERE -->
-        <!-- Recommended: Clean dark-slate graphic, calendar/clock motif, bold "Term" typographic treatment -->
-        <div class="aspect-video relative overflow-hidden flex-shrink-0" style="background: linear-gradient(145deg, #1A202C 0%, #2D3748 50%, #1A202C 100%);">
-          <div class="absolute inset-0" style="background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,0.04) 1px, transparent 0); background-size: 22px 22px;"></div>
-          <div class="absolute -top-8 -right-8 w-48 h-48" style="background: radial-gradient(ellipse at 70% 30%, rgba(42,176,138,0.18) 0%, transparent 65%);"></div>
-          <!-- Term duration blocks -->
-          <div class="absolute inset-0 flex flex-col items-center justify-center gap-3">
-            <div class="flex items-end gap-2">
-              <div class="flex flex-col items-center gap-1">
-                <span class="text-white/50 text-[9px] font-bold">10yr</span>
-                <div class="w-9 rounded-t" style="height:28px; background: rgba(42,176,138,0.35);"></div>
-              </div>
-              <div class="flex flex-col items-center gap-1">
-                <span class="text-white/50 text-[9px] font-bold">20yr</span>
-                <div class="w-9 rounded-t" style="height:46px; background: rgba(42,176,138,0.60);"></div>
-              </div>
-              <div class="flex flex-col items-center gap-1">
-                <span class="text-white/50 text-[9px] font-bold">30yr</span>
-                <div class="w-9 rounded-t" style="height:64px; background: #2AB08A;"></div>
-              </div>
-            </div>
-            <p class="text-white/25 text-[8px] font-bold tracking-widest uppercase">Coverage Window</p>
-          </div>
+        <div class="aspect-square relative overflow-hidden flex-shrink-0">
+          <img src="../images/lifeinsurance_termlife_fcpcsite.webp"
+               alt="A father kneeling to help his young son put on a school backpack, representing the affordable family protection that term life insurance provides during key earning years"
+               class="w-full h-full object-cover object-center" loading="lazy" />
         </div>
 
         <div class="flex flex-col flex-1 p-6 pt-5">
@@ -524,30 +432,10 @@
       <!-- ── CARD 4: Final Expense ── -->
       <div class="track-card flex flex-col h-full">
 
-        <!-- INSERT OPTIMIZED WEBP IMAGE FOR FINAL EXPENSE HERE -->
-        <!-- Recommended: Warm cream/gold palette, heart motif, calm and dignified visual language -->
-        <div class="aspect-video relative overflow-hidden flex-shrink-0" style="background: linear-gradient(145deg, #FDFAEE 0%, #FDF6DC 50%, #FBF0C8 100%);">
-          <div class="absolute inset-0" style="background-image: radial-gradient(circle at 1px 1px, rgba(184,150,15,0.08) 1px, transparent 0); background-size: 20px 20px;"></div>
-          <div class="absolute top-0 right-0 w-40 h-40" style="background: radial-gradient(ellipse at 80% 20%, rgba(212,175,55,0.22) 0%, transparent 65%);"></div>
-          <!-- Heart + coverage amounts -->
-          <div class="absolute inset-0 flex flex-col items-center justify-center gap-4">
-            <div class="w-14 h-14 rounded-2xl flex items-center justify-center" style="background: rgba(212,175,55,0.15); border: 1.5px solid rgba(212,175,55,0.25);">
-              <svg class="w-7 h-7" style="color:#B8960F;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
-              </svg>
-            </div>
-            <div class="flex items-center gap-3 text-center">
-              <div>
-                <p class="font-bold text-base leading-none" style="color:#B8960F;">$5K</p>
-                <p class="text-[9px] mt-1 uppercase tracking-widest" style="color:rgba(184,150,15,0.55);">Burial</p>
-              </div>
-              <div class="w-px h-8 bg-gold/20"></div>
-              <div>
-                <p class="font-bold text-base leading-none" style="color:#B8960F;">$25K</p>
-                <p class="text-[9px] mt-1 uppercase tracking-widest" style="color:rgba(184,150,15,0.55);">Estate</p>
-              </div>
-            </div>
-          </div>
+        <div class="aspect-square relative overflow-hidden flex-shrink-0">
+          <img src="../images/lifeinsurance_finalexpense_fcpcsite.webp"
+               alt="An older couple gardening together in their yard on a sunny day, representing the peace of mind that final expense coverage gives loved ones"
+               class="w-full h-full object-cover object-center" loading="lazy" />
         </div>
 
         <div class="flex flex-col flex-1 p-6 pt-5">
@@ -580,14 +468,14 @@
 ════════════════════════════════════════════════════════════ -->
 <section class="py-20 border-t border-silver/50" style="background: linear-gradient(160deg, #F7FAFC 0%, #ffffff 60%);">
   <div class="max-w-[1400px] mx-auto px-6 lg:px-12">
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-start">
-      <div class="lg:col-span-5">
+    <div class="flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
+
+      <!-- Text column -->
+      <div class="flex-1">
         <span class="eyebrow mb-5 block">Built-In Savings</span>
-        <h2 class="font-extrabold tracking-tight leading-[1.08]" style="font-size: clamp(2rem, 3.8vw, 3rem); color: #1A202C;">
+        <h2 class="font-extrabold tracking-tight leading-[1.08] mb-6" style="font-size: clamp(2rem, 3.8vw, 3rem); color: #1A202C;">
           Your Policy Can Build Savings, Automatically.
         </h2>
-      </div>
-      <div class="lg:col-span-7 lg:pt-3">
         <p class="text-smoke text-lg leading-relaxed mb-6">
           With Whole Life and Indexed Universal Life, part of every premium you pay builds cash value over time, growing right alongside your coverage. You're not just paying for protection. You're building a resource.
         </p>
@@ -595,6 +483,17 @@
           When you need it, that cash value can be accessed tax-free through a policy loan, for anything: an emergency, an opportunity, or simply extra breathing room when life calls for it. It's protection and a financial resource, built into the same policy.
         </p>
       </div>
+
+      <!-- Image column — no hidden class; displays at all screen sizes, stacks below text on mobile -->
+      <div class="w-full lg:w-[420px] lg:flex-shrink-0">
+        <div class="rounded-2xl overflow-hidden shadow-card-lg border border-black/[0.06]">
+          <img src="../images/lifeinsurance_savings_fcpcsite.webp"
+               alt="Two retired friends enjoying a round of golf together on a sunny course, representing the financial freedom and flexibility that life insurance cash value can provide in retirement"
+               class="w-full h-auto block object-cover" style="max-height: 380px;"
+               loading="lazy" />
+        </div>
+      </div>
+
     </div>
   </div>
 </section>
@@ -606,14 +505,14 @@
   <div class="max-w-[1400px] mx-auto px-6 lg:px-12">
 
     <!-- Section header -->
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-start mb-14">
-      <div class="lg:col-span-5">
+    <div class="flex flex-col lg:flex-row items-center gap-12 lg:gap-16 mb-14">
+
+      <!-- Text column -->
+      <div class="flex-1">
         <span class="eyebrow mb-5 block">Living Benefits</span>
-        <h2 class="font-extrabold tracking-tight leading-[1.08]" style="font-size: clamp(2rem, 3.8vw, 3rem); color: #1A202C;">
+        <h2 class="font-extrabold tracking-tight leading-[1.08] mb-6" style="font-size: clamp(2rem, 3.8vw, 3rem); color: #1A202C;">
           Your Policy Can Protect You While You're Still Living.
         </h2>
-      </div>
-      <div class="lg:col-span-7 lg:pt-3">
         <p class="text-smoke text-lg leading-relaxed mb-6">
           Modern life insurance isn't only a death benefit anymore. Many policies today include living benefits, provisions that let you access a portion of your own coverage while you're still alive if you're diagnosed with a serious illness or suffer a serious injury.
         </p>
@@ -624,6 +523,17 @@
           We'll walk you through exactly what's available and how it applies to your situation when we talk.
         </p>
       </div>
+
+      <!-- Image column — no hidden class; displays at all screen sizes, stacks below text on mobile -->
+      <div class="w-full lg:w-[420px] lg:flex-shrink-0">
+        <div class="rounded-2xl overflow-hidden shadow-card-lg border border-black/[0.06]">
+          <img src="../images/lifeinsurance_livingbenefits_fcpcsite.webp"
+               alt="A compassionate caregiver sitting beside an older woman on a couch, both smiling gently — representing the living benefits that let policyholders access their coverage during serious illness or injury"
+               class="w-full h-auto block object-cover" style="max-height: 380px;"
+               loading="lazy" />
+        </div>
+      </div>
+
     </div>
 
     <!-- CTA band -->
@@ -635,7 +545,7 @@
         </h3>
       </div>
       <div class="flex-shrink-0 flex flex-col items-center gap-4">
-        <a href="../get-quote.html" class="btn-gold px-9 py-4 text-[15px]">
+        <a href="../contact.html" class="btn-gold px-9 py-4 text-[15px]">
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
           Schedule My Free Review →
         </a>
@@ -649,9 +559,18 @@
 <!-- ════════════════════════════════════════════════════════════
      FULL-BLEED CTA BAND
 ════════════════════════════════════════════════════════════ -->
-<section class="relative overflow-hidden border-t border-slate-100" style="background: linear-gradient(135deg, #0B3226 0%, #19634F 55%, #0B3226 100%);">
-  <div class="absolute inset-0 pointer-events-none" style="background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,0.04) 1px, transparent 0); background-size: 36px 36px;"></div>
-  <div class="absolute right-0 top-0 bottom-0 w-1/3 pointer-events-none" style="background: radial-gradient(ellipse 80% 100% at 100% 50%, rgba(212,175,55,0.10) 0%, transparent 70%);"></div>
+<section class="relative overflow-hidden border-t border-slate-100" style="background: #0B2818;">
+  <!-- Background photo -->
+  <!-- object-position: center 25% — upward anchor keeps seated advisor + couple faces in frame on mobile.
+       Image is 1920×800 (2.4:1); at 375px mobile, cover scales to fill height, cropping sides.
+       25% vertical pulls top of frame down to forehead area. MAY NEED A SECOND-PASS LIVE TUNING. -->
+  <img src="../images/lifeinsurance_cta_fcpcsite.webp"
+       alt="An FCPC advisor leaning forward in focused conversation with a couple seated across from them, representing the personalized, no-pressure guidance available through a free review"
+       class="absolute inset-0 w-full h-full object-cover"
+       style="object-position: center 25%;"
+       loading="lazy" decoding="async" />
+  <!-- Dark overlay -->
+  <div class="absolute inset-0 pointer-events-none" style="background: linear-gradient(135deg, rgba(5,20,12,0.84) 0%, rgba(8,28,18,0.76) 55%, rgba(5,20,12,0.82) 100%);"></div>
   <div class="relative z-10 max-w-[1400px] mx-auto px-6 lg:px-12 py-24 lg:py-32 flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
     <div class="flex-1 text-center lg:text-left">
       <p class="text-gold text-[11px] font-bold tracking-[0.18em] uppercase mb-5">No Cost. No Pressure.</p>
@@ -663,9 +582,9 @@
       </p>
     </div>
     <div class="flex-shrink-0 flex flex-col items-center gap-4 text-center">
-      <a href="../get-quote.html" class="btn-gold px-10 py-5 text-[16px]">
+      <a href="../contact.html" class="btn-gold px-10 py-5 text-[16px]">
         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
-        I Want Life Insurance
+        Schedule My Free Review
       </a>
       <p class="text-white/35 text-xs">Licensed specialists · No sales pressure · Education-first</p>
     </div>
