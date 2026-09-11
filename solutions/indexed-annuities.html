@@ -130,7 +130,7 @@
 <div style="background: linear-gradient(90deg,#0B3226 0%,#19634F 50%,#0B3226 100%);" class="py-2.5 px-4 text-center">
   <p class="text-white/80 text-[13px] font-medium tracking-wide">
     Protect your family with a personalized life insurance quote — at no cost.
-    <a href="../get-quote.html" class="text-gold font-bold underline underline-offset-2 hover:text-gold-light ml-2 transition-colors">Start Now →</a>
+    <a href="../contact.html" class="text-gold font-bold underline underline-offset-2 hover:text-gold-light ml-2 transition-colors">Start Now →</a>
   </p>
 </div>
 
@@ -203,176 +203,69 @@
 <main>
 
 <!-- ════════════════════════════════════════════════════════════
-     HERO — wide-canvas horizontal
+     HERO — full-bleed photo
 ════════════════════════════════════════════════════════════ -->
-<section class="relative" style="background: linear-gradient(145deg, #ffffff 0%, #F7FAFC 50%, rgba(25,99,79,0.04) 100%);">
-
-  <div class="absolute inset-0 pointer-events-none" style="background-image: radial-gradient(circle at 1px 1px, rgba(0,0,0,0.03) 1px, transparent 0); background-size: 40px 40px;"></div>
-  <div class="absolute inset-0 pointer-events-none" style="background: radial-gradient(ellipse 55% 65% at 15% 60%, rgba(25,99,79,0.05) 0%, transparent 70%);"></div>
+<section class="relative overflow-hidden" style="background: #0B3226;">
+  <!-- object-position: 60% 20% — right-of-center, upper-fifth anchor so right-foreground subject stays in frame on mobile portrait crop.
+       Wide 1920×1080 couple-on-porch photo. MAY NEED A SECOND-PASS LIVE TUNING. -->
+  <img src="../images/indexedannuities_hero_fcpcsite.webp"
+       alt="A couple relaxing together on a porch with coffee, looking content and at ease in retirement"
+       class="absolute inset-0 w-full h-full object-cover"
+       style="object-position: 60% 20%;"
+       loading="eager" decoding="async" />
+  <div class="absolute inset-0 pointer-events-none" style="background: linear-gradient(to bottom, rgba(8,22,16,0.52) 0%, rgba(5,15,10,0.74) 100%);"></div>
 
   <div class="max-w-[1400px] mx-auto px-6 lg:px-12 pt-20 pb-16 lg:pt-28 lg:pb-20 relative z-10">
 
     <!-- Breadcrumb -->
     <nav class="flex items-center gap-2 text-xs font-medium mb-10" aria-label="Breadcrumb">
-      <a href="../index.html"     class="text-smoke/60 hover:text-forest transition-colors">Home</a>
-      <svg class="w-3 h-3 text-smoke/30" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-      <a href="../solutions.html" class="text-smoke/60 hover:text-forest transition-colors">Solutions</a>
-      <svg class="w-3 h-3 text-smoke/30" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-      <span class="text-forest font-semibold">Indexed Annuities</span>
+      <a href="../index.html"     class="text-white/50 hover:text-white transition-colors">Home</a>
+      <svg class="w-3 h-3 text-white/30" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+      <a href="../solutions.html" class="text-white/50 hover:text-white transition-colors">Solutions</a>
+      <svg class="w-3 h-3 text-white/30" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+      <span class="text-white/80 font-semibold">Indexed Annuities</span>
     </nav>
 
-    <!-- Headline block — full width, no max-width constraints -->
-    <div class="mb-14 w-full max-w-none">
-      <span class="eyebrow mb-5 block">Indexed Annuities</span>
+    <span class="eyebrow mb-5 block" style="color:rgba(255,255,255,0.65);">Indexed Annuities</span>
 
-      <h1 class="w-full max-w-none font-extrabold tracking-[-0.03em] mb-6" style="font-size: clamp(2.2rem, 4vw, 4rem); line-height: 1.06; color: #2D3748;">
-        Protect Your Hard-Earned Retirement Savings, With Room to Grow.
-      </h1>
+    <h1 class="font-extrabold tracking-[-0.03em] mb-6 text-white" style="font-size: clamp(2.2rem, 4vw, 4rem); line-height: 1.06;">
+      Protect Your Hard-Earned Retirement Savings, With Room to Grow.
+    </h1>
 
-      <p class="text-smoke text-lg leading-relaxed mb-8" style="max-width: 680px;">
-        An indexed annuity lets your savings grow alongside the market in good years, while contractually protecting your principal from ever losing value in bad ones. You get to participate in the upside, fully shielded from the downside.
-      </p>
+    <p class="text-white/70 text-lg leading-relaxed mb-8" style="max-width: 680px;">
+      An indexed annuity lets your savings grow alongside the market in good years, while contractually protecting your principal from ever losing value in bad ones. You get to participate in the upside, fully shielded from the downside.
+    </p>
 
-      <div class="mb-10">
-        <a href="../get-quote.html" class="btn-gold px-7 py-4 text-sm">
-          I Want Guaranteed Income
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
-        </a>
-      </div>
-
-      <!-- Stat proof row -->
-      <div class="flex flex-row flex-wrap items-center gap-8 md:gap-12 pt-10 border-t border-black/[0.06]">
-        <div class="flex-shrink-0 text-center">
-          <p class="text-ink font-extrabold text-2xl leading-none tracking-tight">0%</p>
-          <p class="text-smoke text-xs mt-1.5 whitespace-nowrap">Floor — Principal Never Loses</p>
-        </div>
-        <div class="stat-divider flex-shrink-0"></div>
-        <div class="flex-shrink-0 text-center">
-          <p class="text-ink font-extrabold text-2xl leading-none tracking-tight">Indexed</p>
-          <p class="text-smoke text-xs mt-1.5 whitespace-nowrap">Market-Linked Growth</p>
-        </div>
-        <div class="stat-divider flex-shrink-0"></div>
-        <div class="flex-shrink-0 text-center">
-          <p class="text-ink font-extrabold text-2xl leading-none tracking-tight">Lifetime</p>
-          <p class="text-smoke text-xs mt-1.5 whitespace-nowrap">Income Options Available</p>
-        </div>
-        <div class="stat-divider flex-shrink-0"></div>
-        <div class="flex-shrink-0 text-center">
-          <p class="text-ink font-extrabold text-2xl leading-none tracking-tight">Tax-Deferred</p>
-          <p class="text-smoke text-xs mt-1.5 whitespace-nowrap">Growth Inside the Contract</p>
-        </div>
-      </div>
+    <div class="mb-10">
+      <a href="../contact.html" class="btn-gold px-7 py-4 text-sm">
+        I Want Guaranteed Income
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+      </a>
     </div>
 
-    <!-- Wide hero image — full bleed, zero overlays -->
-    <div class="w-full rounded-3xl overflow-hidden border border-black/[0.06] shadow-card-lg" style="aspect-ratio: 16/6;">
-
-      <!-- INSERT OPTIMIZED HERO WEBP IMAGE FOR INDEXED ANNUITIES PAGE HERE -->
-      <!-- Recommended: Wide-format illustration — retired couple, upward market index, calm wealth visual; deep forest green and gold palette -->
-
-      <div class="w-full h-full relative" style="background: linear-gradient(145deg, #0B3226 0%, #19634F 45%, #0D4C3A 80%, #0B3226 100%);">
-
-        <div class="absolute inset-0" style="background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,0.05) 1px, transparent 0); background-size: 32px 32px;"></div>
-        <div class="absolute -top-20 right-0 w-[700px] h-[700px] pointer-events-none" style="background: radial-gradient(ellipse at 80% 30%, rgba(212,175,55,0.13) 0%, transparent 65%);"></div>
-        <div class="absolute bottom-0 left-0 w-96 h-96 pointer-events-none" style="background: radial-gradient(ellipse at 20% 80%, rgba(42,176,138,0.10) 0%, transparent 65%);"></div>
-
-        <!-- Wide composition: left anchor + center floor/index chart + right stats -->
-        <div class="absolute inset-0 flex items-center px-12 gap-16">
-
-          <!-- Left anchor -->
-          <div class="flex flex-col gap-3 flex-shrink-0">
-            <p class="text-white/25 text-[10px] font-bold tracking-[0.22em] uppercase">FCPC · Indexed Annuities</p>
-            <p class="text-white font-extrabold leading-tight" style="font-size: clamp(1.25rem, 2vw, 1.75rem);">
-              Zero Loss.<br/>Market Gains.<br/>Guaranteed Income.
-            </p>
-            <div class="flex items-center gap-2 mt-1">
-              <div class="w-1.5 h-1.5 rounded-full bg-gold flex-shrink-0"></div>
-              <span class="text-white/40 text-xs">Growth · Protection · Income</span>
-            </div>
-          </div>
-
-          <!-- Center: 0% floor index chart -->
-          <div class="flex-1 items-center justify-center hidden md:flex">
-            <div class="flex flex-col gap-4 w-full max-w-sm">
-              <p class="text-white/25 text-[9px] font-bold tracking-[0.18em] uppercase">Index Performance vs. Your Account</p>
-              <!-- Chart bars -->
-              <div class="flex items-end gap-3 h-24">
-                <!-- Year 1: up -->
-                <div class="flex flex-col items-center gap-1.5 flex-1">
-                  <div class="w-full rounded-t-lg flex-1" style="background: rgba(42,176,138,0.55); height: 56px;"></div>
-                  <div class="w-full rounded-t-lg" style="background: rgba(212,175,55,0.70); height: 44px; margin-top:-44px; position:relative; z-index:2;"></div>
-                  <span class="text-[8px] font-bold text-white/35">Yr 1</span>
-                </div>
-                <!-- Year 2: down — index drops, you stay flat -->
-                <div class="flex flex-col items-center gap-1.5 flex-1">
-                  <div class="w-full rounded-t-lg" style="background: rgba(239,68,68,0.40); height: 28px;"></div>
-                  <div class="w-full rounded-t-lg" style="background: rgba(212,175,55,0.70); height: 44px;"></div>
-                  <span class="text-[8px] font-bold text-white/35">Yr 2</span>
-                </div>
-                <!-- Year 3: up -->
-                <div class="flex flex-col items-center gap-1.5 flex-1">
-                  <div class="w-full rounded-t-lg" style="background: rgba(42,176,138,0.55); height: 68px;"></div>
-                  <div class="w-full rounded-t-lg" style="background: rgba(212,175,55,0.70); height: 56px; margin-top:-56px; position:relative; z-index:2;"></div>
-                  <span class="text-[8px] font-bold text-white/35">Yr 3</span>
-                </div>
-                <!-- Year 4: down again -->
-                <div class="flex flex-col items-center gap-1.5 flex-1">
-                  <div class="w-full rounded-t-lg" style="background: rgba(239,68,68,0.40); height: 20px;"></div>
-                  <div class="w-full rounded-t-lg" style="background: rgba(212,175,55,0.70); height: 56px;"></div>
-                  <span class="text-[8px] font-bold text-white/35">Yr 4</span>
-                </div>
-                <!-- Year 5: strong up -->
-                <div class="flex flex-col items-center gap-1.5 flex-1">
-                  <div class="w-full rounded-t-lg" style="background: rgba(42,176,138,0.55); height: 88px;"></div>
-                  <div class="w-full rounded-t-lg" style="background: rgba(212,175,55,0.70); height: 70px; margin-top:-70px; position:relative; z-index:2;"></div>
-                  <span class="text-[8px] font-bold text-white/35">Yr 5</span>
-                </div>
-              </div>
-              <!-- Legend -->
-              <div class="flex items-center gap-6">
-                <div class="flex items-center gap-2">
-                  <div class="w-3 h-3 rounded-sm" style="background: rgba(42,176,138,0.55);"></div>
-                  <span class="text-[9px] text-white/40 font-medium">Index return</span>
-                </div>
-                <div class="flex items-center gap-2">
-                  <div class="w-3 h-3 rounded-sm" style="background: rgba(212,175,55,0.70);"></div>
-                  <span class="text-[9px] text-white/40 font-medium">Your account (0% floor)</span>
-                </div>
-                <div class="flex items-center gap-2">
-                  <div class="w-3 h-3 rounded-sm" style="background: rgba(239,68,68,0.40);"></div>
-                  <span class="text-[9px] text-white/40 font-medium">Down year</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Right: stat blocks -->
-          <div class="flex items-center gap-3 flex-shrink-0">
-            <div class="flex flex-col gap-3">
-              <div class="rounded-2xl px-5 py-4 text-center" style="background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12);">
-                <p class="font-extrabold text-xl leading-none" style="color:#D4AF37;">0%</p>
-                <p class="text-white/40 text-[9px] mt-1.5 uppercase tracking-widest">Floor</p>
-              </div>
-              <div class="rounded-2xl px-5 py-4 text-center" style="background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12);">
-                <p class="font-extrabold text-xl leading-none" style="color:#D4AF37;">Indexed</p>
-                <p class="text-white/40 text-[9px] mt-1.5 uppercase tracking-widest">Growth</p>
-              </div>
-            </div>
-            <div class="flex flex-col gap-3">
-              <div class="rounded-2xl px-5 py-4 text-center" style="background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12);">
-                <p class="font-extrabold text-xl leading-none" style="color:#D4AF37;">Lifetime</p>
-                <p class="text-white/40 text-[9px] mt-1.5 uppercase tracking-widest">Income</p>
-              </div>
-              <div class="rounded-2xl px-5 py-4 text-center" style="background: rgba(212,175,55,0.14); border: 1px solid rgba(212,175,55,0.28);">
-                <p class="font-extrabold text-xl leading-none text-white">Tax-Def.</p>
-                <p class="text-white/40 text-[9px] mt-1.5 uppercase tracking-widest">Growth</p>
-              </div>
-            </div>
-          </div>
-
-        </div>
+    <!-- Stat strip -->
+    <div class="flex flex-row flex-wrap items-center gap-6 md:gap-10 w-fit rounded-2xl border px-6 py-4"
+         style="background: rgba(255,255,255,0.10); border-color: rgba(255,255,255,0.18); backdrop-filter: blur(8px);">
+      <div class="flex-shrink-0 text-center">
+        <p class="text-white font-extrabold text-2xl leading-none tracking-tight">0%</p>
+        <p class="text-white/55 text-xs mt-1.5 whitespace-nowrap uppercase tracking-widest">Floor</p>
       </div>
-    </div><!-- end hero image -->
+      <div style="width:1px;height:36px;background:rgba(255,255,255,0.20);" class="flex-shrink-0"></div>
+      <div class="flex-shrink-0 text-center">
+        <p class="text-white font-extrabold text-2xl leading-none tracking-tight">Indexed</p>
+        <p class="text-white/55 text-xs mt-1.5 whitespace-nowrap uppercase tracking-widest">Growth</p>
+      </div>
+      <div style="width:1px;height:36px;background:rgba(255,255,255,0.20);" class="flex-shrink-0"></div>
+      <div class="flex-shrink-0 text-center">
+        <p class="text-white font-extrabold text-2xl leading-none tracking-tight">Lifetime</p>
+        <p class="text-white/55 text-xs mt-1.5 whitespace-nowrap uppercase tracking-widest">Income</p>
+      </div>
+      <div style="width:1px;height:36px;background:rgba(255,255,255,0.20);" class="flex-shrink-0"></div>
+      <div class="flex-shrink-0 text-center">
+        <p class="text-white font-extrabold text-2xl leading-none tracking-tight">Tax-Deferred</p>
+        <p class="text-white/55 text-xs mt-1.5 whitespace-nowrap uppercase tracking-widest">Growth</p>
+      </div>
+    </div>
 
   </div>
 </section>
@@ -399,33 +292,10 @@
       <!-- ── PATHWAY 1: Guaranteed Lifetime Income ── -->
       <div class="track-card flex flex-col h-full">
 
-        <!-- INSERT OPTIMIZED WEBP IMAGE FOR GUARANTEED LIFETIME INCOME HERE -->
-        <!-- Recommended: Dark forest, paycheck/income stream visual, calendar with recurring deposit icons, gold accent -->
-        <div class="aspect-video relative overflow-hidden flex-shrink-0 rounded-xl" style="background: linear-gradient(145deg, #0B3226 0%, #19634F 55%, #0D4C3A 100%);">
-          <div class="absolute inset-0" style="background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,0.055) 1px, transparent 0); background-size: 22px 22px;"></div>
-          <div class="absolute -top-10 -right-10 w-64 h-64" style="background: radial-gradient(ellipse at 70% 25%, rgba(212,175,55,0.20) 0%, transparent 65%);"></div>
-          <!-- Recurring income stream visual -->
-          <div class="absolute inset-0 flex items-center justify-center px-10 gap-8">
-            <!-- Income bars: equal height, evenly spaced — like paychecks -->
-            <div class="flex flex-col gap-5 flex-shrink-0">
-              <p class="text-white/25 text-[9px] font-bold tracking-[0.18em] uppercase">Monthly Income</p>
-              <div class="flex items-end gap-2">
-                <div class="flex flex-col items-center gap-1.5" v-for="m in 7">
-                  <div class="w-7 rounded-t-lg" style="height:40px; background: rgba(212,175,55,0.55); border-top: 2px solid rgba(212,175,55,0.85);"></div>
-                  <span class="text-[7px] font-bold" style="color:rgba(212,175,55,0.40);">PMT</span>
-                </div>
-                <div class="flex flex-col items-center gap-1.5"><div class="w-7 rounded-t-lg" style="height:40px; background: rgba(212,175,55,0.55); border-top: 2px solid rgba(212,175,55,0.85);"></div><span class="text-[7px] font-bold" style="color:rgba(212,175,55,0.40);">PMT</span></div>
-                <div class="flex flex-col items-center gap-1.5"><div class="w-7 rounded-t-lg" style="height:40px; background: rgba(212,175,55,0.55); border-top: 2px solid rgba(212,175,55,0.85);"></div><span class="text-[7px] font-bold" style="color:rgba(212,175,55,0.40);">PMT</span></div>
-                <div class="flex flex-col items-center gap-1.5"><div class="w-7 rounded-t-lg" style="height:40px; background: rgba(212,175,55,0.55); border-top: 2px solid rgba(212,175,55,0.85);"></div><span class="text-[7px] font-bold" style="color:rgba(212,175,55,0.40);">PMT</span></div>
-                <div class="flex flex-col items-center gap-1.5"><div class="w-7 rounded-t-lg" style="height:40px; background: rgba(212,175,55,0.55); border-top: 2px solid rgba(212,175,55,0.85);"></div><span class="text-[7px] font-bold" style="color:rgba(212,175,55,0.40);">PMT</span></div>
-                <div class="flex flex-col items-center gap-1.5"><div class="w-7 rounded-t-lg" style="height:40px; background: rgba(212,175,55,0.65); border-top: 2px solid rgba(212,175,55,0.95);"></div><span class="text-[7px] font-bold" style="color:rgba(212,175,55,0.50);">→∞</span></div>
-              </div>
-              <div class="flex items-center gap-2">
-                <div class="w-4 h-px" style="background:rgba(212,175,55,0.35);"></div>
-                <span class="text-[8px] font-bold uppercase tracking-widest" style="color:rgba(212,175,55,0.55);">For life — guaranteed</span>
-              </div>
-            </div>
-          </div>
+        <div class="aspect-square relative overflow-hidden flex-shrink-0">
+          <img src="../images/indexedannuities_lifetimeincome_fcpcsite.webp"
+               alt="A couple walking outdoors together with hiking poles, active and enjoying retirement"
+               class="w-full h-full object-cover object-center" loading="lazy" />
         </div>
 
         <div class="flex flex-col flex-1 p-8 pt-6">
@@ -457,7 +327,7 @@
               <p class="text-smoke text-sm leading-relaxed">The idea of running out of money in retirement keeps you up at night</p>
             </div>
           </div>
-          <a href="../get-quote.html" class="btn-gold px-7 py-4 text-sm justify-center">
+          <a href="../contact.html" class="btn-gold px-7 py-4 text-sm justify-center">
             Design My Lifetime Income Strategy
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
           </a>
@@ -467,39 +337,10 @@
       <!-- ── PATHWAY 2: Long-Term Capital Preservation ── -->
       <div class="track-card flex flex-col h-full">
 
-        <!-- INSERT OPTIMIZED WEBP IMAGE FOR LONG-TERM CAPITAL PRESERVATION HERE -->
-        <!-- Recommended: Light mint/forest, vault or safe visual, index growth curve with 0% floor line, calm wealth preservation aesthetic -->
-        <div class="aspect-video relative overflow-hidden flex-shrink-0 rounded-xl" style="background: linear-gradient(145deg, #F0FDF8 0%, #ffffff 50%, #F7FAFC 100%);">
-          <div class="absolute inset-0" style="background-image: radial-gradient(circle at 1px 1px, rgba(25,99,79,0.06) 1px, transparent 0); background-size: 20px 20px;"></div>
-          <div class="absolute top-0 right-0 w-56 h-56" style="background: radial-gradient(ellipse at 80% 20%, rgba(25,99,79,0.08) 0%, transparent 65%);"></div>
-          <!-- Index growth line with hard 0% floor -->
-          <div class="absolute inset-0 flex flex-col items-center justify-center px-10 gap-4">
-            <div class="w-full" style="position: relative; height: 80px;">
-              <!-- Floor line -->
-              <div class="absolute w-full" style="bottom: 0; height: 1.5px; background: rgba(25,99,79,0.25);"></div>
-              <span class="absolute text-[8px] font-bold text-forest/50 uppercase tracking-widest" style="bottom: 4px; left: 0;">0% Floor — Principal Protected</span>
-              <!-- Index curve (SVG) -->
-              <svg class="absolute inset-0 w-full h-full" viewBox="0 0 300 80" preserveAspectRatio="none" fill="none">
-                <path d="M0,60 C40,55 60,30 90,25 C110,20 120,50 150,45 C180,40 200,15 240,10 C260,8 280,12 300,8"
-                      stroke="#19634F" stroke-width="2" stroke-linecap="round" fill="none" opacity="0.55"/>
-                <path d="M0,60 C40,55 60,30 90,25 C110,20 120,50 150,45 C180,40 200,15 240,10 C260,8 280,12 300,8 L300,78 L0,78 Z"
-                      fill="rgba(25,99,79,0.07)"/>
-                <!-- Down year dip to floor, not below -->
-                <path d="M110,40 L130,78 L150,45" stroke="rgba(239,68,68,0.40)" stroke-width="1.5" stroke-dasharray="4 3" fill="none"/>
-                <circle cx="130" cy="78" r="3" fill="rgba(25,99,79,0.35)"/>
-              </svg>
-            </div>
-            <div class="flex items-center gap-6">
-              <div class="flex items-center gap-2">
-                <div class="w-3 h-px" style="background: rgba(25,99,79,0.55); height:2px;"></div>
-                <span class="text-[8px] font-medium text-forest/50">Index growth credited</span>
-              </div>
-              <div class="flex items-center gap-2">
-                <div class="w-4 h-px border-t-2" style="border-color: rgba(25,99,79,0.25);"></div>
-                <span class="text-[8px] font-medium text-forest/50">Down years: floor holds</span>
-              </div>
-            </div>
-          </div>
+        <div class="aspect-square relative overflow-hidden flex-shrink-0">
+          <img src="../images/indexedannuities_capitalpreservation_fcpcsite.webp"
+               alt="A couple sitting at their kitchen table together, looking at a laptop and reviewing their finances with confidence"
+               class="w-full h-full object-cover object-center" loading="lazy" />
         </div>
 
         <div class="flex flex-col flex-1 p-8 pt-6">
@@ -531,7 +372,7 @@
               <p class="text-smoke text-sm leading-relaxed">You want market participation without market risk</p>
             </div>
           </div>
-          <a href="../get-quote.html" class="btn-forest px-7 py-4 text-sm justify-center">
+          <a href="../contact.html" class="btn-forest px-7 py-4 text-sm justify-center">
             Design My Preservation Strategy
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
           </a>
@@ -547,9 +388,10 @@
 ════════════════════════════════════════════════════════════ -->
 <section class="py-20 border-t border-silver/50" style="background: linear-gradient(160deg, #F7FAFC 0%, #ffffff 60%);">
   <div class="max-w-[1400px] mx-auto px-6 lg:px-12">
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-start">
+    <div class="flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
 
-      <div class="lg:col-span-5">
+      <!-- Text column -->
+      <div class="flex-1">
         <span class="eyebrow mb-5 block">The Core Concept</span>
         <h2 class="font-extrabold tracking-tight leading-[1.08] mb-6" style="font-size: clamp(2rem, 3.8vw, 3rem); color: #1A202C;">
           Your Gains Lock In.<br/>
@@ -557,16 +399,23 @@
             Your Losses Don't.
           </span>
         </h2>
-      </div>
-
-      <div class="lg:col-span-7 lg:pt-3">
         <p class="text-smoke text-lg leading-relaxed mb-8">
           The 0% floor is a contractual guarantee: in any year the market index declines, your account value doesn't decline with it. When the market rises, a portion of that gain gets credited to your account and locked in for good. It's growth that only moves in one direction.
         </p>
-        <a href="../get-quote.html" class="btn-forest px-7 py-3.5 text-sm">
+        <a href="../contact.html" class="btn-forest px-7 py-3.5 text-sm">
           See How This Applies to My Savings
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
         </a>
+      </div>
+
+      <!-- Image column — NO hidden class, stacks below text on mobile -->
+      <div class="w-full lg:w-[420px] lg:flex-shrink-0">
+        <div class="rounded-2xl overflow-hidden shadow-card-lg border border-black/[0.06]">
+          <img src="../images/indexedannuities_lockedgains_fcpcsite.webp"
+               alt="A couple meditating together outdoors, calm and at peace — representing the security of gains that lock in and never reverse"
+               class="w-full h-auto block object-cover" style="max-height: 380px;"
+               loading="lazy" />
+        </div>
       </div>
 
     </div>
@@ -587,7 +436,7 @@
         <p class="text-white/55 text-[0.9375rem] leading-relaxed max-w-[520px]">An FCPC specialist will model an indexed annuity illustration tailored to your retirement timeline, income goals, and existing savings — walking you through every projection with full transparency and no pressure.</p>
       </div>
       <div class="flex-shrink-0 flex flex-col items-center gap-4">
-        <a href="../get-quote.html" class="btn-gold px-9 py-4 text-[15px]">
+        <a href="../contact.html" class="btn-gold px-9 py-4 text-[15px]">
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
           Get My Free Annuity Illustration
         </a>
@@ -600,9 +449,15 @@
 <!-- ════════════════════════════════════════════════════════════
      FULL-BLEED CTA BAND
 ════════════════════════════════════════════════════════════ -->
-<section class="relative overflow-hidden border-t border-slate-100" style="background: linear-gradient(135deg, #0B3226 0%, #19634F 55%, #0B3226 100%);">
-  <div class="absolute inset-0 pointer-events-none" style="background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,0.04) 1px, transparent 0); background-size: 36px 36px;"></div>
-  <div class="absolute right-0 top-0 bottom-0 w-1/3 pointer-events-none" style="background: radial-gradient(ellipse 80% 100% at 100% 50%, rgba(212,175,55,0.10) 0%, transparent 70%);"></div>
+<section class="relative overflow-hidden border-t border-slate-100" style="background: #0B2818;">
+  <!-- object-position: 55% 25% — slightly right of center, upper quarter so seated advisor and client faces stay in frame on mobile portrait crop.
+       MAY NEED A SECOND-PASS LIVE TUNING. -->
+  <img src="../images/indexedannuities_cta_fcpcsite.webp"
+       alt="An FCPC advisor leaning forward and showing a brochure to a client seated across the table, engaged in a warm professional conversation"
+       class="absolute inset-0 w-full h-full object-cover"
+       style="object-position: 55% 25%;"
+       loading="lazy" decoding="async" />
+  <div class="absolute inset-0 pointer-events-none" style="background: linear-gradient(135deg, rgba(5,20,12,0.84) 0%, rgba(8,28,18,0.76) 55%, rgba(5,20,12,0.82) 100%);"></div>
   <div class="relative z-10 max-w-[1400px] mx-auto px-6 lg:px-12 py-24 lg:py-32 flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
     <div class="flex-1 text-center lg:text-left">
       <p class="text-gold text-[11px] font-bold tracking-[0.18em] uppercase mb-5">No Cost. No Pressure.</p>
@@ -614,7 +469,7 @@
       </p>
     </div>
     <div class="flex-shrink-0 flex flex-col items-center gap-4 text-center">
-      <a href="../get-quote.html" class="btn-gold px-10 py-5 text-[16px]">
+      <a href="../contact.html" class="btn-gold px-10 py-5 text-[16px]">
         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
         Schedule My Free Review
       </a>
