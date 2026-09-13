@@ -290,27 +290,14 @@
   <div class="max-w-[1400px] mx-auto px-6 lg:px-12 py-20">
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-start">
 
-      <!-- Visual left -->
-      <div class="lg:col-span-5">
-        <div class="rounded-3xl overflow-hidden" style="background: linear-gradient(145deg, #0B3226 0%, #19634F 50%, #0D4C3A 100%); padding: 2.5rem 2rem; min-height: 340px; display: flex; flex-direction: column; justify-content: space-between;">
-          <div>
-            <p class="text-white/25 text-[9px] font-bold tracking-[0.22em] uppercase mb-4">FCPC · IUL</p>
-            <p class="text-white font-extrabold text-xl leading-tight mb-2">Flexible coverage.<br/>Adjustable premiums.<br/>One permanent policy.</p>
-          </div>
-          <div class="mt-6 flex flex-col gap-3">
-            <div class="flex items-center gap-3 rounded-2xl px-4 py-3" style="background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12);">
-              <div class="w-2 h-2 rounded-full bg-gold flex-shrink-0"></div>
-              <span class="text-white/70 text-sm">Adjust premiums as income changes</span>
-            </div>
-            <div class="flex items-center gap-3 rounded-2xl px-4 py-3" style="background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12);">
-              <div class="w-2 h-2 rounded-full bg-gold flex-shrink-0"></div>
-              <span class="text-white/70 text-sm">Scale coverage as family grows</span>
-            </div>
-            <div class="flex items-center gap-3 rounded-2xl px-4 py-3" style="background: rgba(212,175,55,0.14); border: 1px solid rgba(212,175,55,0.30);">
-              <div class="w-2 h-2 rounded-full bg-gold flex-shrink-0"></div>
-              <span class="text-gold/80 text-sm font-semibold">Policy stays in force for life</span>
-            </div>
-          </div>
+      <!-- Visual left — framed photo -->
+      <div class="lg:col-span-5 flex justify-center lg:justify-start">
+        <div class="split-photo-frame w-full" style="max-width: 420px; aspect-ratio: 5/6;">
+          <img src="../images/iul_whyiul_fcpcsite.webp"
+               alt="Financial professionals walking outside an office building, representing the career flexibility that IUL provides"
+               class="w-full h-full object-cover"
+               style="object-position: 50% 30%;"
+               loading="lazy" decoding="async" />
         </div>
       </div>
 
@@ -355,38 +342,14 @@
         </a>
       </div>
 
-      <!-- Visual right: photo + chart stacked -->
-      <div class="lg:col-span-5 flex flex-col gap-5">
-        <!-- Graduation photo -->
+      <!-- Visual right: graduation photo only -->
+      <div class="lg:col-span-5">
         <div class="w-full rounded-2xl overflow-hidden border border-black/[0.06] shadow-card" style="aspect-ratio: 4/3;">
           <img src="../images/iul_cashvalue_fcpcsite.webp"
                alt="A family celebrating a graduation, representing the milestone moments that IUL cash value can help fund"
                class="w-full h-full object-cover"
                style="object-position: 50% 25%;"
                loading="lazy" decoding="async" />
-        </div>
-        <!-- Chart card -->
-        <div class="rounded-3xl overflow-hidden" style="background: linear-gradient(145deg, #0B3226 0%, #22896C 50%, #0D4C3A 100%); padding: 2rem 1.75rem;">
-          <div>
-            <p class="text-white/25 text-[9px] font-bold tracking-[0.22em] uppercase mb-3">Cash Value Growth</p>
-            <p class="text-white font-extrabold text-lg leading-tight">Linked to growth.<br/>Protected from loss.</p>
-          </div>
-          <div class="mt-5">
-            <svg viewBox="0 0 200 90" class="w-full" fill="none">
-              <line x1="0" y1="82" x2="200" y2="82" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
-              <line x1="0" y1="70" x2="200" y2="70" stroke="rgba(255,255,255,0.20)" stroke-width="1" stroke-dasharray="4 3"/>
-              <text x="4" y="79" font-size="6" fill="rgba(255,255,255,0.35)" font-family="Inter,sans-serif" font-weight="700">0% floor</text>
-              <polyline points="0,65 30,55 55,35 80,50 110,20 140,40 170,10 200,5" stroke="rgba(255,255,255,0.18)" stroke-width="1.5" stroke-dasharray="4 3" fill="none"/>
-              <polyline points="0,70 30,62 55,48 80,48 110,30 140,38 170,18 200,12" stroke="#D4AF37" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-              <path d="M0,70 L30,62 L55,48 L80,48 L110,30 L140,38 L170,18 L200,12 L200,70 Z" fill="rgba(212,175,55,0.09)"/>
-              <circle cx="200" cy="12" r="3.5" fill="#D4AF37"/>
-              <line x1="4" y1="6" x2="14" y2="6" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" stroke-dasharray="3 2"/>
-              <text x="17" y="9" font-size="6" fill="rgba(255,255,255,0.35)" font-family="Inter,sans-serif">Market index</text>
-              <line x1="4" y1="16" x2="14" y2="16" stroke="#D4AF37" stroke-width="2"/>
-              <text x="17" y="19" font-size="6" fill="rgba(255,255,255,0.55)" font-family="Inter,sans-serif">IUL credited rate</text>
-            </svg>
-            <p class="text-white/20 text-[8px] mt-3 uppercase tracking-widest">Illustrative — not a guarantee of future performance</p>
-          </div>
         </div>
       </div>
 
@@ -492,44 +455,14 @@
         </a>
       </div>
 
-      <!-- Visual right: photo + chart stacked -->
-      <div class="lg:col-span-5 flex flex-col gap-5">
-        <!-- Retirement cooking photo -->
+      <!-- Visual right: cooking photo only -->
+      <div class="lg:col-span-5">
         <div class="w-full rounded-2xl overflow-hidden border border-black/[0.06] shadow-card" style="aspect-ratio: 4/3;">
           <img src="../images/iul_retirementincome_fcpcsite.webp"
                alt="An older couple cooking together in a bright kitchen, representing the active retirement that IUL income can help sustain"
                class="w-full h-full object-cover"
                style="object-position: 50% 20%;"
                loading="lazy" decoding="async" />
-        </div>
-        <!-- Bar chart card -->
-        <div class="rounded-3xl overflow-hidden" style="background: linear-gradient(145deg, #1A1400 0%, #2D2000 55%, #1A1800 100%); padding: 2rem 1.75rem;">
-          <div>
-            <p class="text-white/20 text-[9px] font-bold tracking-[0.22em] uppercase mb-3">Retirement Income Layer</p>
-            <p class="text-white font-extrabold text-lg leading-tight">Your cash value,<br/>working for you in retirement.</p>
-          </div>
-          <div class="flex items-end gap-3 mt-5">
-            <div class="flex flex-col items-center gap-2 flex-1">
-              <div class="w-full rounded-t-lg" style="height: 28px; background: rgba(212,175,55,0.22); border: 1px solid rgba(212,175,55,0.30);"></div>
-              <span class="text-white/30 text-[9px] font-bold">Age 60</span>
-            </div>
-            <div class="flex flex-col items-center gap-2 flex-1">
-              <div class="w-full rounded-t-lg" style="height: 44px; background: rgba(212,175,55,0.45); border: 1px solid rgba(212,175,55,0.50);"></div>
-              <span class="text-white/30 text-[9px] font-bold">Age 65</span>
-            </div>
-            <div class="flex flex-col items-center gap-2 flex-1">
-              <div class="w-full rounded-t-lg" style="height: 64px; background: rgba(212,175,55,0.70); border: 1px solid rgba(212,175,55,0.70);"></div>
-              <span class="text-white/30 text-[9px] font-bold">Age 70</span>
-            </div>
-            <div class="flex flex-col items-center gap-2 flex-1">
-              <div class="w-full rounded-t-lg" style="height: 84px; background: #D4AF37; border: 1px solid #D4AF37;"></div>
-              <span class="text-gold text-[9px] font-bold">Age 75</span>
-            </div>
-          </div>
-          <div class="flex items-center gap-2 mt-4">
-            <div class="w-4 h-px bg-gold/40"></div>
-            <span class="text-gold/55 text-[9px] font-bold uppercase tracking-widest">Potential income · Policy loans · Tax-advantaged</span>
-          </div>
         </div>
       </div>
 
