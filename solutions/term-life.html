@@ -120,6 +120,15 @@
     }
 
     .stat-divider { width: 1px; height: 36px; background: #E2E8F0; flex-shrink: 0; }
+
+    /* Shared split-hero / split-CTA photo frame — reused on IUL, Term Life, Whole Life, Final Expense */
+    .split-photo-frame {
+      border-radius: 16px;
+      border: 6px solid rgba(255, 252, 245, 0.92);
+      box-shadow: 0 24px 64px rgba(0,0,0,0.26), 0 4px 16px rgba(0,0,0,0.13);
+      overflow: hidden;
+      flex-shrink: 0;
+    }
   </style>
 </head>
 <body>
@@ -205,136 +214,50 @@
 <!-- ════════════════════════════════════════════════════════════
      HERO — wide-canvas horizontal
 ════════════════════════════════════════════════════════════ -->
-<section class="relative" style="background: linear-gradient(145deg, #ffffff 0%, #F7FAFC 50%, rgba(25,99,79,0.04) 100%);">
-
-  <div class="absolute inset-0 pointer-events-none" style="background-image: radial-gradient(circle at 1px 1px, rgba(0,0,0,0.03) 1px, transparent 0); background-size: 40px 40px;"></div>
-  <div class="absolute inset-0 pointer-events-none" style="background: radial-gradient(ellipse 55% 65% at 15% 60%, rgba(25,99,79,0.05) 0%, transparent 70%);"></div>
-
-  <div class="max-w-[1400px] mx-auto px-6 lg:px-12 pt-20 pb-16 lg:pt-28 lg:pb-20 relative z-10">
+<section style="background: #19634F;" class="relative overflow-hidden">
+  <div class="absolute inset-0 pointer-events-none" style="background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,0.05) 1px, transparent 0); background-size: 36px 36px;"></div>
+  <div class="absolute inset-0 pointer-events-none" style="background: radial-gradient(ellipse 60% 80% at 0% 60%, rgba(11,50,38,0.55) 0%, transparent 70%);"></div>
+  <div class="max-w-[1400px] mx-auto px-6 lg:px-12 pt-20 pb-16 lg:pt-28 lg:pb-24 relative z-10">
 
     <!-- Breadcrumb -->
     <nav class="flex items-center gap-2 text-xs font-medium mb-10" aria-label="Breadcrumb">
-      <a href="../index.html"       class="text-smoke/60 hover:text-forest transition-colors">Home</a>
-      <svg class="w-3 h-3 text-smoke/30" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-      <a href="../solutions.html"   class="text-smoke/60 hover:text-forest transition-colors">Solutions</a>
-      <svg class="w-3 h-3 text-smoke/30" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-      <a href="life-insurance.html" class="text-smoke/60 hover:text-forest transition-colors">Life Insurance</a>
-      <svg class="w-3 h-3 text-smoke/30" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-      <span class="text-forest font-semibold">Term Life</span>
+      <a href="../index.html"       class="text-white/40 hover:text-white/70 transition-colors">Home</a>
+      <svg class="w-3 h-3 text-white/25" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+      <a href="../solutions.html"   class="text-white/40 hover:text-white/70 transition-colors">Solutions</a>
+      <svg class="w-3 h-3 text-white/25" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+      <a href="life-insurance.html" class="text-white/40 hover:text-white/70 transition-colors">Life Insurance</a>
+      <svg class="w-3 h-3 text-white/25" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+      <span class="text-white/80 font-semibold">Term Life</span>
     </nav>
 
-    <!-- Headline block -->
-    <div class="mb-14">
-      <span class="eyebrow mb-5 block">Term Life Insurance</span>
-
-      <h1 class="font-extrabold tracking-[-0.03em] mb-6" style="font-size: clamp(2.2rem, 4vw, 4rem); line-height: 1.06; color: #2D3748;">
-        Protection Sized to the Years You Need It Most.
-      </h1>
-
-      <p class="text-smoke text-lg leading-relaxed mb-10" style="max-width: 680px;">
-        Some of life's biggest financial responsibilities are temporary. A mortgage gets paid off. Kids grow up and become self-sufficient. Term life insurance is built for exactly this kind of need: substantial protection for the years that matter most, at a cost that fits your budget.
-      </p>
-
-      <a href="../get-quote.html" class="btn-gold px-8 py-4 text-[15px]">
-        Talk to a Specialist
-        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
-      </a>
-    </div>
-
-    <!-- Wide hero image — full bleed, zero overlays -->
-    <div class="w-full rounded-3xl overflow-hidden border border-black/[0.06] shadow-card-lg" style="aspect-ratio: 16/6;">
-
-      <!-- INSERT OPTIMIZED HERO WEBP IMAGE FOR TERM LIFE PAGE HERE -->
-      <!-- Recommended: Wide-format lifestyle photo or illustration — young family, home protection, financial peace-of-mind; clean forest green and white palette -->
-
-      <div class="w-full h-full relative" style="background: linear-gradient(145deg, #0B3226 0%, #19634F 45%, #0D4C3A 80%, #0B3226 100%);">
-
-        <div class="absolute inset-0" style="background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,0.05) 1px, transparent 0); background-size: 32px 32px;"></div>
-        <div class="absolute -top-20 right-0 w-[700px] h-[700px] pointer-events-none" style="background: radial-gradient(ellipse at 80% 30%, rgba(212,175,55,0.12) 0%, transparent 65%);"></div>
-        <div class="absolute bottom-0 left-0 w-96 h-96 pointer-events-none" style="background: radial-gradient(ellipse at 20% 80%, rgba(42,176,138,0.10) 0%, transparent 65%);"></div>
-
-        <!-- Wide composition: left anchor + center term timeline + right stats -->
-        <div class="absolute inset-0 flex items-center px-12 gap-16">
-
-          <!-- Left anchor -->
-          <div class="flex flex-col gap-3 flex-shrink-0">
-            <p class="text-white/25 text-[10px] font-bold tracking-[0.22em] uppercase">FCPC · Term Life</p>
-            <p class="text-white font-extrabold leading-tight" style="font-size: clamp(1.25rem, 2vw, 1.75rem);">
-              Affordable.<br/>Reliable.<br/>Exactly When<br/>You Need It.
-            </p>
-            <div class="flex items-center gap-2 mt-1">
-              <div class="w-1.5 h-1.5 rounded-full bg-gold flex-shrink-0"></div>
-              <span class="text-white/40 text-xs">Protection · Certainty · Value</span>
-            </div>
-          </div>
-
-          <!-- Center: term timeline illustration -->
-          <div class="flex-1 items-center justify-center hidden md:flex">
-            <div class="flex flex-col items-center gap-4 w-full max-w-xs">
-              <!-- Timeline bar -->
-              <div class="flex items-center gap-0 w-full">
-                <div class="flex flex-col items-center flex-shrink-0">
-                  <div class="w-3 h-3 rounded-full bg-gold"></div>
-                  <span class="text-[9px] font-bold text-white/40 mt-1.5 whitespace-nowrap">Day 1</span>
-                </div>
-                <div class="flex-1 h-px" style="background: linear-gradient(90deg, #D4AF37 0%, rgba(42,176,138,0.60) 50%, rgba(42,176,138,0.25) 100%);"></div>
-                <div class="flex flex-col items-center flex-shrink-0">
-                  <div class="w-3 h-3 rounded-full" style="background: rgba(42,176,138,0.60);"></div>
-                  <span class="text-[9px] font-bold text-white/40 mt-1.5 whitespace-nowrap">Yr 10</span>
-                </div>
-                <div class="flex-1 h-px" style="background: linear-gradient(90deg, rgba(42,176,138,0.25) 0%, rgba(255,255,255,0.12) 100%);"></div>
-                <div class="flex flex-col items-center flex-shrink-0">
-                  <div class="w-3 h-3 rounded-full" style="background: rgba(255,255,255,0.18);"></div>
-                  <span class="text-[9px] font-bold text-white/40 mt-1.5 whitespace-nowrap">Yr 20</span>
-                </div>
-                <div class="flex-1 h-px" style="background: rgba(255,255,255,0.08);"></div>
-                <div class="flex flex-col items-center flex-shrink-0">
-                  <div class="w-3 h-3 rounded-full" style="background: rgba(255,255,255,0.10);"></div>
-                  <span class="text-[9px] font-bold text-white/40 mt-1.5 whitespace-nowrap">Yr 30</span>
-                </div>
-              </div>
-              <!-- Coverage bar beneath -->
-              <div class="w-full rounded-xl overflow-hidden" style="height: 10px; background: rgba(255,255,255,0.06);">
-                <div class="h-full rounded-xl" style="width: 60%; background: linear-gradient(90deg, #D4AF37 0%, #2AB08A 100%);"></div>
-              </div>
-              <p class="text-white/30 text-[9px] font-bold uppercase tracking-widest">Coverage active during selected term</p>
-            </div>
-          </div>
-
-          <!-- Right: stat blocks -->
-          <div class="flex items-center gap-3 flex-shrink-0">
-            <div class="flex flex-col gap-3">
-              <div class="rounded-2xl px-5 py-4 text-center" style="background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12);">
-                <p class="font-extrabold text-xl leading-none" style="color:#D4AF37;">10–30</p>
-                <p class="text-white/40 text-[9px] mt-1.5 uppercase tracking-widest">Year Terms</p>
-              </div>
-              <div class="rounded-2xl px-5 py-4 text-center" style="background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12);">
-                <p class="font-extrabold text-xl leading-none" style="color:#D4AF37;">Fixed</p>
-                <p class="text-white/40 text-[9px] mt-1.5 uppercase tracking-widest">Premium</p>
-              </div>
-            </div>
-            <div class="flex flex-col gap-3">
-              <div class="rounded-2xl px-5 py-4 text-center" style="background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12);">
-                <p class="font-extrabold text-xl leading-none" style="color:#D4AF37;">Tax-Free</p>
-                <p class="text-white/40 text-[9px] mt-1.5 uppercase tracking-widest">Benefit</p>
-              </div>
-              <div class="rounded-2xl px-5 py-4 text-center" style="background: rgba(212,175,55,0.14); border: 1px solid rgba(212,175,55,0.28);">
-                <p class="font-extrabold text-xl leading-none text-white">Living</p>
-                <p class="text-white/40 text-[9px] mt-1.5 uppercase tracking-widest">Benefits</p>
-              </div>
-            </div>
-          </div>
-
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+      <!-- Text left -->
+      <div>
+        <span class="eyebrow mb-5 block" style="color: rgba(212,175,55,0.9);">Term Life Insurance</span>
+        <h1 class="font-extrabold tracking-[-0.03em] mb-6 text-white" style="font-size: clamp(2.2rem, 4vw, 4rem); line-height: 1.06;">
+          Protection Sized to the Years You Need It Most.
+        </h1>
+        <p class="text-white/70 text-lg leading-relaxed mb-10" style="max-width: 520px;">
+          Some of life's biggest financial responsibilities are temporary. A mortgage gets paid off. Kids grow up and become self-sufficient. Term life insurance is built for exactly this kind of need: substantial protection for the years that matter most, at a cost that fits your budget.
+        </p>
+        <a href="../get-quote.html" class="btn-gold px-8 py-4 text-[15px]">
+          Talk to a Specialist
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+        </a>
+      </div>
+      <!-- Photo right -->
+      <div class="flex justify-center lg:justify-end">
+        <div class="split-photo-frame w-full" style="max-width: 420px; aspect-ratio: 5/6;">
+          <img src="../images/term-life-hero.jpg"
+               alt="Family protected by term life insurance"
+               class="w-full h-full object-cover"
+               style="object-position: 50% 30%;"
+               loading="eager" decoding="async" />
         </div>
       </div>
-    </div><!-- end hero image -->
-
+    </div>
   </div>
 </section>
-
-<!-- ════════════════════════════════════════════════════════════
-     WHY TERM LIFE — Coverage That Matches the Need
-════════════════════════════════════════════════════════════ -->
 
 <!-- ════════════════════════════════════════════════════════════
      WHY TERM LIFE — Coverage That Matches the Need
@@ -344,52 +267,14 @@
 
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-start">
 
-      <!-- Left: visual -->
-      <div class="lg:col-span-5">
-        <div class="w-full rounded-3xl overflow-hidden border border-black/[0.06] shadow-card-lg" style="aspect-ratio: 4/3;">
-          <div class="w-full h-full relative" style="background: linear-gradient(145deg, #0B3226 0%, #19634F 55%, #0D4C3A 100%);">
-            <div class="absolute inset-0" style="background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,0.05) 1px, transparent 0); background-size: 28px 28px;"></div>
-            <div class="absolute -top-16 right-0 w-[400px] h-[400px] pointer-events-none" style="background: radial-gradient(ellipse at 80% 25%, rgba(212,175,55,0.12) 0%, transparent 65%);"></div>
-            <div class="absolute inset-0 flex flex-col items-center justify-center gap-5 px-10">
-              <!-- Timeline visualization -->
-              <div class="w-full flex flex-col gap-3">
-                <p class="text-white/25 text-[9px] font-bold tracking-[0.22em] uppercase">Coverage Length</p>
-                <div class="flex items-center gap-0 w-full">
-                  <div class="flex flex-col items-center flex-shrink-0 gap-1.5">
-                    <div class="w-2.5 h-2.5 rounded-full bg-gold"></div>
-                    <span class="text-[8px] font-bold text-white/35">Now</span>
-                  </div>
-                  <div class="flex-1 h-1 rounded-full mx-1" style="background: linear-gradient(90deg, #D4AF37 0%, rgba(42,176,138,0.70) 60%, rgba(42,176,138,0.20) 100%);"></div>
-                  <div class="flex flex-col items-center flex-shrink-0 gap-1.5">
-                    <div class="w-2.5 h-2.5 rounded-full" style="background: rgba(42,176,138,0.50);"></div>
-                    <span class="text-[8px] font-bold text-white/35">10 yr</span>
-                  </div>
-                  <div class="flex-1 h-1 rounded-full mx-1" style="background: rgba(255,255,255,0.08);"></div>
-                  <div class="flex flex-col items-center flex-shrink-0 gap-1.5">
-                    <div class="w-2.5 h-2.5 rounded-full" style="background: rgba(255,255,255,0.15);"></div>
-                    <span class="text-[8px] font-bold text-white/35">20 yr</span>
-                  </div>
-                  <div class="flex-1 h-1 rounded-full mx-1" style="background: rgba(255,255,255,0.05);"></div>
-                  <div class="flex flex-col items-center flex-shrink-0 gap-1.5">
-                    <div class="w-2.5 h-2.5 rounded-full" style="background: rgba(255,255,255,0.08);"></div>
-                    <span class="text-[8px] font-bold text-white/35">30 yr</span>
-                  </div>
-                </div>
-                <p class="text-white/30 text-[9px]">Protection active for your chosen term length</p>
-              </div>
-              <div class="w-full h-px" style="background: rgba(255,255,255,0.07);"></div>
-              <div class="flex gap-3 w-full">
-                <div class="flex-1 rounded-xl px-4 py-3 text-center" style="background: rgba(212,175,55,0.12); border: 1px solid rgba(212,175,55,0.22);">
-                  <p class="font-extrabold text-lg leading-none" style="color: #D4AF37;">Fixed</p>
-                  <p class="text-white/35 text-[9px] mt-1 uppercase tracking-widest">Premium</p>
-                </div>
-                <div class="flex-1 rounded-xl px-4 py-3 text-center" style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.10);">
-                  <p class="font-extrabold text-lg leading-none text-white">Tax-Free</p>
-                  <p class="text-white/35 text-[9px] mt-1 uppercase tracking-widest">Benefit</p>
-                </div>
-              </div>
-            </div>
-          </div>
+      <!-- Left: photo -->
+      <div class="lg:col-span-5 flex justify-center lg:justify-start">
+        <div class="split-photo-frame w-full" style="max-width: 420px; aspect-ratio: 5/6;">
+          <img src="../images/term-life-why.jpg"
+               alt="Protecting what's temporary for as long as it's temporary"
+               class="w-full h-full object-cover"
+               style="object-position: 50% 30%;"
+               loading="lazy" decoding="async" />
         </div>
       </div>
 
@@ -444,21 +329,39 @@
 
     <!-- Two feature cards -->
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-      <div class="track-card p-8">
-        <div class="w-12 h-12 rounded-xl bg-forest flex items-center justify-center mb-6 shadow-sm">
-          <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
+      <div class="track-card">
+        <div class="w-full overflow-hidden" style="aspect-ratio: 4/3;">
+          <img src="../images/term-life-living-benefits.jpg"
+               alt="Living benefits — access your benefit while you're alive"
+               class="w-full h-full object-cover"
+               style="object-position: 50% 30%;"
+               loading="lazy" decoding="async" />
         </div>
-        <span class="lesson-pill mb-4 inline-flex">Living Benefits</span>
-        <h3 class="text-ink font-extrabold text-xl leading-tight mb-3">Access Your Benefit While You're Alive</h3>
-        <p class="text-smoke text-sm leading-relaxed">Many term policies include riders that allow you to access a portion of your death benefit if you're diagnosed with a qualifying chronic, critical, or terminal illness — so your policy isn't only triggered by death.</p>
+        <div class="p-8">
+          <div class="w-12 h-12 rounded-xl bg-forest flex items-center justify-center mb-6 shadow-sm">
+            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
+          </div>
+          <span class="lesson-pill mb-4 inline-flex">Living Benefits</span>
+          <h3 class="text-ink font-extrabold text-xl leading-tight mb-3">Access Your Benefit While You're Alive</h3>
+          <p class="text-smoke text-sm leading-relaxed">Many term policies include riders that allow you to access a portion of your death benefit if you're diagnosed with a qualifying chronic, critical, or terminal illness — so your policy isn't only triggered by death.</p>
+        </div>
       </div>
-      <div class="track-card p-8">
-        <div class="w-12 h-12 rounded-xl bg-forest flex items-center justify-center mb-6 shadow-sm">
-          <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+      <div class="track-card">
+        <div class="w-full overflow-hidden" style="aspect-ratio: 4/3;">
+          <img src="../images/term-life-conversion.jpg"
+               alt="Conversion option — lock in your insurability now"
+               class="w-full h-full object-cover"
+               style="object-position: 50% 30%;"
+               loading="lazy" decoding="async" />
         </div>
-        <span class="lesson-pill mb-4 inline-flex">Conversion Option</span>
-        <h3 class="text-ink font-extrabold text-xl leading-tight mb-3">Lock In Your Insurability Now</h3>
-        <p class="text-smoke text-sm leading-relaxed">Most term policies include the right to convert to permanent coverage without a new medical exam. Your health status today locks in your insurability for the future, even if it changes.</p>
+        <div class="p-8">
+          <div class="w-12 h-12 rounded-xl bg-forest flex items-center justify-center mb-6 shadow-sm">
+            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+          </div>
+          <span class="lesson-pill mb-4 inline-flex">Conversion Option</span>
+          <h3 class="text-ink font-extrabold text-xl leading-tight mb-3">Lock In Your Insurability Now</h3>
+          <p class="text-smoke text-sm leading-relaxed">Most term policies include the right to convert to permanent coverage without a new medical exam. Your health status today locks in your insurability for the future, even if it changes.</p>
+        </div>
       </div>
     </div>
 
@@ -471,22 +374,35 @@
 <section class="relative overflow-hidden border-t border-slate-100" style="background: linear-gradient(135deg, #0B3226 0%, #19634F 55%, #0B3226 100%);">
   <div class="absolute inset-0 pointer-events-none" style="background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,0.04) 1px, transparent 0); background-size: 36px 36px;"></div>
   <div class="absolute right-0 top-0 bottom-0 w-1/3 pointer-events-none" style="background: radial-gradient(ellipse 80% 100% at 100% 50%, rgba(212,175,55,0.10) 0%, transparent 70%);"></div>
-  <div class="relative z-10 max-w-[1400px] mx-auto px-6 lg:px-12 py-24 lg:py-32 flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
-    <div class="flex-1 text-center lg:text-left">
-      <p class="text-gold text-[11px] font-bold tracking-[0.18em] uppercase mb-5">No Cost. No Pressure.</p>
-      <h2 class="text-white font-extrabold leading-[1.07] tracking-tight mb-6" style="font-size: clamp(2rem,4.5vw,3.5rem);">
-        Ready to Find the Right<br/>Amount of Coverage?
-      </h2>
-      <p class="text-white/60 text-lg leading-relaxed max-w-[500px] mx-auto lg:mx-0">
-        A quick conversation is all it takes to understand what fits your family, your timeline, and your budget.
-      </p>
-    </div>
-    <div class="flex-shrink-0 flex flex-col items-center gap-4 text-center">
-      <a href="../get-quote.html" class="btn-gold px-10 py-5 text-[16px]">
-        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
-        Get Your Term Life Questions Answered
-      </a>
-      <p class="text-white/35 text-xs">Licensed specialists · No sales pressure · Education-first</p>
+  <div class="max-w-[1400px] mx-auto px-6 lg:px-12 py-20 lg:py-28 relative z-10">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+      <!-- Text left -->
+      <div>
+        <p class="text-gold text-[11px] font-bold tracking-[0.18em] uppercase mb-5">No Cost. No Pressure.</p>
+        <h2 class="text-white font-extrabold leading-[1.07] tracking-tight mb-6" style="font-size: clamp(2rem,4.5vw,3.5rem);">
+          Ready to Find the Right<br/>Amount of Coverage?
+        </h2>
+        <p class="text-white/60 text-lg leading-relaxed mb-10" style="max-width: 480px;">
+          A quick conversation is all it takes to understand what fits your family, your timeline, and your budget.
+        </p>
+        <div class="flex flex-col items-start gap-4">
+          <a href="../get-quote.html" class="btn-gold px-10 py-5 text-[16px]">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+            Get Your Term Life Questions Answered
+          </a>
+          <p class="text-white/35 text-xs">Licensed specialists · No sales pressure · Education-first</p>
+        </div>
+      </div>
+      <!-- Photo right -->
+      <div class="flex justify-center lg:justify-end">
+        <div class="split-photo-frame w-full" style="max-width: 420px; aspect-ratio: 5/6;">
+          <img src="../images/term-life-closing.jpg"
+               alt="Ready to find the right amount of coverage"
+               class="w-full h-full object-cover"
+               style="object-position: 50% 30%;"
+               loading="lazy" decoding="async" />
+        </div>
+      </div>
     </div>
   </div>
 </section>
