@@ -139,6 +139,15 @@
     @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
     .marquee-track { animation: marquee 32s linear infinite; white-space: nowrap; display: flex; }
     .marquee-track:hover { animation-play-state: paused; }
+
+    /* Shared split-hero / split-CTA photo frame — reused on IUL, Term Life, Whole Life, Final Expense */
+    .split-photo-frame {
+      border-radius: 16px;
+      border: 6px solid rgba(255, 252, 245, 0.92);
+      box-shadow: 0 24px 64px rgba(0,0,0,0.26), 0 4px 16px rgba(0,0,0,0.13);
+      overflow: hidden;
+      flex-shrink: 0;
+    }
   </style>
 </head>
 <body>
@@ -149,7 +158,7 @@
 <div style="background: linear-gradient(90deg,#0B3226 0%,#19634F 50%,#0B3226 100%);" class="py-2.5 px-4 text-center">
   <p class="text-white/80 text-[13px] font-medium tracking-wide">
     Protect your family with a personalized life insurance quote — at no cost.
-    <a href="../get-quote.html" class="text-gold font-bold underline underline-offset-2 hover:text-gold-light ml-2 transition-colors">Start Now →</a>
+    <a href="../contact.html" class="text-gold font-bold underline underline-offset-2 hover:text-gold-light ml-2 transition-colors">Start Now →</a>
   </p>
 </div>
 
@@ -222,129 +231,55 @@
 <main>
 
 <!-- ════════════════════════════════════════════════════════════
-     HERO — wide-canvas horizontal
+     HERO — split: forest-green panel, text left, framed photo right
 ════════════════════════════════════════════════════════════ -->
-<section class="relative overflow-hidden" style="background: linear-gradient(145deg, #ffffff 0%, #F7FAFC 50%, rgba(25,99,79,0.04) 100%);">
+<section style="background: #19634F;" class="relative overflow-hidden">
+  <div class="absolute inset-0 pointer-events-none" style="background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,0.05) 1px, transparent 0); background-size: 36px 36px;"></div>
+  <div class="absolute inset-0 pointer-events-none" style="background: radial-gradient(ellipse 60% 80% at 0% 60%, rgba(11,50,38,0.55) 0%, transparent 70%);"></div>
 
-  <div class="absolute inset-0 pointer-events-none" style="background-image: radial-gradient(circle at 1px 1px, rgba(0,0,0,0.03) 1px, transparent 0); background-size: 40px 40px;"></div>
-  <div class="absolute inset-0 pointer-events-none" style="background: radial-gradient(ellipse 55% 65% at 15% 60%, rgba(25,99,79,0.05) 0%, transparent 70%);"></div>
+  <div class="max-w-[1400px] mx-auto px-6 lg:px-12 pt-20 pb-16 lg:pt-28 lg:pb-24 relative z-10">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
 
-  <div class="max-w-[1400px] mx-auto px-6 lg:px-12 pt-20 pb-16 lg:pt-28 lg:pb-20 relative z-10">
+      <!-- Text left -->
+      <div>
+        <nav class="flex items-center gap-2 text-xs font-medium mb-10" aria-label="Breadcrumb">
+          <a href="../index.html" class="text-white/50 hover:text-white transition-colors">Home</a>
+          <svg class="w-3 h-3 text-white/30" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+          <a href="../solutions.html" class="text-white/50 hover:text-white transition-colors">Solutions</a>
+          <svg class="w-3 h-3 text-white/30" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+          <a href="life-insurance.html" class="text-white/50 hover:text-white transition-colors">Life Insurance</a>
+          <svg class="w-3 h-3 text-white/30" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+          <span class="text-white/80 font-semibold">Indexed Universal Life</span>
+        </nav>
 
-    <!-- Breadcrumb -->
-    <nav class="flex items-center gap-2 text-xs font-medium mb-10" aria-label="Breadcrumb">
-      <a href="../index.html" class="text-smoke/60 hover:text-forest transition-colors">Home</a>
-      <svg class="w-3 h-3 text-smoke/30" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-      <a href="../solutions.html" class="text-smoke/60 hover:text-forest transition-colors">Solutions</a>
-      <svg class="w-3 h-3 text-smoke/30" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-      <a href="life-insurance.html" class="text-smoke/60 hover:text-forest transition-colors">Life Insurance</a>
-      <svg class="w-3 h-3 text-smoke/30" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-      <span class="text-forest font-semibold">Indexed Universal Life</span>
-    </nav>
+        <span class="eyebrow mb-5 block" style="color:rgba(255,255,255,0.65);">Indexed Universal Life Insurance</span>
 
-    <!-- Headline block -->
-    <div class="mb-14">
-      <span class="eyebrow mb-5 block">Indexed Universal Life Insurance</span>
+        <h1 class="font-extrabold tracking-[-0.03em] mb-6 text-white" style="font-size: clamp(2.2rem, 4vw, 4rem); line-height: 1.06;">
+          Protection That Adapts as Your Life Does.
+        </h1>
 
-      <h1 class="font-extrabold tracking-[-0.03em] mb-6" style="font-size: clamp(2.2rem, 4vw, 4rem); line-height: 1.06; color: #2D3748;">
-        Protection That Adapts as Your Life Does.
-      </h1>
+        <p class="text-white/70 text-lg leading-relaxed mb-10" style="max-width: 540px;">
+          Indexed Universal Life insurance combines permanent protection with the flexibility to adjust your coverage and premiums as your needs change, plus the potential to grow cash value tied to market performance — without the risk of market losses.
+        </p>
 
-      <p class="text-smoke text-lg leading-relaxed mb-10" style="max-width: 680px;">
-        Indexed Universal Life insurance combines permanent protection with the flexibility to adjust your coverage and premiums as your needs change, plus the potential to grow cash value tied to market performance, without the risk of market losses.
-      </p>
+        <a href="../contact.html" class="btn-gold px-8 py-4 text-[15px]">
+          Talk to a Specialist
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+        </a>
+      </div>
 
-      <a href="../get-quote.html" class="btn-gold px-8 py-4 text-[15px]">
-        Talk to a Specialist
-        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
-      </a>
-    </div>
-
-    <!-- Wide hero image — full bleed, no overlays -->
-    <div class="w-full rounded-3xl overflow-hidden border border-black/[0.06] shadow-card-lg" style="aspect-ratio: 16/6;">
-
-      <!-- INSERT OPTIMIZED HERO WEBP IMAGE FOR IUL PAGE HERE -->
-      <!-- Recommended: Wide-format illustration — upward index chart, gold growth curve, forest green palette, premium fintech aesthetic -->
-
-      <div class="w-full h-full relative overflow-hidden" style="background: linear-gradient(145deg, #0B3226 0%, #19634F 45%, #0D4C3A 80%, #0B3226 100%);">
-
-        <div class="absolute inset-0" style="background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,0.05) 1px, transparent 0); background-size: 32px 32px;"></div>
-        <div class="absolute -top-20 right-0 w-[700px] h-[700px] pointer-events-none" style="background: radial-gradient(ellipse at 80% 30%, rgba(212,175,55,0.15) 0%, transparent 65%);"></div>
-        <div class="absolute bottom-0 left-0 w-96 h-96 pointer-events-none" style="background: radial-gradient(ellipse at 20% 80%, rgba(42,176,138,0.10) 0%, transparent 65%);"></div>
-
-        <!-- Wide composition: left text anchor + center chart + right stats -->
-        <div class="absolute inset-0 flex items-center px-12 gap-16">
-
-          <!-- Left anchor -->
-          <div class="flex flex-col gap-3 flex-shrink-0">
-            <p class="text-white/25 text-[10px] font-bold tracking-[0.22em] uppercase">FCPC · IUL Strategy</p>
-            <p class="text-white font-extrabold leading-tight" style="font-size: clamp(1.25rem, 2vw, 1.75rem);">
-              Index-Linked.<br/>Floor-Protected.<br/>Tax-Advantaged.
-            </p>
-            <div class="flex items-center gap-2 mt-1">
-              <div class="w-1.5 h-1.5 rounded-full bg-gold flex-shrink-0"></div>
-              <span class="text-white/40 text-xs">Permanent · Flexible · Living Benefits</span>
-            </div>
-          </div>
-
-          <!-- Center: IUL performance chart -->
-          <div class="flex-1 flex flex-col items-center gap-4 min-w-0 hidden md:flex">
-            <svg viewBox="0 0 320 130" class="w-full max-w-xs" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <!-- Grid lines -->
-              <line x1="0" y1="108" x2="320" y2="108" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
-              <line x1="0" y1="80"  x2="320" y2="80"  stroke="rgba(255,255,255,0.06)" stroke-width="1" stroke-dasharray="4 4"/>
-              <line x1="0" y1="52"  x2="320" y2="52"  stroke="rgba(255,255,255,0.06)" stroke-width="1" stroke-dasharray="4 4"/>
-              <line x1="0" y1="24"  x2="320" y2="24"  stroke="rgba(255,255,255,0.06)" stroke-width="1" stroke-dasharray="4 4"/>
-              <!-- 0% floor label -->
-              <text x="4" y="115" font-size="7" fill="rgba(255,255,255,0.30)" font-family="Inter,sans-serif" font-weight="700">0% floor</text>
-              <!-- S&P ghost line (market) -->
-              <polyline points="0,100 40,88 70,60 100,72 130,40 160,55 190,30 220,18 260,10 320,6"
-                        stroke="rgba(255,255,255,0.15)" stroke-width="1.5" stroke-dasharray="5 3" fill="none"/>
-              <!-- IUL credited line (capped + floored) -->
-              <polyline points="0,108 40,100 70,80 100,80 130,62 160,68 190,50 220,42 260,38 320,28"
-                        stroke="#D4AF37" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-              <!-- IUL fill -->
-              <polyline points="0,108 0,108 40,100 70,80 100,80 130,62 160,68 190,50 220,42 260,38 320,28 320,108"
-                        fill="rgba(212,175,55,0.09)" stroke="none"/>
-              <!-- Cap label -->
-              <text x="262" y="22" font-size="7" fill="#D4AF37" font-family="Inter,sans-serif" font-weight="700">Cap</text>
-              <!-- Legend -->
-              <rect x="4" y="4" width="8" height="2" fill="rgba(255,255,255,0.20)" rx="1"/>
-              <text x="15" y="9" font-size="6.5" fill="rgba(255,255,255,0.35)" font-family="Inter,sans-serif">Market Index</text>
-              <rect x="4" y="14" width="8" height="2" fill="#D4AF37" rx="1"/>
-              <text x="15" y="19" font-size="6.5" fill="rgba(255,255,255,0.55)" font-family="Inter,sans-serif">IUL Credited Rate</text>
-            </svg>
-            <p class="text-white/25 text-[8px] font-bold tracking-widest uppercase">Illustrative — Not a guarantee of future performance</p>
-          </div>
-
-          <!-- Right: stat blocks -->
-          <div class="flex items-center gap-3 flex-shrink-0">
-            <div class="flex flex-col gap-3">
-              <div class="rounded-2xl px-5 py-4 text-center" style="background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12);">
-                <p class="font-extrabold text-2xl leading-none" style="color:#D4AF37;">0%</p>
-                <p class="text-white/40 text-[9px] mt-1.5 uppercase tracking-widest">Floor</p>
-              </div>
-              <div class="rounded-2xl px-5 py-4 text-center" style="background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12);">
-                <p class="font-extrabold text-xl leading-none" style="color:#D4AF37;">Tax-Free</p>
-                <p class="text-white/40 text-[9px] mt-1.5 uppercase tracking-widest">Loans</p>
-              </div>
-            </div>
-            <div class="flex flex-col gap-3">
-              <div class="rounded-2xl px-5 py-4 text-center" style="background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12);">
-                <p class="font-extrabold text-xl leading-none" style="color:#D4AF37;">Index</p>
-                <p class="text-white/40 text-[9px] mt-1.5 uppercase tracking-widest">Linked</p>
-              </div>
-              <div class="rounded-2xl px-5 py-4 text-center" style="background: rgba(212,175,55,0.14); border: 1px solid rgba(212,175,55,0.28);">
-                <p class="font-extrabold text-xl leading-none text-white">Lifetime</p>
-                <p class="text-white/40 text-[9px] mt-1.5 uppercase tracking-widest">Coverage</p>
-              </div>
-            </div>
-          </div>
-
+      <!-- Photo right — framed card -->
+      <div class="flex justify-center lg:justify-end">
+        <div class="split-photo-frame w-full" style="max-width: 420px; aspect-ratio: 4/5;">
+          <img src="../images/iul_hero_fcpcsite.webp"
+               alt="A family happily unpacking moving boxes in their bright new home"
+               class="w-full h-full object-cover"
+               style="object-position: 50% 30%;"
+               loading="eager" decoding="async" />
         </div>
       </div>
-    </div>
 
+    </div>
   </div>
 </section>
 
@@ -388,7 +323,7 @@
         <p class="text-smoke text-lg leading-relaxed mb-4">
           Life rarely stays the same for 20 or 30 years, and your coverage shouldn't have to either. IUL policies let you adjust your premium payments and death benefit over time as your income, family, and priorities evolve, all within one policy that stays in force for life.
         </p>
-        <a href="../get-quote.html" class="btn-forest px-8 py-3.5 text-[15px]">
+        <a href="../contact.html" class="btn-forest px-8 py-3.5 text-[15px]">
           See If IUL Fits Your Situation
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
         </a>
@@ -414,32 +349,37 @@
         <p class="text-smoke text-lg leading-relaxed mb-4">
           An IUL policy's cash value has the potential to grow based on the performance of a market index, offering more upside potential than a traditional whole life policy. But unlike investing directly in the market, your cash value is protected from market downturns. It's a way to participate in growth while keeping a guaranteed floor underneath you.
         </p>
-        <a href="../get-quote.html" class="btn-forest px-8 py-3.5 text-[15px]">
+        <a href="../contact.html" class="btn-forest px-8 py-3.5 text-[15px]">
           Explore Cash Value Growth
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
         </a>
       </div>
 
-      <!-- Visual right -->
-      <div class="lg:col-span-5">
-        <div class="rounded-3xl overflow-hidden" style="background: linear-gradient(145deg, #0B3226 0%, #22896C 50%, #0D4C3A 100%); padding: 2.5rem 2rem; min-height: 340px; display: flex; flex-direction: column; justify-content: space-between;">
+      <!-- Visual right: photo + chart stacked -->
+      <div class="lg:col-span-5 flex flex-col gap-5">
+        <!-- Graduation photo -->
+        <div class="w-full rounded-2xl overflow-hidden border border-black/[0.06] shadow-card" style="aspect-ratio: 4/3;">
+          <img src="../images/iul_cashvalue_fcpcsite.webp"
+               alt="A family celebrating a graduation, representing the milestone moments that IUL cash value can help fund"
+               class="w-full h-full object-cover"
+               style="object-position: 50% 25%;"
+               loading="lazy" decoding="async" />
+        </div>
+        <!-- Chart card -->
+        <div class="rounded-3xl overflow-hidden" style="background: linear-gradient(145deg, #0B3226 0%, #22896C 50%, #0D4C3A 100%); padding: 2rem 1.75rem;">
           <div>
             <p class="text-white/25 text-[9px] font-bold tracking-[0.22em] uppercase mb-3">Cash Value Growth</p>
             <p class="text-white font-extrabold text-lg leading-tight">Linked to growth.<br/>Protected from loss.</p>
           </div>
-          <div class="mt-6">
+          <div class="mt-5">
             <svg viewBox="0 0 200 90" class="w-full" fill="none">
               <line x1="0" y1="82" x2="200" y2="82" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
-              <!-- 0% floor line -->
               <line x1="0" y1="70" x2="200" y2="70" stroke="rgba(255,255,255,0.20)" stroke-width="1" stroke-dasharray="4 3"/>
               <text x="4" y="79" font-size="6" fill="rgba(255,255,255,0.35)" font-family="Inter,sans-serif" font-weight="700">0% floor</text>
-              <!-- Market ghost (dips below) -->
               <polyline points="0,65 30,55 55,35 80,50 110,20 140,40 170,10 200,5" stroke="rgba(255,255,255,0.18)" stroke-width="1.5" stroke-dasharray="4 3" fill="none"/>
-              <!-- IUL credited (never dips below floor) -->
               <polyline points="0,70 30,62 55,48 80,48 110,30 140,38 170,18 200,12" stroke="#D4AF37" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
               <path d="M0,70 L30,62 L55,48 L80,48 L110,30 L140,38 L170,18 L200,12 L200,70 Z" fill="rgba(212,175,55,0.09)"/>
               <circle cx="200" cy="12" r="3.5" fill="#D4AF37"/>
-              <!-- Legend -->
               <line x1="4" y1="6" x2="14" y2="6" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" stroke-dasharray="3 2"/>
               <text x="17" y="9" font-size="6" fill="rgba(255,255,255,0.35)" font-family="Inter,sans-serif">Market index</text>
               <line x1="4" y1="16" x2="14" y2="16" stroke="#D4AF37" stroke-width="2"/>
@@ -455,44 +395,75 @@
 </section>
 
 <!-- ════════════════════════════════════════════════════════════
-     SUPPORT WHEN LIFE HAPPENS (Living Benefits)
+     LIVING BENEFITS — 3 photo cards
 ════════════════════════════════════════════════════════════ -->
 <section class="py-20 border-t border-silver/40 bg-white">
   <div class="max-w-[1400px] mx-auto px-6 lg:px-12">
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-start">
 
-      <!-- Visual left -->
-      <div class="lg:col-span-5">
-        <div class="rounded-3xl overflow-hidden" style="background: linear-gradient(145deg, #FDFAEE 0%, #FDF6DC 60%, #F5ECC4 100%); padding: 2.5rem 2rem; min-height: 340px; display: flex; flex-direction: column; gap: 1.25rem; justify-content: center;">
-          <p class="text-[#B8960F]/60 text-[9px] font-bold tracking-[0.22em] uppercase mb-2">Living Benefits — Available as Rider</p>
-          <div class="rounded-2xl px-5 py-4" style="background: rgba(212,175,55,0.20); border: 1px solid rgba(212,175,55,0.35);">
-            <p class="text-[#7A6008] font-bold text-sm mb-1">Chronic Illness</p>
-            <p class="text-[#7A6008]/70 text-xs leading-relaxed">Access benefits when a long-term condition limits daily living activities.</p>
-          </div>
-          <div class="rounded-2xl px-5 py-4" style="background: rgba(184,150,15,0.12); border: 1px solid rgba(184,150,15,0.22);">
-            <p class="text-[#7A6008] font-bold text-sm mb-1">Critical Illness</p>
-            <p class="text-[#7A6008]/70 text-xs leading-relaxed">A qualifying diagnosis like cancer, heart attack, or stroke may unlock early access.</p>
-          </div>
-          <div class="rounded-2xl px-5 py-4" style="background: rgba(184,150,15,0.12); border: 1px solid rgba(184,150,15,0.22);">
-            <p class="text-[#7A6008] font-bold text-sm mb-1">Terminal Illness</p>
-            <p class="text-[#7A6008]/70 text-xs leading-relaxed">A terminal prognosis may allow you to use your benefit while you can.</p>
-          </div>
+    <!-- Intro -->
+    <div class="max-w-2xl mb-12">
+      <span class="eyebrow mb-5 block">Living Benefits</span>
+      <h2 class="font-extrabold tracking-tight leading-[1.08] mb-6" style="font-size: clamp(2rem, 3.8vw, 3rem); color: #1A202C;">
+        Coverage That Can Help You While You're Still Here.
+      </h2>
+      <p class="text-smoke text-lg leading-relaxed mb-6">
+        IUL policies can include the option to access a portion of your death benefit while you're still living if you're diagnosed with a qualifying serious illness — a resource that can cover the unexpected without depleting your savings or leaning on your family.
+      </p>
+      <a href="../contact.html" class="btn-ghost px-8 py-3.5 text-[15px]">
+        Learn What's Included
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+      </a>
+    </div>
+
+    <!-- 3-card grid -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+      <!-- Chronic Illness -->
+      <div class="track-card">
+        <div class="w-full overflow-hidden" style="aspect-ratio: 1/1;">
+          <img src="../images/iul_lbchronic_fcpcsite.webp"
+               alt="A mother hugging her two children in a sunny park, representing the family protection that chronic illness coverage provides"
+               class="w-full h-full object-cover"
+               style="object-position: 50% 30%;"
+               loading="lazy" decoding="async" />
+        </div>
+        <div class="p-7">
+          <span class="lesson-pill mb-4 inline-flex">Chronic Illness</span>
+          <h3 class="text-ink font-extrabold text-lg leading-tight mb-2">When Daily Life Becomes a Challenge</h3>
+          <p class="text-smoke text-sm leading-relaxed">Access a portion of your death benefit when a long-term condition limits your ability to perform daily living activities.</p>
         </div>
       </div>
 
-      <!-- Copy right -->
-      <div class="lg:col-span-7 lg:pt-2">
-        <span class="eyebrow mb-5 block">Living Benefits</span>
-        <h2 class="font-extrabold tracking-tight leading-[1.08] mb-6" style="font-size: clamp(2rem, 3.8vw, 3rem); color: #1A202C;">
-          Coverage That Can Help You While You're Still Here.
-        </h2>
-        <p class="text-smoke text-lg leading-relaxed mb-4">
-          IUL policies can include the option to access a portion of your death benefit while you're still living if you're diagnosed with a qualifying serious illness. It's a resource that can help cover the unexpected without depleting your savings or leaning on your family.
-        </p>
-        <a href="../get-quote.html" class="btn-ghost px-8 py-3.5 text-[15px]">
-          Learn What's Included
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
-        </a>
+      <!-- Critical Illness -->
+      <div class="track-card">
+        <div class="w-full overflow-hidden" style="aspect-ratio: 1/1;">
+          <img src="../images/iul_lbcritical_fcpcsite.webp"
+               alt="A mother and daughter embracing warmly, representing the family security that critical illness coverage provides"
+               class="w-full h-full object-cover"
+               style="object-position: 50% 25%;"
+               loading="lazy" decoding="async" />
+        </div>
+        <div class="p-7">
+          <span class="lesson-pill mb-4 inline-flex">Critical Illness</span>
+          <h3 class="text-ink font-extrabold text-lg leading-tight mb-2">A Diagnosis Can Trigger Early Access</h3>
+          <p class="text-smoke text-sm leading-relaxed">Cancer, heart attack, stroke, and other qualifying diagnoses may allow you to access a portion of your benefit before it's ever needed as a death benefit.</p>
+        </div>
+      </div>
+
+      <!-- Terminal Illness -->
+      <div class="track-card">
+        <div class="w-full overflow-hidden" style="aspect-ratio: 1/1;">
+          <img src="../images/iul_lbterminal_fcpcsite.webp"
+               alt="An older couple sitting peacefully on a park bench, representing the dignity and peace of mind that terminal illness coverage provides"
+               class="w-full h-full object-cover"
+               style="object-position: 50% 40%;"
+               loading="lazy" decoding="async" />
+        </div>
+        <div class="p-7">
+          <span class="lesson-pill mb-4 inline-flex">Terminal Illness</span>
+          <h3 class="text-ink font-extrabold text-lg leading-tight mb-2">Use Your Benefit While You Still Can</h3>
+          <p class="text-smoke text-sm leading-relaxed">A qualifying terminal prognosis may allow you to access your death benefit while you're living — to spend time, settle affairs, or ease the burden on your family.</p>
+        </div>
       </div>
 
     </div>
@@ -515,20 +486,29 @@
         <p class="text-smoke text-lg leading-relaxed mb-4">
           Beyond death benefit protection, an IUL policy's cash value can become a source of income later in life, supplementing retirement savings alongside your other accounts. Some policies can even offer the potential for guaranteed income you can't outlive.
         </p>
-        <a href="../get-quote.html" class="btn-gold px-8 py-3.5 text-[15px]">
+        <a href="../contact.html" class="btn-gold px-8 py-3.5 text-[15px]">
           Talk About Retirement Income
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
         </a>
       </div>
 
-      <!-- Visual right -->
-      <div class="lg:col-span-5">
-        <div class="rounded-3xl overflow-hidden" style="background: linear-gradient(145deg, #1A1400 0%, #2D2000 55%, #1A1800 100%); padding: 2.5rem 2rem; min-height: 340px; display: flex; flex-direction: column; justify-content: space-between;">
+      <!-- Visual right: photo + chart stacked -->
+      <div class="lg:col-span-5 flex flex-col gap-5">
+        <!-- Retirement cooking photo -->
+        <div class="w-full rounded-2xl overflow-hidden border border-black/[0.06] shadow-card" style="aspect-ratio: 4/3;">
+          <img src="../images/iul_retirementincome_fcpcsite.webp"
+               alt="An older couple cooking together in a bright kitchen, representing the active retirement that IUL income can help sustain"
+               class="w-full h-full object-cover"
+               style="object-position: 50% 20%;"
+               loading="lazy" decoding="async" />
+        </div>
+        <!-- Bar chart card -->
+        <div class="rounded-3xl overflow-hidden" style="background: linear-gradient(145deg, #1A1400 0%, #2D2000 55%, #1A1800 100%); padding: 2rem 1.75rem;">
           <div>
             <p class="text-white/20 text-[9px] font-bold tracking-[0.22em] uppercase mb-3">Retirement Income Layer</p>
             <p class="text-white font-extrabold text-lg leading-tight">Your cash value,<br/>working for you in retirement.</p>
           </div>
-          <div class="flex items-end gap-3 mt-6">
+          <div class="flex items-end gap-3 mt-5">
             <div class="flex flex-col items-center gap-2 flex-1">
               <div class="w-full rounded-t-lg" style="height: 28px; background: rgba(212,175,55,0.22); border: 1px solid rgba(212,175,55,0.30);"></div>
               <span class="text-white/30 text-[9px] font-bold">Age 60</span>
@@ -558,25 +538,44 @@
 </section>
 
 <!-- ════════════════════════════════════════════════════════════
-     CLOSING CTA BAND
+     CLOSING CTA — split: forest-green panel, text left, framed photo right
 ════════════════════════════════════════════════════════════ -->
-<section class="federal-band py-20 lg:py-28">
-  <div class="max-w-[1400px] mx-auto px-6 lg:px-12 flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
-    <div class="flex-1 text-center lg:text-left">
-      <p class="text-gold text-[11px] font-bold tracking-[0.18em] uppercase mb-5">No Cost. No Pressure.</p>
-      <h2 class="text-white font-extrabold leading-[1.07] tracking-tight mb-6" style="font-size: clamp(2rem, 4.5vw, 3.2rem);">
-        Ready to See How IUL Fits Your Bigger Picture?
-      </h2>
-      <p class="text-white/60 text-lg leading-relaxed max-w-[500px] mx-auto lg:mx-0">
-        A quick conversation is all it takes to understand how flexibility, growth potential, and protection can work together for you.
-      </p>
-    </div>
-    <div class="flex-shrink-0 flex flex-col items-center gap-4 text-center">
-      <a href="../get-quote.html" class="btn-gold px-10 py-5 text-[16px]">
-        Get Your IUL Questions Answered
-        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
-      </a>
-      <p class="text-white/30 text-xs">Licensed specialists · No sales pressure · Education-first</p>
+<section style="background: #19634F;" class="relative overflow-hidden border-t border-forest-dark/30">
+  <div class="absolute inset-0 pointer-events-none" style="background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,0.05) 1px, transparent 0); background-size: 36px 36px;"></div>
+  <div class="absolute inset-0 pointer-events-none" style="background: radial-gradient(ellipse 60% 80% at 100% 50%, rgba(11,50,38,0.40) 0%, transparent 70%);"></div>
+
+  <div class="max-w-[1400px] mx-auto px-6 lg:px-12 py-20 lg:py-28 relative z-10">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+
+      <!-- Text left -->
+      <div class="text-center lg:text-left">
+        <p class="text-gold text-[11px] font-bold tracking-[0.18em] uppercase mb-5">No Cost. No Pressure.</p>
+        <h2 class="text-white font-extrabold leading-[1.07] tracking-tight mb-6" style="font-size: clamp(2rem, 4.5vw, 3.2rem);">
+          Ready to See How IUL Fits Your Bigger Picture?
+        </h2>
+        <p class="text-white/65 text-lg leading-relaxed mb-10 max-w-[500px] mx-auto lg:mx-0">
+          A quick conversation is all it takes to understand how flexibility, growth potential, and protection can work together for you — and your family.
+        </p>
+        <div class="flex flex-col items-center lg:items-start gap-4">
+          <a href="../contact.html" class="btn-gold px-10 py-5 text-[16px]">
+            Get Your IUL Questions Answered
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+          </a>
+          <p class="text-white/30 text-xs">Licensed specialists · No sales pressure · Education-first</p>
+        </div>
+      </div>
+
+      <!-- Photo right — framed card, 16:9 for this panoramic image -->
+      <div class="flex justify-center lg:justify-end">
+        <div class="split-photo-frame w-full" style="max-width: 520px; aspect-ratio: 16/9;">
+          <img src="../images/iul_cta_fcpcsite.webp"
+               alt="A family — mother, daughter, and father — smiling warmly together, representing the loved ones that IUL protects"
+               class="w-full h-full object-cover"
+               style="object-position: 50% 35%;"
+               loading="lazy" decoding="async" />
+        </div>
+      </div>
+
     </div>
   </div>
 </section>
