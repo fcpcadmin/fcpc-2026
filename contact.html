@@ -121,13 +121,24 @@
 <main>
 
 <!-- Page header -->
-<section style="background:linear-gradient(145deg,#ffffff 0%,#F7FAFC 50%,rgba(25,99,79,0.04) 100%);" class="border-b border-silver/60">
-  <div class="max-w-[1400px] mx-auto px-6 lg:px-12 py-16 lg:py-20">
-    <span class="inline-block text-[0.6rem] font-bold tracking-[0.22em] uppercase mb-4 block" style="color:#19634F;opacity:0.85;">Get in Touch</span>
-    <h1 class="font-extrabold tracking-tight mb-4" style="font-size:clamp(2.2rem,4.5vw,3.5rem);line-height:1.08;color:#1A202C;letter-spacing:-0.025em;">
+<section class="relative overflow-hidden border-b border-silver/30" style="min-height: 340px;">
+  <!-- Background photo -->
+  <div class="absolute inset-0">
+    <img src="images/contact-hero.jpg"
+         alt="FCPC advisors ready to help"
+         class="w-full h-full object-cover"
+         style="object-position: 50% 40%;"
+         loading="eager" decoding="async" />
+    <!-- Dark overlay for text legibility -->
+    <div class="absolute inset-0" style="background: linear-gradient(90deg, rgba(11,50,38,0.82) 0%, rgba(11,50,38,0.60) 55%, rgba(11,50,38,0.30) 100%);"></div>
+  </div>
+  <!-- Text -->
+  <div class="relative z-10 max-w-[1400px] mx-auto px-6 lg:px-12 py-20 lg:py-28">
+    <span class="inline-block text-[0.6rem] font-bold tracking-[0.22em] uppercase mb-4 block" style="color:rgba(212,175,55,0.90);">Get in Touch</span>
+    <h1 class="font-extrabold tracking-tight mb-4 text-white" style="font-size:clamp(2.2rem,4.5vw,3.5rem);line-height:1.08;letter-spacing:-0.025em;">
       We're Here to Help
     </h1>
-    <p class="text-smoke text-[1.0625rem] leading-relaxed max-w-xl">
+    <p class="text-white/70 text-[1.0625rem] leading-relaxed max-w-xl">
       Questions about your coverage options, federal benefits, or how to get started? Reach out. We'll respond within one business day.
     </p>
   </div>
@@ -197,32 +208,16 @@
         </div>
       </div>
 
-      <!-- Contact info sidebar -->
+      <!-- Right column: photo + consultation CTA -->
       <div class="space-y-6 lg:sticky lg:top-24">
 
-        <!-- Office info -->
-        <div class="bg-white rounded-3xl border border-silver/60 shadow-card p-7">
-          <h3 class="text-base font-extrabold text-ink mb-5">Contact Information</h3>
-          <div class="space-y-4">
-            <div class="flex items-start gap-3">
-              <div class="w-9 h-9 rounded-xl bg-forest-50 flex items-center justify-center flex-shrink-0 mt-0.5">
-                <svg class="w-4 h-4 text-forest" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
-              </div>
-              <div>
-                <p class="text-xs font-bold uppercase tracking-widest text-smoke mb-1">Phone</p>
-                <a href="tel:+18005553272" class="text-sm font-semibold text-forest hover:text-forest-dark transition-colors">(800) 555-FCPC</a>
-              </div>
-            </div>
-            <div class="flex items-start gap-3">
-              <div class="w-9 h-9 rounded-xl bg-forest-50 flex items-center justify-center flex-shrink-0 mt-0.5">
-                <svg class="w-4 h-4 text-forest" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
-              </div>
-              <div>
-                <p class="text-xs font-bold uppercase tracking-widest text-smoke mb-1">Email</p>
-                <a href="mailto:info@fcpc.life" class="text-sm font-semibold text-forest hover:text-forest-dark transition-colors">info@fcpc.life</a>
-              </div>
-            </div>
-          </div>
+        <!-- Photo -->
+        <div class="w-full rounded-3xl overflow-hidden border border-silver/60 shadow-card" style="aspect-ratio: 7/5;">
+          <img src="images/contact-split.jpg"
+               alt="FCPC advisor meeting with a client"
+               class="w-full h-full object-cover"
+               style="object-position: 50% 40%;"
+               loading="lazy" decoding="async" />
         </div>
 
         <!-- Quick action -->
