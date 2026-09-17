@@ -45,7 +45,7 @@
       font-weight: 800; line-height: 1.1; letter-spacing: -0.025em; color: #1A202C;
     }
     .eyebrow {
-      font-size: 0.6rem; font-weight: 800;
+      font-size: 0.75rem; font-weight: 800;
       letter-spacing: 0.22em; text-transform: uppercase; color: #19634F; opacity: 0.85;
     }
 
@@ -206,32 +206,30 @@
 <main>
 
 <!-- ════════════════════════════════════════════════════════════
-     HERO — wide-canvas horizontal
+     HERO — wide-canvas horizontal, warm neutral
 ════════════════════════════════════════════════════════════ -->
-<section style="background: #19634F;" class="relative overflow-hidden">
-  <div class="absolute inset-0 pointer-events-none" style="background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,0.05) 1px, transparent 0); background-size: 36px 36px;"></div>
-  <div class="absolute inset-0 pointer-events-none" style="background: radial-gradient(ellipse 60% 80% at 0% 60%, rgba(11,50,38,0.55) 0%, transparent 70%);"></div>
+<section style="background: #f5f1e8;" class="relative overflow-hidden">
   <div class="max-w-[1400px] mx-auto px-6 lg:px-12 pt-20 pb-16 lg:pt-28 lg:pb-24 relative z-10">
 
     <!-- Breadcrumb -->
     <nav class="flex items-center gap-2 text-xs font-medium mb-10" aria-label="Breadcrumb">
-      <a href="../index.html"       class="text-white/40 hover:text-white/70 transition-colors">Home</a>
-      <svg class="w-3 h-3 text-white/25" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-      <a href="../solutions.html"   class="text-white/40 hover:text-white/70 transition-colors">Solutions</a>
-      <svg class="w-3 h-3 text-white/25" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-      <a href="life-insurance.html" class="text-white/40 hover:text-white/70 transition-colors">Life Insurance</a>
-      <svg class="w-3 h-3 text-white/25" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-      <span class="text-white/80 font-semibold">Term Life</span>
+      <a href="../index.html"       class="text-gray-400 hover:text-gray-700 transition-colors">Home</a>
+      <svg class="w-3 h-3 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+      <a href="../solutions.html"   class="text-gray-400 hover:text-gray-700 transition-colors">Solutions</a>
+      <svg class="w-3 h-3 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+      <a href="life-insurance.html" class="text-gray-400 hover:text-gray-700 transition-colors">Life Insurance</a>
+      <svg class="w-3 h-3 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+      <span class="text-gray-700 font-semibold">Term Life</span>
     </nav>
 
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
       <!-- Text left -->
       <div>
-        <span class="eyebrow mb-5 block" style="color: rgba(212,175,55,0.9);">Term Life Insurance</span>
-        <h1 class="font-extrabold tracking-[-0.03em] mb-6 text-white" style="font-size: clamp(2.2rem, 4vw, 4rem); line-height: 1.06;">
+        <span class="eyebrow mb-5 block">Term Life Insurance</span>
+        <h1 class="font-extrabold tracking-[-0.03em] mb-6 text-gray-900" style="font-size: clamp(2.2rem, 4vw, 4rem); line-height: 1.06;">
           Protection Sized to the Years You Need It Most.
         </h1>
-        <p class="text-white/70 text-lg leading-relaxed mb-10" style="max-width: 520px;">
+        <p class="text-gray-600 text-lg leading-relaxed mb-10" style="max-width: 520px;">
           Some of life's biggest financial responsibilities are temporary. A mortgage gets paid off. Kids grow up and become self-sufficient. Term life insurance is built for exactly this kind of need: substantial protection for the years that matter most, at a cost that fits your budget.
         </p>
         <a href="../get-quote.html" class="btn-gold px-8 py-4 text-[15px]">
@@ -241,7 +239,7 @@
       </div>
       <!-- Photo right -->
       <div class="flex justify-center lg:justify-end">
-        <div class="split-photo-frame w-full" style="max-width: 420px; aspect-ratio: 5/6;">
+        <div class="split-photo-frame w-full" style="max-width: 420px; aspect-ratio: 5/6; border-color: rgba(0,0,0,0.08); box-shadow: 0 20px 48px rgba(0,0,0,0.12), 0 4px 12px rgba(0,0,0,0.06);">
           <img src="../images/term-life-hero.webp"
                alt="Young family at home — term life insurance protects your family during your highest-need years"
                class="w-full h-full object-cover"
@@ -332,9 +330,6 @@
                loading="lazy" decoding="async" />
         </div>
         <div class="p-8">
-          <div class="w-12 h-12 rounded-xl bg-forest flex items-center justify-center mb-6 shadow-sm">
-            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
-          </div>
           <span class="lesson-pill mb-4 inline-flex">Living Benefits</span>
           <h3 class="text-ink font-extrabold text-xl leading-tight mb-3">Access Your Benefit While You're Alive</h3>
           <p class="text-smoke text-sm leading-relaxed">Many term policies include riders that allow you to access a portion of your death benefit if you're diagnosed with a qualifying chronic, critical, or terminal illness — so your policy isn't only triggered by death.</p>
@@ -349,9 +344,6 @@
                loading="lazy" decoding="async" />
         </div>
         <div class="p-8">
-          <div class="w-12 h-12 rounded-xl bg-forest flex items-center justify-center mb-6 shadow-sm">
-            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
-          </div>
           <span class="lesson-pill mb-4 inline-flex">Conversion Option</span>
           <h3 class="text-ink font-extrabold text-xl leading-tight mb-3">Lock In Your Insurability Now</h3>
           <p class="text-smoke text-sm leading-relaxed">Most term policies include the right to convert to permanent coverage without a new medical exam. Your health status today locks in your insurability for the future, even if it changes.</p>
@@ -372,7 +364,7 @@
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
       <!-- Text left -->
       <div>
-        <p class="text-gold text-[11px] font-bold tracking-[0.18em] uppercase mb-5">No Cost. No Pressure.</p>
+        <p class="text-gold text-xs font-bold tracking-[0.18em] uppercase mb-5">No Cost. No Pressure.</p>
         <h2 class="text-white font-extrabold leading-[1.07] tracking-tight mb-6" style="font-size: clamp(2rem,4.5vw,3.5rem);">
           Ready to Find the Right<br/>Amount of Coverage?
         </h2>
