@@ -34,3 +34,6 @@ build/
 .dev.vars*
 !.dev.vars.example
 !.env.example
+
+# Exclude git internals from Wrangler asset scanning
+.git
