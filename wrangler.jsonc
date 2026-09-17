@@ -6,13 +6,6 @@
     "enabled": true
   },
   "assets": {
-    "directory": ".",
-    "exclude": [
-      ".git/**",
-      "node_modules/**",
-      "images/package.json",
-      "images/package-lock.json",
-      "images/convert.js"
-    ]
+    "directory": "."
   }
 }
