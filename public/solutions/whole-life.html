@@ -10,13 +10,14 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,700;0,800;1,700&display=swap" rel="stylesheet" />
 
+  <script src="https://cdn.tailwindcss.com"></script>
   <script>
-    tailwind = { config: { theme: { extend: {
+    tailwind.config = { theme: { extend: {
       colors: {
         forest: { dark: '#0B3226', DEFAULT: '#19634F', mid: '#22896C', light: '#2AB08A', 50: '#F0FDF8' },
         gold:   { DEFAULT: '#D4AF37', dark: '#B8960F', light: '#EAC84A', pale: '#FDFAEE' },
         ink:    '#1A202C',
-        slate:  '#2D3748',
+        slate:  { ...tailwind.colors.slate, DEFAULT: '#2D3748' },
         mist:   '#F7FAFC',
         silver: '#E2E8F0',
         smoke:  '#64748B',
@@ -31,9 +32,8 @@
         'card-lg': '0 20px 60px rgba(0,0,0,0.09)',
         'nav':     '0 2px 32px rgba(0,0,0,0.07)',
       },
-    }}}}
+    }}};
   </script>
-  <script src="https://cdn.tailwindcss.com"></script>
 
   <style>
     *, *::before, *::after { box-sizing: border-box; }
@@ -59,6 +59,8 @@
     .has-drop { position: relative; }
     .has-drop .drop { display: none; }
     .has-drop:hover .drop { display: block; animation: fadeUp 0.16s ease; }
+    /* Invisible hover bridge across the mt-3 gap so the menu stays open while the cursor moves down into it */
+    .has-drop .drop::before { content: ''; position: absolute; left: 0; right: 0; top: -0.75rem; height: 0.75rem; }
     @keyframes fadeUp { from { opacity:0; transform:translateY(6px); } to { opacity:1; transform:translateY(0); } }
     @media (max-width: 1023px) { .desk-nav { display: none !important; } }
     @media (min-width: 1024px) { #mob-menu { display: none !important; } #mob-btn { display: none !important; } }
@@ -159,16 +161,16 @@
         </a>
         <div class="drop absolute top-full left-0 mt-3 bg-white rounded-2xl shadow-card-lg border border-silver/60 min-w-[240px] py-3 z-50">
           <a href="life-insurance.html"      class="flex items-center gap-3 px-4 py-3 text-sm font-semibold text-forest bg-forest-50 mx-1 rounded-xl">
-            <span class="w-8 h-8 rounded-xl bg-forest/10 flex items-center justify-center text-base flex-shrink-0">🛡</span> Life Insurance
+            <span class="w-8 h-8 rounded-xl bg-forest/10 flex items-center justify-center text-base flex-shrink-0"><svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285Z"/></svg></span> Life Insurance
           </a>
           <a href="indexed-annuities.html"           class="flex items-center gap-3 px-4 py-3 text-sm font-medium text-slate hover:text-forest hover:bg-mist transition-colors mx-1 rounded-xl">
-            <span class="w-8 h-8 rounded-xl bg-forest-50 flex items-center justify-center text-base flex-shrink-0">📊</span> Indexed Annuities
+            <span class="w-8 h-8 rounded-xl bg-forest-50 flex items-center justify-center text-base flex-shrink-0"><svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 0 1 3 19.875v-6.75ZM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V8.625ZM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V4.125Z"/></svg></span> Indexed Annuities
           </a>
           <a href="final-expense.html"       class="flex items-center gap-3 px-4 py-3 text-sm font-medium text-slate hover:text-forest hover:bg-mist transition-colors mx-1 rounded-xl">
-            <span class="w-8 h-8 rounded-xl bg-forest-50 flex items-center justify-center text-base flex-shrink-0">🌿</span> Final Expense
+            <span class="w-8 h-8 rounded-xl bg-forest-50 flex items-center justify-center text-base flex-shrink-0"><svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z"/></svg></span> Final Expense
           </a>
           <a href="supplemental-health.html" class="flex items-center gap-3 px-4 py-3 text-sm font-medium text-slate hover:text-forest hover:bg-mist transition-colors mx-1 rounded-xl">
-            <span class="w-8 h-8 rounded-xl bg-forest-50 flex items-center justify-center text-base flex-shrink-0">🏥</span> Supplemental Health
+            <span class="w-8 h-8 rounded-xl bg-forest-50 flex items-center justify-center text-base flex-shrink-0"><svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="4" r="2"/><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v5M12 8.5L7 7M12 8.5L17 7M12 11L8 18M12 11L16 18"/></svg></span> Supplemental Health
           </a>
         </div>
       </div>
@@ -206,11 +208,9 @@
 <main>
 
 <!-- ════════════════════════════════════════════════════════════
-     HERO — split: forest-green panel, text left, framed photo right
+     HERO — split: warm neutral panel (matches Term Life), text left, framed photo right
 ════════════════════════════════════════════════════════════ -->
-<section style="background: #19634F;" class="relative overflow-hidden">
-  <div class="absolute inset-0 pointer-events-none" style="background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,0.05) 1px, transparent 0); background-size: 36px 36px;"></div>
-  <div class="absolute inset-0 pointer-events-none" style="background: radial-gradient(ellipse 60% 80% at 0% 60%, rgba(11,50,38,0.55) 0%, transparent 70%);"></div>
+<section style="background: #f5f1e8;" class="relative overflow-hidden">
 
   <div class="max-w-[1400px] mx-auto px-6 lg:px-12 pt-20 pb-16 lg:pt-28 lg:pb-24 relative z-10">
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
@@ -218,34 +218,34 @@
       <!-- Text left -->
       <div>
         <nav class="flex items-center gap-2 text-xs font-medium mb-10" aria-label="Breadcrumb">
-          <a href="../index.html" class="text-white/50 hover:text-white transition-colors">Home</a>
-          <svg class="w-3 h-3 text-white/30" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-          <a href="../solutions.html" class="text-white/50 hover:text-white transition-colors">Solutions</a>
-          <svg class="w-3 h-3 text-white/30" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-          <a href="life-insurance.html" class="text-white/50 hover:text-white transition-colors">Life Insurance</a>
-          <svg class="w-3 h-3 text-white/30" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-          <span class="text-white/80 font-semibold">Whole Life</span>
+          <a href="../index.html" class="text-gray-400 hover:text-gray-700 transition-colors">Home</a>
+          <svg class="w-3 h-3 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+          <a href="../solutions.html" class="text-gray-400 hover:text-gray-700 transition-colors">Solutions</a>
+          <svg class="w-3 h-3 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+          <a href="life-insurance.html" class="text-gray-400 hover:text-gray-700 transition-colors">Life Insurance</a>
+          <svg class="w-3 h-3 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+          <span class="text-gray-700 font-semibold">Whole Life</span>
         </nav>
 
-        <span class="eyebrow mb-5 block" style="color:rgba(255,255,255,0.65);">Whole Life Insurance</span>
+        <span class="eyebrow mb-5 block">Whole Life Insurance</span>
 
-        <h1 class="font-extrabold tracking-[-0.03em] mb-6 text-white" style="font-size: clamp(2.2rem, 4vw, 4rem); line-height: 1.06;">
+        <h1 class="font-extrabold tracking-[-0.03em] mb-6 text-gray-900" style="font-size: clamp(2.2rem, 4vw, 4rem); line-height: 1.06;">
           Protection That Lasts as Long as You Do.
         </h1>
 
-        <p class="text-white/70 text-lg leading-relaxed mb-10" style="max-width: 540px;">
+        <p class="text-gray-600 text-lg leading-relaxed mb-10" style="max-width: 540px;">
           Whole life insurance is built to stay in place for your entire lifetime, not just a set number of years. Premiums are guaranteed never to increase, and the policy steadily builds cash value you can access while you're still living. It's coverage, a financial asset, and a resource for the unexpected, all in one policy.
         </p>
 
         <a href="../contact.html" class="btn-gold px-8 py-4 text-[15px]">
-          Talk to a Specialist
+          Talk to an Advisor
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
         </a>
       </div>
 
       <!-- Photo right — framed card -->
       <div class="flex justify-center lg:justify-end">
-        <div class="split-photo-frame w-full" style="max-width: 420px; aspect-ratio: 5/6;">
+        <div class="split-photo-frame w-full" style="max-width: 420px; aspect-ratio: 5/6; border-color: rgba(0,0,0,0.08); box-shadow: 0 20px 48px rgba(0,0,0,0.12), 0 4px 12px rgba(0,0,0,0.06);">
           <img src="../images/wholelife_hero_fcpcsite.webp"
                alt="A grandmother and granddaughter together with flowers, representing the generational protection whole life provides"
                class="w-full h-full object-cover"
@@ -280,18 +280,14 @@
       <div class="lg:col-span-7 lg:pt-2">
         <span class="eyebrow mb-5 block">Predictability You Can Count On</span>
         <h2 class="font-extrabold tracking-tight leading-[1.08] mb-6" style="font-size: clamp(2rem, 3.8vw, 3rem); color: #1A202C;">
-          A Premium That Never Changes. Coverage That Never Ends.
+          Premium That Never Changes. Coverage That Never Ends.
         </h2>
         <p class="text-smoke text-lg leading-relaxed mb-4">
-          With whole life, the premium you're quoted on day one is the premium you'll pay for the life of the policy. It doesn't go up when you get older, when your health changes, or when you renew. You know exactly what you're committed to, from the start.
+          With whole life, the premium you're quoted on day one is the premium you'll pay for the life of the policy. It doesn't increase as you age. You know exactly what you're committed to from the start. Also, you can design your policy to be paid up at a specific age or after a certain number of years.
         </p>
-        <p class="text-smoke text-[0.9375rem] leading-relaxed mb-8">
-          The coverage itself is just as predictable. Unlike term insurance, whole life doesn't have an expiration date. It stays in force for your entire lifetime — so the people who depend on you are protected no matter when they need that protection most.
+        <p class="text-smoke text-[0.9375rem] leading-relaxed">
+          The coverage itself is just as predictable. Unlike term insurance, whole life doesn't have an expiration date. It stays in force for your entire lifetime, so the people who depend on you are protected no matter when they need that protection most.
         </p>
-        <a href="../contact.html" class="btn-forest px-8 py-3.5 text-[15px]">
-          See If Whole Life Fits Your Situation
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
-        </a>
       </div>
 
     </div>
@@ -310,13 +306,9 @@
       <h2 class="font-extrabold tracking-tight leading-[1.08] mb-6" style="font-size: clamp(2rem, 3.8vw, 3rem); color: #1A202C;">
         Your Policy Can Step In Before It's Needed as a Death Benefit.
       </h2>
-      <p class="text-smoke text-lg leading-relaxed mb-4">
-        Many whole life contracts include living benefits — provisions that allow you to access a portion of your death benefit while you're still alive, if you face a qualifying illness. A chronic illness that limits daily activities. A critical diagnosis like a heart attack, stroke, or cancer. A terminal prognosis with a limited life expectancy.
+      <p class="text-smoke text-lg leading-relaxed">
+        Many whole life contracts include living benefits, provisions that allow you to access a portion of or all of your Life Insurance benefit while you're still alive, if you face a qualifying illness. A chronic illness that limits daily activities. A critical diagnosis like a heart attack, stroke, or cancer. A terminal prognosis with a limited life expectancy.
       </p>
-      <a href="life-insurance.html" class="btn-ghost px-8 py-3.5 text-[15px]">
-        Learn How Living Benefits Work
-        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
-      </a>
     </div>
 
     <!-- 3-card grid -->
@@ -366,7 +358,7 @@
         <div class="p-7">
           <span class="lesson-pill mb-4 inline-flex">Terminal Illness</span>
           <h3 class="text-ink font-extrabold text-lg leading-tight mb-2">Use Your Benefit While You Still Can</h3>
-          <p class="text-smoke text-sm leading-relaxed">A qualifying terminal prognosis may allow you to access your death benefit while you're living — to spend time, settle affairs, or ease the burden on your family.</p>
+          <p class="text-smoke text-sm leading-relaxed">A qualifying terminal prognosis may allow you to access your death benefit while you're living, to spend time, settle affairs, or ease the burden on your family.</p>
         </div>
       </div>
 
@@ -401,13 +393,9 @@
         <p class="text-smoke text-lg leading-relaxed mb-4">
           As you pay premiums, a portion of each payment goes into a cash value account that grows at a contractually guaranteed rate. It's not tied to the stock market. It doesn't lose value in a bad year. It grows quietly in the background, year after year.
         </p>
-        <p class="text-smoke text-[0.9375rem] leading-relaxed mb-8">
-          That cash value belongs to you. You can borrow against it when you need funds — for an emergency, a major purchase, a bridge in retirement. You're not required to pay it back, though the loan reduces your death benefit if you don't. Think of it as an asset inside your insurance policy: something you build over decades that can serve your family in ways a term policy never could.
+        <p class="text-smoke text-[0.9375rem] leading-relaxed">
+          That cash value belongs to you. You can borrow against it when you need funds, for an emergency, a major purchase, a bridge in retirement. You're not required to pay it back, though the loan reduces your death benefit if you don't. Think of it as an asset inside your insurance policy: something you build over decades that can serve your family in ways a term policy never could.
         </p>
-        <a href="../contact.html" class="btn-forest px-8 py-3.5 text-[15px]">
-          See How Cash Value Accumulates
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
-        </a>
       </div>
 
     </div>
@@ -428,15 +416,11 @@
           A Tax-Free Transfer to the People You're Building All of This For.
         </h2>
         <p class="text-smoke text-lg leading-relaxed mb-4">
-          The death benefit from a whole life policy passes to your named beneficiaries income-tax free. That's not a technicality — for families with significant assets, or for people who want to leave something meaningful behind, it's one of the most efficient transfer mechanisms available.
+          The death benefit from a whole life policy passes to your named beneficiaries income-tax free. That's not a technicality, for families with significant assets, or for people who want to leave something meaningful behind, it's one of the most efficient transfer mechanisms available.
         </p>
-        <p class="text-smoke text-[0.9375rem] leading-relaxed mb-8">
-          You decide who receives it and in what proportion. And because the policy is guaranteed to stay in force for life, you don't have to worry about the coverage lapsing before it's needed. The only question is how much you want to leave — and we can help you figure that out.
+        <p class="text-smoke text-[0.9375rem] leading-relaxed">
+          You decide who receives it and in what proportion. And because the policy is guaranteed to stay in force for life, you don't have to worry about the coverage lapsing before it's needed. The only question is how much you want to leave, and we can help you figure that out.
         </p>
-        <a href="../contact.html" class="btn-gold px-8 py-3.5 text-[15px]">
-          Talk About Your Legacy Goals
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
-        </a>
       </div>
 
       <!-- Visual right — framed photo -->
@@ -466,19 +450,17 @@
 
       <!-- Text left -->
       <div class="text-center lg:text-left">
-        <p class="text-gold text-[11px] font-bold tracking-[0.18em] uppercase mb-5">No Cost. No Pressure.</p>
         <h2 class="text-white font-extrabold leading-[1.07] tracking-tight mb-6" style="font-size: clamp(2rem, 4.5vw, 3.2rem);">
           Ready to See What a Whole Life Policy Would Look Like for You?
         </h2>
         <p class="text-white/65 text-lg leading-relaxed mb-10 max-w-[500px] mx-auto lg:mx-0">
-          An FCPC specialist will walk you through a policy illustration built around your age, health, and goals — showing exactly what you'd pay, what you'd build, and what you'd leave behind. No jargon. No obligation.
+          An FCPC advisor will walk you through a policy illustration built around your age, health, and goals, showing exactly what you'd pay, what you'd build, and what you'd leave behind. No jargon. No obligation.
         </p>
         <div class="flex flex-col items-center lg:items-start gap-4">
           <a href="../contact.html" class="btn-gold px-10 py-5 text-[16px]">
-            Get My Whole Life Questions Answered
+            Talk to An Advisor
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
           </a>
-          <p class="text-white/30 text-xs">Licensed specialists · No sales pressure · Education-first</p>
         </div>
       </div>
 
@@ -503,8 +485,8 @@
 <section class="bg-mist py-16 border-t border-silver/60">
   <div class="max-w-[1400px] mx-auto px-6 lg:px-12 flex flex-col lg:flex-row items-center gap-8">
     <div class="flex-1">
-      <h3 class="text-ink font-bold text-xl mb-2">New Guides Added Monthly. Free, Always.</h3>
-      <p class="text-smoke text-sm leading-relaxed max-w-[400px]">Occasional updates on federal benefits and financial planning, sent only when it's worth your time.</p>
+      <h3 class="text-ink font-bold text-xl mb-2">Join Our Monthly Newsletter</h3>
+      <p class="text-smoke text-sm leading-relaxed max-w-[400px]">Useful information, tips, and resources to help safeguard and improve your personal finances.</p>
     </div>
     <form class="flex gap-3 w-full max-w-[440px]" data-form-type="newsletter" data-lead-source="Solutions - Whole Life - Newsletter">
       <input type="email" name="Email" required placeholder="Your email address"
@@ -512,7 +494,7 @@
       <button type="submit" class="btn-forest flex-shrink-0 px-6 py-3.5 text-sm">Subscribe</button>
     </form>
   </div>
-  <p class="text-smoke/40 text-xs text-center mt-6 max-w-[1280px] mx-auto px-6">We respect your privacy. Unsubscribe any time. We will never sell your information.</p>
+  <p class="text-smoke/40 text-xs text-center mt-6 max-w-[1280px] mx-auto px-6">We respect your privacy. We will never sell your information. You can unsubscribe at anytime.</p>
 </section>
 
 </main>
@@ -531,7 +513,7 @@
              class="h-9 w-auto object-contain mb-7"
              onerror="this.style.display='none';this.nextElementSibling.style.display='block';" />
         <span style="display:none" class="block font-serif font-bold text-white text-xl mb-7">FCPC</span>
-        <p class="text-white/45 text-sm leading-[1.8] max-w-[290px] mb-8">Helping federal employees, families, and retirees build lasting financial security through education, not pressure — since 1985.</p>
+        <p class="text-white/45 text-sm leading-[1.8] max-w-[290px] mb-8">Helping federal employees, families, and retirees build lasting financial security through education and service since 1985.</p>
         <div class="space-y-3">
           <div class="flex items-center gap-3">
             <div class="w-8 h-8 rounded-lg bg-white/[0.06] flex items-center justify-center flex-shrink-0">
@@ -593,9 +575,6 @@
         <p class="text-white/50 text-[11px] leading-[1.9] mb-2">
           <strong class="text-white/55">Educational Disclaimer:</strong> All content on this website is for general educational and informational purposes only and does not constitute individualized insurance, financial, tax, legal, or investment advice. FCPC advisors are independent licensed insurance professionals. Product availability, premiums, and benefits vary by state, carrier, age, and health status. All products subject to carrier underwriting approval.
         </p>
-        <p class="text-white/50 text-[11px] leading-[1.9] mb-2">
-          <strong class="text-white/55">Whole Life Illustration Disclaimer:</strong> Whole Life illustrations reflect contractually guaranteed values and any non-guaranteed dividend projections based on the carrier's current dividend scale, which is not guaranteed. Dividends are determined annually by the carrier's board of directors. Consult a licensed specialist and qualified tax professional regarding your specific situation.
-        </p>
         <p class="text-white/50 text-[11px] leading-[1.9]">
           <strong class="text-white/55">Insurance Products:</strong> Not bank deposits. Not FDIC insured. Not guaranteed by any bank. Life insurance products are not securities and are not regulated by the SEC or FINRA.
         </p>
@@ -633,5 +612,26 @@
   }, { passive: true });
 </script>
 
+
+<!-- Back to top button -->
+<button id="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top" style="position:fixed;bottom:1.75rem;right:1.75rem;z-index:999;width:44px;height:44px;border-radius:50%;background:#19634F;color:#fff;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(25,99,79,0.40);opacity:0;transform:translateY(10px);transition:opacity 0.25s ease,transform 0.25s ease;pointer-events:none;">
+  <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7"/></svg>
+</button>
+<script>
+(function(){
+  var btn = document.getElementById('back-to-top');
+  window.addEventListener('scroll', function(){
+    if (window.scrollY > 300) {
+      btn.style.opacity = '1';
+      btn.style.transform = 'translateY(0)';
+      btn.style.pointerEvents = 'auto';
+    } else {
+      btn.style.opacity = '0';
+      btn.style.transform = 'translateY(10px)';
+      btn.style.pointerEvents = 'none';
+    }
+  }, {passive: true});
+})();
+</script>
 </body>
 </html>

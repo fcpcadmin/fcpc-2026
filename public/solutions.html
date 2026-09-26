@@ -10,13 +10,14 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,700;0,800;1,700&display=swap" rel="stylesheet" />
 
+  <script src="https://cdn.tailwindcss.com"></script>
   <script>
-    tailwind = { config: { theme: { extend: {
+    tailwind.config = { theme: { extend: {
       colors: {
         forest: { dark: '#0B3226', DEFAULT: '#19634F', mid: '#22896C', light: '#2AB08A', 50: '#F0FDF8' },
         gold:   { DEFAULT: '#D4AF37', dark: '#B8960F', light: '#EAC84A', pale: '#FDFAEE' },
         ink:    '#1A202C',
-        slate:  '#2D3748',
+        slate:  { ...tailwind.colors.slate, DEFAULT: '#2D3748' },
         mist:   '#F7FAFC',
         silver: '#E2E8F0',
         smoke:  '#64748B',
@@ -31,9 +32,8 @@
         'card-lg': '0 20px 60px rgba(0,0,0,0.09)',
         'nav':     '0 2px 32px rgba(0,0,0,0.07)',
       },
-    }}}}
+    }}};
   </script>
-  <script src="https://cdn.tailwindcss.com"></script>
 
   <style>
     *, *::before, *::after { box-sizing: border-box; }
@@ -65,6 +65,8 @@
     .has-drop { position: relative; }
     .has-drop .drop { display: none; }
     .has-drop:hover .drop { display: block; animation: fadeUp 0.16s ease; }
+    /* Invisible hover bridge across the mt-3 gap so the menu stays open while the cursor moves down into it */
+    .has-drop .drop::before { content: ''; position: absolute; left: 0; right: 0; top: -0.75rem; height: 0.75rem; }
     @keyframes fadeUp { from { opacity:0; transform:translateY(6px); } to { opacity:1; transform:translateY(0); } }
     @media (max-width: 1023px) { .desk-nav { display: none !important; } }
     @media (min-width: 1024px) { #mob-menu { display: none !important; } #mob-btn { display: none !important; } }
@@ -187,16 +189,16 @@
         </a>
         <div class="drop absolute top-full left-0 mt-3 bg-white rounded-2xl shadow-card-lg border border-silver/60 min-w-[240px] py-3 z-50">
           <a href="solutions/life-insurance.html"      class="flex items-center gap-3 px-4 py-3 text-sm font-medium text-slate hover:text-forest hover:bg-mist transition-colors mx-1 rounded-xl">
-            <span class="w-8 h-8 rounded-xl bg-forest-50 flex items-center justify-center text-base flex-shrink-0">🛡</span> Life Insurance
+            <span class="w-8 h-8 rounded-xl bg-forest-50 flex items-center justify-center text-base flex-shrink-0"><svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285Z"/></svg></span> Life Insurance
           </a>
           <a href="solutions/indexed-annuities.html"           class="flex items-center gap-3 px-4 py-3 text-sm font-medium text-slate hover:text-forest hover:bg-mist transition-colors mx-1 rounded-xl">
-            <span class="w-8 h-8 rounded-xl bg-forest-50 flex items-center justify-center text-base flex-shrink-0">📊</span> Indexed Annuities
+            <span class="w-8 h-8 rounded-xl bg-forest-50 flex items-center justify-center text-base flex-shrink-0"><svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 0 1 3 19.875v-6.75ZM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V8.625ZM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V4.125Z"/></svg></span> Indexed Annuities
           </a>
           <a href="solutions/final-expense.html"       class="flex items-center gap-3 px-4 py-3 text-sm font-medium text-slate hover:text-forest hover:bg-mist transition-colors mx-1 rounded-xl">
-            <span class="w-8 h-8 rounded-xl bg-forest-50 flex items-center justify-center text-base flex-shrink-0">🌿</span> Final Expense
+            <span class="w-8 h-8 rounded-xl bg-forest-50 flex items-center justify-center text-base flex-shrink-0"><svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z"/></svg></span> Final Expense
           </a>
           <a href="solutions/supplemental-health.html" class="flex items-center gap-3 px-4 py-3 text-sm font-medium text-slate hover:text-forest hover:bg-mist transition-colors mx-1 rounded-xl">
-            <span class="w-8 h-8 rounded-xl bg-forest-50 flex items-center justify-center text-base flex-shrink-0">🏥</span> Supplemental Health
+            <span class="w-8 h-8 rounded-xl bg-forest-50 flex items-center justify-center text-base flex-shrink-0"><svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="4" r="2"/><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v5M12 8.5L7 7M12 8.5L17 7M12 11L8 18M12 11L16 18"/></svg></span> Supplemental Health
           </a>
         </div>
       </div>
@@ -240,7 +242,7 @@
 <!-- ════════════════════════════════════════════════════════════
      HERO — full-bleed photo background
 ════════════════════════════════════════════════════════════ -->
-<section class="relative overflow-hidden" style="background: #0B3226;">
+<section class="relative overflow-hidden min-h-screen flex flex-col justify-center" style="background: #0B3226;">
 
   <!-- Background photo -->
   <img src="images/solutionspage_hero_fcpcsite.webp"
@@ -252,7 +254,7 @@
   <!-- Dark gradient overlay for text legibility -->
   <div class="absolute inset-0 pointer-events-none" style="background: linear-gradient(to bottom, rgba(8,22,16,0.52) 0%, rgba(5,15,10,0.74) 100%);"></div>
 
-  <div class="max-w-[1400px] mx-auto px-6 lg:px-12 pt-24 pb-10 lg:pt-32 lg:pb-14 relative z-10">
+  <div class="max-w-[1400px] mx-auto px-6 lg:px-12 pt-24 pb-16 lg:pt-32 lg:pb-20 relative z-10">
 
     <span class="eyebrow mb-6 block" style="color:rgba(255,255,255,0.65);">Complete Protection Solutions</span>
 
@@ -526,7 +528,6 @@
   <div class="absolute inset-0 pointer-events-none" style="background: linear-gradient(135deg, rgba(5,20,12,0.84) 0%, rgba(8,28,18,0.76) 55%, rgba(5,20,12,0.82) 100%);"></div>
   <div class="relative z-10 max-w-[1400px] mx-auto px-6 lg:px-12 py-24 lg:py-32 flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
     <div class="flex-1 text-center lg:text-left">
-      <p class="eyebrow mb-5" style="color:rgba(255,255,255,0.65);">No Cost. No Pressure.</p>
       <h2 class="text-white font-extrabold leading-[1.07] tracking-tight mb-6" style="font-size: clamp(2rem,4.5vw,3.5rem);">
         Ready to See What the Right Plan Looks Like?
       </h2>
@@ -550,8 +551,8 @@
 <section class="bg-mist py-16 border-t border-silver/60">
   <div class="max-w-[1400px] mx-auto px-6 lg:px-12 flex flex-col lg:flex-row items-center gap-8">
     <div class="flex-1">
-      <h3 class="text-ink font-bold text-xl mb-2">Stay Informed on Benefits &amp; Coverage.</h3>
-      <p class="text-smoke text-sm leading-relaxed max-w-[400px]">Occasional updates on benefits and financial planning.</p>
+      <h3 class="text-ink font-bold text-xl mb-2">Join Our Monthly Newsletter</h3>
+      <p class="text-smoke text-sm leading-relaxed max-w-[400px]">Useful information, tips, and resources to help safeguard and improve your personal finances.</p>
     </div>
     <form class="flex gap-3 w-full max-w-[440px]" data-form-type="newsletter" data-lead-source="Solutions - Newsletter">
       <input type="email" name="Email" required placeholder="Your email address"
@@ -559,7 +560,7 @@
       <button type="submit" class="btn-forest flex-shrink-0 px-6 py-3.5 text-sm">Subscribe</button>
     </form>
   </div>
-  <p class="text-smoke/40 text-xs text-center mt-6 max-w-[1280px] mx-auto px-6">We respect your privacy. Unsubscribe any time.</p>
+  <p class="text-smoke/40 text-xs text-center mt-6 max-w-[1280px] mx-auto px-6">We respect your privacy. We will never sell your information. You can unsubscribe at anytime.</p>
 </section>
 
 </main>
@@ -685,5 +686,26 @@
   }, { passive: true });
 </script>
 
+
+<!-- Back to top button -->
+<button id="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top" style="position:fixed;bottom:1.75rem;right:1.75rem;z-index:999;width:44px;height:44px;border-radius:50%;background:#19634F;color:#fff;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(25,99,79,0.40);opacity:0;transform:translateY(10px);transition:opacity 0.25s ease,transform 0.25s ease;pointer-events:none;">
+  <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7"/></svg>
+</button>
+<script>
+(function(){
+  var btn = document.getElementById('back-to-top');
+  window.addEventListener('scroll', function(){
+    if (window.scrollY > 300) {
+      btn.style.opacity = '1';
+      btn.style.transform = 'translateY(0)';
+      btn.style.pointerEvents = 'auto';
+    } else {
+      btn.style.opacity = '0';
+      btn.style.transform = 'translateY(10px)';
+      btn.style.pointerEvents = 'none';
+    }
+  }, {passive: true});
+})();
+</script>
 </body>
 </html>

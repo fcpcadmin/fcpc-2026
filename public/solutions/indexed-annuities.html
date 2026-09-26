@@ -10,13 +10,14 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,700;0,800;1,700&display=swap" rel="stylesheet" />
 
+  <script src="https://cdn.tailwindcss.com"></script>
   <script>
-    tailwind = { config: { theme: { extend: {
+    tailwind.config = { theme: { extend: {
       colors: {
         forest: { dark: '#0B3226', DEFAULT: '#19634F', mid: '#22896C', light: '#2AB08A', 50: '#F0FDF8' },
         gold:   { DEFAULT: '#D4AF37', dark: '#B8960F', light: '#EAC84A', pale: '#FDFAEE' },
         ink:    '#1A202C',
-        slate:  '#2D3748',
+        slate:  { ...tailwind.colors.slate, DEFAULT: '#2D3748' },
         mist:   '#F7FAFC',
         silver: '#E2E8F0',
         smoke:  '#64748B',
@@ -31,9 +32,8 @@
         'card-lg': '0 20px 60px rgba(0,0,0,0.09)',
         'nav':     '0 2px 32px rgba(0,0,0,0.07)',
       },
-    }}}}
+    }}};
   </script>
-  <script src="https://cdn.tailwindcss.com"></script>
 
   <style>
     *, *::before, *::after { box-sizing: border-box; }
@@ -59,6 +59,8 @@
     .has-drop { position: relative; }
     .has-drop .drop { display: none; }
     .has-drop:hover .drop { display: block; animation: fadeUp 0.16s ease; }
+    /* Invisible hover bridge across the mt-3 gap so the menu stays open while the cursor moves down into it */
+    .has-drop .drop::before { content: ''; position: absolute; left: 0; right: 0; top: -0.75rem; height: 0.75rem; }
     @keyframes fadeUp { from { opacity:0; transform:translateY(6px); } to { opacity:1; transform:translateY(0); } }
     @media (max-width: 1023px) { .desk-nav { display: none !important; } }
     @media (min-width: 1024px) { #mob-menu { display: none !important; } #mob-btn { display: none !important; } }
@@ -150,16 +152,16 @@
         </a>
         <div class="drop absolute top-full left-0 mt-3 bg-white rounded-2xl shadow-card-lg border border-silver/60 min-w-[240px] py-3 z-50">
           <a href="life-insurance.html"      class="flex items-center gap-3 px-4 py-3 text-sm font-medium text-slate hover:text-forest hover:bg-mist transition-colors mx-1 rounded-xl">
-            <span class="w-8 h-8 rounded-xl bg-forest-50 flex items-center justify-center text-base flex-shrink-0">🛡</span> Life Insurance
+            <span class="w-8 h-8 rounded-xl bg-forest-50 flex items-center justify-center text-base flex-shrink-0"><svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285Z"/></svg></span> Life Insurance
           </a>
           <a href="indexed-annuities.html"   class="flex items-center gap-3 px-4 py-3 text-sm font-semibold text-forest bg-forest-50 mx-1 rounded-xl">
-            <span class="w-8 h-8 rounded-xl bg-forest/10 flex items-center justify-center text-base flex-shrink-0">📊</span> Indexed Annuities
+            <span class="w-8 h-8 rounded-xl bg-forest/10 flex items-center justify-center text-base flex-shrink-0"><svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 0 1 3 19.875v-6.75ZM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V8.625ZM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V4.125Z"/></svg></span> Indexed Annuities
           </a>
           <a href="final-expense.html"       class="flex items-center gap-3 px-4 py-3 text-sm font-medium text-slate hover:text-forest hover:bg-mist transition-colors mx-1 rounded-xl">
-            <span class="w-8 h-8 rounded-xl bg-forest-50 flex items-center justify-center text-base flex-shrink-0">🌿</span> Final Expense
+            <span class="w-8 h-8 rounded-xl bg-forest-50 flex items-center justify-center text-base flex-shrink-0"><svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z"/></svg></span> Final Expense
           </a>
           <a href="supplemental-health.html" class="flex items-center gap-3 px-4 py-3 text-sm font-medium text-slate hover:text-forest hover:bg-mist transition-colors mx-1 rounded-xl">
-            <span class="w-8 h-8 rounded-xl bg-forest-50 flex items-center justify-center text-base flex-shrink-0">🏥</span> Supplemental Health
+            <span class="w-8 h-8 rounded-xl bg-forest-50 flex items-center justify-center text-base flex-shrink-0"><svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="4" r="2"/><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v5M12 8.5L7 7M12 8.5L17 7M12 11L8 18M12 11L16 18"/></svg></span> Supplemental Health
           </a>
         </div>
       </div>
@@ -199,7 +201,7 @@
 <!-- ════════════════════════════════════════════════════════════
      HERO — full-bleed photo
 ════════════════════════════════════════════════════════════ -->
-<section class="relative overflow-hidden" style="background: #0B3226;">
+<section class="relative overflow-hidden min-h-screen flex flex-col justify-center" style="background: #0B3226;">
   <img src="../images/indexedannuities_hero_fcpcsite.webp"
        alt="A couple relaxing together on a porch with coffee, looking content and at ease in retirement"
        class="absolute inset-0 w-full h-full object-cover"
@@ -221,22 +223,22 @@
     <span class="eyebrow mb-5 block" style="color:rgba(255,255,255,0.65);">Indexed Annuities</span>
 
     <h1 class="font-extrabold tracking-[-0.03em] mb-6 text-white" style="font-size: clamp(2.2rem, 4vw, 4rem); line-height: 1.06;">
-      Protect Your Hard-Earned Retirement Savings, With Room to Grow.
+      Protect and Grow Your Retirement Savings
     </h1>
 
     <p class="text-white/70 text-lg leading-relaxed mb-8" style="max-width: 680px;">
-      An indexed annuity lets your savings grow alongside the market in good years, while contractually protecting your principal from ever losing value in bad ones. You get to participate in the upside, fully shielded from the downside.
+      An indexed annuity lets your savings grow alongside the market in good years while contractually protecting your principal from losing value in bad ones, all while offering guaranteed lifetime income. You get to participate in the upside, stay fully shielded from the downside, and secure a paycheck you can't outlive.
     </p>
 
-    <div class="mb-10">
+    <div>
       <a href="../contact.html" class="btn-gold px-7 py-4 text-sm">
-        I Want Guaranteed Income
+        I Want To Learn More
         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
       </a>
     </div>
 
     <!-- Stat strip -->
-    <div class="flex flex-row flex-wrap items-center gap-6 md:gap-10 w-fit rounded-2xl border px-6 py-4"
+    <div class="flex flex-row flex-wrap items-center gap-6 md:gap-10 w-fit rounded-2xl border px-6 py-4 hidden"
          style="background: rgba(255,255,255,0.10); border-color: rgba(255,255,255,0.18); backdrop-filter: blur(8px);">
       <div class="flex-shrink-0 text-center">
         <p class="text-white font-extrabold text-2xl leading-none tracking-tight">0%</p>
@@ -266,11 +268,11 @@
      TWO POWERFUL PATHWAYS — Symmetrical 2-column grid
 ════════════════════════════════════════════════════════════ -->
 <div class="border-t border-silver/40 bg-white">
-  <div class="max-w-[1400px] mx-auto px-6 lg:px-12 pt-20 pb-6">
+  <div class="max-w-[1400px] mx-auto px-6 lg:px-12 pt-10 pb-6">
     <span class="eyebrow mb-4 block">Two Powerful Pathways</span>
-    <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-14">
-      <h2 class="section-headline whitespace-nowrap">Guaranteed Security. Two Ways to Get There.</h2>
-      <p class="text-smoke text-[0.9375rem] leading-relaxed max-w-[420px] lg:text-right">
+    <div class="flex flex-col gap-4 mb-14">
+      <h2 class="section-headline">Guaranteed Security. Two Ways to Get There.</h2>
+      <p class="text-smoke text-[0.9375rem] leading-relaxed max-w-[620px]">
         Whether you need a guaranteed paycheck for life or a safe place to grow your savings without market risk, there's an indexed annuity strategy built for your situation.
       </p>
     </div>
@@ -293,7 +295,7 @@
         <div class="flex flex-col flex-1 p-8">
           <h3 class="text-ink font-extrabold text-2xl leading-tight mb-4 tracking-tight">Guaranteed Lifetime Income</h3>
           <p class="text-smoke text-[0.9375rem] leading-relaxed flex-grow mb-8">
-            For those who want the certainty of a reliable income they can never outlive. An income rider added to your annuity can turn your savings into a paycheck that continues for as long as you live, no matter how long that turns out to be.
+            For those who want the certainty of a reliable income they can never outlive. An income rider added to your annuity can turn your savings into a paycheck that continues for as long as you live, no matter how long that turns out to be. All while you still have access to your savings for withdrawals in addition to your lifetime income.
           </p>
           <div class="flex flex-col gap-3 mb-8 p-5 rounded-2xl" style="background: rgba(25,99,79,0.04); border: 1px solid rgba(25,99,79,0.10);">
             <p class="text-ink text-xs font-bold uppercase tracking-widest mb-1">This pathway fits you if:</p>
@@ -310,10 +312,6 @@
               <p class="text-smoke text-sm leading-relaxed">The idea of running out of money in retirement keeps you up at night</p>
             </div>
           </div>
-          <a href="../contact.html" class="btn-gold px-7 py-4 text-sm justify-center">
-            Design My Lifetime Income Strategy
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
-          </a>
         </div>
       </div>
 
@@ -329,27 +327,23 @@
         <div class="flex flex-col flex-1 p-8">
           <h3 class="text-ink font-extrabold text-2xl leading-tight mb-4 tracking-tight">Long-Term Capital Preservation</h3>
           <p class="text-smoke text-[0.9375rem] leading-relaxed flex-grow mb-8">
-            For those who've built savings and need a genuinely safe place to keep it — one that can still grow with the market in good years, without ever losing ground in bad ones.
+            For those who've built savings and need a genuinely safe place to keep it. A vehicle that can still grow with the market in good years, without ever losing ground in bad ones.
           </p>
           <div class="flex flex-col gap-3 mb-8 p-5 rounded-2xl" style="background: rgba(25,99,79,0.04); border: 1px solid rgba(25,99,79,0.10);">
             <p class="text-ink text-xs font-bold uppercase tracking-widest mb-1">This pathway fits you if:</p>
             <div class="flex items-start gap-3">
               <div class="w-1.5 h-1.5 rounded-full bg-forest flex-shrink-0 mt-1.5"></div>
-              <p class="text-smoke text-sm leading-relaxed">You have savings sitting in CDs, bonds, or money market accounts earning minimal interest</p>
+              <p class="text-smoke text-sm leading-relaxed">You have savings in CDs, bonds, or money markets earning low interest</p>
             </div>
             <div class="flex items-start gap-3">
               <div class="w-1.5 h-1.5 rounded-full bg-forest flex-shrink-0 mt-1.5"></div>
-              <p class="text-smoke text-sm leading-relaxed">Protecting what you've already built matters more to you than chasing higher returns</p>
+              <p class="text-smoke text-sm leading-relaxed">Protecting what you've built matters more than chasing higher returns</p>
             </div>
             <div class="flex items-start gap-3">
               <div class="w-1.5 h-1.5 rounded-full bg-forest flex-shrink-0 mt-1.5"></div>
               <p class="text-smoke text-sm leading-relaxed">You want market participation without market risk</p>
             </div>
           </div>
-          <a href="../contact.html" class="btn-forest px-7 py-4 text-sm justify-center">
-            Design My Preservation Strategy
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
-          </a>
         </div>
       </div>
 
@@ -376,10 +370,6 @@
         <p class="text-smoke text-lg leading-relaxed mb-8">
           The 0% floor is a contractual guarantee: in any year the market index declines, your account value doesn't decline with it. When the market rises, a portion of that gain gets credited to your account and locked in for good. It's growth that only moves in one direction.
         </p>
-        <a href="../contact.html" class="btn-forest px-7 py-3.5 text-sm">
-          See How This Applies to My Savings
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
-        </a>
       </div>
 
       <!-- Image column — NO hidden class, stacks below text on mobile -->
@@ -407,14 +397,13 @@
         <h3 class="text-white font-extrabold leading-[1.1] tracking-tight mb-5" style="font-size: clamp(1.5rem, 2.8vw, 2.1rem);">
           Market-linked growth. Zero downside.<br class="hidden lg:block"/> Guaranteed income. For life.
         </h3>
-        <p class="text-white/55 text-[0.9375rem] leading-relaxed max-w-[520px]">An FCPC specialist will model an indexed annuity illustration tailored to your retirement timeline, income goals, and existing savings — walking you through every projection with full transparency and no pressure.</p>
+        <p class="text-white/55 text-[0.9375rem] leading-relaxed max-w-[520px]">An FCPC advisor will model an indexed annuity illustration tailored to your retirement timeline, income goals, and existing savings, walking you through every projection with full transparency.</p>
       </div>
       <div class="flex-shrink-0 flex flex-col items-center gap-4">
         <a href="../contact.html" class="btn-gold px-9 py-4 text-[15px]">
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
-          Get My Free Annuity Illustration
+          Get My Free Illustration
         </a>
-        <p class="text-white/30 text-xs">No cost · No pressure · Education-first</p>
       </div>
     </div>
   </div>
@@ -432,12 +421,11 @@
   <div class="absolute inset-0 pointer-events-none" style="background: linear-gradient(135deg, rgba(5,20,12,0.84) 0%, rgba(8,28,18,0.76) 55%, rgba(5,20,12,0.82) 100%);"></div>
   <div class="relative z-10 max-w-[1400px] mx-auto px-6 lg:px-12 py-14 lg:py-32 flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
     <div class="flex-1 text-center lg:text-left">
-      <p class="eyebrow mb-5" style="color:rgba(255,255,255,0.65);">No Cost. No Pressure.</p>
       <h2 class="text-white font-extrabold leading-[1.07] tracking-tight mb-6" style="font-size: clamp(2rem,4.5vw,3.5rem);">
         Ready to Protect Your Savings<br/>and Secure Your Income?
       </h2>
       <p class="text-white/60 text-lg leading-relaxed max-w-[500px] mx-auto lg:mx-0">
-        An FCPC specialist will walk through what's possible for your specific goals and timeline, at no cost, with full transparency, and zero obligation.
+        An FCPC advisor will walk through what's possible for your specific goals and timeline, at no cost, with full transparency, and zero obligation.
       </p>
     </div>
     <div class="flex-shrink-0 flex flex-col items-center gap-4 text-center">
@@ -445,7 +433,6 @@
         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
         Schedule My Free Review
       </a>
-      <p class="text-white/35 text-xs">Licensed specialists · No sales pressure · Education-first</p>
     </div>
   </div>
 </section>
@@ -456,8 +443,8 @@
 <section class="bg-mist py-16 border-t border-silver/60">
   <div class="max-w-[1400px] mx-auto px-6 lg:px-12 flex flex-col lg:flex-row items-center gap-8">
     <div class="flex-1">
-      <h3 class="text-ink font-bold text-xl mb-2">New Guides Added Monthly. Free, Always.</h3>
-      <p class="text-smoke text-sm leading-relaxed max-w-[400px]">Occasional updates on federal benefits and financial planning, sent only when it's worth your time.</p>
+      <h3 class="text-ink font-bold text-xl mb-2">Join Our Monthly Newsletter</h3>
+      <p class="text-smoke text-sm leading-relaxed max-w-[400px]">Useful information, tips, and resources to help safeguard and improve your personal finances.</p>
     </div>
     <form class="flex gap-3 w-full max-w-[440px]" data-form-type="newsletter" data-lead-source="Solutions - Indexed Annuities - Newsletter">
       <input type="email" name="Email" required placeholder="Your email address"
@@ -465,7 +452,7 @@
       <button type="submit" class="btn-forest flex-shrink-0 px-6 py-3.5 text-sm">Subscribe</button>
     </form>
   </div>
-  <p class="text-smoke/40 text-xs text-center mt-6 max-w-[1280px] mx-auto px-6">We respect your privacy. Unsubscribe any time. We will never sell your information.</p>
+  <p class="text-smoke/40 text-xs text-center mt-6 max-w-[1280px] mx-auto px-6">We respect your privacy. We will never sell your information. You can unsubscribe at anytime.</p>
 </section>
 
 </main>
@@ -483,7 +470,7 @@
              class="h-9 w-auto object-contain mb-7"
              onerror="this.style.display='none';this.nextElementSibling.style.display='block';" />
         <span style="display:none" class="block font-serif font-bold text-white text-xl mb-7">FCPC</span>
-        <p class="text-white/45 text-sm leading-[1.8] max-w-[290px] mb-8">Helping federal employees, families, and retirees build lasting financial security through education, not pressure — since 1985.</p>
+        <p class="text-white/45 text-sm leading-[1.8] max-w-[290px] mb-8">Helping federal employees, families, and retirees build lasting financial security through education and service since 1985.</p>
         <div class="space-y-3">
           <div class="flex items-center gap-3">
             <div class="w-8 h-8 rounded-lg bg-white/[0.06] flex items-center justify-center flex-shrink-0">
@@ -548,11 +535,8 @@
         <p class="text-white/50 text-[11px] leading-[1.9] mb-2">
           <strong class="text-white/55">Educational Disclaimer:</strong> All content on this website is for general educational and informational purposes only and does not constitute individualized insurance, financial, tax, legal, or investment advice. FCPC advisors are independent licensed insurance professionals. Product availability, rates, and features vary by state, carrier, and contract terms. All products subject to carrier approval.
         </p>
-        <p class="text-white/50 text-[11px] leading-[1.9] mb-2">
-          <strong class="text-white/55">Fixed Indexed Annuity Disclaimer:</strong> Fixed Indexed Annuities are insurance products, not securities. They are not registered with the SEC and are not subject to FINRA regulation. Interest crediting is subject to caps, participation rates, and/or spreads as defined in the contract. The 0% floor applies to interest crediting — it does not eliminate the impact of surrender charges, rider fees, or early withdrawal penalties which may reduce account value. Hypothetical illustrations are for educational purposes only and do not represent guaranteed future performance. Guarantees are backed by the financial strength and claims-paying ability of the issuing insurance company. Consult a licensed specialist and qualified tax and legal advisors regarding your specific situation.
-        </p>
         <p class="text-white/50 text-[11px] leading-[1.9]">
-          <strong class="text-white/55">Insurance Products:</strong> Not bank deposits. Not FDIC insured. Not guaranteed by any bank or government agency. Fixed Indexed Annuities are not suitable for all investors. Surrender charges may apply during the surrender charge period.
+          <strong class="text-white/55">Insurance Products:</strong> Not bank deposits. Not FDIC insured. Not guaranteed by any bank or government agency.
         </p>
       </div>
     </div>
@@ -587,5 +571,26 @@
   }, { passive: true });
 </script>
 
+
+<!-- Back to top button -->
+<button id="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top" style="position:fixed;bottom:1.75rem;right:1.75rem;z-index:999;width:44px;height:44px;border-radius:50%;background:#19634F;color:#fff;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(25,99,79,0.40);opacity:0;transform:translateY(10px);transition:opacity 0.25s ease,transform 0.25s ease;pointer-events:none;">
+  <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7"/></svg>
+</button>
+<script>
+(function(){
+  var btn = document.getElementById('back-to-top');
+  window.addEventListener('scroll', function(){
+    if (window.scrollY > 300) {
+      btn.style.opacity = '1';
+      btn.style.transform = 'translateY(0)';
+      btn.style.pointerEvents = 'auto';
+    } else {
+      btn.style.opacity = '0';
+      btn.style.transform = 'translateY(10px)';
+      btn.style.pointerEvents = 'none';
+    }
+  }, {passive: true});
+})();
+</script>
 </body>
 </html>

@@ -10,13 +10,14 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,700;0,800;1,700&display=swap" rel="stylesheet" />
 
+  <script src="https://cdn.tailwindcss.com"></script>
   <script>
-    tailwind = { config: { theme: { extend: {
+    tailwind.config = { theme: { extend: {
       colors: {
         forest: { dark: '#0B3226', DEFAULT: '#19634F', mid: '#22896C', light: '#2AB08A', 50: '#F0FDF8' },
         gold:   { DEFAULT: '#D4AF37', dark: '#B8960F', light: '#EAC84A', pale: '#FDFAEE' },
         ink:    '#1A202C',
-        slate:  '#2D3748',
+        slate:  { ...tailwind.colors.slate, DEFAULT: '#2D3748' },
         mist:   '#F7FAFC',
         silver: '#E2E8F0',
         smoke:  '#64748B',
@@ -32,9 +33,8 @@
         'nav':     '0 2px 32px rgba(0,0,0,0.07)',
         'form':    '0 32px 80px rgba(0,0,0,0.08)',
       },
-    }}}}
+    }}};
   </script>
-  <script src="https://cdn.tailwindcss.com"></script>
 
   <style>
     *, *::before, *::after { box-sizing: border-box; }
@@ -66,6 +66,8 @@
     .has-drop { position: relative; }
     .has-drop .drop { display: none; }
     .has-drop:hover .drop { display: block; animation: fadeUp 0.16s ease; }
+    /* Invisible hover bridge across the mt-3 gap so the menu stays open while the cursor moves down into it */
+    .has-drop .drop::before { content: ''; position: absolute; left: 0; right: 0; top: -0.75rem; height: 0.75rem; }
     @keyframes fadeUp { from { opacity:0; transform:translateY(6px); } to { opacity:1; transform:translateY(0); } }
     @media (max-width: 1023px) { .desk-nav { display: none !important; } }
     @media (min-width: 1024px) { #mob-menu { display: none !important; } #mob-btn { display: none !important; } }
@@ -857,6 +859,27 @@
   if (window.FCPC?.gaEvent) {
     window.FCPC.gaEvent('page_view', { page_title: 'Get Quote', page_location: window.location.href });
   }
+</script>
+
+<!-- Back to top button -->
+<button id="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top" style="position:fixed;bottom:1.75rem;right:1.75rem;z-index:999;width:44px;height:44px;border-radius:50%;background:#19634F;color:#fff;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(25,99,79,0.40);opacity:0;transform:translateY(10px);transition:opacity 0.25s ease,transform 0.25s ease;pointer-events:none;">
+  <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7"/></svg>
+</button>
+<script>
+(function(){
+  var btn = document.getElementById('back-to-top');
+  window.addEventListener('scroll', function(){
+    if (window.scrollY > 300) {
+      btn.style.opacity = '1';
+      btn.style.transform = 'translateY(0)';
+      btn.style.pointerEvents = 'auto';
+    } else {
+      btn.style.opacity = '0';
+      btn.style.transform = 'translateY(10px)';
+      btn.style.pointerEvents = 'none';
+    }
+  }, {passive: true});
+})();
 </script>
 </body>
 </html>

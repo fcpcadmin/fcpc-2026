@@ -6,6 +6,12 @@
       "runtimeExecutable": "python",
       "runtimeArgs": ["-m", "http.server", "5500"],
       "port": 5500
+    },
+    {
+      "name": "FCPC Site (Node)",
+      "runtimeExecutable": "node",
+      "runtimeArgs": ["-e", "const h=require('http'),f=require('fs'),p=require('path'),r=p.resolve('public'),t={'.html':'text/html','.css':'text/css','.js':'text/javascript','.webp':'image/webp','.png':'image/png','.jpg':'image/jpeg','.svg':'image/svg+xml','.xml':'application/xml'};h.createServer((q,s)=>{let u=decodeURIComponent(q.url.split('?')[0]);let x=p.join(r,u);if(!x.startsWith(r)){s.writeHead(403);return s.end()}if(u.endsWith('/'))x=p.join(x,'index.html');f.readFile(x,(e,d)=>{if(e){s.writeHead(404);return s.end('Not found')}s.writeHead(200,{'Content-Type':t[p.extname(x)]||'application/octet-stream'});s.end(d)})}).listen(5501)"],
+      "port": 5501
     }
   ]
 }

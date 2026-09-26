@@ -3,20 +3,21 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>About FCPC — The Spiritual Lineage of Entrepreneurship</title>
-  <meta name="description" content="A company built on a century-old foundation of entrepreneurship, mentorship, and a simple mission: Help people. The story of S.B. Fuller, Joe Dudley Sr., Charles Scott, and FCPC." />
+  <title>About FCPC — Our Story</title>
+  <meta name="description" content="A company built on decades of mentorship and a simple mission: help people take control of their economic future. The story of Clint Lewis, Joe Dudley, S.B. Fuller, and FCPC." />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,700;0,800;1,700&display=swap" rel="stylesheet" />
 
+  <script src="https://cdn.tailwindcss.com"></script>
   <script>
-    tailwind = { config: { theme: { extend: {
+    tailwind.config = { theme: { extend: {
       colors: {
         forest: { dark: '#0B3226', DEFAULT: '#19634F', mid: '#22896C', light: '#2AB08A', 50: '#F0FDF8' },
         gold:   { DEFAULT: '#D4AF37', dark: '#B8960F', light: '#EAC84A', pale: '#FDFAEE' },
         ink:    '#1A202C',
-        slate:  '#2D3748',
+        slate:  { ...tailwind.colors.slate, DEFAULT: '#2D3748' },
         mist:   '#F7FAFC',
         silver: '#E2E8F0',
         smoke:  '#64748B',
@@ -31,9 +32,8 @@
         'card-lg': '0 20px 60px rgba(0,0,0,0.09)',
         'nav':     '0 2px 32px rgba(0,0,0,0.07)',
       },
-    }}}}
+    }}};
   </script>
-  <script src="https://cdn.tailwindcss.com"></script>
 
   <style>
     *, *::before, *::after { box-sizing: border-box; }
@@ -50,6 +50,8 @@
     .has-drop { position: relative; }
     .has-drop .drop { display: none; }
     .has-drop:hover .drop { display: block; animation: fadeUp 0.16s ease; }
+    /* Invisible hover bridge across the mt-3 gap so the menu stays open while the cursor moves down into it */
+    .has-drop .drop::before { content: ''; position: absolute; left: 0; right: 0; top: -0.75rem; height: 0.75rem; }
     @keyframes fadeUp { from { opacity:0; transform:translateY(6px); } to { opacity:1; transform:translateY(0); } }
     @media (max-width: 1023px) { .desk-nav { display: none !important; } }
     @media (min-width: 1024px) { #mob-menu { display: none !important; } #mob-btn { display: none !important; } }
@@ -90,38 +92,14 @@
       line-height: 1.85;
       color: #374151;
     }
-    .narrative-body h3 {
+    .narrative-body h2 {
       font-family: 'Playfair Display', Georgia, serif;
-      font-size: clamp(1.3rem, 2.2vw, 1.65rem);
+      font-size: clamp(1.5rem, 2.6vw, 2rem);
       font-weight: 700;
       color: #1A202C;
       line-height: 1.25;
       letter-spacing: -0.01em;
       margin-bottom: 1rem;
-    }
-    .narrative-body .part-label {
-      font-size: 0.75rem;
-      font-weight: 800;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: #19634F;
-      opacity: 0.85;
-      display: block;
-      margin-bottom: 0.5rem;
-    }
-
-    /* Pull quote */
-    .pull-quote {
-      border-left: 3px solid #D4AF37;
-      padding: 0 0 0 24px;
-      margin: 0;
-    }
-    .pull-quote p {
-      font-family: 'Playfair Display', Georgia, serif;
-      font-style: italic;
-      font-size: clamp(1.1rem, 1.8vw, 1.35rem) !important;
-      line-height: 1.65 !important;
-      color: #1A202C !important;
     }
 
     /* Divider ornament */
@@ -161,10 +139,10 @@
           <svg class="w-3 h-3 opacity-40" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 4l4 4 4-4"/></svg>
         </a>
         <div class="drop absolute top-full left-0 mt-3 bg-white rounded-2xl shadow-card-lg border border-silver/60 min-w-[240px] py-3 z-50">
-          <a href="solutions/life-insurance.html"      class="flex items-center gap-3 px-4 py-3 text-sm font-medium text-slate hover:text-forest hover:bg-mist transition-colors mx-1 rounded-xl"><span class="w-8 h-8 rounded-xl bg-forest-50 flex items-center justify-center text-base flex-shrink-0">🛡</span> Life Insurance</a>
-          <a href="solutions/indexed-annuities.html"           class="flex items-center gap-3 px-4 py-3 text-sm font-medium text-slate hover:text-forest hover:bg-mist transition-colors mx-1 rounded-xl"><span class="w-8 h-8 rounded-xl bg-forest-50 flex items-center justify-center text-base flex-shrink-0">📊</span> Indexed Annuities</a>
-          <a href="solutions/final-expense.html"       class="flex items-center gap-3 px-4 py-3 text-sm font-medium text-slate hover:text-forest hover:bg-mist transition-colors mx-1 rounded-xl"><span class="w-8 h-8 rounded-xl bg-forest-50 flex items-center justify-center text-base flex-shrink-0">🌿</span> Final Expense</a>
-          <a href="solutions/supplemental-health.html" class="flex items-center gap-3 px-4 py-3 text-sm font-medium text-slate hover:text-forest hover:bg-mist transition-colors mx-1 rounded-xl"><span class="w-8 h-8 rounded-xl bg-forest-50 flex items-center justify-center text-base flex-shrink-0">🏥</span> Supplemental Health</a>
+          <a href="solutions/life-insurance.html"      class="flex items-center gap-3 px-4 py-3 text-sm font-medium text-slate hover:text-forest hover:bg-mist transition-colors mx-1 rounded-xl"><span class="w-8 h-8 rounded-xl bg-forest-50 flex items-center justify-center text-base flex-shrink-0"><svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285Z"/></svg></span> Life Insurance</a>
+          <a href="solutions/indexed-annuities.html"           class="flex items-center gap-3 px-4 py-3 text-sm font-medium text-slate hover:text-forest hover:bg-mist transition-colors mx-1 rounded-xl"><span class="w-8 h-8 rounded-xl bg-forest-50 flex items-center justify-center text-base flex-shrink-0"><svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 0 1 3 19.875v-6.75ZM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V8.625ZM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V4.125Z"/></svg></span> Indexed Annuities</a>
+          <a href="solutions/final-expense.html"       class="flex items-center gap-3 px-4 py-3 text-sm font-medium text-slate hover:text-forest hover:bg-mist transition-colors mx-1 rounded-xl"><span class="w-8 h-8 rounded-xl bg-forest-50 flex items-center justify-center text-base flex-shrink-0"><svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z"/></svg></span> Final Expense</a>
+          <a href="solutions/supplemental-health.html" class="flex items-center gap-3 px-4 py-3 text-sm font-medium text-slate hover:text-forest hover:bg-mist transition-colors mx-1 rounded-xl"><span class="w-8 h-8 rounded-xl bg-forest-50 flex items-center justify-center text-base flex-shrink-0"><svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="4" r="2"/><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v5M12 8.5L7 7M12 8.5L17 7M12 11L8 18M12 11L16 18"/></svg></span> Supplemental Health</a>
         </div>
       </div>
       <a href="opportunity.html" class="nav-item font-semibold text-forest">Advisor Opportunity</a>
@@ -210,16 +188,20 @@
     <div>
       <span class="inline-block text-[0.75rem] font-bold tracking-[0.22em] uppercase mb-5 block" style="color:#19634F; opacity:0.85;">Our Story</span>
       <h1 class="font-extrabold tracking-tight leading-[1.08] mb-6" style="font-size: clamp(2.1rem, 4.5vw, 3.4rem); color: #1A202C; letter-spacing: -0.025em;">
-        The Spiritual Lineage of FCPC
+        A Legacy of Mentorship and<br/> <span class="whitespace-nowrap">Self-Reliance</span>
       </h1>
       <p class="text-lg leading-relaxed" style="color: #64748B; max-width: 500px;">
-        A company built on a century-old foundation of entrepreneurship, mentorship, and a simple mission: Help people.
+        Every company has a founding date. Ours is 1985, the year Charles Scott originally founded CSO North America (The Charles Scott Organization) in Washington, DC. But the story starts earlier, with the men who inspired and mentored him.
       </p>
     </div>
 
     <!-- Right: Visual Frame -->
     <div class="w-full aspect-[4/3] rounded-2xl overflow-hidden bg-slate-100">
-      <!-- INSERT WEBP IMAGE DEPICTING THE LEGACY CORE AND HERITAGE OF FCPC -->
+      <img src="images/about_hero_fcpcsite.webp"
+           alt="FCPC advisors of different generations working together around a table, carrying forward a legacy of mentorship"
+           width="1200" height="900"
+           class="w-full h-full object-cover"
+           loading="eager" decoding="async" />
     </div>
 
   </div>
@@ -243,7 +225,7 @@
       </div>
 
       <div class="flex flex-col items-center justify-center py-10 px-6 text-center">
-        <p class="font-extrabold leading-none mb-2" style="font-size: 2.5rem; color:#1A202C; letter-spacing:-0.03em;">100K+</p>
+        <p class="font-extrabold leading-none mb-2" style="font-size: 2.5rem; color:#1A202C; letter-spacing:-0.03em;">100,000s</p>
         <p class="text-[11px] font-bold uppercase tracking-widest" style="color:#64748B;">Families Served</p>
       </div>
 
@@ -252,38 +234,16 @@
 </section>
 
 <!-- ════════════════════════════════════════════════════════════
-     NARRATIVE BODY
+     NARRATIVE BODY — Mentors, Mission, FCPC Today
 ════════════════════════════════════════════════════════════ -->
 <section class="py-16 lg:py-24" style="background:#fff;">
   <div class="max-w-4xl mx-auto px-6 narrative-body space-y-16">
 
-    <!-- Part 1 -->
+    <!-- The Mentors -->
     <div class="space-y-5">
-      <div>
-        <span class="part-label">Part One</span>
-        <h3>The Foundation of Freedom</h3>
-      </div>
+      <h2>Three Men, One Belief</h2>
       <p>
-        The story of the Financial Crisis Prevention Center doesn't begin in a modern corporate boardroom — it begins with a century-old spiritual lineage of raw American entrepreneurship and a fierce refusal to accept poverty as a permanent state. At the root of this lineage stands S.B. Fuller, arguably the greatest and most courageous entrepreneur in American history. Born into rural sharecropper poverty, Fuller chose <em>"freedom over security"</em> during the Great Depression, building a multi-million dollar cosmetics empire. His life proved that true freedom comes through economic independence, and that the highest calling is to teach others how to help themselves.
-      </p>
-      <blockquote class="pull-quote">
-        <p>"True freedom comes through economic independence — and the highest calling is to teach others how to help themselves."</p>
-      </blockquote>
-    </div>
-
-    <!-- Ornamental divider -->
-    <div class="divider-ornament">
-      <div class="w-1.5 h-1.5 rounded-full flex-shrink-0" style="background:#D4AF37;"></div>
-    </div>
-
-    <!-- Part 2 -->
-    <div class="space-y-5">
-      <div>
-        <span class="part-label">Part Two</span>
-        <h3>The Lineage of the Spirit</h3>
-      </div>
-      <p>
-        Joe Dudley Sr. worked directly with S.B. Fuller, investing $10 in a Fuller sales kit and eventually building his own global hair-care empire, Dudley Products. Years later, when Joe Dudley Sr. met a young Charles Scott, he immediately took to him. Dudley recognized something rare in the young man — he saw the exact same fire, work ethic, and unstoppable spirit that had defined his own mentor, S.B. Fuller. He accepted Charles as a direct business mentee, passing down a generations-old blueprint of self-reliance and community leadership.
+        The story of FCPC is simply the story of people helping people. Charles Scott was mentored in the insurance business from Clint Lewis, a personal producer who built a six-figure income working independently in the 1970s with the Prudential Life Insurance company. Mr. Scott was also mentored by Joe Dudley, who started out selling door to door and built Dudley Haircare Products into a multimillion-dollar haircare company. Mr. Dudley had learned that same business from his own mentor, S.B. Fuller, who started with twenty-five dollars and a sixth-grade education, built Fuller Products into a company that trained a generation of entrepreneurs, including George Johnson of Johnson Products and John H. Johnson of Ebony and Jet Magazine. They worked in different decades and different industries, but they shared one belief: ownership, discipline, and self-reliance can lead any man or community to success.
       </p>
     </div>
 
@@ -292,20 +252,14 @@
       <div class="w-1.5 h-1.5 rounded-full flex-shrink-0" style="background:#D4AF37;"></div>
     </div>
 
-    <!-- Part 3 -->
+    <!-- The Mission -->
     <div class="space-y-5">
-      <div>
-        <span class="part-label">Part Three</span>
-        <h3>The Turning Point</h3>
-      </div>
+      <h2>A Mission That Has Grown</h2>
       <p>
-        Armed with this rich entrepreneurial DNA, Charles entered the life insurance industry at age 22. After years of intense struggle across multiple companies, he broke through in the early 1980s as an elite personal producer tracking toward a six-figure income. Then, disaster struck: a severe illness sidelined him completely for five months. Confined to a bed, Charles faced a terrifying reality.
+        That belief became FCPC's mission. At the start, the mission was to help people end the cycle of poverty in their own lives. By the 1990s, more than a thousand advisors had joined, several going on to build six- and seven-figure incomes, proof of what's possible.
       </p>
-      <blockquote class="pull-quote">
-        <p>"If I can't work, who pays my rent? If I buy my Mother her dream house, does she face eviction because I'm sick?"</p>
-      </blockquote>
       <p>
-        He realized that relying entirely on individual, daily labor was a fragile foundation for a dream — and that millions of 9-to-5 workers were living on that same razor's edge.
+        In the 2000s, the mission grew again. Middle-class families were working hard and still one illness, one death, or one retirement shortfall away from falling behind. FCPC set out to help stop that slide.
       </p>
     </div>
 
@@ -314,25 +268,18 @@
       <div class="w-1.5 h-1.5 rounded-full flex-shrink-0" style="background:#D4AF37;"></div>
     </div>
 
-    <!-- Part 4 -->
+    <!-- FCPC Today -->
     <div class="space-y-5">
-      <div>
-        <span class="part-label">Part Four</span>
-        <h3>A Home on the Road to Somewhere</h3>
-      </div>
+      <h2>A Legacy Still in Motion</h2>
       <p>
-        In 1985, from the lessons of his illness and the wisdom of his lineage, Charles founded FCPC. He engineered an organization designed to solve the very vulnerability he faced — a collective platform where a company commits to its people's dreams as they commit to the organization. For over 40 years, FCPC has existed to help people end the cycle of poverty in their families and transition off a road to nowhere onto a road to somewhere.
-      </p>
-      <p>
-        Anyone who joins or supports FCPC becomes a part of this living heritage. We are looking for those who are looking for us — and if you are looking, you have found a home.
-      </p>
+        Charles Scott no longer runs FCPC day to day. He's since built companies in other industries, including healthcare. But FCPC still carries his mark, and the marks of Clint Lewis, Joe Dudley, and S.B. Fuller before him, in every family we protect and every advisor we develop.      </p>
     </div>
 
   </div>
 </section>
 
 <!-- ════════════════════════════════════════════════════════════
-     CLOSING PLEDGE — Dark CTA
+     CLOSING — Dark CTA
 ════════════════════════════════════════════════════════════ -->
 <section class="py-20 lg:py-28 relative overflow-hidden" style="background: linear-gradient(145deg, #0B3226 0%, #19634F 55%, #0D3E2A 100%);">
 
@@ -341,25 +288,20 @@
 
   <div class="relative z-10 max-w-3xl mx-auto px-6 text-center">
 
-    <div class="inline-flex items-center gap-2 mb-8 px-4 py-2 rounded-full" style="background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12);">
-      <span class="w-1.5 h-1.5 rounded-full bg-gold animate-pulse flex-shrink-0"></span>
-      <span class="text-[12px] font-semibold tracking-wide" style="color:rgba(255,255,255,0.70);">Est. 1985 · Washington, DC</span>
-    </div>
-
-    <p class="font-extrabold leading-[1.15] tracking-tight mb-10" style="font-size: clamp(1.7rem, 3.8vw, 3rem); color: #ffffff; letter-spacing: -0.02em; font-family: 'Playfair Display', Georgia, serif; font-style: italic;">
-      "We are looking for those who are looking for us —
-      <span class="block mt-2" style="background: linear-gradient(130deg, #EAC84A 0%, #D4AF37 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; font-style: italic;">
-        and if you are looking, you have found a home."
-      </span>
+    <h2 class="text-white font-extrabold leading-[1.07] tracking-tight mb-6" style="font-size: clamp(2rem, 4.5vw, 3.2rem);">
+      This Is Not Business As Usual
+    </h2>
+    <p class="text-white/65 text-lg leading-relaxed mb-10 max-w-[600px] mx-auto">
+      Whether you come to FCPC as a client or as an advisor, you're joining a cause that goes back decades: ordinary people taking control of their economic future, and making sure the next generation can do the same.
     </p>
 
     <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
       <a href="opportunity.html" class="btn-gold px-9 py-4 text-[15px]">
-        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
         Explore the Opportunity
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
       </a>
-      <a href="get-quote.html" class="btn-ghost px-9 py-4 text-[15px]" style="border-color: rgba(255,255,255,0.22); color: rgba(255,255,255,0.75);">
-        I Want Life Insurance
+      <a href="solutions.html" class="btn-ghost px-9 py-4 text-[15px]" style="border-color: rgba(255,255,255,0.22); color: rgba(255,255,255,0.75);">
+        Explore Our Solutions
       </a>
     </div>
 
@@ -381,7 +323,7 @@
              class="h-9 w-auto object-contain mb-7"
              onerror="this.style.display='none';this.nextElementSibling.style.display='block';" />
         <span style="display:none" class="block font-serif font-bold text-white text-xl mb-7">FCPC</span>
-        <p class="text-white/45 text-sm leading-[1.8] max-w-[290px] mb-8">Helping federal employees, families, and retirees build lasting financial security through education, not pressure — since 1985.</p>
+        <p class="text-white/45 text-sm leading-[1.8] max-w-[290px] mb-8">Helping federal employees, families, and retirees build lasting financial security through education and service since 1985.</p>
         <div class="space-y-3">
           <div class="flex items-center gap-3">
             <div class="w-8 h-8 rounded-lg bg-white/[0.06] flex items-center justify-center flex-shrink-0">
@@ -478,5 +420,26 @@
   }, { passive: true });
 </script>
 
+
+<!-- Back to top button -->
+<button id="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top" style="position:fixed;bottom:1.75rem;right:1.75rem;z-index:999;width:44px;height:44px;border-radius:50%;background:#19634F;color:#fff;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(25,99,79,0.40);opacity:0;transform:translateY(10px);transition:opacity 0.25s ease,transform 0.25s ease;pointer-events:none;">
+  <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7"/></svg>
+</button>
+<script>
+(function(){
+  var btn = document.getElementById('back-to-top');
+  window.addEventListener('scroll', function(){
+    if (window.scrollY > 300) {
+      btn.style.opacity = '1';
+      btn.style.transform = 'translateY(0)';
+      btn.style.pointerEvents = 'auto';
+    } else {
+      btn.style.opacity = '0';
+      btn.style.transform = 'translateY(10px)';
+      btn.style.pointerEvents = 'none';
+    }
+  }, {passive: true});
+})();
+</script>
 </body>
 </html>
