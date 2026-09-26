@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Advisor Story Builder — FCPC</title>
+  <meta name="description" content="Internal FCPC advisor tool: tell your story, and FCPC helps you weave it into the FCPC story." />
+  <!-- Internal advisor tool: keep out of search engines and out of sitemap.xml -->
+  <meta name="robots" content="noindex, nofollow" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,700;0,800;1,700&display=swap" rel="stylesheet" />
+
+  <script>
+    tailwind = { config: { theme: { extend: {
+      colors: {
+        forest: { dark: '#0B3226', DEFAULT: '#19634F', mid: '#22896C', light: '#2AB08A', 50: '#F0FDF8' },
+        gold:   { DEFAULT: '#D4AF37', dark: '#B8960F', light: '#EAC84A', pale: '#FDFAEE' },
+        ink:    '#1A202C',
+        slate:  '#2D3748',
+        mist:   '#F7FAFC',
+        silver: '#E2E8F0',
+        smoke:  '#64748B',
+      },
+      fontFamily: {
+        sans:  ['Inter', 'system-ui', 'sans-serif'],
+        serif: ['Playfair Display', 'Georgia', 'serif'],
+      },
+      boxShadow: {
+        'gold':    '0 4px 24px rgba(212,175,55,0.35)',
+        'card':    '0 8px 40px rgba(0,0,0,0.05)',
+        'card-lg': '0 20px 60px rgba(0,0,0,0.09)',
+        'nav':     '0 2px 32px rgba(0,0,0,0.07)',
+      },
+    }}}}
+  </script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="js/fcpc-story.js"></script>
+  <script src="js/story-example.js"></script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', system-ui, sans-serif; -webkit-font-smoothing: antialiased; color: #1A202C; background: #fff; }
+
+    .btn-gold { display: inline-flex; align-items: center; justify-content: center; gap: 8px; background: linear-gradient(135deg, #DDB84E 0%, #C9A52A 100%); color: #1A202C; font-weight: 700; border-radius: 999px; transition: all 0.4s cubic-bezier(0.22,1,0.36,1); box-shadow: 0 4px 20px rgba(212,175,55,0.38), 0 1px 2px rgba(0,0,0,0.08); text-decoration: none; white-space: nowrap; border: 0; cursor: pointer; }
+    .btn-gold:hover { transform: translateY(-1px); box-shadow: 0 8px 32px rgba(212,175,55,0.45); }
+    .btn-ghost { display: inline-flex; align-items: center; justify-content: center; gap: 8px; background: #fff; color: #2D3748; font-weight: 600; border-radius: 999px; border: 1.5px solid #DDE3EC; transition: all 0.3s cubic-bezier(0.22,1,0.36,1); text-decoration: none; white-space: nowrap; cursor: pointer; }
+    .btn-ghost:hover { border-color: #19634F; background: rgba(25,99,79,0.05); color: #19634F; }
+    .btn-forest { display: inline-flex; align-items: center; justify-content: center; gap: 8px; background: linear-gradient(135deg, #22896C 0%, #19634F 100%); color: #fff; font-weight: 700; border-radius: 999px; transition: all 0.4s cubic-bezier(0.22,1,0.36,1); box-shadow: 0 4px 16px rgba(25,99,79,0.28); text-decoration: none; white-space: nowrap; border: 0; cursor: pointer; }
+    .btn-forest:hover { transform: translateY(-1px); box-shadow: 0 8px 28px rgba(25,99,79,0.38); }
+    button:disabled { opacity: 0.45; cursor: not-allowed; transform: none !important; }
+
+    .form-input { width: 100%; background: #fff; border: 1.5px solid #E2E8F0; border-radius: 12px; color: #1A202C; font-size: 0.9375rem; font-family: 'Inter', sans-serif; padding: 12px 14px; outline: none; transition: border-color 0.2s, box-shadow 0.2s; line-height: 1.65; }
+    .form-input:focus { border-color: #19634F; box-shadow: 0 0 0 3px rgba(25,99,79,0.1); }
+    .form-input::placeholder { color: #A0AEC0; }
+    textarea.form-input { resize: vertical; min-height: 140px; }
+    select.form-input { appearance: none; -webkit-appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2364748B' d='M2 4l4 4 4-4'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 12px center; padding-right: 34px; }
+    .form-label { display: block; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase; color: #64748B; margin-bottom: 6px; }
+    .eyebrow { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: #19634F; }
+
+    .step-link { display: flex; align-items: center; gap: 10px; width: 100%; text-align: left; padding: 8px 10px; border-radius: 10px; font-size: 0.8125rem; font-weight: 600; color: #475569; transition: background 0.15s, color 0.15s; }
+    .step-link:hover { background: #F7FAFC; color: #19634F; }
+    .step-link.active { background: #F0FDF8; color: #19634F; }
+    .step-dot { width: 22px; height: 22px; border-radius: 999px; border: 1.5px solid #CBD5E1; display: flex; align-items: center; justify-content: center; font-size: 0.65rem; font-weight: 700; flex-shrink: 0; color: #64748B; background: #fff; }
+    .step-link.active .step-dot { border-color: #19634F; color: #19634F; }
+    .step-link.done .step-dot { background: #19634F; border-color: #19634F; color: #fff; }
+
+    .story-text p { margin-bottom: 0.9em; }
+    .example-box { background: #FDFAEE; border: 1px solid rgba(212,175,55,0.45); border-radius: 14px; }
+    details > summary { list-style: none; cursor: pointer; }
+    details > summary::-webkit-details-marker { display: none; }
+    details[open] .chev { transform: rotate(90deg); }
+    .chev { transition: transform 0.15s; }
+
+    .tab { padding: 8px 14px; border-radius: 999px; font-size: 0.8125rem; font-weight: 600; color: #475569; border: 1.5px solid transparent; cursor: pointer; }
+    .tab.active { background: #F0FDF8; color: #19634F; border-color: rgba(25,99,79,0.25); }
+
+    .toast { position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%) translateY(20px); opacity: 0; background: #0B3226; color: #fff; padding: 10px 18px; border-radius: 999px; font-size: 0.8125rem; font-weight: 600; transition: all 0.25s; pointer-events: none; z-index: 100; }
+    .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+    #print-area { display: none; }
+    @media print {
+      body > *:not(#print-area) { display: none !important; }
+      #print-area { display: block; font-family: Georgia, serif; font-size: 13pt; line-height: 1.55; color: #000; }
+      #print-area h1 { font-size: 16pt; margin: 0 0 4pt; }
+      #print-area .meta { font-size: 9pt; color: #555; margin-bottom: 18pt; }
+      #print-area p { margin: 0 0 8pt; }
+    }
+  </style>
+</head>
+<body class="bg-mist/40">
+
+<!-- Minimal internal header -->
+<header class="sticky top-0 z-50 bg-white/85 backdrop-blur-xl border-b border-black/[0.06]">
+  <div class="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-10 flex items-center h-[64px] gap-3">
+    <a href="index.html" class="flex-shrink-0 flex items-center">
+      <img src="FCPC-Logo.webp" alt="Financial Crisis Prevention Center" class="h-9 w-auto object-contain" onerror="this.style.display='none';this.nextElementSibling.style.display='inline';" />
+      <span style="display:none" class="font-serif font-bold text-forest text-lg">FCPC</span>
+    </a>
+    <span class="hidden sm:inline-flex items-center text-[11px] font-bold tracking-[0.14em] uppercase text-forest bg-forest-50 border border-forest/15 rounded-full px-3 py-1">Advisor Toolkit</span>
+    <div class="flex-1"></div>
+    <span id="save-status" class="hidden md:inline text-xs text-smoke"></span>
+    <details class="relative">
+      <summary class="btn-ghost text-xs px-3.5 py-2">Save &amp; restore
+        <svg class="w-3 h-3 opacity-50" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 4l4 4 4-4"/></svg>
+      </summary>
+      <div class="absolute right-0 mt-2 w-[280px] bg-white rounded-2xl shadow-card-lg border border-silver/70 p-2 z-50">
+        <p class="text-xs text-smoke px-3 pt-2 pb-2 leading-relaxed">Your work saves automatically in this browser. To move it to another device, or to open a file FCPC sent you, use these.</p>
+        <button type="button" id="btn-backup" class="w-full text-left px-3 py-2.5 rounded-xl text-sm font-medium text-slate hover:bg-mist">Download my file</button>
+        <label class="block w-full text-left px-3 py-2.5 rounded-xl text-sm font-medium text-slate hover:bg-mist cursor-pointer">Open a Story Builder file
+          <input type="file" id="file-restore" accept="application/json,.json" class="hidden" />
+        </label>
+        <button type="button" id="btn-reset" class="w-full text-left px-3 py-2.5 rounded-xl text-sm font-medium text-red-700 hover:bg-red-50">Start over</button>
+      </div>
+    </details>
+  </div>
+  <!-- Progress bar -->
+  <div class="h-1 bg-silver/60"><div id="progress-bar" class="h-1 bg-gradient-to-r from-forest-mid to-forest transition-all duration-300" style="width:0%"></div></div>
+</header>
+
+<main class="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-10 py-8 lg:py-12">
+  <div class="grid lg:grid-cols-[250px_1fr] gap-8 lg:gap-12 items-start">
+
+    <!-- Step navigation -->
+    <aside class="hidden lg:block sticky top-[92px]">
+      <p class="eyebrow mb-3 px-2">Your progress</p>
+      <nav id="step-nav" class="flex flex-col gap-0.5"></nav>
+      <div class="mt-6 flex flex-col gap-2">
+        <button type="button" class="w-full btn-ghost text-xs px-4 py-2.5" data-modal="fcpc">Read the FCPC story</button>
+        <button type="button" class="w-full btn-ghost text-xs px-4 py-2.5" data-modal="example">Read a finished example</button>
+      </div>
+    </aside>
+
+    <!-- Mobile step picker -->
+    <div class="lg:hidden -mt-2">
+      <label class="form-label" for="step-select">Jump to step</label>
+      <select id="step-select" class="form-input text-sm"></select>
+    </div>
+
+    <!-- Step content -->
+    <section id="step-content" class="min-w-0" aria-live="polite"></section>
+  </div>
+</main>
+
+
+<!-- Reading modal (FCPC story, finished example) -->
+<div id="read-modal" class="hidden fixed inset-0 z-[80] bg-ink/50 backdrop-blur-sm p-4 overflow-y-auto" role="dialog" aria-modal="true" aria-labelledby="read-modal-title">
+  <div class="max-w-2xl mx-auto my-8 bg-white rounded-3xl shadow-card-lg p-6 sm:p-9">
+    <div class="flex items-start justify-between gap-4 mb-5">
+      <div>
+        <p class="eyebrow mb-1" id="read-modal-eyebrow"></p>
+        <h2 id="read-modal-title" class="font-serif text-2xl font-bold text-ink"></h2>
+        <p class="text-xs text-smoke mt-1" id="read-modal-meta"></p>
+      </div>
+      <button type="button" id="btn-close-modal" class="btn-ghost w-10 h-10 !p-0 flex-shrink-0" aria-label="Close">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-width="2" d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+    </div>
+    <div id="read-modal-note" class="hidden text-sm text-slate bg-gold-pale border border-gold/40 rounded-xl px-4 py-3 mb-5 leading-relaxed"></div>
+    <div id="read-modal-body" class="story-text font-serif text-[1.02rem] leading-[1.75] text-slate"></div>
+  </div>
+</div>
+
+<div id="toast" class="toast" role="status"></div>
+<div id="print-area"></div>
+
+<script>
+(function () {
+  'use strict';
+
+  /* ------------------------------------------------------------------ */
+  /*  Settings                                                          */
+  /* ------------------------------------------------------------------ */
+
+  // Where advisors send their completed answers.
+  const SUBMIT_EMAIL = 'info@fcpc.life';
+  // Speaking pace used for time estimates.
+  const WPM = 140;
+
+  const FCPC = window.FCPC_STORY || { version: 'missing', lines: ['(The FCPC story file did not load. Check js/fcpc-story.js.)'] };
+  const EXAMPLE = window.FCPC_STORY_EXAMPLE || { author: '', lines: [] };
+
+  /* ------------------------------------------------------------------ */
+  /*  The seven Story Builder sections                                  */
+  /* ------------------------------------------------------------------ */
+
+  const SECTIONS = [
+    {
+      key: 's1', title: 'Where I Came From',
+      question: 'Tell us a little about your background and the experiences that shaped you.',
+      prompts: ['Where did you grow up?', 'Who were the strongest influences in your life?', 'What was your family like?', 'What did you learn growing up about work, money, responsibility or success?', 'What did you originally imagine yourself doing with your life?', 'Were there early experiences that influenced how you think about business, family, money or helping others today?'],
+      note: 'You do not need to answer every prompt. Use them to help you remember the parts of your background that matter to your story.',
+      example: "My story started in Ghana. That's where I was born and that's where my family is from. I moved to New York when I was 3 with my mother after her and my Dad divorced. My childhood was pretty normal for what you would expect growing up in the inner city. Growing up the strongest influences in my life were my mother, grandmother and the director of my local rec center. I loved basketball and my dream was to play in the NBA. In about 10th grade I realized that dream was a pipe dream but even then I was also drawn to business. Looking back on it I think it was the influence of seeing my grandmother in business action and knowing that my Father was a successful entrepreneur. My grandma was a pioneer in importing Ghanaian and other West African foodstuffs into America. Eventually she set up her own store and I would work there after school and on weekends as a kid."
+    },
+    {
+      key: 's2', title: 'Where I Was Before FCPC',
+      question: 'What was happening in your life before you encountered FCPC?',
+      prompts: ['What were you doing professionally or personally?', 'What was going well?', "What wasn't going the way you wanted?", 'Were you satisfied with the direction you were headed?', "Was there something you wanted that you didn't have?", 'Were you looking for a new career, additional income, entrepreneurship, greater purpose or something else?', 'Were you actively searching for something different, or did the opportunity find you?'],
+      example: "Fast forward a few years and I'm graduating high school not really knowing what I'm going to do next. I was a decent student but not great. My teachers said I was bright and I always tested well but I wasn't big on take-home assignments. So I go to Junior College for 2 years and do much better and eventually transfer to Howard University and graduate with a degree in business. Now I'm out in the working world and after about 4 years I decide \"this isn't for me\". I want to own my own business and I want to work in international trade import/export. At the time I was with a small government contractor who had lost some contracts and laid off a number of people including me. So I decided to go for the business dream instead of looking for another job. The only issue I had is that I did not have the capital necessary to get going in the import/export business. I thought about Real Estate and a few other industries. Then I thought back to Howard. I had set up a canteen shop in my room and was also hustling t-shirts on campus. So that was a decent hustle but I wanted something more substantial."
+    },
+    {
+      key: 's3', title: 'How I Found FCPC',
+      question: 'Tell us the actual story of how FCPC entered your life.',
+      lead: "This is often one of the most interesting parts of an advisor's story, so be specific.",
+      prompts: ['Who or what introduced you to FCPC?', 'Where were you?', 'What happened?', 'What was your first reaction?', 'Were you interested, skeptical, curious or even uninterested?', 'What made you take the next step?', 'What happened at your first meeting, presentation or interaction?', 'Who did you meet?', 'Was there something someone said that you still remember?', 'Were there any unexpected moments along the way?'],
+      example: "When I spoke with one of my professors about it he said \"why don't you sell insurance?\" My response was \"sell insurance? Who does that?\" The only thing I knew about insurance was Geico and State Farm commercials. It may sound silly now but I did not know that people had their own private businesses selling insurance. So I started looking into this insurance thing and started interviewing with different companies. AXA, State Farm, Farmers, to name a few. Then I came across FCPC. I learned about the company through a Craigslist ad. I responded to the ad. I didn't like how the conversation went with the guy that I spoke with so I made up my mind not to take up the invite he gave me. However, he gave me the company website so I checked it out. I look at the list of advisors and I see one of my schoolmates Hadiya Walters. So I called her and told her what the deal was. She's ecstatic! She says this is perfect for me and \"I've been on her mind to call\". She tells me to come to the meeting and say she invited me... forget the other guy."
+    },
+    {
+      key: 's4', title: 'What I Discovered',
+      question: 'Once you became involved with FCPC, what did you begin to see differently?',
+      lead: 'You may have originally thought you were being introduced to an insurance company, a career, a business opportunity or simply another way to make money. What did you eventually discover?',
+      prompts: ['What surprised you?', 'What did you learn about FCPC?', 'What did you learn about insurance or financial protection?', 'What did you learn about business or entrepreneurship?', 'What did you learn about serving people?', 'What did you learn about yourself?', 'Was there a particular person, mentor, meeting, book, training or idea that influenced you?', "What part of FCPC's mission or history became meaningful to you?"],
+      example: "So I go to the meeting and they lay out what they do and why they do it, especially for government employees. It makes sense to me. I clearly see the need and how the solutions meet that need. Then unexpectedly the founder and director of the company showed up and laid out what the company was about and his story. His name is Charles Scott. You have to remember I've interviewed with 3 to 4 different insurance companies. I had never heard a business executive speak so raw and real and still be polished. In that moment hearing his story I saw exactly what I wanted to be. Rich, real, and street creds intact. He spoke about achieving your dreams by helping people. Not just with money matters but getting positively involved in the lives of others. But it didn't end there. I met Hadiya's direct manager. His name is Shaun Newman. He became my direct manager. Apart from Mr. Scott, he has had the most influence on me in my business journey. One thing he taught me that sticks with me till this day is this. \"When you're out in the marketplace, always operate in a spirit to serve and everything else will take care of itself.\""
+    },
+    {
+      key: 's5', title: 'How I Changed',
+      question: 'How are you different because of what you experienced?',
+      lead: 'This is not just about money or accomplishments. We want to understand how you developed.',
+      prompts: ['What did you learn?', 'What skills did you develop?', 'How did your thinking change?', 'Did you become more confident?', 'Did you become better at communicating, selling, leading or serving people?', 'Did your understanding of business or money change?', 'What challenges did you encounter?', 'Did you ever struggle, fail or consider quitting?', 'What kept you going?', 'What accomplishments are meaningful to you?', 'How are you different today from the person who first encountered FCPC?'],
+      example: "So I went out into the marketplace and got punched in the mouth. I saw the need in the marketplace, I knew the products and services, and I had a plan. But in the words of the famous philosopher Mike Tyson \"everyone has a plan until they get punched in the mouth\". But I didn't quit and more importantly I plugged into the company support system of books, meetings and motivational and educational resources. Over the years I've grown tremendously as a person and as a professional. So 14 years from when I answered that Craigslist ad here we are."
+    },
+    {
+      key: 's6', title: 'Why I Do This Today',
+      question: 'Why does this work matter to you now?',
+      lead: 'Think beyond simply saying "I like helping people." Tell us why.',
+      prompts: ['Why are you still doing this work?', 'What do you believe your responsibility is to the families you meet?', 'What do you want people to understand about protecting themselves financially?', 'What do you believe your responsibility is to someone considering becoming an FCPC advisor?', 'What did someone give or teach you that you now want to pass forward?', 'What does "operating in a spirit to serve" mean to you personally?', 'What would make you proud when you look back on your FCPC career?'],
+      example: "I haven't abandoned my dream of having an import/export company but before the goal was to save the capital needed and leave this business for that one. Now I know that I can stay in this business and with this company and still do anything I want in business and in life."
+    },
+    {
+      key: 's7', title: "Now Let's Talk About You",
+      question: 'How would you naturally turn the conversation from your story to theirs?',
+      lead: 'Your story is the introduction. Their story is the reason for the meeting. Imagine the person is sitting directly across from you. How would you naturally say: "That\'s my story. Now I\'d like to understand yours."',
+      note: 'Write it for one person across the table. FCPC will adapt your ending for group presentations too.',
+      prompts: ['What would you want to know about them?', 'What are they trying to accomplish?', 'Who are they responsible for?', 'What are they trying to protect or build?', 'What concerns them about their financial future?'],
+      answerLabel: 'In my own words',
+      example: "So that's my story and the story of the company. Now let's talk about you."
+    }
+  ];
+
+  const STEPS = [
+    { id: 'start', title: 'Getting started' },
+    ...SECTIONS.slice(0, 4).map((s, i) => ({ id: s.key, title: s.title, section: s, n: i + 1 })),
+    { id: 'meet', title: 'Where your story meets ours' },
+    ...SECTIONS.slice(4).map((s, i) => ({ id: s.key, title: s.title, section: s, n: i + 5 })),
+    { id: 'submit', title: 'Review and submit' },
+    { id: 'story', title: 'Your FCPC story' }
+  ];
+
+  const ARCHITECTURE = [
+    ['My Past', 'Where I came from'],
+    ['My Tension', 'Where I was and what I wanted'],
+    ['My Encounter', 'How FCPC entered my life'],
+    ['What had I walked into?', 'The moment we open the door to the larger story'],
+    ['The FCPC Story', 'The standardized history, lineage and mission of FCPC', true],
+    ['Return to Me', '"That\'s the story I had walked into."'],
+    ['My Development', 'What I learned and how I changed'],
+    ['My Responsibility', 'Why I do this today and what I want to pass forward'],
+    ['The Prospect', '"Now let\'s talk about your story."']
+  ];
+
+  /* ------------------------------------------------------------------ */
+  /*  State and storage                                                 */
+  /* ------------------------------------------------------------------ */
+
+  const STORE_KEY = 'fcpc-story-builder-v2';
+  const FILE_KIND = 'fcpc-story-builder';
+  const blankState = () => ({
+    kind: FILE_KIND,
+    name: '',
+    answers: {},
+    keep: '',
+    checks: [],
+    script: '',
+    short: '',
+    tab: 'script',
+    questions: '',
+    scriptSource: '',
+    step: 0,
+    submitted: null,
+    updated: null
+  });
+
+  let state = blankState();
+  let storageOK = true;
+
+  function adopt(data) {
+    const s = Object.assign(blankState(), data || {});
+    s.answers = Object.assign({}, s.answers || {});
+    s.checks = Array.isArray(s.checks) ? s.checks : [];
+    s.step = Math.max(0, Math.min(STEPS.length - 1, parseInt(s.step, 10) || 0));
+    return s;
+  }
+
+  function load() {
+    try {
+      const raw = localStorage.getItem(STORE_KEY);
+      if (raw) state = adopt(JSON.parse(raw));
+    } catch (e) { storageOK = false; }
+  }
+
+  let saveTimer = null;
+  function flush() {
+    clearTimeout(saveTimer); saveTimer = null;
+    try { localStorage.setItem(STORE_KEY, JSON.stringify(state)); storageOK = true; }
+    catch (e) { storageOK = false; }
+    renderSaveStatus();
+  }
+  function save() {
+    state.updated = new Date().toISOString();
+    clearTimeout(saveTimer);
+    saveTimer = setTimeout(flush, 300);
+  }
+  // Never lose the last keystrokes if the tab closes or reloads mid-save
+  window.addEventListener('pagehide', () => { if (saveTimer) flush(); });
+  document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'hidden' && saveTimer) flush(); });
+
+  function renderSaveStatus() {
+    const el = document.getElementById('save-status');
+    if (!storageOK) { el.textContent = 'Autosave is off in this browser. Download your file before leaving.'; el.className = 'hidden md:inline text-xs text-red-700'; return; }
+    if (!state.updated) { el.textContent = ''; return; }
+    el.textContent = 'Saved on this device at ' + new Date(state.updated).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' });
+    el.className = 'hidden md:inline text-xs text-smoke';
+  }
+
+  /* ------------------------------------------------------------------ */
+  /*  Helpers                                                           */
+  /* ------------------------------------------------------------------ */
+
+  const $ = (sel, root) => (root || document).querySelector(sel);
+  const esc = (s) => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  const words = (s) => (String(s || '').trim().match(/\S+/g) || []).length;
+  const ans = (k) => (state.answers[k] || '').trim();
+  const fcpcText = () => FCPC.lines.join('\n\n');
+  const exampleText = () => EXAMPLE.lines.join('\n\n');
+  const curKey = () => (state.tab === 'short' && state.short.trim()) ? 'short' : 'script';
+  const curText = () => state[curKey()];
+  const curLabel = () => !state.short.trim() ? 'Story' : (curKey() === 'short' ? 'One-on-one version' : 'Group presentation version');
+  const fileSlug = () => (state.name.trim() || 'advisor').replace(/[^a-z0-9]+/gi, '-').replace(/^-|-$/g, '').toLowerCase();
+
+  function fmtTime(w) {
+    const sec = Math.round((w / WPM) * 60);
+    if (sec === 0) return '0 min';
+    if (sec < 60) return '~' + Math.max(5, Math.round(sec / 5) * 5) + ' sec';
+    const m = Math.round(sec / 30) / 2;
+    return '~' + (m % 1 ? m.toFixed(1) : m) + ' min';
+  }
+
+  function toast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg; t.classList.add('show');
+    clearTimeout(t._h); t._h = setTimeout(() => t.classList.remove('show'), 2600);
+  }
+
+  async function copyText(text, msg) {
+    try { await navigator.clipboard.writeText(text); toast(msg || 'Copied'); }
+    catch (e) {
+      const ta = document.createElement('textarea'); ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+      document.body.appendChild(ta); ta.select();
+      try { document.execCommand('copy'); toast(msg || 'Copied'); } catch (e2) { toast('Copy failed. Select the text and copy it manually.'); }
+      ta.remove();
+    }
+  }
+
+  function download(filename, content, type) {
+    const blob = new Blob([content], { type });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob); a.download = filename;
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+  }
+
+  function paragraphsHTML(text) {
+    return String(text).split(/\n\s*\n/).map(p => '<p>' + esc(p.trim()).replace(/\n/g, '<br>') + '</p>').join('');
+  }
+
+  function wordDoc(title, bodyHTML) {
+    return '﻿<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word" xmlns="http://www.w3.org/TR/REC-html40"><head><meta charset="utf-8"><title>' + esc(title) + '</title>' +
+      '<style>body{font-family:Calibri,Arial,sans-serif;font-size:12pt;line-height:1.5;} h1{font-family:Georgia,serif;font-size:20pt;color:#19634F;margin:0 0 4pt;} h2{font-family:Georgia,serif;font-size:14pt;color:#19634F;margin:18pt 0 4pt;} .q{font-weight:bold;margin:0 0 6pt;} .meta{font-size:9pt;color:#64748B;margin-bottom:14pt;} p{margin:0 0 8pt;} .script p{font-family:Georgia,serif;font-size:13pt;}</style></head><body>' + bodyHTML + '</body></html>';
+  }
+
+  function stepDone(step) {
+    if (step.section) return !!ans(step.section.key);
+    if (step.id === 'start') return !!state.name.trim();
+    if (step.id === 'meet') return SECTIONS.slice(0, 4).some(s => ans(s.key)) && SECTIONS.slice(4).some(s => ans(s.key));
+    if (step.id === 'submit') return !!state.submitted;
+    if (step.id === 'story') return !!state.script.trim();
+    return false;
+  }
+
+  /* ------------------------------------------------------------------ */
+  /*  Drafting: quick assembly and the AI prompt                        */
+  /* ------------------------------------------------------------------ */
+
+  const LEAD_IN = "I thought I had walked into a meeting about selling insurance. I eventually realized I had walked into something much bigger. And to understand what I had walked into, you have to understand the story of FCPC.";
+  const LEAD_OUT = "And without realizing it at the time, that's the story I had just walked into.";
+
+  function quickAssemble() {
+    const parts = [];
+    ['s1', 's2', 's3', 's4'].forEach(k => { if (ans(k)) parts.push(ans(k)); });
+    parts.push(LEAD_IN, fcpcText(), LEAD_OUT);
+    ['s5', 's6', 's7'].forEach(k => { if (ans(k)) parts.push(ans(k)); });
+    return parts.join('\n\n');
+  }
+
+  function buildPrompt() {
+    const keep = state.keep.split('\n').map(s => s.trim()).filter(Boolean);
+    const L = [];
+    L.push(
+"You are helping FCPC (the Financial Crisis Prevention Center) turn an advisor's raw Story Builder answers into a spoken personal introduction. The advisor tells it at the start of client and recruiting presentations. The advisor's story and the FCPC Company Story must work as one narrative.",
+"",
+"GUIDING PRINCIPLES",
+"- The FCPC story is standardized. The advisor's story is structured. The delivery is personal.",
+"- Polish the structure. Preserve the personality.",
+"- Specific moments are more valuable than generic summaries.",
+"- The advisor's story is the introduction. The prospect's story is the reason for the meeting.",
+"- Do not over-explain the moral. Let the story demonstrate it.",
+"",
+"ARCHITECTURE C (tell the story in this order)",
+"1. MY PAST: where I came from.",
+"2. MY TENSION: where I was and what I wanted.",
+"3. MY ENCOUNTER: how FCPC entered my life, told specifically.",
+"4. WHAT HAD I WALKED INTO?: a short curiosity gap that opens the door to the larger story. It may sound something like: \"" + LEAD_IN + "\"",
+"5. THE FCPC STORY: the approved text at the end of this message, word for word.",
+"6. RETURN TO ME: it may sound something like: \"" + LEAD_OUT + "\"",
+"7. MY DEVELOPMENT: what I learned, who developed me, what I struggled with, and how I changed.",
+"8. MY RESPONSIBILITY: why I do this today and what I want to pass forward.",
+"9. THE PROSPECT: turn the conversation to the listener, built from the advisor's own words in section 7. The same presentation offers both the chance to become a client and the chance to become an advisor, so do not steer the ending toward only one of them. How the ending turns depends on the setting (see WHAT TO PRODUCE).",
+"",
+"The advisor's answers come in seven sections that do not map one to one onto this architecture. Place each part where it fits best. Section 4 (What I Discovered) often splits: first impressions from the first meeting usually belong before the FCPC story, and what the advisor learned over time usually belongs after it.",
+"",
+"RULES",
+"1. The FCPC Company Story is approved text. Place all of it word for word at step 5. Do not reword, shorten, reorder, or add to any of its lines. You may put its sentences on separate lines for speaking.",
+"2. Preserve specificity. Keep the real sequence of events, names, places, and quotes. Never compress a specific story into a summary like \"I found FCPC online.\"",
+"3. Preserve personality. Keep the advisor's humor, slang, turns of phrase, and memorable lines. They are personality, not clutter. Smooth grammar and flow only where it would trip up the speaker. Do not make the advisor sound like a professional speechwriter.",
+"4. Find callbacks. Where something in the advisor's experience genuinely echoes the FCPC story, connect them briefly. For example, Clint Lewis's principle that building a business starts with building yourself can return when an advisor realizes the business was developing them. Use only real connections, no more than three.",
+"5. Find full circles. Look for a dream, question, or unresolved idea early in the advisor's story that can return near the end with new understanding.",
+"6. Do not manufacture hardship, drama, success, emotion, or mentorship. Real tension is enough. A newer advisor's transformation may still be unfolding, and the story can say so honestly. Never claim a direct mentorship the advisor did not describe.",
+"7. Do not add any fact, name, number, date, event, result, or income figure the advisor did not give. If something important is missing or thin, ask about it under QUESTIONS FOR THE ADVISOR instead of filling it in.",
+"8. Never state or suggest that any income or result is typical or to be expected.",
+"9. Format for speaking, not reading: short lines, usually one sentence or thought per line, with a blank line between lines, and an occasional one-line beat for emphasis. Plain text only. Inside the story, use no headings, no bullet points, no bold, and no em dashes. Use periods, commas, and colons instead.",
+"");
+    if (EXAMPLE.lines.length) L.push(
+"EXAMPLE OF THE DESIRED RESULT",
+"Below is " + (EXAMPLE.author ? EXAMPLE.author + "'s" : "an advisor's") + " master story, the first story built this way. Study its structure, pacing, specificity, callbacks, and full-circle ending. Do not copy its wording, events, phrases, or people into this advisor's story. This advisor's story must be built only from their own answers.",
+"<<<EXAMPLE",
+exampleText(),
+"EXAMPLE>>>",
+"");
+    L.push(
+"WHAT TO PRODUCE",
+"Reply with exactly these three sections, using these exact header lines:",
+"",
+"=== GROUP PRESENTATION ===",
+"The complete spoken story for a group presentation, following Architecture C at full length. At step 9, speak to the whole room: invite everyone to think about their own story and turn toward the rest of the presentation. Keep the spirit of the advisor's section 7 answer, adapted for many listeners.",
+"",
+"=== ONE-ON-ONE ===",
+"The same story for a one-on-one meeting, at about 7 minutes spoken (roughly 950 to 1,000 words). Keep the Architecture C order and keep the FCPC story complete and word for word. Shorten only the advisor's parts. Keep the specific moments, the lines the advisor wants kept, the strongest callback, and the full-circle ending if there is one. Trim secondary details instead. At step 9, turn directly to the one person across the table, using the advisor's section 7 answer.",
+"",
+"=== QUESTIONS FOR THE ADVISOR ===",
+"Follow-up questions a good story coach would ask to make this story stronger. For each thin spot, ask about the specific moment: where they were, who was there, what was said, what they were thinking. Write None if there is nothing.",
+"",
+"------------------------------------------------------------",
+"",
+"ADVISOR: " + (state.name.trim() || "(not given)"));
+    if (keep.length) L.push("", "LINES THE ADVISOR WANTS KEPT EXACTLY AS WRITTEN:", keep.map(k => "- " + k).join('\n'));
+    L.push("", "THE ADVISOR'S STORY BUILDER ANSWERS");
+    SECTIONS.forEach((s, i) => { L.push("", "--- " + (i + 1) + ". " + s.title + " ---", "Question: " + s.question, ans(s.key) || "(left blank)"); });
+    L.push("", "------------------------------------------------------------", "",
+      "THE FCPC COMPANY STORY (approved text, " + FCPC.version + ". Place it word for word at step 5.)", "<<<FCPC", fcpcText(), "FCPC>>>");
+    return L.join('\n');
+  }
+
+  function parseAIReply(text) {
+    const out = { script: '', short: '', questions: '' };
+    const map = { 'GROUP PRESENTATION': 'script', 'FULL VERSION': 'script', 'ONE-ON-ONE': 'short', 'ONE ON ONE': 'short', 'SHORT VERSION': 'short', 'QUESTIONS FOR THE ADVISOR': 'questions' };
+    const re = /^[\s#*_>]*={2,}\s*(GROUP PRESENTATION|FULL VERSION|ONE-ON-ONE|ONE ON ONE|SHORT VERSION|QUESTIONS FOR THE ADVISOR)\s*={2,}[\s*_]*$/gim;
+    const marks = [];
+    let m;
+    while ((m = re.exec(text))) marks.push({ key: map[m[1].toUpperCase()], start: m.index, end: re.lastIndex });
+    if (!marks.length) { out.script = text.trim(); return { out, found: false }; }
+    marks.forEach((mk, i) => {
+      const body = text.slice(mk.end, i + 1 < marks.length ? marks[i + 1].start : text.length);
+      out[mk.key] = body.replace(/^\s*\n/, '').replace(/\s+$/, '').replace(/\*\*/g, '');
+    });
+    if (/^none\.?$/i.test(out.questions.trim())) out.questions = '';
+    return { out, found: true };
+  }
+
+  /* ------------------------------------------------------------------ */
+  /*  Rendering                                                         */
+  /* ------------------------------------------------------------------ */
+
+  const CHECK_SVG = '<svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg>';
+  const dotFor = (s, i) => stepDone(s) ? CHECK_SVG : (s.n || (i === 0 ? '•' : '★'));
+
+  function renderNav() {
+    document.getElementById('step-nav').innerHTML = STEPS.map((s, i) => {
+      const cls = 'step-link' + (i === state.step ? ' active' : '') + (stepDone(s) ? ' done' : '') + (s.id === 'meet' ? ' italic' : '');
+      return '<button type="button" class="' + cls + '" data-go="' + i + '"><span class="step-dot not-italic">' + dotFor(s, i) + '</span>' + esc(s.title) + '</button>';
+    }).join('');
+    document.getElementById('step-select').innerHTML = STEPS.map((s, i) => '<option value="' + i + '"' + (i === state.step ? ' selected' : '') + '>' + (s.n ? s.n + '. ' : '') + esc(s.title) + '</option>').join('');
+    document.getElementById('progress-bar').style.width = Math.round((state.step / (STEPS.length - 1)) * 100) + '%';
+  }
+
+  function renderNavLight() {
+    document.querySelectorAll('#step-nav [data-go]').forEach((btn, i) => {
+      const done = stepDone(STEPS[i]);
+      if (done === btn.classList.contains('done')) return;
+      btn.classList.toggle('done', done);
+      btn.querySelector('.step-dot').innerHTML = dotFor(STEPS[i], i);
+    });
+  }
+
+  function footerNav() {
+    const i = state.step;
+    const prev = i > 0 ? '<button type="button" class="btn-ghost text-sm px-5 py-3" data-go="' + (i - 1) + '">← Back</button>' : '<span></span>';
+    const next = i < STEPS.length - 1 ? '<button type="button" class="btn-forest text-sm px-6 py-3" data-go="' + (i + 1) + '">' + (i === 0 ? 'Start with section 1' : 'Next: ' + esc(STEPS[i + 1].title)) + ' →</button>' : '';
+    return '<div class="flex items-center justify-between gap-3 mt-8 pt-6 border-t border-silver/70 flex-wrap">' + prev + next + '</div>';
+  }
+
+  const card = (inner) => '<div class="bg-white rounded-3xl border border-silver/70 shadow-card p-6 sm:p-9">' + inner + '</div>';
+  const bullets = (items) => '<ul class="space-y-2">' + items.map(q => '<li class="flex gap-2.5 text-sm text-slate leading-relaxed"><span class="mt-2 w-1.5 h-1.5 rounded-full bg-gold flex-shrink-0"></span><span>' + esc(q) + '</span></li>').join('') + '</ul>';
+
+  function architectureHTML(compact) {
+    return '<ol class="relative">' + ARCHITECTURE.map((a, i) => {
+      const last = i === ARCHITECTURE.length - 1;
+      const hi = a[2];
+      return '<li class="relative flex gap-3 ' + (last ? '' : 'pb-' + (compact ? '3' : '4')) + '">' +
+        (last ? '' : '<span class="absolute left-[11px] top-6 bottom-0 w-px bg-silver"></span>') +
+        '<span class="relative z-10 w-6 h-6 rounded-full flex items-center justify-center text-[10px] font-bold flex-shrink-0 ' + (hi ? 'bg-gold text-ink' : 'bg-forest-50 text-forest border border-forest/20') + '">' + (i + 1) + '</span>' +
+        '<div class="-mt-0.5"><p class="text-sm font-bold ' + (hi ? 'text-gold-dark' : 'text-ink') + '">' + esc(a[0]) + '</p><p class="text-xs text-smoke leading-relaxed">' + esc(a[1]) + '</p></div></li>';
+    }).join('') + '</ol>';
+  }
+
+  function renderStart() {
+    return card(
+      '<p class="eyebrow mb-3">FCPC Advisor Story Builder</p>' +
+      '<h1 class="font-extrabold tracking-tight text-ink mb-2" style="font-size:clamp(1.9rem,4vw,2.75rem);line-height:1.1;letter-spacing:-0.02em;">Your Story. Our History. Their Future.</h1>' +
+      '<p class="font-serif italic text-forest text-lg mb-6">Every FCPC advisor has a story.</p>' +
+      '<div class="grid md:grid-cols-[1fr_280px] gap-8">' +
+        '<div>' +
+          '<p class="text-slate leading-relaxed mb-4">You do not need an extraordinary success story. You do not need to have overcome tremendous hardship. And you do not need to sound like another advisor. You simply need to tell your story honestly.</p>' +
+          '<p class="text-slate leading-relaxed mb-6">This Story Builder will help you identify the experiences, people and lessons that explain who you are, how you found FCPC, what you discovered, how you grew, and why you do this work today. FCPC will then combine your answers with the FCPC Company Story to help create your personal FCPC introduction.</p>' +
+          '<div class="bg-forest-dark text-white rounded-2xl p-6 mb-6">' +
+            '<p class="text-[11px] font-bold tracking-[0.15em] uppercase text-gold mb-2">One important instruction</p>' +
+            '<p class="font-serif text-2xl font-bold mb-3">Don\'t try to write a speech yet.</p>' +
+            '<p class="text-white/80 leading-relaxed text-sm">Answer the questions as if you were telling the story to someone you know. Don\'t worry about grammar. Don\'t worry about making it impressive. Don\'t worry about getting the wording right. <span class="text-white font-semibold">Just tell us what happened.</span></p>' +
+          '</div>' +
+          '<div class="max-w-md"><label class="form-label" for="f-name">Your name</label><input id="f-name" class="form-input" data-bind="name" placeholder="First and last name" autocomplete="name" /></div>' +
+        '</div>' +
+        '<div class="bg-mist rounded-2xl p-5 self-start">' +
+          '<p class="form-label !mb-3">How it works</p>' +
+          '<ol class="space-y-3 text-sm text-slate leading-relaxed">' +
+            ['Answer seven sections in your own words.', 'Submit your answers to FCPC.', 'FCPC weaves them together with the FCPC story and sends back your first draft.', 'You review it, make it yours, and practice.'].map((t, i) => '<li class="flex gap-2.5"><span class="w-5 h-5 rounded-full bg-forest text-white text-[10px] font-bold flex items-center justify-center flex-shrink-0 mt-0.5">' + (i + 1) + '</span>' + t + '</li>').join('') +
+          '</ol>' +
+          '<button type="button" class="btn-ghost text-xs px-4 py-2 mt-5 w-full" data-modal="example">Read a finished example</button>' +
+          '<p class="text-xs text-smoke mt-4 leading-relaxed">Your answers are saved in this browser only. Nothing is sent anywhere until you submit.</p>' +
+        '</div>' +
+      '</div>' +
+      footerNav());
+  }
+
+  function renderSection(step) {
+    const s = step.section;
+    const val = state.answers[s.key] || '';
+    return card(
+      '<p class="eyebrow mb-2">Section ' + step.n + ' of ' + SECTIONS.length + '</p>' +
+      '<h1 class="font-serif text-3xl sm:text-[2.2rem] font-bold text-ink mb-3">' + esc(s.title) + '</h1>' +
+      '<p class="text-ink text-lg font-semibold leading-snug mb-2">' + esc(s.question) + '</p>' +
+      (s.lead ? '<p class="text-smoke leading-relaxed mb-2">' + esc(s.lead) + '</p>' : '') +
+      '<div class="grid md:grid-cols-2 gap-5 mt-6 mb-6">' +
+        '<div class="bg-mist rounded-2xl p-5"><p class="form-label !mb-3">Think about</p>' + bullets(s.prompts) +
+          (s.note ? '<p class="text-xs text-smoke mt-4 leading-relaxed">' + esc(s.note) + '</p>' : '') + '</div>' +
+        '<details class="example-box p-5 self-start"><summary class="flex items-center gap-2 text-sm font-bold text-ink"><svg class="chev w-3.5 h-3.5 text-gold-dark" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>See an example answer</summary>' +
+          '<p class="text-sm text-slate leading-relaxed mt-3">' + esc(s.example) + '</p>' +
+          '<p class="text-xs text-smoke mt-3">From ' + esc(EXAMPLE.author || 'an advisor') + '\'s raw answers. Notice it is not polished. It just tells what happened.</p>' +
+        '</details>' +
+      '</div>' +
+      '<label class="form-label" for="f-' + s.key + '">' + esc(s.answerLabel || 'My story') + '</label>' +
+      '<textarea id="f-' + s.key + '" class="form-input" rows="' + (s.key === 's7' ? 6 : 12) + '" data-answer="' + s.key + '" placeholder="Just tell us what happened.">' + esc(val) + '</textarea>' +
+      '<div class="flex justify-between text-xs mt-1.5 text-smoke"><span>Saves automatically as you type.</span><span data-meter="' + s.key + '">' + words(val) + ' words</span></div>' +
+      footerNav());
+  }
+
+  function renderMeet() {
+    return card(
+      '<p class="eyebrow mb-2">A pause in your story</p>' +
+      '<h1 class="font-serif text-3xl sm:text-[2.2rem] font-bold text-ink mb-4">Where Your Story Meets Our Story</h1>' +
+      '<div class="grid md:grid-cols-[1fr_300px] gap-8">' +
+        '<div>' +
+          '<p class="text-slate leading-relaxed mb-4">At this point in your final presentation, your personal story will temporarily pause. You will introduce your listener to the larger FCPC story: the people, ideas and mission that existed before you arrived.</p>' +
+          '<p class="text-slate leading-relaxed mb-5">The approved FCPC Company Story is incorporated here. <strong>You do not need to rewrite FCPC\'s history.</strong> Your job is to help your listener understand:</p>' +
+          '<blockquote class="border-l-4 border-gold pl-5 py-1 mb-5 font-serif text-xl text-ink leading-snug">"I thought I knew what I had walked into. Later, I realized there was a much bigger story behind it."</blockquote>' +
+          '<p class="text-slate leading-relaxed mb-3">After the FCPC Company Story, the presentation returns to you. A transition may sound something like:</p>' +
+          '<blockquote class="border-l-4 border-forest/40 pl-5 py-1 mb-6 font-serif text-lg text-slate italic leading-snug">"And without realizing it at the time, that\'s the story I had just walked into."</blockquote>' +
+          '<p class="text-slate leading-relaxed mb-5">Then your personal story continues. Take a few minutes to read the FCPC story now. You will be telling it word for word, so it helps to know it well.</p>' +
+          '<button type="button" class="btn-gold text-sm px-6 py-3" data-modal="fcpc">Read the FCPC story</button>' +
+        '</div>' +
+        '<div class="bg-mist rounded-2xl p-5 self-start"><p class="form-label !mb-4">The FCPC story architecture</p>' + architectureHTML(true) + '</div>' +
+      '</div>' +
+      footerNav());
+  }
+
+  function renderSubmit() {
+    const rows = SECTIONS.map((s, i) => {
+      const w = words(state.answers[s.key]);
+      const status = !w ? '<span class="text-amber-700">Not answered yet</span>' : (w < 40 && s.key !== 's7' ? '<span class="text-amber-700">' + w + ' words · could use more detail</span>' : '<span class="text-smoke">' + w + ' words</span>');
+      return '<li class="flex items-center justify-between gap-3 py-2.5 border-b border-silver/60 last:border-0 text-sm"><button type="button" class="text-left font-medium text-slate hover:text-forest" data-go="' + STEPS.findIndex(st => st.id === s.key) + '">' + (i + 1) + '. ' + esc(s.title) + '</button><span class="text-xs text-right">' + status + '</span></li>';
+    }).join('');
+    const checks = ['Is it true?', 'Does it sound like me?', 'Did I include actual people, experiences and moments instead of only general statements?', 'Did I explain what I was thinking and feeling, not just what happened?', 'Did I include the moments that changed my direction?', 'Did I explain why I do this today?'];
+    const allChecked = checks.every((c, i) => state.checks[i]);
+    const missing = SECTIONS.filter(s => !ans(s.key));
+
+    return card(
+      '<p class="eyebrow mb-2">Almost there</p>' +
+      '<h1 class="font-serif text-3xl sm:text-[2.2rem] font-bold text-ink mb-3">Review and Submit</h1>' +
+      '<p class="text-smoke leading-relaxed mb-6">Read through your answers one more time. Don\'t ask "Does this sound impressive?" Instead, ask yourself the questions below.</p>' +
+
+      '<div class="grid md:grid-cols-2 gap-5 mb-6">' +
+        '<div class="bg-mist rounded-2xl px-5 py-3"><p class="form-label !mt-2 !mb-1">Your answers</p><ul>' + rows + '</ul></div>' +
+        '<div class="example-box p-5"><p class="form-label !mb-3 !text-gold-dark">Before you submit</p><ul class="space-y-2.5">' +
+          checks.map((t, i) => '<li><label class="flex gap-2.5 items-start cursor-pointer text-sm text-slate leading-relaxed"><input type="checkbox" class="mt-1 accent-[#19634F]" data-check="' + i + '"' + (state.checks[i] ? ' checked' : '') + '>' + esc(t) + '</label></li>').join('') +
+        '</ul><p class="text-xs text-smoke mt-4" id="check-note">' + (allChecked ? 'If the answer is yes, you\'re ready.' : 'Check each one when the answer is yes.') + '</p></div>' +
+      '</div>' +
+
+      '<div class="mb-8"><label class="form-label" for="f-keep">Any lines you want kept exactly as you said them? (optional)</label>' +
+        '<textarea id="f-keep" class="form-input" rows="3" style="min-height:96px" data-keep placeholder="One per line. A favorite saying, something a mentor told you, a line that sounds just like you.">' + esc(state.keep) + '</textarea></div>' +
+
+      (missing.length ? '<p class="text-sm text-amber-800 bg-amber-50 border border-amber-200 rounded-xl px-4 py-3 mb-6">Still blank: ' + missing.map(s => esc(s.title)).join(', ') + '. You can submit now, but your first draft will be stronger with every section answered.</p>' : '') +
+
+      '<div class="border-2 border-forest/20 bg-forest-50/60 rounded-2xl p-6">' +
+        '<h2 class="text-xl font-extrabold text-ink mb-2">Send your answers to FCPC</h2>' +
+        '<p class="text-sm text-slate leading-relaxed mb-5">Clicking Submit downloads your Story Builder file and opens an email to <strong>' + esc(SUBMIT_EMAIL) + '</strong>. Attach the file that just downloaded and send. FCPC will build your first draft and send a file back that you can open right here.</p>' +
+        '<div class="flex flex-wrap gap-3">' +
+          '<button type="button" id="btn-submit" class="btn-forest text-sm px-6 py-3">Submit to FCPC</button>' +
+          '<button type="button" id="btn-answers-word" class="btn-ghost text-sm px-5 py-3">Download my answers (Word)</button>' +
+        '</div>' +
+        (state.submitted ? '<p class="text-xs text-forest font-semibold mt-4">Submitted on ' + esc(new Date(state.submitted).toLocaleDateString()) + '. You can keep editing and submit again.</p>' : '') +
+      '</div>' +
+
+      '<details class="mt-8"><summary class="flex items-center gap-2 text-sm font-semibold text-smoke hover:text-forest"><svg class="chev w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>How your answers become your FCPC story</summary>' +
+        '<div class="mt-4 bg-mist rounded-2xl p-5 max-w-lg">' + architectureHTML(false) + '</div>' +
+      '</details>' +
+      footerNav());
+  }
+
+  function renderStory() {
+    const has = !!state.script.trim();
+    const w = words(curText());
+    const tabs = state.short.trim() ? '<div class="flex flex-wrap gap-2 mb-4" role="tablist">' + [['script', 'Group presentation', 'Full length, ending speaks to the whole room'], ['short', 'One-on-one', 'About 7 minutes, ending turns to the person across from you']].map(t => '<button type="button" role="tab" class="tab' + (curKey() === t[0] ? ' active' : '') + '" data-tab="' + t[0] + '" title="' + t[2] + '">' + t[1] + ' <span class="text-xs font-normal opacity-70">' + fmtTime(words(state[t[0]])) + '</span></button>').join('') + '</div>' : '';
+    const empty =
+      '<div class="bg-mist rounded-2xl p-6 text-center mb-2">' +
+        '<p class="font-bold text-ink mb-2">Your first draft is not here yet</p>' +
+        '<p class="text-sm text-smoke leading-relaxed max-w-md mx-auto mb-5">After you submit, FCPC will send you a Story Builder file with your first draft. Open it here to review, edit, and practice.</p>' +
+        '<label class="btn-forest text-sm px-6 py-3 cursor-pointer">Open the file FCPC sent me<input type="file" accept="application/json,.json" class="hidden" data-restore></label>' +
+      '</div>';
+
+    const editor =
+      (state.questions.trim() ? '<div class="example-box p-5 mb-6"><p class="form-label !mb-2 !text-gold-dark">Questions to make your story stronger</p><p class="text-sm text-slate leading-relaxed whitespace-pre-line">' + esc(state.questions) + '</p><p class="text-xs text-smoke mt-3">Add your answers directly into the script below, or send them back to FCPC.</p></div>' : '') +
+      tabs + '<label class="form-label" for="f-script">My FCPC story' + (tabs ? ': ' + curLabel().toLowerCase() : '') + '</label>' +
+      '<textarea id="f-script" class="form-input !text-[1rem] !leading-[1.8]" style="font-family:Georgia,serif" rows="24" data-script="' + curKey() + '">' + esc(curText()) + '</textarea>' +
+      '<div class="flex justify-between flex-wrap gap-2 text-xs mt-1.5"><span class="text-smoke">Estimated at ' + WPM + ' words per minute. Time yourself out loud too.</span><span id="script-meter" class="text-forest font-semibold">' + w + ' words · ' + fmtTime(w) + '</span></div>' +
+      '<div class="flex flex-wrap gap-3 mt-5">' +
+        '<button type="button" id="btn-copy-script" class="btn-ghost text-sm px-5 py-2.5">Copy</button>' +
+        '<button type="button" id="btn-word" class="btn-ghost text-sm px-5 py-2.5">Download Word</button>' +
+        '<button type="button" id="btn-print" class="btn-ghost text-sm px-5 py-2.5">Print</button>' +
+      '</div>' +
+      '<div class="bg-mist rounded-2xl p-5 mt-8"><p class="form-label !mb-3">As you make it yours</p>' + bullets([
+        'Polish the structure. Preserve the personality. If a line doesn\'t sound like you, change it.',
+        'The FCPC story stays word for word. Say every name correctly.',
+        'Every fact and result in your story must be true. Never suggest your results are typical.',
+        'Don\'t over-explain the moral. Let the story demonstrate it.',
+        'Tell it out loud, time it, and practice it with your manager or a colleague.'
+      ]) + '</div>';
+
+    const reviewer =
+      '<details class="mt-10 border border-dashed border-silver rounded-2xl p-5"' + (has ? '' : '') + '>' +
+        '<summary class="flex items-center gap-2 text-sm font-bold text-smoke hover:text-forest"><svg class="chev w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>For FCPC reviewers: build the first draft</summary>' +
+        '<div class="mt-5 space-y-5 text-sm text-slate">' +
+          '<ol class="list-decimal pl-5 space-y-1.5 leading-relaxed">' +
+            '<li>Open the advisor\'s Story Builder file from <strong>Save &amp; restore</strong> at the top of the page. Their answers load into this page.</li>' +
+            '<li>Copy the AI prompt and paste it into a new chat in <a href="https://claude.ai/new" target="_blank" rel="noopener" class="font-semibold text-forest underline underline-offset-2">Claude</a> or <a href="https://chatgpt.com/" target="_blank" rel="noopener" class="font-semibold text-forest underline underline-offset-2">ChatGPT</a>.</li>' +
+            '<li>Paste the entire reply below and click Use this draft. Review it against the advisor\'s answers.</li>' +
+            '<li>Download the file for the advisor and send it back to them.</li>' +
+          '</ol>' +
+          '<div class="flex flex-wrap gap-3">' +
+            '<button type="button" id="btn-copy-prompt" class="btn-gold text-sm px-5 py-2.5">Copy AI prompt</button>' +
+            '<button type="button" id="btn-quick" class="btn-ghost text-sm px-5 py-2.5">Assemble without AI</button>' +
+          '</div>' +
+          '<textarea id="ai-paste" class="form-input" rows="6" placeholder="Paste the whole AI reply here, including the === section headers."></textarea>' +
+          '<div class="flex flex-wrap gap-3">' +
+            '<button type="button" id="btn-parse" class="btn-forest text-sm px-5 py-2.5">Use this draft</button>' +
+            '<button type="button" id="btn-advisor-file" class="btn-ghost text-sm px-5 py-2.5">Download file for the advisor</button>' +
+          '</div>' +
+          '<details><summary class="text-xs font-semibold text-smoke hover:text-forest">Preview the prompt</summary><pre id="prompt-preview" class="mt-3 bg-mist border border-silver rounded-2xl p-4 text-xs text-slate whitespace-pre-wrap max-h-[420px] overflow-auto font-mono leading-relaxed"></pre></details>' +
+        '</div>' +
+      '</details>';
+
+    return card(
+      '<p class="eyebrow mb-2">Make it yours</p>' +
+      '<h1 class="font-serif text-3xl sm:text-[2.2rem] font-bold text-ink mb-3">Your FCPC Story</h1>' +
+      '<p class="text-smoke leading-relaxed mb-6">' + (has ? 'Here is your draft' + (state.scriptSource ? ' <span class="text-xs">(' + esc(state.scriptSource) + ')</span>' : '') + '. Read it out loud. Change anything that doesn\'t sound like you. Your edits save automatically.' : 'This is where your finished story will live.') + '</p>' +
+      (has ? editor : empty) + reviewer + footerNav());
+  }
+
+  function render() {
+    renderNav();
+    const step = STEPS[state.step];
+    let html = '';
+    if (step.section) html = renderSection(step);
+    else if (step.id === 'start') html = renderStart();
+    else if (step.id === 'meet') html = renderMeet();
+    else if (step.id === 'submit') html = renderSubmit();
+    else if (step.id === 'story') html = renderStory();
+    document.getElementById('step-content').innerHTML = html;
+    const nameEl = $('#f-name'); if (nameEl) nameEl.value = state.name;
+    const pv = $('#prompt-preview'); if (pv) pv.textContent = buildPrompt();
+  }
+
+  function go(i) {
+    state.step = Math.max(0, Math.min(STEPS.length - 1, i));
+    save(); render();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  /* ------------------------------------------------------------------ */
+  /*  Files, export, modal                                              */
+  /* ------------------------------------------------------------------ */
+
+  function storyFile() { return JSON.stringify(Object.assign({}, state, { kind: FILE_KIND, fcpcVersion: FCPC.version }), null, 2); }
+
+  function answersDoc() {
+    const title = (state.name.trim() || 'Advisor') + ': FCPC Story Builder Answers';
+    let body = '<h1>' + esc(title) + '</h1><p class="meta">Exported ' + esc(new Date().toLocaleDateString()) + '</p>';
+    SECTIONS.forEach((s, i) => { body += '<h2>' + (i + 1) + '. ' + esc(s.title) + '</h2><p class="q">' + esc(s.question) + '</p>' + (ans(s.key) ? paragraphsHTML(ans(s.key)) : '<p><em>Not answered</em></p>'); });
+    if (state.keep.trim()) body += '<h2>Lines to keep exactly</h2>' + paragraphsHTML(state.keep);
+    return wordDoc(title, body);
+  }
+
+  function restoreFrom(file, onDone) {
+    const reader = new FileReader();
+    reader.onload = () => {
+      try {
+        const data = JSON.parse(reader.result);
+        if (!data || typeof data !== 'object' || data.kind !== FILE_KIND) throw new Error('bad');
+        if ((ans('s1') || state.script.trim()) && !confirm('Replace what is on this device with the contents of this file?')) return;
+        state = adopt(data);
+        if (state.script.trim()) state.step = STEPS.length - 1;
+        save(); render(); toast('File opened');
+      } catch (err) { toast('That file is not a Story Builder file'); }
+      if (onDone) onDone();
+    };
+    reader.readAsText(file);
+  }
+
+  const modal = document.getElementById('read-modal');
+  function openModal(which) {
+    const isFcpc = which === 'fcpc';
+    const lines = isFcpc ? FCPC.lines : EXAMPLE.lines;
+    $('#read-modal-eyebrow').textContent = isFcpc ? 'Approved company story' : 'A finished example';
+    $('#read-modal-title').textContent = isFcpc ? 'The FCPC Story' : (EXAMPLE.author ? EXAMPLE.author + '\'s FCPC Story' : 'An FCPC Story');
+    $('#read-modal-meta').textContent = (isFcpc ? FCPC.version + ' · ' : '') + 'about ' + fmtTime(words(lines.join(' '))).replace('~', '') + ' spoken';
+    const note = $('#read-modal-note');
+    if (isFcpc) note.classList.add('hidden');
+    else { note.classList.remove('hidden'); note.textContent = 'This is one advisor\'s finished story, built from his Story Builder answers. Yours will be different, and it should be. Notice how specific it is, and how the FCPC story sits in the middle.'; }
+    $('#read-modal-body').innerHTML = lines.map(p => '<p>' + esc(p) + '</p>').join('');
+    modal.classList.remove('hidden'); document.body.style.overflow = 'hidden'; $('#btn-close-modal').focus();
+  }
+  function closeModal() { modal.classList.add('hidden'); document.body.style.overflow = ''; }
+  modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
+
+  /* ------------------------------------------------------------------ */
+  /*  Events                                                            */
+  /* ------------------------------------------------------------------ */
+
+  document.addEventListener('click', (e) => {
+    const goBtn = e.target.closest('[data-go]');
+    if (goBtn) { go(parseInt(goBtn.dataset.go, 10)); return; }
+    const tb = e.target.closest('[data-tab]');
+    if (tb) { state.tab = tb.dataset.tab; save(); render(); return; }
+    const m = e.target.closest('[data-modal]');
+    if (m) { openModal(m.dataset.modal); return; }
+
+    const btn = e.target.closest('button');
+    const id = btn && btn.id;
+    if (!id) return;
+
+    if (id === 'btn-close-modal') closeModal();
+    else if (id === 'btn-submit') {
+      state.submitted = new Date().toISOString(); flush();
+      const fname = fileSlug() + '-fcpc-story-builder.json';
+      download(fname, storyFile(), 'application/json');
+      const who = state.name.trim() || 'An FCPC advisor';
+      const subject = 'Story Builder submission: ' + who;
+      const body = 'Hello,\n\nMy completed FCPC Story Builder answers are attached (' + fname + ').\n\nThank you,\n' + (state.name.trim() || '');
+      setTimeout(() => { window.location.href = 'mailto:' + SUBMIT_EMAIL + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body); }, 400);
+      render(); renderNavLight(); toast('File downloaded. Attach it to the email.');
+    }
+    else if (id === 'btn-answers-word') download(fileSlug() + '-story-builder-answers.doc', answersDoc(), 'application/msword');
+    else if (id === 'btn-copy-prompt') copyText(buildPrompt(), 'Prompt copied. Paste it into a new AI chat.');
+    else if (id === 'btn-quick') {
+      if (state.script.trim() && !confirm('Replace the current script with a simple assembly of the answers?')) return;
+      state.script = quickAssemble(); state.short = ''; state.tab = 'script'; state.questions = ''; state.scriptSource = 'assembled without AI, ' + new Date().toLocaleDateString();
+      save(); render(); toast('Answers assembled with the FCPC story');
+    }
+    else if (id === 'btn-parse') {
+      const raw = $('#ai-paste').value;
+      if (!raw.trim()) { toast('Paste the AI reply first'); return; }
+      if (state.script.trim() && !confirm('Replace the current script with this draft?')) return;
+      const { out, found } = parseAIReply(raw);
+      state.script = out.script; state.short = out.short; state.tab = 'script'; state.questions = out.questions; state.scriptSource = 'first draft, ' + new Date().toLocaleDateString();
+      save(); render(); window.scrollTo({ top: 0, behavior: 'smooth' });
+      toast(found ? 'Draft loaded' : 'No section headers found. Loaded the whole reply as the script.');
+    }
+    else if (id === 'btn-advisor-file') {
+      if (!state.script.trim()) { toast('Load a draft first'); return; }
+      flush(); download(fileSlug() + '-fcpc-story-draft.json', storyFile(), 'application/json');
+    }
+    else if (id === 'btn-copy-script') copyText(curText(), curLabel() + ' copied');
+    else if (id === 'btn-word') {
+      const title = (state.name.trim() ? state.name.trim() + ': ' : '') + 'My FCPC Story';
+      download(fileSlug() + '-fcpc-story' + (!state.short.trim() ? '' : (curKey() === 'short' ? '-one-on-one' : '-group')) + '.doc', wordDoc(title, '<h1>' + esc(title) + '</h1><p class="meta">' + curLabel() + ' · ' + words(curText()) + ' words · ' + fmtTime(words(curText())) + ' · FCPC story: ' + esc(FCPC.version) + '</p><div class="script">' + paragraphsHTML(curText()) + '</div>'), 'application/msword');
+    }
+    else if (id === 'btn-print') {
+      const pa = document.getElementById('print-area');
+      pa.innerHTML = '<h1>' + esc((state.name.trim() ? state.name.trim() + ': ' : '') + 'My FCPC Story') + '</h1><div class="meta">' + curLabel() + ' · ' + fmtTime(words(curText())) + ' · FCPC story: ' + esc(FCPC.version) + '</div>' + paragraphsHTML(curText());
+      window.print();
+    }
+    else if (id === 'btn-backup') download(fileSlug() + '-fcpc-story-builder.json', storyFile(), 'application/json');
+    else if (id === 'btn-reset') {
+      if (!confirm('Erase everything on this device and start over? Download your file first if you might want it.')) return;
+      state = blankState();
+      try { localStorage.removeItem(STORE_KEY); } catch (err) {}
+      render(); renderSaveStatus(); toast('Started over');
+    }
+  });
+
+  document.addEventListener('input', (e) => {
+    const t = e.target;
+    if (t.dataset.bind === 'name') { state.name = t.value; save(); renderNavLight(); return; }
+    if (t.dataset.answer) {
+      state.answers[t.dataset.answer] = t.value; save();
+      const m = document.querySelector('[data-meter="' + t.dataset.answer + '"]'); if (m) m.textContent = words(t.value) + ' words';
+      renderNavLight(); return;
+    }
+    if (t.hasAttribute('data-keep')) { state.keep = t.value; save(); return; }
+    if (t.hasAttribute('data-script')) {
+      state[t.dataset.script === 'short' ? 'short' : 'script'] = t.value; save();
+      const m = $('#script-meter'); if (m) m.textContent = words(t.value) + ' words · ' + fmtTime(words(t.value));
+    }
+  });
+
+  document.addEventListener('change', (e) => {
+    const t = e.target;
+    if (t.id === 'step-select') { go(parseInt(t.value, 10)); return; }
+    if (t.dataset.check) {
+      state.checks[parseInt(t.dataset.check, 10)] = t.checked; save();
+      const n = $('#check-note'); if (n) n.textContent = [0,1,2,3,4,5].every(i => state.checks[i]) ? 'If the answer is yes, you\'re ready.' : 'Check each one when the answer is yes.';
+      return;
+    }
+    if ((t.id === 'file-restore' || t.hasAttribute('data-restore')) && t.files && t.files[0]) {
+      restoreFrom(t.files[0], () => { t.value = ''; });
+      const d = t.closest('details'); if (d) d.open = false;
+    }
+  });
+
+  /* Init */
+  load();
+  render();
+  renderSaveStatus();
+
+  // Pure helpers exposed for testing
+  window.__storyBuilder = { buildPrompt, quickAssemble, parseAIReply, getState: () => state };
+})();
+</script>
+</body>
+</html>
