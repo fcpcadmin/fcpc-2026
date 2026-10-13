@@ -1,0 +1,39 @@
+{
+  "agentCode": "",
+  "firstName": "Reggie",
+  "lastName": "Sarpong",
+  "eyebrow": "Licensed Agent",
+  "location": "VA · DC · MD",
+  "photo": "",
+  "phone": "7037250897",
+  "email": "rsarpong@fcpc.life",
+  "bookingLink": "",
+  "states": [
+    "VA",
+    "DC",
+    "MD"
+  ],
+  "products": [
+    "Life Insurance",
+    "Indexed Annuities",
+    "Final Expense",
+    "Supplemental Health"
+  ],
+  "hidden": false,
+  "noindex": false,
+  "roots": "New York.",
+  "beforeFcpc": "Hooping.",
+  "whyThisWork": "Helping People.",
+  "whoYouServe": [
+    "Federal employees",
+    "DC government employees",
+    "Pre-retirees and retirees"
+  ],
+  "serveLine": "",
+  "commitments": [
+    "I'll explain your options in plain language.",
+    "I'll be here long after the paperwork is signed."
+  ],
+  "outsideWork": "Balling out of control.",
+  "whyJoin": "You like helping people."
+}
