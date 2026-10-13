@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Find an Advisor — FCPC</title>
-  <meta name="description" content="Connect with a trusted FCPC advisor in our nationwide network. Search by advisor name or browse our senior leadership team." />
+  <title>Find an Agent — FCPC</title>
+  <meta name="description" content="Connect with a trusted FCPC agent in our nationwide network." />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -151,9 +151,9 @@
           <a href="solutions/supplemental-health.html" class="flex items-center gap-3 px-4 py-3 text-sm font-medium text-slate hover:text-forest hover:bg-mist transition-colors mx-1 rounded-xl"><span class="w-8 h-8 rounded-xl bg-forest-50 flex items-center justify-center text-base flex-shrink-0"><svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="4" r="2"/><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v5M12 8.5L7 7M12 8.5L17 7M12 11L8 18M12 11L16 18"/></svg></span> Supplemental Health</a>
         </div>
       </div>
-      <a href="opportunity.html" class="nav-item font-semibold text-forest">Advisor Opportunity</a>
+      <a href="opportunity.html" class="nav-item font-semibold text-forest">Agent Opportunity</a>
       <a href="about.html" class="nav-item">About Us</a>
-      <a href="find-agent.html"  class="nav-item" style="color:#19634F; background:rgba(25,99,79,0.07);">Find My Advisor</a>
+      <a href="find-agent.html"  class="nav-item" style="color:#19634F; background:rgba(25,99,79,0.07);">Find My Agent</a>
       <a href="contact.html" class="nav-item">Contact Us</a>
     </nav>
 
@@ -171,9 +171,9 @@
     <div class="max-w-[1400px] mx-auto px-6 py-3 flex flex-col gap-1">
             <a href="index.html" class="block px-4 py-3 rounded-xl text-sm font-semibold text-slate hover:text-forest hover:bg-mist transition-colors">Home</a>
       <a href="solutions.html"               class="block px-4 py-3 rounded-xl text-sm font-semibold text-slate hover:text-forest hover:bg-mist transition-colors">Solutions</a>
-      <a href="opportunity.html"             class="block px-4 py-3 rounded-xl text-sm font-semibold text-forest hover:bg-forest-50 transition-colors">Advisor Opportunity</a>
+      <a href="opportunity.html"             class="block px-4 py-3 rounded-xl text-sm font-semibold text-forest hover:bg-forest-50 transition-colors">Agent Opportunity</a>
       <a href="about.html"                   class="block px-4 py-3 rounded-xl text-sm font-semibold text-slate hover:text-forest hover:bg-mist transition-colors">About Us</a>
-      <a href="find-agent.html"              class="block px-4 py-3 rounded-xl text-sm font-semibold text-forest bg-forest-50">Find My Advisor</a>
+      <a href="find-agent.html"              class="block px-4 py-3 rounded-xl text-sm font-semibold text-forest bg-forest-50">Find My Agent</a>
       <a href="contact.html" class="block px-4 py-3 rounded-xl text-sm font-semibold text-slate hover:text-forest hover:bg-mist transition-colors">Contact Us</a>
       <div class="pt-2 pb-3">
         <!-- "I Want Life Insurance" mobile nav button hidden per request. Shelved for future use, not deleted. To restore: remove the hidden class. --><a href="get-quote.html" class="hidden btn-gold w-full justify-center px-6 py-3 text-sm">I Want Life Insurance</a>
@@ -192,12 +192,12 @@
 
     <!-- Left: Text & search intake -->
     <div class="w-full max-w-none">
-      <span class="inline-block text-[0.75rem] font-bold tracking-[0.22em] uppercase mb-5 block" style="color:#19634F; opacity:0.85;">Find My Advisor</span>
+      <span class="inline-block text-[0.75rem] font-bold tracking-[0.22em] uppercase mb-5 block" style="color:#19634F; opacity:0.85;">Find My Agent</span>
       <h1 class="text-4xl md:text-5xl font-bold tracking-tight text-gray-900 mb-5 w-full max-w-none">
-        Connect With an Advisor
+        Connect With an Agent
       </h1>
       <p class="text-lg md:text-xl text-gray-600 leading-relaxed mb-8" style="max-width: 520px;">
-        Search our network to find an advisor who can help protect your family and plan for retirement.
+        Search our network to find an agent who can help protect your family and plan for retirement.
       </p>
 
       <!-- Search bar -->
@@ -210,11 +210,11 @@
               </svg>
             </div>
             <input id="agent-search-input" type="text" name="query"
-                   class="search-input" placeholder="Search by advisor name…"
+                   class="search-input" placeholder="Search by agent name…"
                    autocomplete="off" />
           </div>
           <button type="submit" class="btn-forest px-7 py-4 text-[15px] flex-shrink-0">
-            Search Advisors
+            Search Agents
           </button>
         </div>
       </form>
@@ -223,13 +223,13 @@
       <div id="search-results" class="hidden mt-6 space-y-3">
         <!-- Results injected by JS -->
       </div>
-      <p id="search-empty" class="hidden mt-6 text-sm text-smoke/60 font-medium">No advisors found. Try a different search, or browse the leadership team below.</p>
+      <p id="search-empty" class="hidden mt-6 text-sm text-smoke/60 font-medium">No agents found. Try a different search, or <a href="contact.html" class="underline text-forest hover:text-forest/80 transition-colors">contact us</a> and we'll connect you with an agent.</p>
     </div>
 
     <!-- Right: Hero image frame -->
     <div class="w-full aspect-[4/3] rounded-2xl overflow-hidden bg-slate-100">
       <img src="images/findadvisor_hero_fcpcsite.webp"
-           alt="An FCPC advisor reviewing a financial plan on a tablet with a smiling couple in their living room"
+           alt="An FCPC agent reviewing a financial plan on a tablet with a smiling couple in their living room"
            width="1400" height="1050"
            class="w-full h-full object-cover"
            loading="eager" decoding="async" />
@@ -238,9 +238,7 @@
   </div>
 </section>
 
-<!-- ════════════════════════════════════════════════════════════
-     SENIOR LEADERSHIP PROFILE BLOCK
-════════════════════════════════════════════════════════════ -->
+<!-- HIDDEN: Senior Leadership section — restore when real photos and bios are ready
 <section class="py-20 lg:py-28 border-t border-silver/40" style="background: #fff;">
   <div class="max-w-[1400px] mx-auto px-6 lg:px-12">
 
@@ -253,12 +251,12 @@
 
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch">
 
-      <!-- Profile 1: Founder -->
+      [Profile 1: Founder]
       <div class="profile-card h-full">
         <div class="flex flex-col h-full justify-between p-7">
           <div>
             <div class="w-full aspect-[3/4] rounded-2xl bg-slate-100 mb-6 overflow-hidden">
-              <img src="images/findadvisor_founder_fcpcsite.webp"
+              <img src="images/findagent_founder_fcpcsite.webp"
                    alt="Founder of FCPC."
                    width="750" height="1000"
                    class="w-full h-full object-cover"
@@ -268,17 +266,17 @@
               <span class="text-[10px] font-bold text-forest tracking-widest uppercase">Founder</span>
             </div>
             <h3 class="font-extrabold text-ink text-xl leading-tight tracking-tight mb-4">[Name]</h3>
-            <p class="text-smoke text-sm leading-relaxed">Placeholder — share this person's story of founding FCPC, the mentors who shaped them, and the vision of ownership and self-reliance they've passed on to generations of advisors and families.</p>
+            <p class="text-smoke text-sm leading-relaxed">Placeholder — share this person's story of founding FCPC, the mentors who shaped them, and the vision of ownership and self-reliance they've passed on to generations of agents and families.</p>
           </div>
         </div>
       </div>
 
-      <!-- Profile 2: Leadership Shell -->
+      [Profile 2: Leadership Shell]
       <div class="profile-card h-full">
         <div class="flex flex-col h-full justify-between p-7">
           <div>
             <div class="w-full aspect-[3/4] rounded-2xl bg-slate-100 mb-6 overflow-hidden">
-              <img src="images/findadvisor_leadership1_fcpcsite.webp"
+              <img src="images/findagent_leadership1_fcpcsite.webp"
                    alt="FCPC leadership team member."
                    width="750" height="1000"
                    class="w-full h-full object-cover"
@@ -288,23 +286,23 @@
               <span class="text-[10px] font-bold tracking-widest uppercase" style="color:#B8960F;">FCPC Leadership</span>
             </div>
             <h3 class="font-extrabold text-ink text-xl leading-tight tracking-tight mb-4">[Name]</h3>
-            <p class="text-smoke text-sm leading-relaxed">Placeholder — share this person's years of service, the advisors they've guided from their first policy to lasting careers, and the families whose lives changed because someone took the time to listen and teach.</p>
+            <p class="text-smoke text-sm leading-relaxed">Placeholder — share this person's years of service, the agents they've guided from their first policy to lasting careers, and the families whose lives changed because someone took the time to listen and teach.</p>
           </div>
           <div class="pt-6 mt-6 border-t border-silver/50">
             <a href="get-quote.html" class="inline-flex items-center gap-2 text-sm font-semibold text-forest hover:text-forest-dark transition-colors">
-              Connect with this advisor
+              Connect with this agent
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
             </a>
           </div>
         </div>
       </div>
 
-      <!-- Profile 3: Leadership Shell -->
+      [Profile 3: Leadership Shell]
       <div class="profile-card h-full">
         <div class="flex flex-col h-full justify-between p-7">
           <div>
             <div class="w-full aspect-[3/4] rounded-2xl bg-slate-100 mb-6 overflow-hidden">
-              <img src="images/findadvisor_leadership2_fcpcsite.webp"
+              <img src="images/findagent_leadership2_fcpcsite.webp"
                    alt="FCPC leadership team member."
                    width="750" height="1000"
                    class="w-full h-full object-cover"
@@ -314,11 +312,11 @@
               <span class="text-[10px] font-bold tracking-widest uppercase" style="color:#4A5568;">FCPC Leadership</span>
             </div>
             <h3 class="font-extrabold text-ink text-xl leading-tight tracking-tight mb-4">[Name]</h3>
-            <p class="text-smoke text-sm leading-relaxed">Placeholder — share this person's years of service, the communities they've served, and the quiet, consistent way they've shown up for advisors and families who needed someone they could trust.</p>
+            <p class="text-smoke text-sm leading-relaxed">Placeholder — share this person's years of service, the communities they've served, and the quiet, consistent way they've shown up for agents and families who needed someone they could trust.</p>
           </div>
           <div class="pt-6 mt-6 border-t border-silver/50">
             <a href="get-quote.html" class="inline-flex items-center gap-2 text-sm font-semibold text-forest hover:text-forest-dark transition-colors">
-              Connect with this advisor
+              Connect with this agent
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
             </a>
           </div>
@@ -328,6 +326,7 @@
     </div>
   </div>
 </section>
+END HIDDEN: Senior Leadership section -->
 
 
 </main>
@@ -376,8 +375,8 @@
         <p class="text-[10.5px] font-bold tracking-[0.15em] uppercase text-white/30 mb-5">Company</p>
         <ul class="space-y-3.5">
           <li><a href="about.html" class="group flex items-center gap-2 text-sm font-medium hover:text-[#19634F] transition-colors duration-200" style="color:rgba(226,232,240,0.60);"><span class="w-1 h-1 rounded-full bg-current opacity-40 flex-shrink-0 group-hover:opacity-100 transition-opacity"></span> About</a></li>
-          <li><a href="opportunity.html" class="group flex items-center gap-2 text-sm font-medium hover:text-[#19634F] transition-colors duration-200" style="color:rgba(226,232,240,0.60);"><span class="w-1 h-1 rounded-full bg-current opacity-40 flex-shrink-0 group-hover:opacity-100 transition-opacity"></span> Advisor Opportunity</a></li>
-          <li><a href="find-agent.html" class="group flex items-center gap-2 text-sm font-medium hover:text-[#19634F] transition-colors duration-200" style="color:rgba(226,232,240,0.60);"><span class="w-1 h-1 rounded-full bg-current opacity-40 flex-shrink-0 group-hover:opacity-100 transition-opacity"></span> Find My Advisor</a></li>
+          <li><a href="opportunity.html" class="group flex items-center gap-2 text-sm font-medium hover:text-[#19634F] transition-colors duration-200" style="color:rgba(226,232,240,0.60);"><span class="w-1 h-1 rounded-full bg-current opacity-40 flex-shrink-0 group-hover:opacity-100 transition-opacity"></span> Agent Opportunity</a></li>
+          <li><a href="find-agent.html" class="group flex items-center gap-2 text-sm font-medium hover:text-[#19634F] transition-colors duration-200" style="color:rgba(226,232,240,0.60);"><span class="w-1 h-1 rounded-full bg-current opacity-40 flex-shrink-0 group-hover:opacity-100 transition-opacity"></span> Find My Agent</a></li>
           <li><a href="contact.html" class="group flex items-center gap-2 text-sm font-medium hover:text-[#19634F] transition-colors duration-200" style="color:rgba(226,232,240,0.60);"><span class="w-1 h-1 rounded-full bg-current opacity-40 flex-shrink-0 group-hover:opacity-100 transition-opacity"></span> Contact Us</a></li>
         </ul>
       </div>
@@ -408,10 +407,10 @@
     <div class="max-w-[1400px] mx-auto px-6 lg:px-12 py-10">
       <div class="max-w-4xl">
         <p class="text-white/50 text-[11px] leading-[1.9] mb-2">
-          <strong class="text-white/55">Educational Disclaimer:</strong> All content on this website is for general educational and informational purposes only and does not constitute individualized insurance, financial, tax, legal, or investment advice. FCPC advisors are independent licensed insurance professionals. Product availability, premiums, and benefits vary by state, carrier, age, and health status. All products subject to carrier underwriting approval.
+          <strong class="text-white/55">Educational Disclaimer:</strong> All content on this website is for general educational and informational purposes only and does not constitute individualized insurance, financial, tax, legal, or investment advice. FCPC agents are independent licensed insurance professionals. Product availability, premiums, and benefits vary by state, carrier, age, and health status. All products subject to carrier underwriting approval.
         </p>
         <p class="text-white/50 text-[11px] leading-[1.9] mb-2">
-          <strong class="text-white/55">Advisor Directory Disclosure:</strong> Advisor profiles and search results displayed on this page represent independent licensed insurance professionals affiliated with The Financial Crisis Prevention Center. FCPC does not guarantee the availability of any individual advisor. Licensure status and product authorization vary by state. Please verify current licensing with your state insurance department prior to entering into any insurance transaction.
+          <strong class="text-white/55">Agent Directory Disclosure:</strong> Agent profiles and search results displayed on this page represent independent licensed insurance professionals affiliated with The Financial Crisis Prevention Center. FCPC does not guarantee the availability of any individual agent. Licensure status and product authorization vary by state. Please verify current licensing with your state insurance department prior to entering into any insurance transaction.
         </p>
         <p class="text-white/50 text-[11px] leading-[1.9]">
           <strong class="text-white/55">Insurance Products:</strong> Not bank deposits. Not FDIC insured. Not guaranteed by any bank. Insurance products are not securities and are not regulated by the SEC or FINRA.
@@ -437,7 +436,7 @@
 
 <script src="js/zoho-config.js"></script>
 <script src="js/zoho-integration.js"></script>
-<script src="agents-data.js"></script>
+<script src="agents.js"></script>
 <script>
   const mobBtn  = document.getElementById('mob-btn');
   const mobMenu = document.getElementById('mob-menu');
@@ -448,7 +447,7 @@
     siteNav.classList.toggle('shadow-nav', window.scrollY > 12);
   }, { passive: true });
 
-  /* ── Agent search — reads live from agents-data.js (GLOBAL_AGENTS) ── */
+  /* ── Agent search — reads live from agents.js (FCPC_AGENTS) ── */
   function handleSearch(e) {
     e.preventDefault();
     const query     = document.getElementById('agent-search-input').value.trim().toLowerCase();
@@ -457,8 +456,8 @@
 
     if (!query) { resultsEl.classList.add('hidden'); emptyEl.classList.add('hidden'); return; }
 
-    const roster  = (typeof GLOBAL_AGENTS !== 'undefined') ? Object.entries(GLOBAL_AGENTS) : [];
-    const matches = roster.filter(([, a]) => a.name.toLowerCase().includes(query));
+    const roster  = (typeof FCPC_AGENTS !== 'undefined') ? Object.entries(FCPC_AGENTS) : [];
+    const matches = roster.filter(([, a]) => !a.hidden && (a.firstName + ' ' + a.lastName).toLowerCase().includes(query));
 
     if (matches.length === 0) {
       resultsEl.classList.add('hidden');
@@ -470,15 +469,13 @@
     resultsEl.innerHTML = matches.map(([id, a]) => `
       <div class="agent-card p-5 flex items-center justify-between gap-4">
         <div class="flex items-center gap-4">
-          <div class="w-12 h-12 rounded-xl bg-slate-100 flex-shrink-0 overflow-hidden">
-            ${a.image ? `<img src="${a.image}" alt="${a.name}" class="w-full h-full object-cover object-top" loading="lazy" onerror="this.style.display='none'">` : ''}
-          </div>
+          ${a.photo ? `<div class="w-12 h-12 rounded-xl bg-slate-100 flex-shrink-0 overflow-hidden"><img src="${a.photo}" alt="${a.firstName} ${a.lastName}" class="w-full h-full object-cover object-top" loading="lazy" onerror="this.parentElement.remove()"></div>` : ''}
           <div>
-            <p class="font-bold text-ink text-base leading-tight">${a.name}</p>
+            <p class="font-bold text-ink text-base leading-tight">${a.firstName} ${a.lastName}</p>
             <p class="text-smoke text-sm">${a.eyebrow}${a.location ? ' · ' + a.location : ''}</p>
           </div>
         </div>
-        <a href="agent.html?id=${id}" class="btn-forest text-xs px-5 py-2.5 flex-shrink-0">View Profile</a>
+        <a href="agent/${id.replace(/_/g, '-')}" class="btn-forest text-xs px-5 py-2.5 flex-shrink-0">View Profile</a>
       </div>
     `).join('');
     resultsEl.classList.remove('hidden');

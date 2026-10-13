@@ -39,14 +39,14 @@ const FCPC_AGENTS = {
     whyJoin:      '',
   },
 
-  'reginald-sarpong': {
+  'reggie-sarpong': {
     // Identity
     agentCode:   'FCPC001',
     firstName:   'Reggie',
     lastName:    'Sarpong',
     eyebrow:     'Licensed Agent',
     location:    'VA · DC · MD',
-    photo:       'images/agents/reginald-sarpong.png',
+    photo:       'images/agents/reggie-sarpong.webp',
 
     // Contact
     phone:       '(703) 725-0897',

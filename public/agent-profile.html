@@ -203,7 +203,7 @@
           <div>
             <label class="form-label" for="f-phone">Phone <span class="text-red-400">*</span></label>
             <input id="f-phone" type="tel" class="form-input" placeholder="(555) 000-0000" autocomplete="tel" />
-            <p class="err-msg" id="err-phone">Required.</p>
+            <p class="err-msg" id="err-phone">Enter a 10-digit US phone number.</p>
           </div>
           <div>
             <label class="form-label" for="f-email">Email <span class="text-red-400">*</span></label>
@@ -484,10 +484,18 @@
     });
   }
 
+  function formatPhoneUS(raw) {
+    const digits = raw.replace(/\D/g, '').slice(0, 10);
+    if (digits.length === 0) return '';
+    if (digits.length <= 3) return '(' + digits;
+    if (digits.length <= 6) return '(' + digits.slice(0,3) + ') ' + digits.slice(3);
+    return '(' + digits.slice(0,3) + ') ' + digits.slice(3,6) + '-' + digits.slice(6);
+  }
+
   function bindInputs() {
     const textFields = [
       ['f-firstName','firstName'], ['f-lastName','lastName'], ['f-eyebrow','eyebrow'],
-      ['f-photo','photo'], ['f-phone','phone'], ['f-email','email'],
+      ['f-photo','photo'], ['f-email','email'],
       ['f-bookingLink','bookingLink'], ['f-roots','roots'], ['f-beforeFcpc','beforeFcpc'],
       ['f-whyThisWork','whyThisWork'], ['f-serveLine','serveLine'],
       ['f-outsideWork','outsideWork'], ['f-whyJoin','whyJoin'],
@@ -501,6 +509,17 @@
         save(); renderPreview(); updateStepDots();
       });
     });
+
+    // Phone: auto-format as agent types
+    const phoneEl = document.getElementById('f-phone');
+    if (phoneEl) {
+      phoneEl.addEventListener('input', () => {
+        const formatted = formatPhoneUS(phoneEl.value);
+        phoneEl.value = formatted;
+        s.phone = formatted;
+        save(); renderPreview(); updateStepDots();
+      });
+    }
 
     document.getElementById('btn-save-json').addEventListener('click', saveProfile);
     document.getElementById('btn-save-sidebar').addEventListener('click', saveProfile);
@@ -556,11 +575,14 @@
     return arr.slice(0, -1).join(', ') + ', and ' + arr[arr.length - 1];
   }
 
+  function lcFirst(s) {
+    if (!s) return s;
+    if (/^[A-Z]{2,}\b/.test(s)) return s; // keep all-caps proper nouns (DC, NY, etc.)
+    return s.charAt(0).toLowerCase() + s.slice(1);
+  }
+
   function lcExceptProper(arr) {
-    return arr.map((item, i) => {
-      if (i === 0) return item;
-      return item.replace(/\b(?!DC\b)([A-Z][a-z])/g, (m, p) => p.toLowerCase()).replace(/^[A-Z](?!C\b)/, c => c.toLowerCase());
-    });
+    return arr.map((item, i) => i === 0 ? item : lcFirst(item));
   }
 
   function renderPreview() {
@@ -659,7 +681,8 @@
     const emailOk = /^[^@]+@fcpc\.life$/i.test(s.email);
     setErr('err-firstName', !s.firstName.trim());
     setErr('err-lastName', !s.lastName.trim());
-    setErr('err-phone', !s.phone.trim());
+    const phoneDigits = s.phone.replace(/\D/g, '');
+    setErr('err-phone', phoneDigits.length !== 10);
     setErr('err-email', !emailOk);
     setInput('f-email', !emailOk);
     setErr('err-states', s.states.length === 0);
