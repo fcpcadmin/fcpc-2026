@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Agent Profile Builder — FCPC</title>
+  <meta name="description" content="Internal FCPC agent tool: build your personal profile and mini-site bio." />
+  <meta name="robots" content="noindex, nofollow" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,700;0,800;1,700&display=swap" rel="stylesheet" />
+
+  <script>
+    tailwind = { config: { theme: { extend: {
+      colors: {
+        forest: { dark: '#0B3226', DEFAULT: '#19634F', mid: '#22896C', light: '#2AB08A', 50: '#F0FDF8' },
+        gold:   { DEFAULT: '#D4AF37', dark: '#B8960F', light: '#EAC84A', pale: '#FDFAEE' },
+        ink:    '#1A202C',
+        slate:  '#2D3748',
+        mist:   '#F7FAFC',
+        silver: '#E2E8F0',
+        smoke:  '#64748B',
+      },
+      fontFamily: {
+        sans:  ['Inter', 'system-ui', 'sans-serif'],
+        serif: ['Playfair Display', 'Georgia', 'serif'],
+      },
+      boxShadow: {
+        'gold':    '0 4px 24px rgba(212,175,55,0.35)',
+        'card':    '0 8px 40px rgba(0,0,0,0.05)',
+        'card-lg': '0 20px 60px rgba(0,0,0,0.09)',
+        'nav':     '0 2px 32px rgba(0,0,0,0.07)',
+      },
+    }}}}
+  </script>
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', system-ui, sans-serif; -webkit-font-smoothing: antialiased; color: #1A202C; background: #F7FAFC; }
+
+    .btn-gold { display: inline-flex; align-items: center; justify-content: center; gap: 8px; background: linear-gradient(135deg, #DDB84E 0%, #C9A52A 100%); color: #1A202C; font-weight: 700; border-radius: 999px; transition: all 0.4s cubic-bezier(0.22,1,0.36,1); box-shadow: 0 4px 20px rgba(212,175,55,0.38), 0 1px 2px rgba(0,0,0,0.08); text-decoration: none; white-space: nowrap; border: 0; cursor: pointer; }
+    .btn-gold:hover { transform: translateY(-1px); box-shadow: 0 8px 32px rgba(212,175,55,0.45); }
+    .btn-ghost { display: inline-flex; align-items: center; justify-content: center; gap: 8px; background: #fff; color: #2D3748; font-weight: 600; border-radius: 999px; border: 1.5px solid #DDE3EC; transition: all 0.3s cubic-bezier(0.22,1,0.36,1); text-decoration: none; white-space: nowrap; cursor: pointer; }
+    .btn-ghost:hover { border-color: #19634F; background: rgba(25,99,79,0.05); color: #19634F; }
+    .btn-forest { display: inline-flex; align-items: center; justify-content: center; gap: 8px; background: linear-gradient(135deg, #22896C 0%, #19634F 100%); color: #fff; font-weight: 700; border-radius: 999px; transition: all 0.4s cubic-bezier(0.22,1,0.36,1); box-shadow: 0 4px 16px rgba(25,99,79,0.28); text-decoration: none; white-space: nowrap; border: 0; cursor: pointer; }
+    .btn-forest:hover { transform: translateY(-1px); box-shadow: 0 8px 28px rgba(25,99,79,0.38); }
+    button:disabled { opacity: 0.45; cursor: not-allowed; transform: none !important; }
+
+    .form-input { width: 100%; background: #fff; border: 1.5px solid #E2E8F0; border-radius: 12px; color: #1A202C; font-size: 0.9375rem; font-family: 'Inter', sans-serif; padding: 12px 14px; outline: none; transition: border-color 0.2s, box-shadow 0.2s; line-height: 1.65; }
+    .form-input:focus { border-color: #19634F; box-shadow: 0 0 0 3px rgba(25,99,79,0.1); }
+    .form-input::placeholder { color: #A0AEC0; }
+    .form-input.error { border-color: #E53E3E; box-shadow: 0 0 0 3px rgba(229,62,62,0.1); }
+    textarea.form-input { resize: vertical; }
+    .form-label { display: block; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase; color: #64748B; margin-bottom: 6px; }
+    .eyebrow { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: #19634F; }
+    .char-count { font-size: 0.7rem; color: #A0AEC0; transition: color 0.15s; }
+    .char-count.warn { color: #D97706; }
+    .char-count.over { color: #E53E3E; font-weight: 700; }
+    .err-msg { font-size: 0.78rem; color: #E53E3E; margin-top: 4px; display: none; }
+    .err-msg.show { display: block; }
+
+    .section-card { background: #fff; border-radius: 24px; box-shadow: 0 8px 40px rgba(0,0,0,0.05); border: 1px solid rgba(0,0,0,0.05); }
+
+    .preview-card { background: #fff; border-radius: 24px; border: 1px solid rgba(0,0,0,0.06); }
+    .preview-bio { font-family: 'Playfair Display', Georgia, serif; font-size: 1rem; line-height: 1.78; color: #2D3748; }
+    .preview-bio p { margin-bottom: 1em; }
+    .preview-bio ul { list-style: none; padding: 0; margin-bottom: 1em; }
+    .preview-bio ul li::before { content: "• "; color: #19634F; }
+    .preview-bio .section-label { font-family: 'Inter', sans-serif; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: #19634F; margin-bottom: 8px; display: block; }
+
+    .state-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(68px, 1fr)); gap: 6px; }
+    .state-btn { padding: 5px 8px; border-radius: 8px; border: 1.5px solid #E2E8F0; font-size: 0.78rem; font-weight: 600; color: #64748B; background: #fff; cursor: pointer; transition: all 0.15s; text-align: center; }
+    .state-btn.selected { background: #F0FDF8; border-color: #19634F; color: #19634F; }
+
+    .check-option { display: flex; align-items: flex-start; gap: 10px; padding: 12px 14px; border-radius: 12px; border: 1.5px solid #E2E8F0; cursor: pointer; transition: all 0.15s; background: #fff; }
+    .check-option:hover { border-color: #19634F; background: #F0FDF8; }
+    .check-option.selected { border-color: #19634F; background: #F0FDF8; }
+    .check-option input[type="checkbox"] { display: none; }
+
+    .toast { position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%) translateY(20px); opacity: 0; background: #0B3226; color: #fff; padding: 10px 18px; border-radius: 999px; font-size: 0.8125rem; font-weight: 600; transition: all 0.25s; pointer-events: none; z-index: 100; }
+    .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+    .step-nav-link { display: flex; align-items: center; gap: 10px; width: 100%; text-align: left; padding: 8px 10px; border-radius: 10px; font-size: 0.8125rem; font-weight: 600; color: #475569; cursor: pointer; transition: background 0.15s, color 0.15s; background: none; border: none; }
+    .step-nav-link:hover { background: #F7FAFC; color: #19634F; }
+    .step-nav-link.active { background: #F0FDF8; color: #19634F; }
+    .step-dot { width: 22px; height: 22px; border-radius: 999px; border: 1.5px solid #CBD5E1; display: flex; align-items: center; justify-content: center; font-size: 0.65rem; font-weight: 700; flex-shrink: 0; color: #64748B; background: #fff; }
+    .step-nav-link.active .step-dot { border-color: #19634F; color: #19634F; }
+    .step-nav-link.done .step-dot { background: #19634F; border-color: #19634F; color: #fff; }
+  </style>
+</head>
+<body>
+
+<!-- Header -->
+<header class="sticky top-0 z-50 bg-white/85 backdrop-blur-xl border-b border-black/[0.06]">
+  <div class="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10 flex items-center h-[64px] gap-3">
+    <a href="index.html" class="flex-shrink-0 flex items-center">
+      <img src="FCPC-Logo.webp" alt="Financial Crisis Prevention Center" class="h-9 w-auto object-contain" onerror="this.style.display='none';this.nextElementSibling.style.display='inline';" />
+      <span style="display:none" class="font-serif font-bold text-forest text-lg">FCPC</span>
+    </a>
+    <span class="hidden sm:inline-flex items-center text-[11px] font-bold tracking-[0.14em] uppercase text-forest bg-forest-50 border border-forest/15 rounded-full px-3 py-1">Agent Toolkit</span>
+    <div class="flex-1"></div>
+    <span id="save-status" class="hidden md:inline text-xs text-smoke"></span>
+    <details class="relative" id="menu-details">
+      <summary class="btn-ghost text-xs px-3.5 py-2">Save &amp; restore
+        <svg class="w-3 h-3 opacity-50" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 4l4 4 4-4"/></svg>
+      </summary>
+      <div class="absolute right-0 mt-2 w-[300px] bg-white rounded-2xl shadow-card-lg border border-silver/70 p-2 z-50">
+        <p class="text-xs text-smoke px-3 pt-2 pb-2 leading-relaxed">Your work saves automatically in this browser. Use these to download, restore, or start over.</p>
+        <button type="button" id="btn-save-json" class="w-full text-left px-3 py-2.5 rounded-xl text-sm font-medium text-slate hover:bg-mist">Save my profile (download JSON)</button>
+        <label class="block w-full text-left px-3 py-2.5 rounded-xl text-sm font-medium text-slate hover:bg-mist cursor-pointer">Load a saved profile
+          <input type="file" id="file-load-profile" accept="application/json,.json" class="hidden" />
+        </label>
+        <label class="block w-full text-left px-3 py-2.5 rounded-xl text-sm font-medium text-slate hover:bg-mist cursor-pointer">Load my Story Builder file
+          <input type="file" id="file-load-story" accept="application/json,.json" class="hidden" />
+        </label>
+        <button type="button" id="btn-reset" class="w-full text-left px-3 py-2.5 rounded-xl text-sm font-medium text-red-700 hover:bg-red-50">Start over</button>
+      </div>
+    </details>
+  </div>
+  <div class="h-1 bg-silver/60"><div id="progress-bar" class="h-1 bg-gradient-to-r from-forest-mid to-forest transition-all duration-300" style="width:0%"></div></div>
+</header>
+
+<main class="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10 py-8 lg:py-12">
+  <div class="grid lg:grid-cols-[220px_1fr_340px] gap-8 items-start">
+
+    <!-- Step navigation sidebar -->
+    <aside class="hidden lg:block sticky top-[80px]">
+      <p class="eyebrow mb-3 px-2">Your progress</p>
+      <nav class="flex flex-col gap-0.5" id="step-nav">
+        <button class="step-nav-link active" data-step="part1">
+          <span class="step-dot">1</span>Profile details
+        </button>
+        <button class="step-nav-link" data-step="roots">
+          <span class="step-dot">2</span>Where you're from
+        </button>
+        <button class="step-nav-link" data-step="beforeFcpc">
+          <span class="step-dot">3</span>Before FCPC
+        </button>
+        <button class="step-nav-link" data-step="whyThisWork">
+          <span class="step-dot">4</span>Why this work
+        </button>
+        <button class="step-nav-link" data-step="whoYouServe">
+          <span class="step-dot">5</span>Who you serve
+        </button>
+        <button class="step-nav-link" data-step="commitments">
+          <span class="step-dot">6</span>What clients can expect
+        </button>
+        <button class="step-nav-link" data-step="outsideWork">
+          <span class="step-dot">7</span>Outside of work
+        </button>
+        <button class="step-nav-link" data-step="whyJoin">
+          <span class="step-dot">8</span>Why join my team
+        </button>
+      </nav>
+      <div class="mt-6">
+        <button type="button" id="btn-save-sidebar" class="w-full btn-gold text-xs px-4 py-2.5">Save my profile</button>
+      </div>
+    </aside>
+
+    <!-- Form column -->
+    <div class="space-y-6 min-w-0">
+
+      <!-- Page title -->
+      <div>
+        <p class="eyebrow mb-1">Agent Toolkit</p>
+        <h1 class="font-serif font-bold text-3xl text-ink">Agent Profile Builder</h1>
+        <p class="text-smoke text-sm mt-2 leading-relaxed">Fill in your details and bio below. Your live preview updates on the right. When you're done, save your profile and email the file to <strong>info@fcpc.life</strong> for review.</p>
+      </div>
+
+      <!-- ── Part 1: Profile details ── -->
+      <div class="section-card p-6 sm:p-8" id="section-part1">
+        <p class="eyebrow mb-1">Part 1</p>
+        <h2 class="font-serif font-bold text-xl text-ink mb-6">Profile details</h2>
+
+        <div class="grid sm:grid-cols-2 gap-5">
+          <div>
+            <label class="form-label" for="f-firstName">First name <span class="text-red-400">*</span></label>
+            <input id="f-firstName" type="text" class="form-input" placeholder="e.g. Marcus" autocomplete="given-name" />
+            <p class="err-msg" id="err-firstName">Required.</p>
+          </div>
+          <div>
+            <label class="form-label" for="f-lastName">Last name <span class="text-red-400">*</span></label>
+            <input id="f-lastName" type="text" class="form-input" placeholder="e.g. Johnson" autocomplete="family-name" />
+            <p class="err-msg" id="err-lastName">Required.</p>
+          </div>
+        </div>
+
+        <div class="mt-5">
+          <label class="form-label" for="f-eyebrow">Title / eyebrow line</label>
+          <input id="f-eyebrow" type="text" class="form-input" placeholder="e.g. FCPC Licensed Agent" />
+        </div>
+
+        <div class="mt-5">
+          <label class="form-label" for="f-photo">Photo (optional — JPG or PNG, attach when emailing)</label>
+          <input id="f-photo" type="text" class="form-input" placeholder="Filename, e.g. my-photo.jpg" />
+          <p class="text-xs text-smoke mt-1">Include the photo file when you email your profile to info@fcpc.life.</p>
+        </div>
+
+        <div class="grid sm:grid-cols-2 gap-5 mt-5">
+          <div>
+            <label class="form-label" for="f-phone">Phone <span class="text-red-400">*</span></label>
+            <input id="f-phone" type="tel" class="form-input" placeholder="(555) 000-0000" autocomplete="tel" />
+            <p class="err-msg" id="err-phone">Required.</p>
+          </div>
+          <div>
+            <label class="form-label" for="f-email">Email <span class="text-red-400">*</span></label>
+            <input id="f-email" type="email" class="form-input" placeholder="you@fcpc.life" autocomplete="email" />
+            <p class="err-msg" id="err-email">Must end in @fcpc.life.</p>
+          </div>
+        </div>
+
+        <div class="mt-5">
+          <label class="form-label" for="f-bookingLink">Booking link (optional)</label>
+          <input id="f-bookingLink" type="url" class="form-input" placeholder="https://calendly.com/your-link" />
+        </div>
+
+        <div class="mt-6">
+          <label class="form-label">States licensed <span class="text-red-400">*</span></label>
+          <p class="err-msg show" id="err-states" style="display:none">Select at least one state.</p>
+          <div class="state-grid mt-2" id="state-grid"></div>
+        </div>
+
+        <div class="mt-6">
+          <label class="form-label">Products offered <span class="text-red-400">*</span></label>
+          <p class="err-msg" id="err-products">Select at least one product.</p>
+          <div class="grid sm:grid-cols-2 gap-2 mt-2" id="product-grid"></div>
+        </div>
+      </div>
+
+      <!-- ── Part 2: Bio sections ── -->
+      <div class="section-card p-6 sm:p-8" id="section-bio">
+        <p class="eyebrow mb-1">Part 2</p>
+        <h2 class="font-serif font-bold text-xl text-ink mb-6">Your bio</h2>
+
+        <!-- 1. Roots -->
+        <div class="mb-8" id="section-roots">
+          <div class="flex items-center justify-between mb-1">
+            <label class="form-label" for="f-roots">1. Where you're from</label>
+            <span class="char-count" id="cc-roots">0 / 200</span>
+          </div>
+          <p class="text-xs text-smoke mb-2">Where are you from, or where did you grow up? One or two sentences.</p>
+          <p class="text-xs text-gold-dark bg-gold-pale border border-gold/30 rounded-xl px-3 py-2 mb-2"><em>Example: I grew up in Prince George's County, the oldest of four kids in a house where every dollar had a job.</em></p>
+          <textarea id="f-roots" class="form-input" rows="3" maxlength="250" placeholder="I grew up in…"></textarea>
+          <p class="err-msg" id="err-roots">Over the 200-character limit. Please trim.</p>
+        </div>
+
+        <!-- 2. Before FCPC -->
+        <div class="mb-8" id="section-beforeFcpc">
+          <div class="flex items-center justify-between mb-1">
+            <label class="form-label" for="f-beforeFcpc">2. Before FCPC</label>
+            <span class="char-count" id="cc-beforeFcpc">0 / 250</span>
+          </div>
+          <p class="text-xs text-smoke mb-2">What were you doing before you became an agent?</p>
+          <p class="text-xs text-gold-dark bg-gold-pale border border-gold/30 rounded-xl px-3 py-2 mb-2"><em>Example: I spent eleven years as a federal contracting specialist, so I know the benefits system from the inside.</em></p>
+          <textarea id="f-beforeFcpc" class="form-input" rows="3" maxlength="300" placeholder="Before FCPC, I…"></textarea>
+          <p class="err-msg" id="err-beforeFcpc">Over the 250-character limit. Please trim.</p>
+        </div>
+
+        <!-- 3. Why this work -->
+        <div class="mb-8" id="section-whyThisWork">
+          <div class="flex items-center justify-between mb-1">
+            <label class="form-label" for="f-whyThisWork">3. Why this work</label>
+            <span class="char-count" id="cc-whyThisWork">0 / 400</span>
+          </div>
+          <p class="text-xs text-smoke mb-2">When did protecting families become personal for you? Describe the moment or the reason.</p>
+          <p class="text-xs text-gold-dark bg-gold-pale border border-gold/30 rounded-xl px-3 py-2 mb-2"><em>Example: When my uncle passed, his coverage barely covered the funeral. I watched my aunt lose the house. I decided no family I could reach would go through that unprepared.</em></p>
+          <textarea id="f-whyThisWork" class="form-input" rows="4" maxlength="450" placeholder="When…"></textarea>
+          <p class="err-msg" id="err-whyThisWork">Over the 400-character limit. Please trim.</p>
+        </div>
+
+        <!-- 4. Who you serve -->
+        <div class="mb-8" id="section-whoYouServe">
+          <label class="form-label mb-2">4. Who you serve <span class="text-smoke font-normal normal-case tracking-normal">(pick up to 3)</span></label>
+          <p class="err-msg" id="err-whoYouServe">Select up to 3 options.</p>
+          <div class="flex flex-col gap-2 mt-2" id="serve-options"></div>
+          <div class="mt-3">
+            <div class="flex items-center justify-between mb-1">
+              <label class="form-label" for="f-serveLine">Optional follow-up line</label>
+              <span class="char-count" id="cc-serveLine">0 / 150</span>
+            </div>
+            <input id="f-serveLine" type="text" class="form-input" placeholder="Optional sentence to follow the list…" maxlength="180" />
+            <p class="err-msg" id="err-serveLine">Over the 150-character limit. Please trim.</p>
+          </div>
+        </div>
+
+        <!-- 5. Commitments -->
+        <div class="mb-8" id="section-commitments">
+          <label class="form-label mb-2">5. What clients can expect <span class="text-smoke font-normal normal-case tracking-normal">(pick exactly 2)</span></label>
+          <p class="err-msg" id="err-commitments">Choose exactly 2.</p>
+          <div class="flex flex-col gap-2 mt-2" id="commit-options"></div>
+        </div>
+
+        <!-- 6. Outside of work -->
+        <div class="mb-8" id="section-outsideWork">
+          <div class="flex items-center justify-between mb-1">
+            <label class="form-label" for="f-outsideWork">6. Outside of work</label>
+            <span class="char-count" id="cc-outsideWork">0 / 150</span>
+          </div>
+          <p class="text-xs text-smoke mb-2">One line about your family, faith, community, or what you enjoy.</p>
+          <p class="text-xs text-gold-dark bg-gold-pale border border-gold/30 rounded-xl px-3 py-2 mb-2"><em>Example: Most Saturdays you'll find me coaching my daughter's soccer team.</em></p>
+          <input id="f-outsideWork" type="text" class="form-input" placeholder="Most Saturdays…" maxlength="180" />
+          <p class="err-msg" id="err-outsideWork">Over the 150-character limit. Please trim.</p>
+        </div>
+
+        <!-- 7. Why join my team -->
+        <div class="mb-2" id="section-whyJoin">
+          <div class="flex items-center justify-between mb-1">
+            <label class="form-label" for="f-whyJoin">7. Why join my team</label>
+            <span class="char-count" id="cc-whyJoin">0 / 300</span>
+          </div>
+          <p class="text-xs text-smoke mb-2">Why would you invite someone to do this work with you? No income figures.</p>
+          <p class="text-xs text-gold-dark bg-gold-pale border border-gold/30 rounded-xl px-3 py-2 mb-2"><em>Example: This work gave me a way to help my community and build something of my own. I'm looking for people who want the same.</em></p>
+          <textarea id="f-whyJoin" class="form-input" rows="4" maxlength="350" placeholder="This work…"></textarea>
+          <p class="err-msg" id="err-whyJoin">Over the 300-character limit. Please trim.</p>
+          <p class="err-msg" id="err-whyJoin-income">Remove income figures, dollar amounts, or earnings language before saving.</p>
+        </div>
+      </div>
+
+      <!-- Save CTA -->
+      <div class="section-card p-6 sm:p-8">
+        <h2 class="font-serif font-bold text-xl text-ink mb-2">Ready to save?</h2>
+        <p class="text-smoke text-sm leading-relaxed mb-5">Download your profile file, then email it (along with your photo, if any) to <strong>info@fcpc.life</strong>. The team will review and publish your page.</p>
+        <button type="button" id="btn-save-main" class="btn-gold px-7 py-3.5 text-sm">Save my profile</button>
+      </div>
+
+    </div><!-- /form column -->
+
+    <!-- Preview column -->
+    <div class="hidden lg:block sticky top-[80px]">
+      <div class="preview-card p-6" id="preview-panel">
+        <p class="eyebrow mb-4">Live preview</p>
+
+        <!-- Agent header -->
+        <div class="mb-5" id="prev-header">
+          <p class="font-serif font-bold text-lg text-ink" id="prev-name">Your Name</p>
+          <p class="text-xs text-smoke mt-0.5" id="prev-eyebrow">FCPC Licensed Agent</p>
+          <p class="text-xs text-smoke mt-0.5" id="prev-location"></p>
+        </div>
+
+        <!-- Bio text -->
+        <div class="preview-bio text-sm" id="prev-bio">
+          <p class="text-smoke italic">Fill in your details to see your bio preview.</p>
+        </div>
+
+        <!-- Join my team preview -->
+        <div class="mt-5 pt-5 border-t border-silver/50" id="prev-join-section" style="display:none">
+          <span class="section-label">Join My Team</span>
+          <p class="preview-bio text-sm" id="prev-join-text"></p>
+          <p class="text-xs text-smoke leading-relaxed mt-2">FCPC isn't a traditional job. It's a platform for people who want to build something of their own, with structure and support along the way.</p>
+          <a href="opportunity.html" class="inline-block mt-3 text-xs font-bold text-forest hover:underline">Learn about the opportunity →</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<div id="toast" class="toast" role="status"></div>
+
+<script>
+(function () {
+  'use strict';
+
+  /* ── Constants ── */
+  const STORAGE_KEY = 'fcpc-profile-builder-v1';
+  const INCOME_RE = /\$|\d+\s*[kK]\b|income\b|earn\b|salary\b|six figures|seven figures/i;
+
+  const US_STATES = ['AL','AK','AZ','AR','CA','CO','CT','DE','DC','FL','GA','HI','ID','IL','IN','IA','KS','KY','LA','ME','MD','MA','MI','MN','MS','MO','MT','NE','NV','NH','NJ','NM','NY','NC','ND','OH','OK','OR','PA','RI','SC','SD','TN','TX','UT','VT','VA','WA','WV','WI','WY'];
+
+  const PRODUCTS = ['Life Insurance','Indexed Annuities','Final Expense','Supplemental Health'];
+
+  const SERVE_OPTIONS = [
+    'Federal employees',
+    'DC government employees',
+    'State and local government employees',
+    'Families with young children',
+    'Pre-retirees and retirees',
+    'Business owners',
+    'Private-sector professionals',
+  ];
+
+  const COMMIT_OPTIONS = [
+    "I'll explain your options in plain language.",
+    "I'll show you what you already have before recommending anything new.",
+    "I'll respect your time and your decisions.",
+    "I'll stay in touch as your life changes.",
+    "I'll be here long after the paperwork is signed.",
+  ];
+
+  const CHAR_LIMITS = { roots: 200, beforeFcpc: 250, whyThisWork: 400, serveLine: 150, outsideWork: 150, whyJoin: 300 };
+
+  /* ── State ── */
+  const s = {
+    firstName: '', lastName: '', eyebrow: 'FCPC Licensed Agent', photo: '',
+    phone: '', email: '', bookingLink: '',
+    states: [], products: [],
+    roots: '', beforeFcpc: '', whyThisWork: '',
+    whoYouServe: [], serveLine: '', commitments: [],
+    outsideWork: '', whyJoin: '',
+  };
+
+  /* ── Init ── */
+  function init() {
+    buildStateGrid();
+    buildProductGrid();
+    buildServeOptions();
+    buildCommitOptions();
+    bindInputs();
+    loadFromStorage();
+    renderPreview();
+  }
+
+  /* ── Build UI ── */
+  function buildStateGrid() {
+    const grid = document.getElementById('state-grid');
+    US_STATES.forEach(st => {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'state-btn';
+      btn.textContent = st;
+      btn.dataset.state = st;
+      btn.addEventListener('click', () => {
+        const idx = s.states.indexOf(st);
+        if (idx >= 0) { s.states.splice(idx, 1); btn.classList.remove('selected'); }
+        else { s.states.push(st); btn.classList.add('selected'); }
+        save(); renderPreview(); updateStepDots();
+      });
+      grid.appendChild(btn);
+    });
+  }
+
+  function buildProductGrid() {
+    const grid = document.getElementById('product-grid');
+    PRODUCTS.forEach(p => {
+      const label = document.createElement('label');
+      label.className = 'check-option';
+      label.innerHTML = `<input type="checkbox" value="${p}" /><span class="text-sm font-medium text-slate">${p}</span>`;
+      const cb = label.querySelector('input');
+      cb.addEventListener('change', () => {
+        s.products = [...document.querySelectorAll('#product-grid input:checked')].map(c => c.value);
+        label.classList.toggle('selected', cb.checked);
+        save(); renderPreview(); updateStepDots();
+      });
+      grid.appendChild(label);
+    });
+  }
+
+  function buildServeOptions() {
+    const cont = document.getElementById('serve-options');
+    SERVE_OPTIONS.forEach(opt => {
+      const label = document.createElement('label');
+      label.className = 'check-option';
+      label.innerHTML = `<input type="checkbox" value="${opt}" /><span class="text-sm font-medium text-slate">${opt}</span>`;
+      const cb = label.querySelector('input');
+      cb.addEventListener('change', () => {
+        const checked = [...document.querySelectorAll('#serve-options input:checked')];
+        if (checked.length > 3) { cb.checked = false; showToast('You can select up to 3 options.'); return; }
+        label.classList.toggle('selected', cb.checked);
+        s.whoYouServe = checked.map(c => c.value);
+        save(); renderPreview(); updateStepDots();
+      });
+      cont.appendChild(label);
+    });
+  }
+
+  function buildCommitOptions() {
+    const cont = document.getElementById('commit-options');
+    COMMIT_OPTIONS.forEach(opt => {
+      const label = document.createElement('label');
+      label.className = 'check-option';
+      label.innerHTML = `<input type="checkbox" value="${opt}" /><span class="text-sm font-medium text-slate">${opt}</span>`;
+      const cb = label.querySelector('input');
+      cb.addEventListener('change', () => {
+        const checked = [...document.querySelectorAll('#commit-options input:checked')];
+        if (checked.length > 2) { cb.checked = false; showToast('Choose exactly 2 commitments.'); return; }
+        label.classList.toggle('selected', cb.checked);
+        s.commitments = checked.map(c => c.value);
+        save(); renderPreview(); updateStepDots();
+      });
+      cont.appendChild(label);
+    });
+  }
+
+  function bindInputs() {
+    const textFields = [
+      ['f-firstName','firstName'], ['f-lastName','lastName'], ['f-eyebrow','eyebrow'],
+      ['f-photo','photo'], ['f-phone','phone'], ['f-email','email'],
+      ['f-bookingLink','bookingLink'], ['f-roots','roots'], ['f-beforeFcpc','beforeFcpc'],
+      ['f-whyThisWork','whyThisWork'], ['f-serveLine','serveLine'],
+      ['f-outsideWork','outsideWork'], ['f-whyJoin','whyJoin'],
+    ];
+    textFields.forEach(([id, key]) => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      el.addEventListener('input', () => {
+        s[key] = el.value;
+        updateCharCount(key);
+        save(); renderPreview(); updateStepDots();
+      });
+    });
+
+    document.getElementById('btn-save-json').addEventListener('click', saveProfile);
+    document.getElementById('btn-save-sidebar').addEventListener('click', saveProfile);
+    document.getElementById('btn-save-main').addEventListener('click', saveProfile);
+    document.getElementById('btn-reset').addEventListener('click', resetAll);
+
+    document.getElementById('file-load-profile').addEventListener('change', e => {
+      const file = e.target.files[0]; if (!file) return;
+      loadJSON(file, loadProfileJSON);
+      e.target.value = '';
+      document.getElementById('menu-details').removeAttribute('open');
+    });
+    document.getElementById('file-load-story').addEventListener('change', e => {
+      const file = e.target.files[0]; if (!file) return;
+      loadJSON(file, loadStoryJSON);
+      e.target.value = '';
+      document.getElementById('menu-details').removeAttribute('open');
+    });
+
+    // Step nav
+    document.querySelectorAll('.step-nav-link').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const section = document.getElementById('section-' + btn.dataset.step) ||
+                        document.getElementById('section-part1');
+        if (section) section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
+
+    // Sidebar Save button also in mobile
+    document.getElementById('btn-save-main').addEventListener('click', saveProfile);
+  }
+
+  /* ── Char counters ── */
+  function updateCharCount(key) {
+    const limit = CHAR_LIMITS[key];
+    if (!limit) return;
+    const len = (s[key] || '').length;
+    const el = document.getElementById('cc-' + key);
+    if (!el) return;
+    el.textContent = len + ' / ' + limit;
+    el.className = 'char-count' + (len > limit ? ' over' : len > limit * 0.85 ? ' warn' : '');
+  }
+
+  function updateAllCharCounts() {
+    Object.keys(CHAR_LIMITS).forEach(k => updateCharCount(k));
+  }
+
+  /* ── Preview ── */
+  function joinNaturally(arr) {
+    if (!arr.length) return '';
+    if (arr.length === 1) return arr[0];
+    if (arr.length === 2) return arr[0] + ' and ' + arr[1];
+    return arr.slice(0, -1).join(', ') + ', and ' + arr[arr.length - 1];
+  }
+
+  function lcExceptProper(arr) {
+    return arr.map((item, i) => {
+      if (i === 0) return item;
+      return item.replace(/\b(?!DC\b)([A-Z][a-z])/g, (m, p) => p.toLowerCase()).replace(/^[A-Z](?!C\b)/, c => c.toLowerCase());
+    });
+  }
+
+  function renderPreview() {
+    const name = [s.firstName, s.lastName].filter(Boolean).join(' ') || 'Your Name';
+    document.getElementById('prev-name').textContent = name;
+    document.getElementById('prev-eyebrow').textContent = s.eyebrow || 'FCPC Licensed Agent';
+
+    const locStates = s.states.slice(0, 3).join(' · ');
+    document.getElementById('prev-location').textContent = locStates;
+
+    const bio = document.getElementById('prev-bio');
+    let html = '';
+
+    const hasAny = s.roots || s.beforeFcpc || s.whyThisWork || s.whoYouServe.length || s.outsideWork;
+    if (!hasAny) {
+      bio.innerHTML = '<p class="text-smoke italic text-sm">Fill in your details to see your bio preview.</p>';
+    } else {
+      if (s.firstName) html += `<p><strong>Hi, I'm ${s.firstName}.</strong></p>`;
+      if (s.roots || s.beforeFcpc) html += `<p>${[s.roots, s.beforeFcpc].filter(Boolean).join(' ')}</p>`;
+      if (s.whyThisWork) html += `<p>${s.whyThisWork}</p>`;
+      if (s.whoYouServe.length) {
+        const listed = lcExceptProper(s.whoYouServe);
+        const serveStr = 'Today I work with ' + joinNaturally(listed) + '.';
+        html += `<p>${serveStr}${s.serveLine ? ' ' + s.serveLine : ''}</p>`;
+      }
+      if (s.commitments.length) {
+        html += `<p><span class="section-label">What you can expect from me</span></p><ul>${s.commitments.map(c => '<li>' + c + '</li>').join('')}</ul>`;
+      }
+      if (s.outsideWork) html += `<p>${s.outsideWork}</p>`;
+      if (s.states.length) {
+        html += `<p>I'm licensed in ${joinNaturally(s.states)}.</p>`;
+      }
+      if (s.bookingLink) html += `<p><a href="${escHtml(s.bookingLink)}" class="text-forest font-semibold underline" target="_blank" rel="noopener">Book a conversation</a></p>`;
+      bio.innerHTML = html || '<p class="text-smoke italic text-sm">Fill in your details above.</p>';
+    }
+
+    // Join my team
+    const joinSection = document.getElementById('prev-join-section');
+    if (s.whyJoin) {
+      joinSection.style.display = '';
+      document.getElementById('prev-join-text').textContent = s.whyJoin;
+    } else {
+      joinSection.style.display = 'none';
+    }
+
+    updateProgress();
+  }
+
+  function escHtml(s) {
+    return s.replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  }
+
+  /* ── Progress ── */
+  function updateProgress() {
+    const fields = [
+      s.firstName, s.lastName, s.phone, s.email,
+      s.states.length, s.products.length,
+      s.roots, s.beforeFcpc, s.whyThisWork,
+      s.whoYouServe.length, s.commitments.length === 2,
+      s.outsideWork, s.whyJoin,
+    ];
+    const done = fields.filter(Boolean).length;
+    document.getElementById('progress-bar').style.width = Math.round(done / fields.length * 100) + '%';
+  }
+
+  function updateStepDots() {
+    const map = {
+      part1: s.firstName && s.lastName && s.phone && s.email && s.states.length && s.products.length,
+      roots: !!s.roots,
+      beforeFcpc: !!s.beforeFcpc,
+      whyThisWork: !!s.whyThisWork,
+      whoYouServe: s.whoYouServe.length > 0,
+      commitments: s.commitments.length === 2,
+      outsideWork: !!s.outsideWork,
+      whyJoin: !!s.whyJoin,
+    };
+    document.querySelectorAll('.step-nav-link').forEach(btn => {
+      const key = btn.dataset.step;
+      btn.classList.toggle('done', !!map[key]);
+    });
+  }
+
+  /* ── Validation ── */
+  function validate() {
+    let ok = true;
+    function setErr(id, show) {
+      const el = document.getElementById(id);
+      if (el) el.classList.toggle('show', show);
+      if (show) ok = false;
+    }
+    function setInput(id, error) {
+      const el = document.getElementById(id);
+      if (el) el.classList.toggle('error', error);
+    }
+
+    const emailOk = /^[^@]+@fcpc\.life$/i.test(s.email);
+    setErr('err-firstName', !s.firstName.trim());
+    setErr('err-lastName', !s.lastName.trim());
+    setErr('err-phone', !s.phone.trim());
+    setErr('err-email', !emailOk);
+    setInput('f-email', !emailOk);
+    setErr('err-states', s.states.length === 0);
+    setErr('err-products', s.products.length === 0);
+    setErr('err-commitments', s.commitments.length !== 2);
+    setErr('err-whoYouServe', s.whoYouServe.length > 3);
+
+    // char limits
+    Object.keys(CHAR_LIMITS).forEach(key => {
+      const over = (s[key] || '').length > CHAR_LIMITS[key];
+      setErr('err-' + key, over);
+    });
+
+    // income language
+    const incomeFlag = INCOME_RE.test(s.whyJoin);
+    setErr('err-whyJoin-income', incomeFlag);
+    if (incomeFlag) ok = false;
+
+    return ok;
+  }
+
+  /* ── Save profile ── */
+  function saveProfile() {
+    if (!validate()) {
+      showToast('Fix the errors above before saving.');
+      document.querySelector('.err-msg.show')?.closest('[id^="section-"], .section-card')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      return;
+    }
+
+    const slug = [s.firstName, s.lastName].join('-').toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
+    const locStates = s.states.slice(0, 3).join(' · ');
+
+    const record = {
+      agentCode: '',
+      firstName: s.firstName.trim(),
+      lastName: s.lastName.trim(),
+      eyebrow: s.eyebrow.trim() || 'FCPC Licensed Agent',
+      location: locStates,
+      photo: s.photo.trim(),
+      phone: s.phone.trim(),
+      email: s.email.trim(),
+      bookingLink: s.bookingLink.trim(),
+      states: [...s.states],
+      products: [...s.products],
+      hidden: false,
+      noindex: false,
+      roots: s.roots.trim(),
+      beforeFcpc: s.beforeFcpc.trim(),
+      whyThisWork: s.whyThisWork.trim(),
+      whoYouServe: [...s.whoYouServe],
+      serveLine: s.serveLine.trim(),
+      commitments: [...s.commitments],
+      outsideWork: s.outsideWork.trim(),
+      whyJoin: s.whyJoin.trim(),
+    };
+
+    const blob = new Blob([JSON.stringify(record, null, 2)], { type: 'application/json' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = `fcpc-profile-${slug}.json`;
+    a.click();
+    URL.revokeObjectURL(a.href);
+    showToast('Profile saved. Email the file to info@fcpc.life.');
+    document.getElementById('menu-details').removeAttribute('open');
+  }
+
+  /* ── Load profile JSON ── */
+  function loadProfileJSON(data) {
+    if (!data || typeof data !== 'object') { showToast('Could not read that file.'); return; }
+    const fields = ['firstName','lastName','eyebrow','photo','phone','email','bookingLink',
+                    'roots','beforeFcpc','whyThisWork','serveLine','outsideWork','whyJoin'];
+    fields.forEach(k => { if (data[k] !== undefined) s[k] = data[k]; });
+    if (Array.isArray(data.states)) s.states = data.states;
+    if (Array.isArray(data.products)) s.products = data.products;
+    if (Array.isArray(data.whoYouServe)) s.whoYouServe = data.whoYouServe;
+    if (Array.isArray(data.commitments)) s.commitments = data.commitments;
+    syncUIFromState();
+    showToast('Profile loaded.');
+  }
+
+  /* ── Story Builder import ── */
+  function loadStoryJSON(data) {
+    if (!data || data.kind !== 'fcpc-story-builder') {
+      showToast('That doesn\'t look like a Story Builder file.');
+      return;
+    }
+    const ans = data.answers || {};
+    const mapped = { roots: ans.s1, beforeFcpc: ans.s2, whyThisWork: ans.s6 };
+    const flags = [];
+    Object.entries(mapped).forEach(([key, val]) => {
+      if (!val) return;
+      s[key] = val;
+      if (val.length > CHAR_LIMITS[key]) flags.push(key);
+    });
+    syncUIFromState();
+    if (flags.length) {
+      showToast('Imported. Sections over the limit are flagged in red.');
+    } else {
+      showToast('Story Builder answers imported.');
+    }
+  }
+
+  /* ── Sync UI ← state ── */
+  function syncUIFromState() {
+    const textFields = [
+      ['f-firstName','firstName'], ['f-lastName','lastName'], ['f-eyebrow','eyebrow'],
+      ['f-photo','photo'], ['f-phone','phone'], ['f-email','email'],
+      ['f-bookingLink','bookingLink'], ['f-roots','roots'], ['f-beforeFcpc','beforeFcpc'],
+      ['f-whyThisWork','whyThisWork'], ['f-serveLine','serveLine'],
+      ['f-outsideWork','outsideWork'], ['f-whyJoin','whyJoin'],
+    ];
+    textFields.forEach(([id, key]) => {
+      const el = document.getElementById(id);
+      if (el) el.value = s[key] || '';
+    });
+
+    document.querySelectorAll('#state-grid .state-btn').forEach(btn => {
+      btn.classList.toggle('selected', s.states.includes(btn.dataset.state));
+    });
+    document.querySelectorAll('#product-grid input').forEach(cb => {
+      cb.checked = s.products.includes(cb.value);
+      cb.closest('label').classList.toggle('selected', cb.checked);
+    });
+    document.querySelectorAll('#serve-options input').forEach(cb => {
+      cb.checked = s.whoYouServe.includes(cb.value);
+      cb.closest('label').classList.toggle('selected', cb.checked);
+    });
+    document.querySelectorAll('#commit-options input').forEach(cb => {
+      cb.checked = s.commitments.includes(cb.value);
+      cb.closest('label').classList.toggle('selected', cb.checked);
+    });
+
+    updateAllCharCounts();
+    save();
+    renderPreview();
+    updateStepDots();
+  }
+
+  /* ── localStorage ── */
+  function save() {
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(s)); } catch (_) {}
+    const el = document.getElementById('save-status');
+    if (el) { el.textContent = 'Saved locally'; el.classList.remove('hidden'); setTimeout(() => el.classList.add('hidden'), 2000); }
+  }
+
+  function loadFromStorage() {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (!raw) return;
+      const data = JSON.parse(raw);
+      if (data && typeof data === 'object') loadProfileJSON(data);
+    } catch (_) {}
+  }
+
+  /* ── Reset ── */
+  function resetAll() {
+    if (!confirm('Start over? This will clear everything you have entered.')) return;
+    try { localStorage.removeItem(STORAGE_KEY); } catch (_) {}
+    Object.assign(s, { firstName:'',lastName:'',eyebrow:'FCPC Licensed Agent',photo:'',phone:'',email:'',bookingLink:'',states:[],products:[],roots:'',beforeFcpc:'',whyThisWork:'',whoYouServe:[],serveLine:'',commitments:[],outsideWork:'',whyJoin:'' });
+    syncUIFromState();
+    document.querySelectorAll('.err-msg').forEach(el => el.classList.remove('show'));
+    document.querySelectorAll('.form-input').forEach(el => el.classList.remove('error'));
+    document.getElementById('menu-details').removeAttribute('open');
+    showToast('Cleared. Starting fresh.');
+  }
+
+  /* ── File loader helper ── */
+  function loadJSON(file, cb) {
+    const reader = new FileReader();
+    reader.onload = e => { try { cb(JSON.parse(e.target.result)); } catch (_) { showToast('Could not read that file.'); } };
+    reader.readAsText(file);
+  }
+
+  /* ── Toast ── */
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 3000);
+  }
+
+  init();
+})();
+</script>
+</body>
+</html>
