@@ -1,11 +1,11 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Advisor Story Builder — FCPC</title>
-  <meta name="description" content="Internal FCPC advisor tool: tell your story, and FCPC helps you weave it into the FCPC story." />
-  <!-- Internal advisor tool: keep out of search engines and out of sitemap.xml -->
+  <title>Agent Story Builder — FCPC</title>
+  <meta name="description" content="Internal FCPC agent tool: tell your story, and FCPC helps you weave it into the FCPC story." />
+  <!-- Internal agent tool: keep out of search engines and out of sitemap.xml -->
   <meta name="robots" content="noindex, nofollow" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -99,7 +99,7 @@
       <img src="FCPC-Logo.webp" alt="Financial Crisis Prevention Center" class="h-9 w-auto object-contain" onerror="this.style.display='none';this.nextElementSibling.style.display='inline';" />
       <span style="display:none" class="font-serif font-bold text-forest text-lg">FCPC</span>
     </a>
-    <span class="hidden sm:inline-flex items-center text-[11px] font-bold tracking-[0.14em] uppercase text-forest bg-forest-50 border border-forest/15 rounded-full px-3 py-1">Advisor Toolkit</span>
+    <span class="hidden sm:inline-flex items-center text-[11px] font-bold tracking-[0.14em] uppercase text-forest bg-forest-50 border border-forest/15 rounded-full px-3 py-1">Agent Toolkit</span>
     <div class="flex-1"></div>
     <span id="save-status" class="hidden md:inline text-xs text-smoke"></span>
     <details class="relative">
@@ -203,7 +203,7 @@
     {
       key: 's3', title: 'How I Found FCPC',
       question: 'Tell us the actual story of how FCPC entered your life.',
-      lead: "This is often one of the most interesting parts of an advisor's story, so be specific.",
+      lead: "This is often one of the most interesting parts of an agent's story, so be specific.",
       prompts: ['Who or what introduced you to FCPC?', 'Where were you?', 'What happened?', 'What was your first reaction?', 'Were you interested, skeptical, curious or even uninterested?', 'What made you take the next step?', 'What happened at your first meeting, presentation or interaction?', 'Who did you meet?', 'Was there something someone said that you still remember?', 'Were there any unexpected moments along the way?'],
       example: "When I spoke with one of my professors about it he said \"why don't you sell insurance?\" My response was \"sell insurance? Who does that?\" The only thing I knew about insurance was Geico and State Farm commercials. It may sound silly now but I did not know that people had their own private businesses selling insurance. So I started looking into this insurance thing and started interviewing with different companies. AXA, State Farm, Farmers, to name a few. Then I came across FCPC. I learned about the company through a Craigslist ad. I responded to the ad. I didn't like how the conversation went with the guy that I spoke with so I made up my mind not to take up the invite he gave me. However, he gave me the company website so I checked it out. I look at the list of advisors and I see one of my schoolmates Hadiya Walters. So I called her and told her what the deal was. She's ecstatic! She says this is perfect for me and \"I've been on her mind to call\". She tells me to come to the meeting and say she invited me... forget the other guy."
     },
@@ -337,7 +337,7 @@
   const curKey = () => (state.tab === 'short' && state.short.trim()) ? 'short' : 'script';
   const curText = () => state[curKey()];
   const curLabel = () => !state.short.trim() ? 'Story' : (curKey() === 'short' ? 'One-on-one version' : 'Group presentation version');
-  const fileSlug = () => (state.name.trim() || 'advisor').replace(/[^a-z0-9]+/gi, '-').replace(/^-|-$/g, '').toLowerCase();
+  const fileSlug = () => (state.name.trim() || 'agent').replace(/[^a-z0-9]+/gi, '-').replace(/^-|-$/g, '').toLowerCase();
 
   function fmtTime(w) {
     const sec = Math.round((w / WPM) * 60);
@@ -536,12 +536,12 @@ exampleText(),
 
   function renderStart() {
     return card(
-      '<p class="eyebrow mb-3">FCPC Advisor Story Builder</p>' +
+      '<p class="eyebrow mb-3">FCPC Agent Story Builder</p>' +
       '<h1 class="font-extrabold tracking-tight text-ink mb-2" style="font-size:clamp(1.9rem,4vw,2.75rem);line-height:1.1;letter-spacing:-0.02em;">Your Story. Our History. Their Future.</h1>' +
-      '<p class="font-serif italic text-forest text-lg mb-6">Every FCPC advisor has a story.</p>' +
+      '<p class="font-serif italic text-forest text-lg mb-6">Every FCPC agent has a story.</p>' +
       '<div class="grid md:grid-cols-[1fr_280px] gap-8">' +
         '<div>' +
-          '<p class="text-slate leading-relaxed mb-4">You do not need an extraordinary success story. You do not need to have overcome tremendous hardship. And you do not need to sound like another advisor. You simply need to tell your story honestly.</p>' +
+          '<p class="text-slate leading-relaxed mb-4">You do not need an extraordinary success story. You do not need to have overcome tremendous hardship. And you do not need to sound like another agent. You simply need to tell your story honestly.</p>' +
           '<p class="text-slate leading-relaxed mb-6">This Story Builder will help you identify the experiences, people and lessons that explain who you are, how you found FCPC, what you discovered, how you grew, and why you do this work today. FCPC will then combine your answers with the FCPC Company Story to help create your personal FCPC introduction.</p>' +
           '<div class="bg-forest-dark text-white rounded-2xl p-6 mb-6">' +
             '<p class="text-[11px] font-bold tracking-[0.15em] uppercase text-gold mb-2">One important instruction</p>' +
@@ -575,7 +575,7 @@ exampleText(),
           (s.note ? '<p class="text-xs text-smoke mt-4 leading-relaxed">' + esc(s.note) + '</p>' : '') + '</div>' +
         '<details class="example-box p-5 self-start"><summary class="flex items-center gap-2 text-sm font-bold text-ink"><svg class="chev w-3.5 h-3.5 text-gold-dark" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>See an example answer</summary>' +
           '<p class="text-sm text-slate leading-relaxed mt-3">' + esc(s.example) + '</p>' +
-          '<p class="text-xs text-smoke mt-3">From ' + esc(EXAMPLE.author || 'an advisor') + '\'s raw answers. Notice it is not polished. It just tells what happened.</p>' +
+          '<p class="text-xs text-smoke mt-3">From ' + esc(EXAMPLE.author || 'an agent') + '\'s raw answers. Notice it is not polished. It just tells what happened.</p>' +
         '</details>' +
       '</div>' +
       '<label class="form-label" for="f-' + s.key + '">' + esc(s.answerLabel || 'My story') + '</label>' +
@@ -680,10 +680,10 @@ exampleText(),
         '<summary class="flex items-center gap-2 text-sm font-bold text-smoke hover:text-forest"><svg class="chev w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>For FCPC reviewers: build the first draft</summary>' +
         '<div class="mt-5 space-y-5 text-sm text-slate">' +
           '<ol class="list-decimal pl-5 space-y-1.5 leading-relaxed">' +
-            '<li>Open the advisor\'s Story Builder file from <strong>Save &amp; restore</strong> at the top of the page. Their answers load into this page.</li>' +
+            '<li>Open the agent\'s Story Builder file from <strong>Save &amp; restore</strong> at the top of the page. Their answers load into this page.</li>' +
             '<li>Copy the AI prompt and paste it into a new chat in <a href="https://claude.ai/new" target="_blank" rel="noopener" class="font-semibold text-forest underline underline-offset-2">Claude</a> or <a href="https://chatgpt.com/" target="_blank" rel="noopener" class="font-semibold text-forest underline underline-offset-2">ChatGPT</a>.</li>' +
-            '<li>Paste the entire reply below and click Use this draft. Review it against the advisor\'s answers.</li>' +
-            '<li>Download the file for the advisor and send it back to them.</li>' +
+            '<li>Paste the entire reply below and click Use this draft. Review it against the agent\'s answers.</li>' +
+            '<li>Download the file for the agent and send it back to them.</li>' +
           '</ol>' +
           '<div class="flex flex-wrap gap-3">' +
             '<button type="button" id="btn-copy-prompt" class="btn-gold text-sm px-5 py-2.5">Copy AI prompt</button>' +
@@ -692,7 +692,7 @@ exampleText(),
           '<textarea id="ai-paste" class="form-input" rows="6" placeholder="Paste the whole AI reply here, including the === section headers."></textarea>' +
           '<div class="flex flex-wrap gap-3">' +
             '<button type="button" id="btn-parse" class="btn-forest text-sm px-5 py-2.5">Use this draft</button>' +
-            '<button type="button" id="btn-advisor-file" class="btn-ghost text-sm px-5 py-2.5">Download file for the advisor</button>' +
+            '<button type="button" id="btn-advisor-file" class="btn-ghost text-sm px-5 py-2.5">Download file for the agent</button>' +
           '</div>' +
           '<details><summary class="text-xs font-semibold text-smoke hover:text-forest">Preview the prompt</summary><pre id="prompt-preview" class="mt-3 bg-mist border border-silver rounded-2xl p-4 text-xs text-slate whitespace-pre-wrap max-h-[420px] overflow-auto font-mono leading-relaxed"></pre></details>' +
         '</div>' +
@@ -732,7 +732,7 @@ exampleText(),
   function storyFile() { return JSON.stringify(Object.assign({}, state, { kind: FILE_KIND, fcpcVersion: FCPC.version }), null, 2); }
 
   function answersDoc() {
-    const title = (state.name.trim() || 'Advisor') + ': FCPC Story Builder Answers';
+    const title = (state.name.trim() || 'Agent') + ': FCPC Story Builder Answers';
     let body = '<h1>' + esc(title) + '</h1><p class="meta">Exported ' + esc(new Date().toLocaleDateString()) + '</p>';
     SECTIONS.forEach((s, i) => { body += '<h2>' + (i + 1) + '. ' + esc(s.title) + '</h2><p class="q">' + esc(s.question) + '</p>' + (ans(s.key) ? paragraphsHTML(ans(s.key)) : '<p><em>Not answered</em></p>'); });
     if (state.keep.trim()) body += '<h2>Lines to keep exactly</h2>' + paragraphsHTML(state.keep);
@@ -764,7 +764,7 @@ exampleText(),
     $('#read-modal-meta').textContent = (isFcpc ? FCPC.version + ' · ' : '') + 'about ' + fmtTime(words(lines.join(' '))).replace('~', '') + ' spoken';
     const note = $('#read-modal-note');
     if (isFcpc) note.classList.add('hidden');
-    else { note.classList.remove('hidden'); note.textContent = 'This is one advisor\'s finished story, built from his Story Builder answers. Yours will be different, and it should be. Notice how specific it is, and how the FCPC story sits in the middle.'; }
+    else { note.classList.remove('hidden'); note.textContent = 'This is one agent\'s finished story, built from his Story Builder answers. Yours will be different, and it should be. Notice how specific it is, and how the FCPC story sits in the middle.'; }
     $('#read-modal-body').innerHTML = lines.map(p => '<p>' + esc(p) + '</p>').join('');
     modal.classList.remove('hidden'); document.body.style.overflow = 'hidden'; $('#btn-close-modal').focus();
   }
@@ -793,7 +793,7 @@ exampleText(),
       state.submitted = new Date().toISOString(); flush();
       const fname = fileSlug() + '-fcpc-story-builder.json';
       download(fname, storyFile(), 'application/json');
-      const who = state.name.trim() || 'An FCPC advisor';
+      const who = state.name.trim() || 'An FCPC agent';
       const subject = 'Story Builder submission: ' + who;
       const body = 'Hello,\n\nMy completed FCPC Story Builder answers are attached (' + fname + ').\n\nThank you,\n' + (state.name.trim() || '');
       setTimeout(() => { window.location.href = 'mailto:' + SUBMIT_EMAIL + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body); }, 400);

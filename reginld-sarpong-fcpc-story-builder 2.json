@@ -1,0 +1,24 @@
+{
+  "kind": "fcpc-story-builder",
+  "name": "Reginld Sarpong",
+  "answers": {
+    "s1": "This is a test story",
+    "s2": "Getting Money",
+    "s3": "This is a test",
+    "s4": "This is a test.",
+    "s5": "This is a test",
+    "s6": "This is a test",
+    "s7": "This is a test"
+  },
+  "keep": "",
+  "checks": [],
+  "script": "",
+  "short": "",
+  "tab": "script",
+  "questions": "",
+  "scriptSource": "",
+  "step": 9,
+  "submitted": "2026-10-13T04:13:27.639Z",
+  "updated": "2026-10-13T04:10:51.289Z",
+  "fcpcVersion": "Draft v3 (September 2026)"
+}

@@ -2,10 +2,12 @@
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "fcpc-2026",
   "compatibility_date": "2026-09-11",
+  "main": "src/worker.js",
   "observability": {
     "enabled": true
   },
   "assets": {
-    "directory": "./public"
+    "directory": "./public",
+    "binding": "ASSETS"
   }
 }

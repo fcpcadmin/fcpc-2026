@@ -51,11 +51,11 @@ window.FCPC_STORY = {
 
     "At the start, the mission was to help people end the cycle of poverty in their own lives.",
 
-    "By the 1990s, more than a thousand advisors had joined. Most of them were young Black men, and their average age was 23.",
+    "By the 1990s, more than a thousand agents had joined. Most of them were young Black men, and their average age was 23.",
 
     "This was during the crack epidemic, when Washington, DC was widely cited as the murder capital of America.",
 
-    "Several of those young advisors went on to build six- and seven-figure incomes.",
+    "Several of those young agents went on to build six- and seven-figure incomes.",
 
     "They became proof of what was possible.",
 
@@ -69,11 +69,11 @@ window.FCPC_STORY = {
 
     "He's since created companies in other industries. He's ventured into healthcare and has even taken a company public.",
 
-    "But FCPC still carries his mark in every family we protect and every advisor we help develop.",
+    "But FCPC still carries his mark in every family we protect and every agent we help develop.",
 
     "And his mark carries the ones left by Clint Lewis, Joe Dudley and S.B. Fuller before him.",
 
-    "So whether you come to FCPC as a client or as an advisor, you're not just buying a product or seeking opportunity.",
+    "So whether you come to FCPC as a client or as an agent, you're not just buying a product or seeking opportunity.",
 
     "You're joining a cause that goes back several decades:",
 
