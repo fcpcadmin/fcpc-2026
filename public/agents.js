@@ -41,7 +41,7 @@ const FCPC_AGENTS = {
 
   'reggie-sarpong': {
     // Identity
-    agentCode:   'FCPC001',
+    agentCode:   'FCPC1001',
     firstName:   'Reggie',
     lastName:    'Sarpong',
     eyebrow:     'Licensed Agent',
