@@ -92,21 +92,27 @@ async function handleLead(request, env) {
   if (!BEST_TIMES.has(bestTime)) return jsonErr('Invalid best time', 400);
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return jsonErr('Invalid email', 400);
 
+  const consentTs = new Date().toISOString();
+  const consentText = 'By submitting this form you consent to being contacted by FCPC or its representatives by phone, email, or SMS. Message and data rates may apply. Reply STOP to opt out of text messages.';
+  const sourcePage = new URL(request.url).origin + '/agent/' + (agentCode || '');
+
   const token = await getZohoToken(env);
   await createZohoRecord('Leads', {
-    First_Name:          firstName.trim(),
-    Last_Name:           lastName.trim(),
-    Email:               email.trim().toLowerCase(),
-    Phone:               phone.trim(),
-    State:               state,
-    Lead_Source:         'Agent Mini-Site',
-    Description:         message ? message.trim() : '',
-    // custom fields — adjust API names to match your Zoho layout
-    Products_Interest:   products.join('; '),
-    Preferred_Contact:   preferredContact,
-    Best_Time_to_Reach:  bestTime,
-    Agent_Code:          agentCode || '',
-    FCPC_Consent:        true,
+    First_Name:             firstName.trim(),
+    Last_Name:              lastName.trim(),
+    Email:                  email.trim().toLowerCase(),
+    Mobile:                 phone.trim(),
+    State:                  state,
+    Lead_Source:            'Agent Mini-Site',
+    Products_of_Interest:   products,
+    Preferred_Contact:      preferredContact,
+    Best_Time_To_Reach:     bestTime,
+    Description:            message ? message.trim() : '',
+    Agent_Code_Submitted:   agentCode || '',
+    Source_Page:            sourcePage,
+    Consent_Given:          true,
+    Consent_Timestamp:      consentTs,
+    Consent_Text:           consentText,
   }, token);
 
   return jsonOk({ ok: true });
@@ -131,19 +137,27 @@ async function handleRecruit(request, env) {
   if (!LICENSED_OPTS.has(licensed)) return jsonErr('Invalid licensed value', 400);
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return jsonErr('Invalid email', 400);
 
+  const consentTs = new Date().toISOString();
+  const consentText = 'By submitting this form you consent to being contacted by FCPC or its representatives by phone, email, or SMS. Message and data rates may apply. Reply STOP to opt out of text messages.';
+  const sourcePage = new URL(request.url).origin + '/agent/' + (agentCode || '');
+
   const token = await getZohoToken(env);
-  await createZohoRecord('Leads', {
-    First_Name:          firstName.trim(),
-    Last_Name:           lastName.trim(),
-    Email:               email.trim().toLowerCase(),
-    Phone:               phone.trim(),
-    State:               state,
-    Lead_Source:         'Agent Recruit Form',
-    Description:         interest ? interest.trim() : '',
-    Currently_Licensed:  licensed,
-    Current_Occupation:  occupation.trim(),
-    Agent_Code:          agentCode || '',
-    FCPC_Consent:        true,
+  await createZohoRecord('Recruits', {
+    Name:                 firstName.trim() + ' ' + lastName.trim(),
+    First_Name:           firstName.trim(),
+    Last_Name:            lastName.trim(),
+    Email:                email.trim().toLowerCase(),
+    Phone:                phone.trim(),
+    State:                state,
+    Licensed_Status:      licensed,
+    Current_Occupation:   occupation.trim(),
+    Interest_Note:        interest ? interest.trim() : '',
+    Recruit_Source:       'Agent Mini-Site',
+    Agent_Code_Submitted: agentCode || '',
+    Source_Page:          sourcePage,
+    Consent_Given:        true,
+    Consent_Timestamp:    consentTs,
+    Consent_Text:         consentText,
   }, token);
 
   return jsonOk({ ok: true });
