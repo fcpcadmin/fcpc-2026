@@ -31,11 +31,8 @@ async function createZohoRecord(module, fields, token) {
     },
     body: JSON.stringify({ data: [fields] }),
   });
-  if (!res.ok) {
-    const text = await res.text();
-    throw new Error('Zoho ' + module + ' create failed ' + res.status + ': ' + text);
-  }
-  return res.json();
+  const json = await res.json().catch(() => null);
+  return { httpStatus: res.status, json };
 }
 
 // ── CORS / JSON helpers ───────────────────────────────────────────────────────
@@ -97,7 +94,7 @@ async function handleLead(request, env) {
   const sourcePage = new URL(request.url).origin + '/agent/' + (agentCode || '');
 
   const token = await getZohoToken(env);
-  await createZohoRecord('Leads', {
+  const { httpStatus, json: zoho } = await createZohoRecord('Leads', {
     First_Name:             firstName.trim(),
     Last_Name:              lastName.trim(),
     Email:                  email.trim().toLowerCase(),
@@ -115,6 +112,12 @@ async function handleLead(request, env) {
     Consent_Text:           consentText,
   }, token);
 
+  const row = zoho && zoho.data && zoho.data[0];
+  if (!row || row.status !== 'success') {
+    const details = row && row.details ? Object.keys(row.details) : [];
+    console.error('Zoho Leads error', row && row.code, row && row.message, details);
+    return jsonErr('Zoho error: ' + (row && row.code || httpStatus), 502);
+  }
   return jsonOk({ ok: true });
 }
 
@@ -142,7 +145,7 @@ async function handleRecruit(request, env) {
   const sourcePage = new URL(request.url).origin + '/agent/' + (agentCode || '');
 
   const token = await getZohoToken(env);
-  await createZohoRecord('Recruits', {
+  const { httpStatus, json: zoho } = await createZohoRecord('Recruits', {
     Name:                 firstName.trim() + ' ' + lastName.trim(),
     First_Name:           firstName.trim(),
     Last_Name:            lastName.trim(),
@@ -160,7 +163,16 @@ async function handleRecruit(request, env) {
     Consent_Text:         consentText,
   }, token);
 
-  return jsonOk({ ok: true });
+  // Diagnostic: surface Zoho's full response (field keys only, no personal data)
+  const row = zoho && zoho.data && zoho.data[0];
+  return jsonOk({
+    zohoHttpStatus: httpStatus,
+    status:         row ? row.status  : null,
+    code:           row ? row.code    : null,
+    message:        row ? row.message : null,
+    details:        row ? row.details : null,
+    ok:             row && row.status === 'success',
+  });
 }
 
 // ── Main fetch handler ────────────────────────────────────────────────────────
