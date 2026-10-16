@@ -83,11 +83,12 @@ function zohoDatetime() {
 
 // ── Validation sets ───────────────────────────────────────────────────────────
 
-const ALLOWED_PRODUCTS = new Set(['Life Insurance','Indexed Annuities','Final Expense','Supplemental Health','Not sure yet']);
-const CONTACT_METHODS  = new Set(['Phone call','Text','Email']);
-const BEST_TIMES       = new Set(['Morning','Afternoon','Evening','Any time']);
-// "In progress" from the form → "In Progress" to Zoho
-const LICENSED_MAP     = { 'Yes': 'Yes', 'No': 'No', 'In progress': 'In Progress' };
+const ALLOWED_PRODUCTS    = new Set(['Life Insurance','Indexed Annuities','Final Expense','Supplemental Health','Not sure yet']);
+const CONTACT_METHODS     = new Set(['Phone call','Text','Email']);
+const BEST_TIMES          = new Set(['Morning','Afternoon','Evening','Any time']);
+const LICENSED_MAP        = { 'Yes': 'Yes', 'No': 'No', 'In progress': 'In Progress' };
+const ALLOWED_LEAD_SOURCES    = new Set(['Agent Mini-Site','Contact Page']);
+const ALLOWED_RECRUIT_SOURCES = new Set(['Agent Mini-Site','Contact Page']);
 
 const CONSENT_TEXT = 'By submitting this form you consent to being contacted by FCPC or its representatives by phone, email, or SMS. Message and data rates may apply. Reply STOP to opt out of text messages.';
 
@@ -112,36 +113,50 @@ async function handleLead(request, env) {
   if (body.website) return jsonOk({ ok: true });
   if (typeof body._t === 'number' && Date.now() - body._t < 3000) return jsonOk({ ok: true });
 
-  const { firstName, lastName, email, phone, state, products, preferredContact, bestTime, message, agentCode } = body;
+  const { firstName, lastName, email, phone, state, products, preferredContact, bestTime, message,
+          description, agentCode, source, sourcePage: clientSourcePage, consentTs } = body;
 
-  if (!firstName || !lastName || !email || !phone || !state) return jsonErr('Missing required fields', 400);
-  if (!US_STATES.has(state)) return jsonErr('Invalid state', 400);
-  if (!Array.isArray(products) || products.length === 0) return jsonErr('Select at least one product', 400);
-  if (products.some(p => !ALLOWED_PRODUCTS.has(p))) return jsonErr('Invalid product', 400);
-  if (!CONTACT_METHODS.has(preferredContact)) return jsonErr('Invalid contact method', 400);
-  if (!BEST_TIMES.has(bestTime)) return jsonErr('Invalid best time', 400);
+  // source defaults to "Agent Mini-Site" for backwards compat
+  const leadSource = source || 'Agent Mini-Site';
+  if (!ALLOWED_LEAD_SOURCES.has(leadSource)) return jsonErr('Invalid source', 400);
+
+  const fromMiniSite = leadSource === 'Agent Mini-Site';
+
+  if (!firstName || !lastName || !email) return jsonErr('Missing required fields', 400);
+  if (fromMiniSite && !phone) return jsonErr('Missing required fields', 400);
+  if (fromMiniSite && !state) return jsonErr('Missing required fields', 400);
+  if (fromMiniSite && !US_STATES.has(state)) return jsonErr('Invalid state', 400);
+  if (fromMiniSite) {
+    if (!Array.isArray(products) || products.length === 0) return jsonErr('Select at least one product', 400);
+    if (products.some(p => !ALLOWED_PRODUCTS.has(p))) return jsonErr('Invalid product', 400);
+    if (!CONTACT_METHODS.has(preferredContact)) return jsonErr('Invalid contact method', 400);
+    if (!BEST_TIMES.has(bestTime)) return jsonErr('Invalid best time', 400);
+  }
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return jsonErr('Invalid email', 400);
 
-  const sourcePage = new URL(request.url).origin + '/agent/' + (agentCode || '');
+  const resolvedSourcePage = clientSourcePage || (new URL(request.url).origin + '/agent/' + (agentCode || ''));
+  const resolvedConsentTs  = consentTs || zohoDatetime();
 
-  const token = await getZohoToken(env);
-  const { httpStatus, json: zoho } = await createZohoRecord('Leads', {
+  const fields = {
     First_Name:           firstName.trim(),
     Last_Name:            lastName.trim(),
     Email:                email.trim().toLowerCase(),
-    Mobile:               phone.trim(),
-    State:                STATE_NAMES[state],
-    Lead_Source:          'Agent Mini-Site',
-    Products_of_Interest: products,
-    Preferred_Contact:    preferredContact,
-    Best_Time_To_Reach:   bestTime,
-    Description:          message ? message.trim() : '',
+    Lead_Source:          leadSource,
+    Description:          description !== undefined ? description : (message ? message.trim() : ''),
     Agent_Code_Submitted: agentCode || '',
-    Source_Page:          sourcePage,
+    Source_Page:          resolvedSourcePage,
     Consent_Given:        true,
-    Consent_Timestamp:    zohoDatetime(),
+    Consent_Timestamp:    resolvedConsentTs,
     Consent_Text:         CONSENT_TEXT,
-  }, token);
+  };
+  if (phone) fields.Mobile = phone.trim();
+  if (state && US_STATES.has(state)) fields.State = STATE_NAMES[state];
+  if (Array.isArray(products) && products.length) fields.Products_of_Interest = products;
+  if (preferredContact) fields.Preferred_Contact = preferredContact;
+  if (bestTime) fields.Best_Time_To_Reach = bestTime;
+
+  const token = await getZohoToken(env);
+  const { httpStatus, json: zoho } = await createZohoRecord('Leads', fields, token);
 
   const result = zohoSuccess(zoho, httpStatus);
   if (!result.ok) return jsonErr('Zoho error: ' + result.code, 502);
@@ -157,33 +172,43 @@ async function handleRecruit(request, env) {
   if (body.website) return jsonOk({ ok: true });
   if (typeof body._t === 'number' && Date.now() - body._t < 3000) return jsonOk({ ok: true });
 
-  const { firstName, lastName, email, phone, state, licensed, occupation, interest, agentCode } = body;
+  const { firstName, lastName, email, phone, state, licensed, occupation, interest,
+          agentCode, source, sourcePage: clientSourcePage, consentTs } = body;
 
-  if (!firstName || !lastName || !email || !phone || !state || !occupation) return jsonErr('Missing required fields', 400);
-  if (!US_STATES.has(state)) return jsonErr('Invalid state', 400);
-  if (!LICENSED_MAP[licensed]) return jsonErr('Invalid licensed value', 400);
+  const recruitSource = source || 'Agent Mini-Site';
+  if (!ALLOWED_RECRUIT_SOURCES.has(recruitSource)) return jsonErr('Invalid source', 400);
+
+  const fromMiniSite = recruitSource === 'Agent Mini-Site';
+
+  if (!firstName || !lastName || !email) return jsonErr('Missing required fields', 400);
+  if (fromMiniSite && (!phone || !state || !occupation)) return jsonErr('Missing required fields', 400);
+  if (fromMiniSite && !US_STATES.has(state)) return jsonErr('Invalid state', 400);
+  if (fromMiniSite && !LICENSED_MAP[licensed]) return jsonErr('Invalid licensed value', 400);
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return jsonErr('Invalid email', 400);
 
-  const sourcePage = new URL(request.url).origin + '/agent/' + (agentCode || '');
+  const resolvedSourcePage = clientSourcePage || (new URL(request.url).origin + '/agent/' + (agentCode || ''));
+  const resolvedConsentTs  = consentTs || zohoDatetime();
 
-  const token = await getZohoToken(env);
-  const { httpStatus, json: zoho } = await createZohoRecord('Recruits', {
+  const fields = {
     Name:                 firstName.trim() + ' ' + lastName.trim(),
     First_Name:           firstName.trim(),
     Last_Name:            lastName.trim(),
     Email:                email.trim().toLowerCase(),
-    Phone:                phone.trim(),
-    State:                STATE_NAMES[state],
-    Licensed_Status:      LICENSED_MAP[licensed],
-    Current_Occupation:   occupation.trim(),
     Interest_Note:        interest ? interest.trim() : '',
-    Recruit_Source:       'Agent Mini-Site',
+    Recruit_Source:       recruitSource,
     Agent_Code_Submitted: agentCode || '',
-    Source_Page:          sourcePage,
+    Source_Page:          resolvedSourcePage,
     Consent_Given:        true,
-    Consent_Timestamp:    zohoDatetime(),
+    Consent_Timestamp:    resolvedConsentTs,
     Consent_Text:         CONSENT_TEXT,
-  }, token);
+  };
+  if (phone) fields.Phone = phone.trim();
+  if (state && US_STATES.has(state)) fields.State = STATE_NAMES[state];
+  if (licensed && LICENSED_MAP[licensed]) fields.Licensed_Status = LICENSED_MAP[licensed];
+  if (occupation) fields.Current_Occupation = occupation.trim();
+
+  const token = await getZohoToken(env);
+  const { httpStatus, json: zoho } = await createZohoRecord('Recruits', fields, token);
 
   const result = zohoSuccess(zoho, httpStatus);
   if (!result.ok) return jsonErr('Zoho error: ' + result.code, 502);

@@ -294,8 +294,6 @@
   </div>
 </footer>
 
-<script src="js/zoho-config.js"></script>
-<script src="js/zoho-integration.js"></script>
 <script>
   // Mobile nav
   const mobBtn = document.getElementById('mob-btn');
@@ -308,18 +306,124 @@
     nav.style.boxShadow = window.scrollY > 10 ? '0 2px 32px rgba(0,0,0,0.07)' : '';
   });
 
-  // Contact form submission
-  document.getElementById('contact-form').addEventListener('submit', function(e) {
-    e.preventDefault();
-    const form = this;
-    const success = document.getElementById('contact-success');
+  // ── Contact form ────────────────────────────────────────────────
+  (function () {
+    var _openTime = Date.now();
+    var CONSENT_TEXT = 'By submitting this form you consent to being contacted by FCPC or its representatives by phone, email, or SMS. Message and data rates may apply. Reply STOP to opt out of text messages.';
 
-    /* INSERT ZOHO / CRM FORM SUBMISSION LOGIC HERE */
-    /* Expected fields: first_name, last_name, email, phone, subject, message */
+    // Valid agent codes (must stay in sync with agents.js)
+    var VALID_AGENT_CODES = new Set(['FCPC000','FCPC1001','TEST001']);
 
-    form.style.display = 'none';
-    success.classList.remove('hidden');
-  });
+    function zohoDatetime() {
+      var d = new Date();
+      var p = function(n) { return String(n).padStart(2,'0'); };
+      return d.getUTCFullYear()+'-'+p(d.getUTCMonth()+1)+'-'+p(d.getUTCDate())+'T'+
+             p(d.getUTCHours())+':'+p(d.getUTCMinutes())+':'+p(d.getUTCSeconds())+'+00:00';
+    }
+
+    function getAgentCode() {
+      var code = new URLSearchParams(window.location.search).get('agent') || '';
+      return VALID_AGENT_CODES.has(code) ? code : '';
+    }
+
+    // Map subject values that represent products
+    var SUBJECT_PRODUCTS = {
+      'life-insurance':     'Life Insurance',
+      'final-expense':      'Final Expense',
+      'annuities':          'Indexed Annuities',
+      'supplemental-health':'Supplemental Health',
+    };
+
+    // Topic-only subjects get a prefix line in Description
+    var SUBJECT_TOPIC_LABELS = {
+      'federal-benefits': 'Federal Employee Benefits',
+      'other':            'Other / General Question',
+    };
+
+    document.getElementById('contact-form').addEventListener('submit', async function(e) {
+      e.preventDefault();
+
+      if (Date.now() - _openTime < 3000) return;
+
+      var firstName = document.getElementById('first-name').value.trim();
+      var lastName  = document.getElementById('last-name').value.trim();
+      var email     = document.getElementById('email').value.trim();
+      var phone     = document.getElementById('phone').value.trim();
+      var subject   = document.getElementById('subject').value;
+      var message   = document.getElementById('message').value.trim();
+      var agentCode = getAgentCode();
+
+      var submitBtn = this.querySelector('button[type="submit"]');
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Sending…';
+
+      var sourcePage = window.location.href;
+      var consentTs  = zohoDatetime();
+
+      try {
+        var endpoint, payload;
+
+        if (subject === 'agent-opportunity') {
+          // Route to Recruits module via /api/recruit
+          endpoint = '/api/recruit';
+          payload = {
+            firstName:   firstName,
+            lastName:    lastName,
+            email:       email,
+            phone:       phone,
+            // State, licensed, occupation not collected on this form — omit
+            occupation:  '(not provided)',
+            interest:    message,
+            agentCode:   agentCode,
+            source:      'Contact Page',
+            sourcePage:  sourcePage,
+            consentTs:   consentTs,
+            _t:          _openTime,
+          };
+        } else {
+          // Route to Leads module via /api/lead
+          var products = SUBJECT_PRODUCTS[subject] ? [SUBJECT_PRODUCTS[subject]] : [];
+          var topicLabel = SUBJECT_TOPIC_LABELS[subject];
+          var description = topicLabel ? 'Topic: ' + topicLabel + (message ? '\n\n' + message : '') : message;
+
+          endpoint = '/api/lead';
+          payload = {
+            firstName:        firstName,
+            lastName:         lastName,
+            email:            email,
+            phone:            phone,
+            products:         products,
+            description:      description,
+            agentCode:        agentCode,
+            source:           'Contact Page',
+            sourcePage:       sourcePage,
+            consentTs:        consentTs,
+            _t:               _openTime,
+          };
+        }
+
+        var res = await fetch(endpoint, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+        });
+
+        if (!res.ok) throw new Error('api ' + res.status);
+
+        // Success
+        var successEl = document.getElementById('contact-success');
+        successEl.querySelector('h3').textContent = 'Thank you, ' + firstName + '.';
+        successEl.querySelector('p').textContent = "We'll be in touch soon.";
+        document.getElementById('contact-form').style.display = 'none';
+        successEl.classList.remove('hidden');
+
+      } catch (_) {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Send Message';
+        alert('Something went wrong. Please email info@fcpc.life.');
+      }
+    });
+  })();
 </script>
 
 <!-- Back to top button -->
