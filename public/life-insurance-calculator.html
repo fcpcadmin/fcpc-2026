@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Life Insurance Needs Calculator | FCPC</title>
+  <meta name="description" content="Estimate how much life insurance your family may need. A free planning tool from the Financial Crisis Prevention Center (FCPC)." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,700;0,800;1,700&display=swap" rel="stylesheet" />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = { theme: { extend: {
+      colors: {
+        forest: { 50:'#F0FDF8', 100:'#d5e8e1', 700:'#19634F', 800:'#0B3226' },
+        gold:   { 100:'#FDFAEE', 400:'#EAC84A', 500:'#D4AF37', 600:'#B8960F' },
+      },
+      fontFamily: {
+        sans:  ['Inter', 'system-ui', 'sans-serif'],
+        serif: ['Playfair Display', 'Georgia', 'serif'],
+      },
+      boxShadow: {
+        'nav': '0 2px 32px rgba(0,0,0,0.07)',
+      },
+    }}};
+  </script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', system-ui, sans-serif; -webkit-font-smoothing: antialiased; color: #1A202C; background: #fff; }
+
+    .nav-item {
+      font-size: 0.875rem; font-weight: 600; color: #2D3748;
+      padding: 8px 14px; border-radius: 10px;
+      transition: color 0.15s, background 0.15s;
+      white-space: nowrap; text-decoration: none;
+    }
+    .nav-item:hover { color: #19634F; background: rgba(25,99,79,0.07); }
+    .has-drop { position: relative; }
+    .has-drop .drop { display: none; }
+    .has-drop:hover .drop { display: block; animation: fadeUp 0.16s ease; }
+    .has-drop .drop::before { content: ''; position: absolute; left: 0; right: 0; top: -0.75rem; height: 0.75rem; }
+    @keyframes fadeUp { from { opacity:0; transform:translateY(6px); } to { opacity:1; transform:translateY(0); } }
+    @media (max-width: 1023px) { .desk-nav { display: none !important; } }
+    @media (min-width: 1024px) { #mob-menu { display: none !important; } #mob-btn { display: none !important; } }
+
+    .btn-gold {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: linear-gradient(135deg, #DDB84E 0%, #C9A52A 100%);
+      color: #1A202C; font-weight: 700; border-radius: 999px;
+      transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+      box-shadow: 0 4px 20px rgba(212,175,55,0.38), 0 1px 2px rgba(0,0,0,0.08);
+      text-decoration: none; white-space: nowrap;
+    }
+    .btn-gold:hover { transform: scale(1.04) translateY(-1px); }
+
+    input[type=number]::-webkit-inner-spin-button { opacity: .4; }
+    .field-input {
+      width: 100%; border: 1px solid #cbd5d1; border-radius: .5rem;
+      padding: .6rem .75rem; font-size: 1rem; background: #fff;
+    }
+    .field-input:focus { outline: 2px solid #D4AF37; outline-offset: 1px; border-color: #D4AF37; }
+    .money { position: relative; }
+    .money span { position: absolute; left: .75rem; top: 50%; transform: translateY(-50%); color: #6b7a74; }
+    .money input { padding-left: 1.6rem; }
+    .bar { transition: width .35s ease; }
+  </style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════════════════════════════
+     NAVBAR
+════════════════════════════════════════════════════════════ -->
+<header id="site-nav" class="sticky top-0 z-50 bg-white/75 backdrop-blur-xl border-b border-black/[0.06] transition-shadow duration-300">
+  <div class="max-w-[1400px] mx-auto px-6 lg:px-12 flex items-center h-[72px] gap-8">
+
+    <a href="index.html" class="flex-shrink-0">
+      <img src="FCPC-Logo-transparent.webp" alt="Financial Crisis Prevention Center" class="h-10 w-auto object-contain"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+      <span style="display:none" class="font-serif font-bold text-forest-700 text-lg tracking-tight items-center">FCPC</span>
+    </a>
+
+    <nav class="desk-nav flex-1 flex items-center gap-1">
+      <a href="index.html" class="nav-item">Home</a>
+
+      <div class="has-drop">
+        <a href="solutions.html" class="nav-item flex items-center gap-1" style="color:#19634F; background:rgba(25,99,79,0.07);">
+          Solutions
+          <svg class="w-3 h-3 opacity-40" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 4l4 4 4-4"/></svg>
+        </a>
+        <div class="drop absolute top-full left-0 mt-3 bg-white rounded-2xl shadow-[0_20px_60px_rgba(0,0,0,0.09)] border border-[#E2E8F0]/60 min-w-[240px] py-3 z-50">
+          <a href="solutions/life-insurance.html" class="flex items-center gap-3 px-4 py-3 text-sm font-semibold text-forest-700 bg-forest-50 mx-1 rounded-xl">
+            <span class="w-8 h-8 rounded-xl bg-forest-700/10 flex items-center justify-center flex-shrink-0"><svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285Z"/></svg></span> Life Insurance
+          </a>
+          <a href="solutions/indexed-annuities.html" class="flex items-center gap-3 px-4 py-3 text-sm font-medium text-[#2D3748] hover:text-forest-700 hover:bg-[#F7FAFC] transition-colors mx-1 rounded-xl">
+            <span class="w-8 h-8 rounded-xl bg-forest-50 flex items-center justify-center flex-shrink-0"><svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 0 1 3 19.875v-6.75ZM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V8.625ZM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V4.125Z"/></svg></span> Indexed Annuities
+          </a>
+          <a href="solutions/final-expense.html" class="flex items-center gap-3 px-4 py-3 text-sm font-medium text-[#2D3748] hover:text-forest-700 hover:bg-[#F7FAFC] transition-colors mx-1 rounded-xl">
+            <span class="w-8 h-8 rounded-xl bg-forest-50 flex items-center justify-center flex-shrink-0"><svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z"/></svg></span> Final Expense
+          </a>
+          <a href="solutions/supplemental-health.html" class="flex items-center gap-3 px-4 py-3 text-sm font-medium text-[#2D3748] hover:text-forest-700 hover:bg-[#F7FAFC] transition-colors mx-1 rounded-xl">
+            <span class="w-8 h-8 rounded-xl bg-forest-50 flex items-center justify-center flex-shrink-0"><svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="4" r="2"/><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v5M12 8.5L7 7M12 8.5L17 7M12 11L8 18M12 11L16 18"/></svg></span> Supplemental Health
+          </a>
+        </div>
+      </div>
+      <a href="opportunity.html" class="nav-item font-semibold text-forest-700">Agent Opportunity</a>
+      <a href="about.html" class="nav-item">About Us</a>
+      <a href="find-agent.html" class="nav-item">Find My Agent</a>
+      <a href="contact.html" class="nav-item">Contact Us</a>
+    </nav>
+
+    <div class="flex items-center gap-3 flex-shrink-0">
+      <a href="get-quote.html" class="hidden btn-gold text-sm px-5 py-2.5">I Want Life Insurance</a>
+      <button id="mob-btn" class="p-2 rounded-xl hover:bg-[#F7FAFC] transition-colors" aria-label="Open menu">
+        <svg class="w-5 h-5 text-[#2D3748]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <div id="mob-menu" class="hidden border-t border-[#E2E8F0] bg-white">
+    <div class="max-w-[1400px] mx-auto px-6 py-3 flex flex-col gap-1">
+      <a href="index.html" class="block px-4 py-3 rounded-xl text-sm font-semibold text-[#2D3748] hover:text-forest-700 hover:bg-[#F7FAFC] transition-colors">Home</a>
+      <a href="solutions.html" class="block px-4 py-3 rounded-xl text-sm font-semibold text-forest-700 bg-forest-50">Solutions</a>
+      <a href="opportunity.html" class="block px-4 py-3 rounded-xl text-sm font-semibold text-forest-700 hover:bg-forest-50 transition-colors">Agent Opportunity</a>
+      <a href="about.html" class="block px-4 py-3 rounded-xl text-sm font-semibold text-[#2D3748] hover:text-forest-700 hover:bg-[#F7FAFC] transition-colors">About Us</a>
+      <a href="find-agent.html" class="block px-4 py-3 rounded-xl text-sm font-semibold text-[#2D3748] hover:text-forest-700 hover:bg-[#F7FAFC] transition-colors">Find My Agent</a>
+      <a href="contact.html" class="block px-4 py-3 rounded-xl text-sm font-semibold text-[#2D3748] hover:text-forest-700 hover:bg-[#F7FAFC] transition-colors">Contact Us</a>
+      <div class="pt-2 pb-3">
+        <a href="get-quote.html" class="hidden btn-gold w-full justify-center px-6 py-3 text-sm">I Want Life Insurance</a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- Hero -->
+<section class="bg-forest-700 text-white">
+  <div class="max-w-5xl mx-auto px-4 py-14 sm:py-20">
+    <p class="text-gold-400 font-semibold tracking-wide uppercase text-sm mb-3">Free planning tool</p>
+    <h1 class="font-serif text-3xl sm:text-5xl font-bold leading-tight mb-4">How much life insurance does your family need?</h1>
+    <p class="text-lg text-forest-100 max-w-2xl">Answer a few questions to estimate what your family would need if you weren't here, what you already have in place, and the difference between the two. It takes about three minutes.</p>
+  </div>
+</section>
+
+<main class="max-w-5xl mx-auto px-4 py-10 sm:py-14">
+  <div class="grid lg:grid-cols-5 gap-8">
+
+    <!-- Inputs -->
+    <form id="calc" class="lg:col-span-3 space-y-8" novalidate>
+
+      <fieldset class="space-y-4">
+        <legend class="font-serif text-2xl font-bold text-forest-800 mb-1">1. Replacing your income</legend>
+        <p class="text-sm text-gray-600 -mt-2">If your income stopped, how much would your family need, and for how long?</p>
+        <div class="grid sm:grid-cols-2 gap-4">
+          <label class="block"><span class="block text-sm font-medium mb-1">Your annual income</span>
+            <div class="money"><span>$</span><input class="field-input" type="number" min="0" step="1000" id="income" value="75000"></div></label>
+          <label class="block"><span class="block text-sm font-medium mb-1">Years your family would need support</span>
+            <input class="field-input" type="number" min="0" max="40" id="years" value="10">
+            <span class="block text-xs text-gray-500 mt-1">Often until your youngest child is grown, or until your spouse retires.</span></label>
+        </div>
+        <label class="block"><span class="block text-sm font-medium mb-1">Share of your income your family would need: <strong id="pctOut">75%</strong></span>
+          <input type="range" min="40" max="100" step="5" id="pct" value="75" class="w-full accent-[#D4AF37]">
+          <span class="block text-xs text-gray-500">Many families need less than 100%, since some of your own costs would go away.</span></label>
+      </fieldset>
+
+      <fieldset class="space-y-4">
+        <legend class="font-serif text-2xl font-bold text-forest-800 mb-1">2. Debts and one-time costs</legend>
+        <div class="grid sm:grid-cols-2 gap-4">
+          <label class="block"><span class="block text-sm font-medium mb-1">Mortgage balance</span>
+            <div class="money"><span>$</span><input class="field-input" type="number" min="0" step="1000" id="mortgage" value="200000"></div></label>
+          <label class="block"><span class="block text-sm font-medium mb-1">Other debts (car, cards, loans)</span>
+            <div class="money"><span>$</span><input class="field-input" type="number" min="0" step="500" id="debts" value="15000"></div></label>
+          <label class="block"><span class="block text-sm font-medium mb-1">Final expenses</span>
+            <div class="money"><span>$</span><input class="field-input" type="number" min="0" step="500" id="final" value="15000"></div>
+            <span class="block text-xs text-gray-500 mt-1">Funeral, burial, and settling your affairs.</span></label>
+          <label class="block"><span class="block text-sm font-medium mb-1">Emergency cushion for your family</span>
+            <div class="money"><span>$</span><input class="field-input" type="number" min="0" step="500" id="cushion" value="10000"></div></label>
+          <label class="block"><span class="block text-sm font-medium mb-1">Children to help through college</span>
+            <input class="field-input" type="number" min="0" max="10" id="kids" value="2"></label>
+          <label class="block"><span class="block text-sm font-medium mb-1">Amount per child for education</span>
+            <div class="money"><span>$</span><input class="field-input" type="number" min="0" step="1000" id="perKid" value="40000"></div></label>
+        </div>
+      </fieldset>
+
+      <fieldset class="space-y-4">
+        <legend class="font-serif text-2xl font-bold text-forest-800 mb-1">3. What you already have</legend>
+        <div class="grid sm:grid-cols-2 gap-4">
+          <label class="block"><span class="block text-sm font-medium mb-1">Life insurance through work</span>
+            <div class="money"><span>$</span><input class="field-input" type="number" min="0" step="1000" id="work" value="77000"></div>
+            <span class="block text-xs text-gray-500 mt-1">For federal employees, this is FEGLI.</span></label>
+          <label class="block"><span class="block text-sm font-medium mb-1">Life insurance you own yourself</span>
+            <div class="money"><span>$</span><input class="field-input" type="number" min="0" step="1000" id="own" value="0"></div></label>
+          <label class="block sm:col-span-2"><span class="block text-sm font-medium mb-1">Savings and investments your family could use</span>
+            <div class="money"><span>$</span><input class="field-input" type="number" min="0" step="1000" id="savings" value="25000"></div>
+            <span class="block text-xs text-gray-500 mt-1">Leave out money set aside for retirement if your spouse will need it later.</span></label>
+        </div>
+        <div class="rounded-lg bg-forest-50 border border-forest-100 p-4">
+          <label class="flex items-start gap-3"><input type="checkbox" id="workEnds" class="mt-1 h-4 w-4 accent-[#19634F]">
+            <span class="text-sm"><strong>Show me what changes if I leave my job or retire.</strong> Coverage through work often reduces or ends when you leave, and it can be hard to replace later.</span></label>
+          <label id="workAfterWrap" class="block mt-3 hidden"><span class="block text-sm font-medium mb-1">Work coverage you expect to keep after leaving</span>
+            <div class="money"><span>$</span><input class="field-input" type="number" min="0" step="1000" id="workAfter" value="0"></div>
+            <span class="block text-xs text-gray-500 mt-1">Enter 0 if you're not sure.</span></label>
+        </div>
+      </fieldset>
+    </form>
+
+    <!-- Results -->
+    <aside class="lg:col-span-2">
+      <div class="lg:sticky lg:top-6 rounded-2xl border border-gray-200 shadow-sm overflow-hidden" aria-live="polite">
+        <div class="bg-forest-700 text-white p-6">
+          <p class="text-sm text-forest-100">Your estimated coverage gap</p>
+          <p id="gap" class="font-serif text-4xl sm:text-5xl font-bold text-gold-400 mt-1">$0</p>
+          <p id="gapNote" class="text-sm text-forest-100 mt-2"></p>
+        </div>
+        <div class="p-6 space-y-5">
+          <div>
+            <div class="flex justify-between text-sm"><span class="font-medium">What your family would need</span><span id="need" class="font-semibold">$0</span></div>
+            <div class="h-3 bg-gray-100 rounded-full mt-2"><div id="needBar" class="bar h-3 rounded-full bg-forest-700" style="width:100%"></div></div>
+          </div>
+          <div>
+            <div class="flex justify-between text-sm"><span class="font-medium">What you already have</span><span id="have" class="font-semibold">$0</span></div>
+            <div class="h-3 bg-gray-100 rounded-full mt-2"><div id="haveBar" class="bar h-3 rounded-full bg-gold-500" style="width:0%"></div></div>
+          </div>
+          <dl class="text-sm divide-y divide-gray-100 border-t border-gray-100 pt-2">
+            <div class="flex justify-between py-2"><dt class="text-gray-600">Income replacement</dt><dd id="rIncome">$0</dd></div>
+            <div class="flex justify-between py-2"><dt class="text-gray-600">Mortgage and debts</dt><dd id="rDebt">$0</dd></div>
+            <div class="flex justify-between py-2"><dt class="text-gray-600">Final expenses and cushion</dt><dd id="rFinal">$0</dd></div>
+            <div class="flex justify-between py-2"><dt class="text-gray-600">Education</dt><dd id="rEdu">$0</dd></div>
+          </dl>
+          <div id="afterBox" class="hidden rounded-lg bg-gold-100 border border-gold-400 p-4 text-sm">
+            <p class="font-semibold text-forest-800">If you leave your job or retire</p>
+            <p class="mt-1">Your gap could grow to <strong id="gapAfter">$0</strong> if your work coverage ends.</p>
+          </div>
+          <a href="#review" class="block text-center bg-gold-500 hover:bg-gold-600 text-forest-800 font-semibold rounded-lg py-3 transition">Review my results with an agent</a>
+          <p class="text-xs text-gray-500">This is an estimate for planning purposes, not a quote or a recommendation. It isn't adjusted for inflation, investment growth, or taxes. Your actual needs can be different.</p>
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <!-- How it works -->
+  <section class="mt-16 grid sm:grid-cols-3 gap-6">
+    <div class="rounded-xl bg-forest-50 p-6"><p class="font-serif text-xl font-bold text-forest-800 mb-2">What we add up</p><p class="text-sm text-gray-700">Income your family would need for the years you choose, plus debts, final expenses, an emergency cushion, and education.</p></div>
+    <div class="rounded-xl bg-forest-50 p-6"><p class="font-serif text-xl font-bold text-forest-800 mb-2">What we subtract</p><p class="text-sm text-gray-700">Life insurance you already have, through work or on your own, and savings your family could draw on.</p></div>
+    <div class="rounded-xl bg-forest-50 p-6"><p class="font-serif text-xl font-bold text-forest-800 mb-2">Why work coverage matters</p><p class="text-sm text-gray-700">Coverage through an employer can reduce or end when you leave or retire. Planning for that ahead of time can be easier than replacing it later.</p></div>
+  </section>
+
+  <!-- Review request -->
+  <section id="review" class="mt-16 rounded-2xl border border-gray-200 p-6 sm:p-10">
+    <h2 class="font-serif text-3xl font-bold text-forest-800 mb-2">Want a second look at your results?</h2>
+    <p class="text-gray-700 mb-6 max-w-2xl">Send us your estimate and we'll reach out to set up a free review. There's no cost and no obligation.</p>
+    <form id="reviewForm" class="grid sm:grid-cols-2 gap-4" novalidate>
+      <input type="text" name="website" id="review-hp" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;opacity:0;height:0;width:0;" aria-hidden="true" />
+      <label class="block"><span class="block text-sm font-medium mb-1">First name</span><input class="field-input" name="firstName" required autocomplete="given-name"></label>
+      <label class="block"><span class="block text-sm font-medium mb-1">Last name</span><input class="field-input" name="lastName" required autocomplete="family-name"></label>
+      <label class="block"><span class="block text-sm font-medium mb-1">Email</span><input class="field-input" type="email" name="email" required autocomplete="email"></label>
+      <label class="block"><span class="block text-sm font-medium mb-1">Mobile phone</span><input class="field-input" type="tel" name="phone" required autocomplete="tel" placeholder="(___) ___-____"></label>
+      <label class="block sm:col-span-2"><span class="block text-sm font-medium mb-1">Best way to reach you</span>
+        <select class="field-input" name="contactPref"><option>Phone call</option><option>Text</option><option>Email</option></select></label>
+      <label class="flex items-start gap-3 sm:col-span-2 text-sm text-gray-700">
+        <input type="checkbox" name="consent" id="review-consent" required class="mt-1 h-4 w-4 accent-[#19634F]">
+        <span>By submitting this form you consent to being contacted by FCPC or its representatives by phone, email, or SMS. Message and data rates may apply. Reply STOP to opt out of text messages.</span>
+      </label>
+      <div class="sm:col-span-2">
+        <button type="submit" id="review-submit" class="bg-forest-700 hover:bg-forest-800 text-white font-semibold rounded-lg px-8 py-3 transition">Request my free review</button>
+        <p id="formMsg" class="mt-3 text-sm" role="status"></p>
+      </div>
+    </form>
+  </section>
+</main>
+
+<!-- ════════════════════════════════════════════════════════════
+     FOOTER
+════════════════════════════════════════════════════════════ -->
+<footer class="bg-[#111827]">
+
+  <div class="max-w-[1400px] mx-auto px-6 lg:px-12 pt-20 pb-14">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-8">
+
+      <!-- Brand — 4 cols -->
+      <div class="lg:col-span-4">
+        <img src="FCPC-Logo-white.webp" alt="Financial Crisis Prevention Center"
+             class="h-9 w-auto object-contain mb-7"
+             onerror="this.style.display='none';this.nextElementSibling.style.display='block';" />
+        <span style="display:none" class="block font-serif font-bold text-white text-xl mb-7">FCPC</span>
+        <p class="text-white/45 text-sm leading-[1.8] max-w-[290px] mb-8">Helping federal employees, families, and retirees build lasting financial security through education and service since 1985.</p>
+        <div class="space-y-3">
+          <div class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded-lg bg-white/[0.06] flex items-center justify-center flex-shrink-0">
+              <svg class="w-3.5 h-3.5 text-white/40" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+            </div>
+            <span class="text-white/40 text-xs">Washington, DC Metro Area · Licensed in Multiple States</span>
+          </div>
+          <div class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded-lg bg-white/[0.06] flex items-center justify-center flex-shrink-0">
+              <svg class="w-3.5 h-3.5 text-white/40" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+            </div>
+            <a href="tel:+18005553272" class="text-white/40 text-xs hover:text-[#19634F] transition-colors duration-200">(800) 555-FCPC</a>
+          </div>
+          <div class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded-lg bg-white/[0.06] flex items-center justify-center flex-shrink-0">
+              <svg class="w-3.5 h-3.5 text-white/40" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+            </div>
+            <a href="mailto:info@fcpc.life" class="text-white/40 text-xs hover:text-[#19634F] transition-colors duration-200">info@fcpc.life</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Company — 2 cols -->
+      <div class="lg:col-span-2">
+        <p class="text-[10.5px] font-bold tracking-[0.15em] uppercase text-white/30 mb-5">Company</p>
+        <ul class="space-y-3.5">
+          <li><a href="about.html" class="group flex items-center gap-2 text-sm font-medium hover:text-[#19634F] transition-colors duration-200" style="color:rgba(226,232,240,0.60);"><span class="w-1 h-1 rounded-full bg-current opacity-40 flex-shrink-0 group-hover:opacity-100 transition-opacity"></span> About</a></li>
+          <li><a href="opportunity.html" class="group flex items-center gap-2 text-sm font-medium hover:text-[#19634F] transition-colors duration-200" style="color:rgba(226,232,240,0.60);"><span class="w-1 h-1 rounded-full bg-current opacity-40 flex-shrink-0 group-hover:opacity-100 transition-opacity"></span> Agent Opportunity</a></li>
+          <li><a href="find-agent.html" class="group flex items-center gap-2 text-sm font-medium hover:text-[#19634F] transition-colors duration-200" style="color:rgba(226,232,240,0.60);"><span class="w-1 h-1 rounded-full bg-current opacity-40 flex-shrink-0 group-hover:opacity-100 transition-opacity"></span> Find My Agent</a></li>
+          <li><a href="contact.html" class="group flex items-center gap-2 text-sm font-medium hover:text-[#19634F] transition-colors duration-200" style="color:rgba(226,232,240,0.60);"><span class="w-1 h-1 rounded-full bg-current opacity-40 flex-shrink-0 group-hover:opacity-100 transition-opacity"></span> Contact Us</a></li>
+        </ul>
+      </div>
+
+      <!-- Solutions — 2 cols -->
+      <div class="lg:col-span-2">
+        <p class="text-[10.5px] font-bold tracking-[0.15em] uppercase text-white/30 mb-5">Solutions</p>
+        <ul class="space-y-3.5">
+          <li><a href="solutions/life-insurance.html" class="group flex items-center gap-2 text-sm font-medium hover:text-[#19634F] transition-colors duration-200" style="color:rgba(226,232,240,0.60);"><span class="w-1 h-1 rounded-full bg-current opacity-40 flex-shrink-0 group-hover:opacity-100 transition-opacity"></span> Life Insurance</a></li>
+          <li><a href="solutions/indexed-annuities.html" class="group flex items-center gap-2 text-sm font-medium hover:text-[#19634F] transition-colors duration-200" style="color:rgba(226,232,240,0.60);"><span class="w-1 h-1 rounded-full bg-current opacity-40 flex-shrink-0 group-hover:opacity-100 transition-opacity"></span> Indexed Annuities</a></li>
+          <li><a href="solutions/final-expense.html" class="group flex items-center gap-2 text-sm font-medium hover:text-[#19634F] transition-colors duration-200" style="color:rgba(226,232,240,0.60);"><span class="w-1 h-1 rounded-full bg-current opacity-40 flex-shrink-0 group-hover:opacity-100 transition-opacity"></span> Final Expense</a></li>
+          <li><a href="solutions/supplemental-health.html" class="group flex items-center gap-2 text-sm font-medium hover:text-[#19634F] transition-colors duration-200" style="color:rgba(226,232,240,0.60);"><span class="w-1 h-1 rounded-full bg-current opacity-40 flex-shrink-0 group-hover:opacity-100 transition-opacity"></span> Supplemental Health</a></li>
+        </ul>
+      </div>
+
+      <!-- Resources — 3 cols -->
+      <div class="lg:col-span-3">
+        <p class="text-[10.5px] font-bold tracking-[0.15em] uppercase text-white/30 mb-5">Resources</p>
+        <ul class="space-y-3.5">
+          <li><a href="calculators.html" class="group flex items-center gap-2 text-sm font-medium hover:text-[#19634F] transition-colors duration-200" style="color:rgba(226,232,240,0.60);"><span class="w-1 h-1 rounded-full bg-current opacity-40 flex-shrink-0 group-hover:opacity-100 transition-opacity"></span> Calculators</a></li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="border-t border-white/[0.07]">
+    <div class="max-w-[1400px] mx-auto px-6 lg:px-12 py-10">
+      <div class="max-w-4xl">
+        <p class="text-white/50 text-[11px] leading-[1.9] mb-2">
+          <strong class="text-white/55">Educational Disclaimer:</strong> All content on this website is for general educational and informational purposes only and does not constitute individualized insurance, financial, tax, legal, or investment advice. FCPC agents are independent licensed insurance professionals. Product availability, premiums, and benefits vary by state, carrier, age, and health status. All products subject to carrier underwriting approval.
+        </p>
+        <p class="text-white/50 text-[11px] leading-[1.9]">
+          <strong class="text-white/55">Insurance Products:</strong> Not bank deposits. Not FDIC insured. Not guaranteed by any bank. Life insurance products are not securities and are not regulated by the SEC or FINRA.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="border-t border-white/[0.05]">
+    <div class="max-w-[1400px] mx-auto px-6 lg:px-12 py-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+      <p class="text-white/20 text-[11px]">© 2026 The Financial Crisis Prevention Center (FCPC). All rights reserved.</p>
+      <div class="flex items-center gap-5">
+        <a href="privacy.html" class="text-white/25 text-[11px] hover:text-[#19634F] transition-colors duration-200">Privacy Policy</a>
+        <span class="text-white/10 text-[11px]">·</span>
+        <a href="terms.html" class="text-white/25 text-[11px] hover:text-[#19634F] transition-colors duration-200">Terms &amp; Conditions</a>
+        <span class="text-white/10 text-[11px]">·</span>
+        <a href="sitemap.xml" class="text-white/25 text-[11px] hover:text-[#19634F] transition-colors duration-200">Sitemap</a>
+      </div>
+    </div>
+  </div>
+
+</footer>
+
+<!-- Back to top -->
+<button id="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top" style="position:fixed;bottom:1.75rem;right:1.75rem;z-index:999;width:44px;height:44px;border-radius:50%;background:#19634F;color:#fff;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(25,99,79,0.40);opacity:0;transform:translateY(10px);transition:opacity 0.25s ease,transform 0.25s ease;pointer-events:none;">
+  <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7"/></svg>
+</button>
+
+<script>
+  // Nav
+  const mobBtn  = document.getElementById('mob-btn');
+  const mobMenu = document.getElementById('mob-menu');
+  if (mobBtn && mobMenu) mobBtn.addEventListener('click', () => mobMenu.classList.toggle('hidden'));
+  const nav = document.getElementById('site-nav');
+  window.addEventListener('scroll', () => { nav.classList.toggle('shadow-nav', window.scrollY > 12); }, { passive: true });
+
+  // Back to top
+  (function(){
+    var btn = document.getElementById('back-to-top');
+    window.addEventListener('scroll', function(){
+      if (window.scrollY > 300) { btn.style.opacity='1'; btn.style.transform='translateY(0)'; btn.style.pointerEvents='auto'; }
+      else { btn.style.opacity='0'; btn.style.transform='translateY(10px)'; btn.style.pointerEvents='none'; }
+    }, { passive: true });
+  })();
+
+  // Calculator
+  const $ = id => document.getElementById(id);
+  const num = id => Math.max(0, parseFloat($(id).value) || 0);
+  const usd = n => "$" + Math.round(n).toLocaleString("en-US");
+  let last = {};
+
+  function calc() {
+    const pct = num("pct") / 100;
+    $("pctOut").textContent = Math.round(pct * 100) + "%";
+    const income = num("income") * pct * num("years");
+    const debt   = num("mortgage") + num("debts");
+    const fin    = num("final") + num("cushion");
+    const edu    = num("kids") * num("perKid");
+    const need   = income + debt + fin + edu;
+    const haveOther = num("own") + num("savings");
+    const have   = num("work") + haveOther;
+    const gap    = Math.max(0, need - have);
+    const after  = $("workEnds").checked;
+    const gapAfter = Math.max(0, need - haveOther - num("workAfter"));
+
+    $("need").textContent = usd(need);
+    $("have").textContent = usd(have);
+    $("gap").textContent  = usd(gap);
+    $("rIncome").textContent = usd(income);
+    $("rDebt").textContent   = usd(debt);
+    $("rFinal").textContent  = usd(fin);
+    $("rEdu").textContent    = usd(edu);
+    $("haveBar").style.width = (need > 0 ? Math.min(100, have / need * 100) : 0) + "%";
+    $("gapNote").textContent = gap > 0
+      ? "Your current coverage and savings could cover about " + Math.round(Math.min(100, need ? have / need * 100 : 0)) + "% of what your family would need."
+      : "Based on your answers, what you have could cover your family's estimated needs.";
+    $("workAfterWrap").classList.toggle("hidden", !after);
+    $("afterBox").classList.toggle("hidden", !after || gapAfter <= gap);
+    $("gapAfter").textContent = usd(gapAfter);
+
+    last = { need, have, gap, gapAfter: after ? gapAfter : null, income, debt, fin, edu };
+  }
+  document.querySelectorAll("#calc input").forEach(el => el.addEventListener("input", calc));
+  calc();
+
+  function resultsText() {
+    return [
+      "Life insurance needs estimate (FCPC calculator)",
+      "Total need: " + usd(last.need) + " (income " + usd(last.income) + ", debts " + usd(last.debt) +
+        ", final/cushion " + usd(last.fin) + ", education " + usd(last.edu) + ")",
+      "In place: " + usd(last.have),
+      "Gap: " + usd(last.gap),
+      last.gapAfter !== null ? "Gap if work coverage ends: " + usd(last.gapAfter) : ""
+    ].filter(Boolean).join("\n");
+  }
+
+  // Phone auto-format
+  document.querySelector('[name="phone"]').addEventListener('input', function(e) {
+    let v = e.target.value.replace(/\D/g,'');
+    if (v.length > 10) v = v.slice(0,10);
+    if (v.length >= 7)      e.target.value = '(' + v.slice(0,3) + ') ' + v.slice(3,6) + '-' + v.slice(6);
+    else if (v.length >= 4) e.target.value = '(' + v.slice(0,3) + ') ' + v.slice(3);
+    else if (v.length >= 1) e.target.value = '(' + v;
+    else                    e.target.value = '';
+  });
+
+  // Agent code from URL
+  const VALID_AGENT_CODES = new Set(['FCPC000','FCPC1001','TEST001']);
+  const _urlAgent = new URLSearchParams(window.location.search).get('agent') || '';
+  const _agentCode = VALID_AGENT_CODES.has(_urlAgent) ? _urlAgent : '';
+
+  const _openTime = Date.now();
+
+  $("reviewForm").addEventListener("submit", async function(e) {
+    e.preventDefault();
+    const f = e.target;
+    const msg = $("formMsg");
+    const btn = $("review-submit");
+
+    if ($("review-hp").value) return;
+    if (Date.now() - _openTime < 3000) return;
+
+    if (!f.checkValidity()) {
+      msg.className = "mt-3 text-sm text-red-700";
+      msg.textContent = "Please complete every field and check the consent box.";
+      return;
+    }
+
+    const phone = f.elements.phone.value.replace(/\D/g,'');
+    if (phone.length !== 10) {
+      msg.className = "mt-3 text-sm text-red-700";
+      msg.textContent = "Please enter a valid 10-digit phone number.";
+      return;
+    }
+
+    btn.disabled = true;
+    btn.textContent = "Sending...";
+    msg.className = "";
+    msg.textContent = "";
+
+    const payload = {
+      firstName:      f.elements.firstName.value.trim(),
+      lastName:       f.elements.lastName.value.trim(),
+      email:          f.elements.email.value.trim(),
+      phone:          '(' + phone.slice(0,3) + ') ' + phone.slice(3,6) + '-' + phone.slice(6),
+      products:       ['Life Insurance'],
+      preferredContact: f.elements.contactPref.value,
+      calculatorResults: resultsText(),
+      source:         'Life Insurance Calculator',
+      sourcePage:     window.location.href,
+      agentCode:      _agentCode,
+      consentTs:      new Date().toISOString(),
+      _t:             _openTime,
+    };
+
+    try {
+      const res  = await fetch('/api/lead', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(payload) });
+      const data = await res.json().catch(() => ({}));
+      if (res.ok && data.ok) {
+        f.style.display = 'none';
+        msg.className   = "mt-3 text-sm text-forest-700 font-medium";
+        msg.textContent = "Thank you, " + payload.firstName + ". We'll be in touch soon to set up your review.";
+      } else {
+        throw new Error('not ok');
+      }
+    } catch {
+      btn.disabled    = false;
+      btn.textContent = "Request my free review";
+      msg.className   = "mt-3 text-sm text-red-700";
+      msg.textContent = "Something went wrong. Please email info@fcpc.life.";
+    }
+  });
+</script>
+</body>
+</html>

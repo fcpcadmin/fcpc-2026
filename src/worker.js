@@ -87,7 +87,7 @@ const ALLOWED_PRODUCTS    = new Set(['Life Insurance','Indexed Annuities','Final
 const CONTACT_METHODS     = new Set(['Phone call','Text','Email']);
 const BEST_TIMES          = new Set(['Morning','Afternoon','Evening','Any time']);
 const LICENSED_MAP        = { 'Yes': 'Yes', 'No': 'No', 'In progress': 'In Progress' };
-const ALLOWED_LEAD_SOURCES    = new Set(['Agent Mini-Site','Contact Page']);
+const ALLOWED_LEAD_SOURCES    = new Set(['Agent Mini-Site','Contact Page','Life Insurance Calculator']);
 const ALLOWED_RECRUIT_SOURCES = new Set(['Agent Mini-Site','Contact Page']);
 
 const CONSENT_TEXT = 'By submitting this form you consent to being contacted by FCPC or its representatives by phone, email, or SMS. Message and data rates may apply. Reply STOP to opt out of text messages.';
@@ -114,7 +114,7 @@ async function handleLead(request, env) {
   if (typeof body._t === 'number' && Date.now() - body._t < 3000) return jsonOk({ ok: true });
 
   const { firstName, lastName, email, phone, state, products, preferredContact, bestTime, message,
-          description, agentCode, source, sourcePage: clientSourcePage, consentTs } = body;
+          description, calculatorResults, agentCode, source, sourcePage: clientSourcePage, consentTs } = body;
 
   // source defaults to "Agent Mini-Site" for backwards compat
   const leadSource = source || 'Agent Mini-Site';
@@ -154,6 +154,7 @@ async function handleLead(request, env) {
   if (Array.isArray(products) && products.length) fields.Products_of_Interest = products;
   if (preferredContact) fields.Preferred_Contact = preferredContact;
   if (bestTime) fields.Best_Time_To_Reach = bestTime;
+  if (calculatorResults) fields.Calculator_Results = String(calculatorResults).slice(0, 2000);
 
   const token = await getZohoToken(env);
   const { httpStatus, json: zoho } = await createZohoRecord('Leads', fields, token);
