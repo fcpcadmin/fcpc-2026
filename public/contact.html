@@ -187,9 +187,10 @@
             <textarea id="message" name="message" rows="5" class="form-input" placeholder="Tell us how we can help you..." required style="resize:vertical;min-height:120px;"></textarea>
           </div>
 
-          <p class="text-[11px] text-smoke/70 leading-relaxed">
-            By submitting this form you consent to being contacted by FCPC or its representatives by phone, email, or SMS. Message and data rates may apply. Reply STOP to opt out of text messages.
-          </p>
+          <label class="flex items-start gap-3 text-[11px] text-smoke/70 leading-relaxed">
+            <input type="checkbox" id="contact-consent" name="consent" required class="mt-0.5 h-4 w-4 flex-shrink-0 accent-[#19634F]">
+            <span>By submitting this form you consent to being contacted by FCPC or its representatives by phone, email, or SMS. Message and data rates may apply. Reply STOP to opt out of text messages.</span>
+          </label>
 
           <button type="submit" class="btn-forest w-full justify-center px-8 py-4 text-[0.9375rem]">
             Send Message
@@ -344,6 +345,7 @@
       e.preventDefault();
 
       if (Date.now() - _openTime < 3000) return;
+      if (!document.getElementById('contact-consent').checked) return;
 
       var firstName = document.getElementById('first-name').value.trim();
       var lastName  = document.getElementById('last-name').value.trim();
